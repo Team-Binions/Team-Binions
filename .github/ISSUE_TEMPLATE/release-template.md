@@ -1,7 +1,7 @@
 ---
 name: Release Template
 about: 보완 이슈 템플릿
-title: ''
+title: "[BranchName][도메인] 보완 이슈 관련 사항"
 labels: ''
 assignees: ''
 
