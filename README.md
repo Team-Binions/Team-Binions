@@ -11,7 +11,6 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 
 ## 📝 시장 조사 및 업무 분석
 - 수요 분석
-<p align="center">
 ![image](https://github.com/Team-Binions/Team-Binions/assets/152046800/7806610c-0404-41e3-aef9-fc956bc56689)
 </p>
 
