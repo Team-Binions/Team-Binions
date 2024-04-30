@@ -90,32 +90,36 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
  - 제휴 : 제휴의 정의, 제휴마케팅, 제휴업체 계약 분석
  - 포인트 제도 분석
 ## 🙋‍♂ 요구 사항 명세
-|Aa no|요구사항명|설명|
+|Aa no|요구사항명|비고|
 |------|---|---|
-|REQ-MBM-LOG-001|로그인|1. 알맞은 아이디/패스워드를 입력한다.
-2. 틀린 아이디/패스워드 입력 시 로그인 실패 창이 뜬다.
-3. 로그인 실패시, 아이디 찾기/ 비밀번호 찾기를 통해 아이디 또는 비밀번호를 찾을 수 있다. 
-  3-1. 아이디 찾기에서 가입시 입력했던 이메일 주소를 올바르게 입력한 경우, 해당 이메일 주소로 아이디를 
-4. 로그인 후, 메인 페이지로 이동한다.|
-|REQ-MBM-LOG-002|테스트2|테스트3|
+|REQ-MBM-LOG-001|로그인|#추후 보안 이슈|
+|REQ-MBM-LOG-002|로그아웃||
+|REQ-MBM-JOIN-003|회원가입|테스트3|
+|REQ-MBM-JOIN-004|추천인|테스트3|
+|REQ-MBM-JOIN-005|회원탈퇴|테스트3|
+|REQ-MBM-MYPG-005|내 정보 조회|테스트3|
+|REQ-MBM-MYPG-006|내 정보 수정|테스트3|
+|REQ-MBM-BRD-007|테스트2|테스트3|
+|REQ-MBM-BRD-REV-008|테스트2|테스트3|
+|REQ-MBM-BRD-FRE-009|테스트2|테스트3|
+|REQ-MBM-BRD-010|테스트2|테스트3|
+|REQ-MBM-BRD-REV-011|테스트2|테스트3|
+|REQ-MBM-BRD-FRE-012|테스트2|테스트3|
+|REQ-MBM-BRD-013|테스트2|테스트3|
+|REQ-MBM-BRD-REV-014|테스트2|테스트3|
+|REQ-MBM-BRD-FRE-015|테스트2|테스트3|
+|REQ-MBM-BRD-016|테스트2|테스트3|
+|REQ-MBM-SEC-017|테스트2|테스트3|
 |REQ-MBM-JOIN-003|테스트2|테스트3|
 |REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-LOG-001|테스트2|테스트3|
-|REQ-MBM-LOG-002|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-JOIN-003|테스트2||
 
 
 ## 🕰️ 개발 기간
