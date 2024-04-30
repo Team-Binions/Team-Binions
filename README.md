@@ -130,8 +130,8 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 |REQ-ADM-MEM-006|회원 정보 상세 조회||
 |REQ-MBM-MYPG-006|신고 회원 관리 / 블랙리스트||
 |REQ-ADM-MEM-007|공지사항 게시물 등록||
-|REQ-ADM-BRD-008|공지사항 게시물 등록|# 댓글, 태그 기능 고려|
-|REQ-ADM-BRD-009|매거진 게시물 등록|# 댓글, 태그 기능 고려|
+|REQ-ADM-BRD-008|공지사항 게시물 등록||
+|REQ-ADM-BRD-009|매거진 게시물 등록||
 |REQ-ADM-BRD-009|모든 게시물 수정||
 |REQ-ADM-BRD-008|공지사항 게시물 수정||
 |REQ-ADM-BRD-009|매거진 게시물 수정||
