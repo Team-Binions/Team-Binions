@@ -90,7 +90,7 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
  - 제휴 : 제휴의 정의, 제휴마케팅, 제휴업체 계약 분석
  - 포인트 제도 분석
 ## 🙋‍♂ 요구 사항 명세
-|Aa no|요구사항명|비고|
+|no|요구사항명|비고||no|요구사항명|비고|
 |------|---|---|
 |REQ-MBM-LOG-001|로그인|#추후 보안 이슈|
 |REQ-MBM-LOG-002|로그아웃||
@@ -110,11 +110,11 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 |REQ-MBM-BRD-FRE-015|테스트2|테스트3|
 |REQ-MBM-BRD-016|테스트2|테스트3|
 |REQ-MBM-SEC-017|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2|테스트3|
-|REQ-MBM-JOIN-003|테스트2||
-|REQ-MBM-JOIN-003|테스트2||
-|REQ-MBM-JOIN-003|테스트2||
+|REQ-MBM-SCH-018|테스트2|테스트3|
+|REQ-MBM-SCH-019|테스트2|테스트3|
+|REQ-MBM-SCH-020|테스트2||
+|REQ-MBM-PIT-021|테스트2||
+|REQ-MBM-PIT-022|테스트2||
 |REQ-MBM-JOIN-003|테스트2||
 |REQ-MBM-JOIN-003|테스트2||
 |REQ-MBM-JOIN-003|테스트2||
