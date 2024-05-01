@@ -143,7 +143,8 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 
    ![논리모델](https://github.com/Team-Binions/Team-Binions/assets/152046800/7e80410f-247f-4168-b2cf-c4f87c548798)
 
-   ![1232135.PNG](https://prod-files-secure.s3.us-west-2.amazonaws.com/2e42b292-3597-492a-9d2f-caaf0ff36a48/ca0dd75c-def0-4225-bc1b-1b1ec37fd095/1232135.png)
+   ![1232135 PNG](https://github.com/Team-Binions/Team-Binions/assets/152046800/fa23a46a-bd13-4580-973b-6b90463be142)
+
 
 
  - 물리모델
