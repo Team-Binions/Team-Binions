@@ -141,7 +141,11 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 
  - 논리모델
 
+1차
+
    ![논리모델](https://github.com/Team-Binions/Team-Binions/assets/152046800/7e80410f-247f-4168-b2cf-c4f87c548798)
+
+2차
 
    ![1232135 PNG](https://github.com/Team-Binions/Team-Binions/assets/152046800/fa23a46a-bd13-4580-973b-6b90463be142)
 
