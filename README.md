@@ -153,7 +153,13 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 
  - 물리모델
 
+1차
+
 ![물리모델](https://github.com/Team-Binions/Team-Binions/assets/152046800/f5747983-b109-4fb6-a237-9c4e50713972)
+
+2차
+
+![물리모델](https://github.com/Team-Binions/Team-Binions/assets/152046800/b316edab-7b83-4558-b7ce-ace631198944)
 
 
 ## 전체업무흐름도
