@@ -151,7 +151,8 @@ SpringFramework를 활용한 결혼 정보 커뮤니티
 
 ## 전체업무흐름도
 
-![전체업무흐름도](https://github.com/Team-Binions/Team-Binions/assets/152046800/765d28ad-25b7-4882-9bde-85efaeb0b0ca)
+![전체업무흐름도 캡쳐](https://github.com/Team-Binions/Team-Binions/assets/152046800/c09835ef-2302-46e7-bf23-2134c81c48b8)
+
 
 
 ## 🕰️ 개발 기간
