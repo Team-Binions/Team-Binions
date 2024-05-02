@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
     <title>Title</title>
     <script>
     </script>
 </head>
 <body>
     <h1>회원가입</h1>
+    <img th:src="@{/images/common/logo.svg}" alt="">
     <hr>
     <textarea name="terms">대충 약관</textarea>
     <input type="checkbox" name="agree" value="agree">동의하시겠습니까?
@@ -25,6 +27,7 @@
         <textarea name="message" placeholder="메일 내용을 입력해주세요." cols="60" rows="20"></textarea>
         <button>발송</button>
     </form>
+    <p>test</p>
 
 </body>
 </html>
