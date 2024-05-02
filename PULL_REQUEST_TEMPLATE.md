@@ -1,6 +1,6 @@
 ---
 name: Pull_Request_Template
-about: 
+about: 풀리퀘스트
 title: "[BranchName][도메인] 변경내용"
 labels: ''
 assignees: ''
