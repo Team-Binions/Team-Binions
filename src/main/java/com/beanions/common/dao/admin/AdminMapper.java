@@ -1,4 +1,4 @@
 package com.beanions.common.dao.admin;
 
-public interface adminMapper {
+public interface AdminMapper {
 }
