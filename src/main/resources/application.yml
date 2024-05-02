@@ -20,6 +20,9 @@ spring:
                     auth: true
                     starttls:
                         enable: true
+    web:
+        resources:
+            static-locations: classpath:/assets/
 servlet:
     multipart:
     location: C:\Lecture\Team-Beanions

@@ -1,0 +1,95 @@
+/* CSS DEFAULT 설정 */
+*{margin: 0; padding: 0; box-sizing: border-box; color: #2A2A2A;}
+h1, h2, h3, h4, h5, h6, p {margin:0; padding:0;}
+header, footer, div, section, aside, main {margin:0; padding:0;}
+ul, ol, li {list-style: none;}
+a {text-decoration: none; color: #2A2A2A;}
+button {outline:none;}
+
+@font-face {
+    font-family: "Poppins";
+    src: url('./font/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Noto Sans KR";
+    src: url('./font/NotoSansKR-Regular.ttf') format('truetype');
+}
+/* //CSS DEFAULT 설정 (절대절대절대 건드리지마세요.) */
+
+/* 화면 영역 관련 공통사항 */
+/* 컨텐츠 영역(최대너비, 최소 height) - max-width: 1200px; min-height: calc(100vh - 200px); */
+/* 좌우여백 - padding: 0 20px */
+/* 상하여백(header - footer 사이 영역) - padding: 60px 0 */
+/* 페이지별 타이틀 상하 여백 - padding: 40px 0 */
+
+/* 폰트 관련 공통사항 */
+/* 기본 전체 폰트는 Noto Sans KR로 적용되어 있으므로 */
+/* 영문/숫자 텍스트는 각각 Poppins로 변경 적용해주셔야 합니다. */
+/* 국문/한글 - font-family: "Noto Sans KR"
+   영문/숫자 - font-family: "Poppins"
+*/
+
+/* root 설정 */
+:root{
+    /* 기본 컬러 */
+    --main-color : #6667AB; /* VERY  */
+    --text-color : #2A2A2A; /* 텍스트 기본 검정 */
+    --point-color : #5046BF; /* 강조 텍스트 및 버튼 hover 컬러 */
+    --red-color : #AC5253; /* 레드 컬러 (신고 및 좋아요)*/
+    --hashBg-color : #D1D2FF; /* #태그 배경 컬러 */
+    --input-color : #A7A8C9; /* input placeholder 텍스트 & input border 컬러*/
+    --inactive-text : #C4C4C4;
+
+    /* 비활성화 관련 컬러 */
+    --inactive-input-bg : #D9DAF1; /* input 비활성화(작성불가) 배경 컬러*/
+    --inactive-btn : #D4CFEB; /* 비활성화 버튼 및 텍스트 컬러 */
+
+    /* 매거진 */
+    --previewText-color : #838383; /* 매거진 미리보기 내용 텍스트 컬러 */
+    --magazine-tag : #6B6B6B; /* 매거진 태그 컬러 */
+
+    /*  font-weight */
+    --regular : 400; /* 텍스트 일반 굵기 */
+    --medium : 500; /* 텍스트 중간 굵기 */
+    --semiBold : 600; /* 텍스트 semibold 굵기 */
+    --bold : 700; /* 텍스트 bold 굵기 */
+}
+
+/* root에 선언된 변수 사용 방법 */
+/* var(root에 선언된 변수명) */
+/* 예시) 비활성화 input 색상을 사용할 시 */
+/* input {background-color : var(--inactive-input-bg);} */
+
+/* 예시) font 중간 굵기 사용할 시 */
+/* p.testText {font-weight : var(--medium);} */
+
+/* input 기본 설정 */
+input {border:1px solid var(--input-color); transition: border-color 200ms ease-in-out;}
+input:focus {outline: none; border-color: var(--point-color); transition: border-color 200ms ease-in-out;}
+input::placeholder {color: var(--input-color);}
+
+/* 버튼 설정 */
+/* 기본 버튼 */
+button {background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;}
+button:hover {background-color: var(--point-color); transition: background-color 200ms ease-in-out;}
+
+/* 두번째 버튼(라인만 있는 버튼) */
+button:nth-of-type(2) {background-color:#ffffff; border:1px solid var(--main-color); color: var(--main-color);transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out;}
+button:nth-of-type(2):hover {border-color:var(--point-color); background-color: var(--point-color); color: #ffffff; transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out; }
+
+/* 세번째 버튼(비활성화 버튼) */
+button:nth-of-type(3) {background-color:#ffffff; border:1px solid var(--inactive-btn); color: var(--inactive-btn);transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
+button:nth-of-type(3):hover {border-color:var(--inactive-btn); background-color: var(--inactive-btn); color: #ffffff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
+
+/* 텍스트 참고용 */
+p:first-of-type {font-family: "Poppins", sans-serif; font-size: 14px; font-weight: var(--regular);}
+p:nth-of-type(2) {font-family: "Poppins", sans-serif; font-size: 16px; font-weight: var(--regular);}
+p:nth-of-type(3) {font-family: "Poppins", sans-serif; font-size: 18px; font-weight: var(--medium);}
+p:nth-of-type(4) {font-family: "Poppins", sans-serif; font-size: 20px; font-weight: var(--semiBold);}
+p:nth-of-type(5) {font-family: "Poppins", sans-serif; font-size: 24px; font-weight: var(--semiBold);}
+p:nth-of-type(6) {font-family: "Noto Sans KR"; font-size: 14px; font-weight: var(--regular);}
+p:nth-of-type(7) {font-family: "Noto Sans KR"; font-size: 16px; font-weight: var(--regular);}
+p:nth-of-type(8) {font-family: "Noto Sans KR"; font-size: 18px; font-weight: var(--medium);}
+p:nth-of-type(9) {font-family: "Noto Sans KR"; font-size: 20px; font-weight: var(--semiBold);}
+p:nth-of-type(10) {font-family: "Noto Sans KR"; font-size: 24px; font-weight: var(--semiBold);}
