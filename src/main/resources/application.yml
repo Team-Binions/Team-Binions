@@ -9,6 +9,9 @@ spring:
         url: jdbc:mysql://localhost:3306/beanionsdb
         username: ohgiraffers
         password: ohgiraffers
+    web:
+        resources:
+            static-locations: classpath:/assets/
 servlet:
     multipart:
     location: C:\Lecture\Team-Beanions
