@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/default.css"/>
+</head>
+<body>
+    <h1>게시글 상세 정보</h1>
+    <div th:each="post : ${ postDetail }">
+        <h3 th:text="${ post.mainCategory}"></h3>
+        <h3 th:text="${ post.subCategory}"></h3>
+        <h3 th:text="${ post.postTitle}"></h3>
+        <p th:text="${ post.postContext}"></p>
+    </div>
+</body>
+</html>
