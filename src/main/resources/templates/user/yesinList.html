@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<div th:replace="common/header.html"></div>-->
+
+<h3>예신 수다방</h3>
+<input type="text" name="search">
+<table>
+    <tr>
+        <th>No</th>
+        <th>제목</th>
+        <th>조회수</th>
+        <th>글쓴이</th>
+        <th>작성시간</th>
+    </tr>
+    <tr th:each="yesin : ${ postDTOList }">
+        <td th:text="${ yesin.postCode }"></td>
+        <td th:text="${ yesin.postTitle }"></td><a href=""
+<!--        <td ></td> 조회수 입력-->
+        <td th:text="${ yesin.memberCode }"></td>
+        <td th:text="${ yesin.postDate }"></td>
+    </tr>
+</table>
+</body>
+</html>
