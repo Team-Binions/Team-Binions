@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>예신 수다방 조회</title>
 </head>
 <body>
 <!--<div th:replace="common/header.html"></div>-->
@@ -13,17 +13,38 @@
     <tr>
         <th>No</th>
         <th>제목</th>
-        <th>조회수</th>
         <th>글쓴이</th>
         <th>작성시간</th>
     </tr>
-    <tr th:each="yesin : ${ postDTOList }">
-        <td th:text="${ yesin.postCode }"></td>
-        <td th:text="${ yesin.postTitle }"></td><a href=""
-<!--        <td ></td> 조회수 입력-->
-        <td th:text="${ yesin.memberCode }"></td>
-        <td th:text="${ yesin.postDate }"></td>
+    <tr th:each="yesin, i : ${ PostAndMemberDTOList }" >
+        <td th:text="${ (i.size + 1)-(i.count) }"></td>
+        <td>
+        <a th:text="${ yesin.postTitle }" th:href="@{/user/yesinDetail(id=${yesin.postCode})}"></a>
+        </td>
+        <td th:text="${ yesin.nickname }"></td>
+        <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
+    <nav style="text-align: center;">
+        <ul class="pagination" th:with="start=${(PostAndMemberDTOList.number/maxPage)*maxPage + 1}, end=(${(PostAndMemberDTOList.totalPages == 0) ? 1 : (start + (maxPage - 1) < PostAndMemberDTOList.totalPages ? start + (maxPage - 1) : PostAndMemberDTOList.totalPages)})">
+            <li th:if="${start > 1}">
+                <a th:href="@{/user/yesinList(page=0)}" th:text="'<<'"></a>
+            </li>
+            <li th:if="${start > 1}">
+                <a th:href="@{/user/yesinList(page=${start - maxPage})}" th:text="'<'"></a>
+            </li>
+
+            <li th:each="page: ${#numbers.sequence(start, end)}">
+                <a th:text="${page}" th:href="@{/user/yesinList(page=${page - 1})}"></a>
+            </li>
+
+            <li th:if="${end < PostAndMemberDTOList.totalPages}">
+                <a th:href="@{/user/yesinList(page=${start + maxPage})}" th:text="'>'"></a>
+            </li>
+            <li th:if="${end < PostAndMemberDTOList.totalPages}">
+                <a th:href="@{/user/yesinList(page=${PostAndMemberDTOList.totalPages - 1})}" th:text="'>>'"></a>
+            </li>
+        </ul>
+    </nav>
 </table>
 </body>
 </html>

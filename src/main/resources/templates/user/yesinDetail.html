@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>예신 수다방 상세</title>
+</head>
+<body>
+<h1>예수다 | 예신 수다방</h1>
+
+<table>
+ <tr th:each="yesin: ${ PostAndMemberDTOList }" >
+    <td th:text="${yesin.postTitle}"></td>
+<!--    <td th:text="${yesin.nickname}"></td>-->
+    <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
+    <td th:text="${yesin.postContext}"></td>
+
+  </tr>
+</table>
+
+
+</body>
+</html>
