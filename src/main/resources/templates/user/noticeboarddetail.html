@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+  <div th:each=" notice: ${ notice }">
+    <p th:text="${notice.mainCategory}"></p>
+    <p th:text="${notice.subCategory}"></p>
+    <h1 th:text="${notice.postTitle}"></h1>
+
+    <h4 th:text="${notice.memberCode}"></h4>
+    <h4 th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></h4>
+    <p th:text="${notice.postContext}"></p>
+</div>
+
+  <button>이전글</button>
+  <button>다음글</button>
+  <button onclick="location.href='/notice/board'">목록</button>
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>공지사항</h1>
+
+<table align="center" border="1">
+  <tr>
+    <th>NO</th>
+    <th>제목</th>
+    <th>글쓴이</th>
+    <th>작성시간</th>
+  </tr>
+  <tr th:each=" notice, i : ${ noticeList }">
+    <td th:text="${(i.size + 1)-(i.count)}"></td>
+    <td><a th:text="${notice.postTitle}" th:href="@{/notice/board/detail(id=${notice.postCode})}"></a></td>
+    <td th:text="${notice.memberCode}"></td>
+    <td th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
+  </tr>
+</table>
+</body>
+</html>

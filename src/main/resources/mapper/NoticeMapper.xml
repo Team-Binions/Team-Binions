@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beanions.common.dao.user.NoticeMapper">
+    <resultMap id="noticeResultMap" type="com.beanions.common.dto.PostDTO">
+        <id property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContext" column="POST_CONTEXT"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="mainCategory" column="MAIN_CATEGORY"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
+        <result property="verifiedStatus" column="VEF_STATUS"/>
+    </resultMap>
+
+    <!-- 공지사항 전체 조회 -->
+    <select id="allNoticeList" resultMap="noticeResultMap">
+        SELECT
+        POST_CODE,
+        MEMBER_CODE,
+        POST_TITLE,
+        POST_DATE,
+        MAIN_CATEGORY
+        FROM POST
+        WHERE MAIN_CATEGORY = '공지사항'
+        ORDER BY POST_CODE
+    </select>
+
+    <!-- 공지사항 상세 조회 -->
+    <select id="noticeSelectOneDetail" resultMap="noticeResultMap">
+        SELECT
+        POST_CODE,
+        MEMBER_CODE,
+        POST_TITLE,
+        POST_CONTEXT,
+        POST_DATE,
+        MAIN_CATEGORY,
+        SUB_CATEGORY
+        FROM POST
+        WHERE MAIN_CATEGORY = '공지사항' AND POST_CODE = #{ id }
+        ORDER BY POST_CODE
+    </select>
+
+
+
+</mapper>
