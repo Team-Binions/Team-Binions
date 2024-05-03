@@ -47,6 +47,6 @@ public class AdminMainController {
 
         model.addAttribute("postDetail", postDetail);
 
-        return "freeDetail";
+        return "/admin/post/freeDetail";
     }
 }
