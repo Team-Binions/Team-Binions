@@ -4,6 +4,7 @@ import com.beanions.common.dao.admin.AdminMapper;
 import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,5 +24,19 @@ public class AdminService {
     public List<AdminPostDTO> selectPost(int code) {
 
         return adminMapper.selectPost(code);
+    }
+
+    @Transactional
+    public void postUpdate(PostDTO post) {
+
+        System.out.println("postUpdate service 매소드 호출...");
+        System.out.println("post = " + post);
+        adminMapper.postUpdate(post);
+    }
+
+    @Transactional
+    public void postDelete(Integer id) {
+
+        adminMapper.postDelete(id);
     }
 }

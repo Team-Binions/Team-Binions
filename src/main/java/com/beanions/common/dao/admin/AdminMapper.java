@@ -11,4 +11,8 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllPost();
 
     List<AdminPostDTO> selectPost(int code);
+
+    void postUpdate(PostDTO post);
+
+    void postDelete(Integer id);
 }

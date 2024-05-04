@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/default.css"/>
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
 </head>
 <body>
-    <div th:include="admin/layout.html"></div>
-    <h1>게시판게시판게시판</h1>
+<!--    <div th:replace="admin/layout.html"></div>-->
+    <h1>게시판 관리</h1>
     <div>
         <input type="text">
         <button type="submit">검색</button>
@@ -37,8 +43,9 @@
                 <span th:if="${ post.verifiedStatus == 'N' }">미승인</span>
             </td>
             <td>
-                <button>수정</button>
-                <button>삭제</button>
+                <button type="button" th:onclick="|location.href='@{/admin/post/update(id=${post.postCode})}'|">수정</button>
+                <a th:href="@{/admin/post/delete(id=${post.postCode})}">삭제</a>
+<!--                <button>삭제</button>-->
             </td>
         </tr>
     </table>

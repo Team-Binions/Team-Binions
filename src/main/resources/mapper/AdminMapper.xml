@@ -52,4 +52,19 @@
           LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
          WHERE A.POST_CODE = #{ id }
     </select>
+
+    <update id="postUpdate" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE
+               POST
+           SET
+               POST_TITLE = #{ postTitle }
+             , POST_CONTEXT = #{ postContext}
+         WHERE POST_CODE = #{ postCode }
+    </update>
+
+    <delete id="postDelete" parameterType="_int">
+        DELETE
+          FROM POST
+         WHERE POST_CODE = #{ id }
+    </delete>
 </mapper>

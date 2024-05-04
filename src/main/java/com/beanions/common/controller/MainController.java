@@ -35,7 +35,7 @@ public class MainController {
     // feature/adminMain
     @GetMapping("/admin")
     public String admin() {
-        return "admin/dashBoard/dashBoard";
+        return "admin/main/dashBoard";
     }
 
 }
