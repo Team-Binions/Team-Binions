@@ -16,44 +16,54 @@
             // 이메일 값을 가져온다.
             var email = $("#memail").val();
 
-            // Fetch를 이용하여 요청을 보낸다.
-            fetch("/request-verify-mail", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(email)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
+            if( email === '') {
+                alert("이메일을 입력해주세요.");
+                $("#memail").focus();
+            } else {
+                // Fetch를 이용하여 요청을 보낸다.
+                fetch("/request-verify-mail", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(email)
                 })
-                .then(data => {
-                    // 성공적인 응답을 처리한다.
-                    console.log(data);
-                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.");
-                    chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
-                })
-                .catch(error => {
-                    // 오류가 발생했을 때 처리한다.
-                    console.error("Error:", error);
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            alert("유효한 이메일이 아닙니다.")
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 성공적인 응답을 처리한다.
+                        console.log(data);
+                        alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.");
+                        chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
+                    })
+                    .catch(error => {
+                        // 오류가 발생했을 때 처리한다.
+                        console.error("Error:", error);
+                    });
+            }
         });
 
         $("#checkId").click(function() {
             // 아이디 값을 가져온다.
             var id = $("#memberId").val();
 
-            // Fetch를 이용하여 요청을 보낸다.
-            fetch("/request-dupCheck-id", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(id)
-            })
+            if( id === '' ) {
+                alert("아이디를 입력해주세요.");
+                $("#memberId").focus();
+            } else {
+                // Fetch를 이용하여 요청을 보낸다.
+                fetch("/request-dupCheck-id", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(id)
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -69,8 +79,8 @@
                     // 오류가 발생했을 때 처리한다.
                     console.error("Error:", error);
                 });
+            }
         });
-
     });
 
     // 이메일 인증번호 체크 함수

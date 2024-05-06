@@ -5,11 +5,7 @@ import com.beanions.common.service.SignupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -51,8 +47,8 @@ public class MainController {
 
         int count = signupService.checkDupId(id);
 
-//        System.out.println("id : " + id);
-//        System.out.println("count : " + count);
+        System.out.println("id : " + id);
+        System.out.println("count : " + count);
 
         return new ObjectMapper().writeValueAsString(count);
     }
