@@ -23,7 +23,7 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yesinList")
-    public String yesinAllList(Model model, @PageableDefault(size = PageConfig.PAGE_PER_COUNT, sort = PageConfig.SORT_STANDARD, direction = Sort.Direction.DESC) Pageable pageable) {
+    public String yesinAllList(Model model, @PageableDefault(page=1) Pageable pageable) {
 
         List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.yesinAllList();
 

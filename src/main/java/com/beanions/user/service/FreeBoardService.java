@@ -4,6 +4,7 @@ import com.beanions.common.dao.user.FreeBoardMapper;
 import com.beanions.common.dto.PostAndMemberDTO;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -16,8 +17,12 @@ public class FreeBoardService {
     }
 
 
-    public List<PostAndMemberDTO> yesinAllList() {
+    public List<PostAndMemberDTO> yesinAllList(Pageable pageable) {
 
+        int page = pageable.getNumberOfPages() - 1;
+        int pageLimit = 20;
+
+        
         return freeBoardMapper.yesinAllList();
 
     }
