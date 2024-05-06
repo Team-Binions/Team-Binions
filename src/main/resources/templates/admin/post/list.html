@@ -44,11 +44,44 @@
             </td>
             <td>
                 <button type="button" th:onclick="|location.href='@{/admin/post/update(id=${post.postCode})}'|">수정</button>
-                <a th:href="@{/admin/post/delete(id=${post.postCode})}">삭제</a>
-<!--                <button>삭제</button>-->
+<!--                <a th:href="@{/admin/post/delete(id=${post.postCode})}">삭제</a>-->
+<!--                <button type="button" onclick="deletePost">삭제</button>-->
+                <form th:action="@{/admin/post/delete(id=${post.postCode})}" method="post">
+                    <button type="submit">삭제</button>
+<!--                    <input type="hidden" th:value="${post.postCode}" name="postCode">-->
+<!--                    <input type="submit" value="삭제">-->
+                </form>
             </td>
         </tr>
     </table>
 <button>버튼</button>
+
+<!--<th:block layout:fragment="script">-->
+    <script>
+        /*<![CDATA[*/
+
+        // 게시글 삭제
+        function deletePost() {
+            const id = [[ ${post.postCode} ]];
+
+            if ( !confirm(postCode + '번 게시글을 삭제할까요?') ) {
+                return false;
+            }
+
+            const formHtml = `
+                    <form id="deleteForm" action="/admin/post" method="post">
+                        <input type="hidden" id="postCode" name="id" value="${id}" />
+                    </form>
+                `;
+            const doc = new DOMParser().parseFromString(formHtml, 'text/html');
+            const form = doc.body.firstChild;
+            document.body.append(form);
+            document.getElementById('deleteForm').submit();
+        }
+
+        /*]]>*/
+
+    </script>
+<!--</th:block>-->
 </body>
 </html>

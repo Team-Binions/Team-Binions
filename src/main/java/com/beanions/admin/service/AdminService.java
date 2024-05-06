@@ -34,9 +34,12 @@ public class AdminService {
         adminMapper.postUpdate(post);
     }
 
-    @Transactional
-    public void postDelete(Integer id) {
+//    public void postDelete(Long id) {
+//    }
 
-        adminMapper.postDelete(id);
+    @Transactional
+    public void postDelete(int postCode) {
+
+        adminMapper.postDelete(postCode);
     }
 }

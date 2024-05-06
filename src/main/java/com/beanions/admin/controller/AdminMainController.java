@@ -86,11 +86,26 @@ public class AdminMainController {
         return "redirect:/admin/post";
     }
 
-    @GetMapping("/admin/post/delete")
-    public String postDelete(Integer id) {
+    @PostMapping("/post/delete")
+    public String postDelete(@RequestParam("id") String id, RedirectAttributes rttr) {
 
-        adminService.postDelete(id);
+        int postCode = Integer.parseInt(id);
+
+        adminService.postDelete(postCode);
+
+        rttr.addFlashAttribute("successMessage", postCode + "번 메뉴 삭제 성공!");
 
         return "redirect:/admin/post";
     }
+
+
+//    @PostMapping("/post")
+//    public String postDelete(int id, RedirectAttributes rttr) {
+//
+//        adminService.postDelete(id);
+//
+//        rttr.addFlashAttribute("successMessage", id + "번 메뉴 삭제 성공!");
+//
+//        return "redirect:/admin/post";
+//    }
 }

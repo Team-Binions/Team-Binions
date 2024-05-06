@@ -14,5 +14,5 @@ public interface AdminMapper {
 
     void postUpdate(PostDTO post);
 
-    void postDelete(Integer id);
+    void postDelete(int postCode);
 }
