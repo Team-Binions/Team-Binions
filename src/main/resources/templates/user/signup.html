@@ -3,28 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script>
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+<script>
+    let totalConfirm = {
+        emconfirmmailchk : false,
+        emconfirmidchk : false
+    };
+
+    $(document).ready(function () {
+        $("#checkEmail").click(function() {
+            // 이메일 값을 가져온다.
+            var email = $("#memail").val();
+
+            // Fetch를 이용하여 요청을 보낸다.
+            fetch("/request-verify-mail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(email)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 성공적인 응답을 처리한다.
+                    console.log(data);
+                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.");
+                    chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
+                })
+                .catch(error => {
+                    // 오류가 발생했을 때 처리한다.
+                    console.error("Error:", error);
+                });
+        });
+
+        $("#checkId").click(function() {
+            // 아이디 값을 가져온다.
+            var id = $("#memberId").val();
+
+            // Fetch를 이용하여 요청을 보낸다.
+            fetch("/request-dupCheck-id", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(id)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 성공적인 응답을 처리한다.
+                    // console.log(data);
+                    checkIdConfirm(data, $("#idTxt"));
+                })
+                .catch(error => {
+                    // 오류가 발생했을 때 처리한다.
+                    console.error("Error:", error);
+                });
+        });
+
+    });
+
+    // 이메일 인증번호 체크 함수
+    function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
+        $memailconfirm.on("keyup", function(){
+            if (data != $memailconfirm.val()) { //
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다</span>")
+                $("#emconfirmchk").css({
+                    "color" : "#FA3E3E",
+                    "font-weight" : "bold",
+                    "font-size" : "10px"
+                })
+                //console.log("중복아이디");
+            } else { // 아니면 중복아님
+                totalConfirm.emconfirmchk = true;
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+
+                $("#emconfirmchk").css({
+                    "color" : "#6667AB",
+                    "font-weight" : "bold",
+                    "font-size" : "10px"
+                })
+            }
+        })
+    }
+
+    function checkIdConfirm(data, $idTxt){
+        if (data != 0) { //
+            $idTxt.html("<span id='emconfirmidchk'>이미 사용중인 아이디입니다</span>")
+            $("#emconfirmidchk").css({
+                "color" : "#FA3E3E",
+                "font-weight" : "bold",
+                "font-size" : "10px"
+            })
+            //console.log("중복아이디");
+        } else { // 아니면 중복아님
+            totalConfirm.emconfirmidchk = true;
+            $idTxt.html("<span id='emconfirmidchk'>사용 가능한 아이디입니다</span>")
+
+            $("#emconfirmidchk").css({
+                "color" : "#6667AB",
+                "font-weight" : "bold",
+                "font-size" : "10px"
+            })
+        }
+    }
+</script>
 <body>
     <h1>회원가입</h1>
     <hr>
     <textarea name="terms">대충 약관</textarea>
     <input type="checkbox" name="agree" value="agree">동의하시겠습니까?
     <hr>
-    <form th:action="@{/signup}" method="post">
-        *아이디 <input type="text" name="memberId" placeholder="아이디를 입력해주세요"><button type="submit">중복확인</button><br>
-    </form>
-    <form>
-        *비밀번호 <input type="password" name="memberPw" placeholder="비밀번호를 입력해주세요"><br>
-        *닉네임 <input type="text" name="nickname"><br>
-    </form>
-    <form th:action="@{/mail}" method="post">
-        <input name="address" placeholder="이메일 주소">이메일<br>
-        <input name="title" placeholder="제목"> <br>
-        <textarea name="message" placeholder="메일 내용을 입력해주세요." cols="60" rows="20"></textarea>
-        <button>발송</button>
-    </form>
+    <span>아이디</span>
+    <div>
+        <label for="memberId" id="idTxt">아이디를 입력해주세요</label>
+        <input type="text" name="memberId" id="memberId">
+    </div>
+    <button type="button" id="checkId">중복확인</button>
+    <div>
+        <label>비밀번호</label>
+        <input type="password" name="memberPw" placeholder="비밀번호를 입력해주세요"/>
+    </div>
+    <div>
+        <label>닉네임</label>
+        <input type="text" name="nickname" placeholder="닉네임을 입력해주세요"/>
+    </div>
+    <span>이메일 </span>
+    <div>
+        <label for="memail" id="mailTxt">이메일을 입력해주세요</label>
+        <input type="text" name="memail" id="memail">
+    </div>
+    <!-- <span>이메일 인증번호</span> -->
+    <button type="button" id="checkEmail">인증번호</button>
+
+    <div>
+        <label for="memailconfirm" id="memailconfirmTxt">인증번호를 입력해주세요</label>
+        <input type="text" id="memailconfirm">
+    </div>
+
+    <button>가입</button>
+    <button><a href="/">목록</a></button>
+
+<!--    <form th:action="@{/request-verify-mail}" method="post">-->
+<!--        <input name="email" placeholder="이메일 주소">이메일-->
+<!--        <button>발송</button>-->
+<!--    </form>-->
+
 
 </body>
 </html>
