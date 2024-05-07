@@ -3,11 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beanions.common.dao.signup.SignupMapper">
+    <resultMap id="memberInfo" type="com.beanions.common.dto.MembersDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberPw" column="MEMBER_PW"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="marriedStatus" column="MARRIED_STATUS"/>
+        <result property="memberRole" column="MEMBER_ROLE"/>
+        <result property="weddingVerified" column="WEDD_VEF"/>
+        <result property="signupDate" column="SIGNUP_DATE"/>
+    </resultMap>
     <select id="checkDupId">
         SELECT
                 COUNT(*)
         FROM
                 MEMBERS
         WHERE   MEMBER_ID = #{id}
+    </select>
+
+    <select id="checkDupNkname">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   NICKNAME = #{nkname}
     </select>
 </mapper>

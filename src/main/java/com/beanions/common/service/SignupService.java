@@ -13,4 +13,8 @@ public class SignupService {
     public int checkDupId(String id) {
         return signupMapper.checkDupId(id);
     }
+
+    public int checkDupNkname(String nkname) {
+        return signupMapper.checkDupNkname(nkname);
+    }
 }
