@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+</head>
+<body>
+    <h1>매거진 등록</h1>
+    <form action="/admin/magazine/regist" method="post">
+        <div>
+            <input type="text" name="postTitle"
+                   placeholder="제목을 입력하세요."
+                   style="height: 30px; width: 800px">
+            <select name="subCategory">
+                <option value="정보">정보</option>
+                <option value="꿀팁">꿀팁</option>
+                <option value="뉴스">뉴스</option>
+                <option value="기타">기타</option>
+            </select>
+        </div>
+        <div>
+            <textarea name="postContext" placeholder="내용을 입력하세요."
+                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>
+        </div>
+        <div>
+            <button type="button" onclick="location.href='/admin/magazine'">취소</button>
+            <button type="submit">등록</button>
+        </div>
+    </form>
+</body>
+</html>

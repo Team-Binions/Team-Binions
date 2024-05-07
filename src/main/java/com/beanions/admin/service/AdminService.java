@@ -42,4 +42,29 @@ public class AdminService {
 
         adminMapper.postDelete(postCode);
     }
+
+    public List<AdminPostDTO> selectAllNotice() {
+
+        return adminMapper.selectAllNotice();
+    }
+
+    public void noticeRegist(PostDTO newNotice) {
+
+        adminMapper.noticeRegist(newNotice);
+    }
+
+    public void noticeUpdate(PostDTO post) {
+
+        adminMapper.noticeUpdate(post);
+    }
+
+    public List<AdminPostDTO> selectAllMagazine() {
+
+        return adminMapper.selectAllMagazine();
+    }
+
+    public void magazineRegist(PostDTO newMagazine) {
+
+        adminMapper.magazineRegist(newMagazine);
+    }
 }

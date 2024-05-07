@@ -15,4 +15,14 @@ public interface AdminMapper {
     void postUpdate(PostDTO post);
 
     void postDelete(int postCode);
+
+    List<AdminPostDTO> selectAllNotice();
+
+    void noticeRegist(PostDTO newNotice);
+
+    void noticeUpdate(PostDTO post);
+
+    List<AdminPostDTO> selectAllMagazine();
+
+    void magazineRegist(PostDTO newMagazine);
 }
