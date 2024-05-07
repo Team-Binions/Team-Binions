@@ -10,6 +10,7 @@
 <h3>예신 수다방</h3>
 <input type="text" name="search">
 <table>
+
     <tr>
         <th>No</th>
         <th>제목</th>
@@ -21,30 +22,23 @@
         <td>
         <a th:text="${ yesin.postTitle }" th:href="@{/user/yesinDetail(id=${yesin.postCode})}"></a>
         </td>
-        <td th:text="${ yesin.nickname }"></td>
+        <td th:text="${ yesin.member.nickname }"></td>
         <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
-    <nav style="text-align: center;">
-        <ul class="pagination" th:with="start=${(PostAndMemberDTOList.number/maxPage)*maxPage + 1}, end=(${(PostAndMemberDTOList.totalPages == 0) ? 1 : (start + (maxPage - 1) < PostAndMemberDTOList.totalPages ? start + (maxPage - 1) : PostAndMemberDTOList.totalPages)})">
-            <li th:if="${start > 1}">
-                <a th:href="@{/user/yesinList(page=0)}" th:text="'<<'"></a>
-            </li>
-            <li th:if="${start > 1}">
-                <a th:href="@{/user/yesinList(page=${start - maxPage})}" th:text="'<'"></a>
-            </li>
 
-            <li th:each="page: ${#numbers.sequence(start, end)}">
-                <a th:text="${page}" th:href="@{/user/yesinList(page=${page - 1})}"></a>
-            </li>
-
-            <li th:if="${end < PostAndMemberDTOList.totalPages}">
-                <a th:href="@{/user/yesinList(page=${start + maxPage})}" th:text="'>'"></a>
-            </li>
-            <li th:if="${end < PostAndMemberDTOList.totalPages}">
-                <a th:href="@{/user/yesinList(page=${PostAndMemberDTOList.totalPages - 1})}" th:text="'>>'"></a>
-            </li>
-        </ul>
-    </nav>
+    <button type="button" th:onclick="|location.href='@{/user/postRegist}'|">글쓰기</button>
 </table>
+    <div class="paging">
+        <script th:inline="javascript">
+            window.onload = () => {
+                yesinAllList();
+            }
+
+
+
+        </script>
+
+
+    </div>
 </body>
 </html>

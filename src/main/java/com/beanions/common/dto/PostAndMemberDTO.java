@@ -19,6 +19,5 @@ public class PostAndMemberDTO {
     private String subCategory;
     private String verifiedStatus;
     private MembersDTO member;
-    private String nickname;
 
 }

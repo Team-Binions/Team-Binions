@@ -3,30 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beanions.common.dao.user.FreeBoardMapper">
-    <resultMap id="freeBoardResultMap" type="com.beanions.common.dto.PostDTO">
-        <id property="postCode" column="POST_CODE"/>
-        <result property="memberCode" column="MEMBER_CODE"/>
-        <result property="postTitle" column="POST_TITLE"/>
-        <result property="postContext" column="POST_CONTEXT"/>
-        <result property="postDate" column="POST_DATE"/>
-        <result property="mainCategory" column="MAIN_CATEGORY"/>
-        <result property="subCategory" column="SUB_CATEGORY"/>
-        <result property="verifiedStatus" column="VEF_STATUS"/>
-    </resultMap>
-
-    <resultMap id="memberInfo" type="com.beanions.common.dto.MembersDTO">
-        <id property="memberCode" column="MEMBER_CODE"/>
-        <result property="memberId" column="MEMBER_ID"/>
-        <result property="memberPw" column="MEMBER_PW"/>
-        <result property="nickname" column="NICKNAME"/>
-        <result property="email" column="EMAIL"/>
-        <result property="phone" column="PHONE"/>
-        <result property="gender" column="GENDER"/>
-        <result property="marriedStatus" column="MARRIED_STATUS"/>
-        <result property="memberRole" column="MEMBER_ROLE"/>
-        <result property="weddingVerified" column="WEDD_VEF"/>
-        <result property="signupDate" column="SIGNUP_DATE"/>
-    </resultMap>
 
     <resultMap id="mainCategoryResultMap" type="com.beanions.common.dto.MainCategoryDTO">
         <id property="code" column="main_code"/>
@@ -53,7 +29,7 @@
         </association>
     </resultMap>
 
-    <select id="yesinAllList" resultMap="PostAndMemberResultMap">
+    <select id="yesinAllList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -68,6 +44,14 @@
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = '예신'
         ORDER BY POST_CODE desc
+<!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
+    </select>
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            POST
     </select>
 
     <select id="yesinDetail" resultMap="PostAndMemberResultMap">
@@ -78,6 +62,7 @@
         , A.POST_DATE
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
+        , A.POST_CONTEXT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A

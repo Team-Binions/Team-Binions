@@ -1,13 +1,15 @@
 package com.beanions.user.controller;
 
+import com.beanions.common.dto.MainCategoryDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostAndMemberDTO;
+import com.beanions.common.dto.SearchDTO;
 import com.beanions.user.service.FreeBoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -23,17 +25,15 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yesinList")
-    public String yesinAllList(Model model, @PageableDefault(size = PageConfig.PAGE_PER_COUNT, sort = PageConfig.SORT_STANDARD, direction = Sort.Direction.DESC) Pageable pageable) {
+    public String yesinAllList(@ModelAttribute("params") final SearchDTO params, Model model) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.yesinAllList();
+        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.yesinAllList(params);
 
         for(PostAndMemberDTO posts: PostAndMemberDTOList){
             System.out.println("posts = " + posts);
         }
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
-        model.addAttribute("maxPage",10);
-
 
 
         return "user/yesinList";
@@ -49,5 +49,23 @@ public class FreeBoardController {
         return "user/yesinDetail";
     }
 
-//    @GetMapping("/regist")
+    @GetMapping("/postRegist")
+    public void postRegistPage(){}
+
+
+    @GetMapping(value = "category", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<MainCategoryDTO> findMainCategoryList(){
+        return freeBoardService.findMainCategory();
+    }
+    @PostMapping("/postRegist")
+
+    public String postRegist(PostAndMemberDTO newPost, RedirectAttributes rttr){
+
+        freeBoardService.postRegist(newPost);
+
+        rttr.addFlashAttribute("successMessage", "신규등록에 성공하였습니다.");
+
+        return "redirect:/user/yesin";
+    }
 }
