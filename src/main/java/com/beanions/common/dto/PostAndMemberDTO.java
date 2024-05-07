@@ -20,5 +20,4 @@ public class PostAndMemberDTO {
     private String verifiedStatus;
     private MembersDTO member;
 
-
 }

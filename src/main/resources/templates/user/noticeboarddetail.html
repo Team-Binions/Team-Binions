@@ -15,12 +15,13 @@
     <h4 th:text="${notice.memberCode}"></h4>
     <h4 th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></h4>
     <p th:text="${notice.postContext}"></p>
-</div>
 
-  <button>이전글</button>
-  <button>다음글</button>
+  <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
+  <!--  <button>다음글</button>-->
+
   <button onclick="location.href='/notice/board'">목록</button>
 
-
+<button type="button" th:onclick="|location.href='@{/notice/modify(id=${notice.postCode})}'|">수정하기</button>
+</div>
 </body>
 </html>
