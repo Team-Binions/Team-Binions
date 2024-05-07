@@ -4,7 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.beanions.common.dao.user.NoticeMapper">
-    <resultMap id="noticeResultMap" type="com.beanions.common.dto.PostDTO">
+
+    <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
         <id property="postCode" column="POST_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
         <result property="postTitle" column="POST_TITLE"/>
@@ -13,23 +14,32 @@
         <result property="mainCategory" column="MAIN_CATEGORY"/>
         <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="VEF_STATUS"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="MEMBER_CODE"/>
+            <result property="nickname" column="NICKNAME"/>
+        </association>
     </resultMap>
 
     <!-- 공지사항 전체 조회 -->
-    <select id="allNoticeList" resultMap="noticeResultMap">
+    <select id="allNoticeList" parameterType="com.beanions.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
         SELECT
-        POST_CODE,
-        MEMBER_CODE,
-        POST_TITLE,
-        POST_DATE,
-        MAIN_CATEGORY
-        FROM POST
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '공지사항'
-        ORDER BY POST_CODE
+        ORDER BY POST_CODE desc
     </select>
 
     <!-- 공지사항 상세 조회 -->
-    <select id="noticeSelectOneDetail" resultMap="noticeResultMap">
+    <select id="noticeSelectOneDetail" resultMap="PostAndMemberResultMap">
         SELECT
         POST_CODE,
         MEMBER_CODE,
@@ -43,6 +53,22 @@
         ORDER BY POST_CODE
     </select>
 
+<!--    <update id="modifyPost" parameterType="com.beanions.common.dto.PostDTO">-->
+<!--        UPDATE POST-->
+<!--           SET-->
+<!--               POST_TITLE = #{ postTitle },-->
+<!--               POST_CONTEXT = #{ postContext },-->
+<!--               POST_DATE = #{ postDate }-->
+<!--         WHERE POST_CODE = #{ id }-->
+<!--    </update>-->
 
+    <update id="modifyPostTest" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE POST
+           SET
+               POST_TITLE = #{ postTitle },
+               POST_CONTEXT = #{ postContext },
+               POST_DATE = #{ postDate }
+         WHERE POST_CODE = #{ id }
+    </update>
 
 </mapper>

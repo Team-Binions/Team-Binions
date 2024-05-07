@@ -17,7 +17,7 @@
   <tr th:each=" notice, i : ${ noticeList }">
     <td th:text="${(i.size + 1)-(i.count)}"></td>
     <td><a th:text="${notice.postTitle}" th:href="@{/notice/board/detail(id=${notice.postCode})}"></a></td>
-    <td th:text="${notice.memberCode}"></td>
+    <td th:text="${notice.member.nickname}"></td>
     <td th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
   </tr>
 </table>
