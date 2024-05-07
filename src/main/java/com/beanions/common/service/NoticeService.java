@@ -25,7 +25,8 @@ public class NoticeService {
 
     public List<PostDTO> selectNotice(String id) {
 
-        return noticeMapper.noticeSelectOneDetail(id);
+        int code = Integer.parseInt(id);
+        return noticeMapper.noticeSelectOneDetail(code);
     }
 
 
@@ -34,10 +35,13 @@ public class NoticeService {
 //
 //        return noticeMapper.modifyPost(modifyNewMenu);
 //    }
-    @Transactional
-    public List<PostDTO> modifyPost(String id) {
 
-        return noticeMapper.modifyPost(id);
+
+
+    @Transactional
+    public void modifyPost(PostDTO id) {
+
+        noticeMapper.postModify(id);
     }
 
 

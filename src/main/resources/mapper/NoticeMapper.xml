@@ -62,13 +62,12 @@
 <!--         WHERE POST_CODE = #{ id }-->
 <!--    </update>-->
 
-    <update id="modifyPostTest" parameterType="com.beanions.common.dto.PostDTO">
+    <update id="postModify" parameterType="com.beanions.common.dto.PostDTO">
         UPDATE POST
            SET
                POST_TITLE = #{ postTitle },
-               POST_CONTEXT = #{ postContext },
-               POST_DATE = #{ postDate }
-         WHERE POST_CODE = #{ id }
+               POST_CONTEXT = #{ postContext }
+         WHERE POST_CODE = #{ postCode }
     </update>
 
 </mapper>

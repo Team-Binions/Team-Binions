@@ -43,22 +43,23 @@ public class NoticeController {
     }
 
     @GetMapping("/modify")
-    public String modifyPost(@RequestParam("id") String id, PostDTO postDTO, Model model){
+    public String modifyPost(@RequestParam("id") String id, Model model){
 
-        List<PostDTO> modify = noticeService.modifyPost(id);
-        model.addAttribute("postDTO", postDTO);
+
+        List<PostDTO> modify = noticeService.selectNotice(id);
+        model.addAttribute("modify", modify);
+
+        System.out.println(modify);
 
         return "user/modify";
     }
 
-//    @PostMapping("/modify")
-//    public String modifyPost(PostDTO modifyNewMenu, RedirectAttributes rttr, Model model){
-//
-//        List<PostDTO> modify = noticeService.modifyPost(modifyNewMenu);
-//        model.addAttribute("modify", modify);
-//
-//        rttr.addFlashAttribute("successMessage", "수정 성공..");
-//
-//        return "redirect:/user/noticeboard";
-//    }
+    @PostMapping("/modify")
+    public String modifyPost(PostDTO postDTO, RedirectAttributes rttr){
+
+       noticeService.modifyPost(postDTO);
+        rttr.addFlashAttribute("successMessage", "수정 성공..");
+
+        return "redirect:/notice/board";
+    }
 }

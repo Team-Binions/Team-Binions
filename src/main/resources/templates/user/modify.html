@@ -7,7 +7,13 @@
 <body>
 
 <h1>여기</h1>
-<input type="text" th:value="${postDTO.postTitle}">
+<form action="/notice/modify" method="post">
+    <div th:each="post : ${ modify }">
+        <input th:value="${post.postTitle}" name="postTitle">
+        <input th:value="${post.postContext}" name="postContext">
+    </div>
+    <button type="submit" value="수정하기"></button>
+</form>
 
 </body>
 </html>

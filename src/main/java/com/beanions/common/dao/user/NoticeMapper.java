@@ -11,10 +11,13 @@ public interface NoticeMapper {
 
     List<PostAndMemberDTO> allNoticeList();
 
-    List<PostDTO> noticeSelectOneDetail(String id);
+    List<PostDTO> noticeSelectOneDetail(int id);
 
 //    List<PostDTO> modifyPost(PostDTO modifyNewMenu);
-    List<PostDTO> modifyPost(String id);
+
+
+    void postModify(PostDTO id);
+
 
     //    PostDTO prevNotice(int id);
 }
