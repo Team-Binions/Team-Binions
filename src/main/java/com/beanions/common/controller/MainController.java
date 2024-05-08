@@ -1,6 +1,10 @@
 package com.beanions.common.controller;
 
 import com.beanions.common.dto.MailDTO;
+<<<<<<< HEAD
+=======
+import com.beanions.common.dto.MembersDTO;
+>>>>>>> parent of 6143ba6 (cache conflict resolve)
 import com.beanions.common.service.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
