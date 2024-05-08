@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<div th:replace="common/header.html"></div>-->
+
+<h3>글쓰기</h3>
+<select name="mainCategory" id="mainCategory"></select>
+<select name="subCategory" id="subCategory"></select><br>
+<input type="text" name="title" placeholder="제목을 입력하세요."><br>
+<hr>
+<input type="text" name="contents" placeholder="내용을 입력하세요."><br>
+<label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요.">
+<input type="submit" value="등록">
+
+<script>
+    fetch("/user/category")
+        .then(res => res.json())
+        .then(data => {
+
+            console.log(data);
+            const $categoryCode = document.getElementById("categoryCode"); //'$'안써도됨
+
+            for(let index in data){
+                const $option = document.createElement('option');
+                $option.value = data[index].code;
+                $option.textContent = data[index].name;
+
+                $categoryCode.appendChild($option);
+            }
+        });
+</script>
+</body>
+</html>
