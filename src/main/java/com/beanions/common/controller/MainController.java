@@ -1,10 +1,10 @@
 package com.beanions.common.controller;
 
-import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.service.MailService;
 import com.beanions.common.service.SignupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
