@@ -19,6 +19,10 @@ spring:
                 smtp:
                     auth: true
                     starttls:
+                    ssl:
+                        trust: "smtp.gmail.com"
+                    auth: true
+                    startt  ls:
                         enable: true
     web:
         resources:
