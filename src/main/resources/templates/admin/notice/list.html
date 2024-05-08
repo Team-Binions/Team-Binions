@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="/admin/layout.html"></div>
+<h1>공지사항 관리</h1>
+<div>
+    <input type="text">
+    <button type="submit">검색</button>
+    <button onclick="location.href='/admin/notice/regist'">등록</button>
+</div>
+<table align="center">
+    <tr>
+        <th>번호</th>
+        <th>작성자</th>
+        <th>분류</th>
+        <th>제목</th>
+        <th>작성일</th>
+        <th>관리</th>
+    </tr>
+    <tr th:each="notice, i : ${ noticeList }">
+        <td th:text="${ i.index + 1 }"></td>
+        <td th:text="${ notice.member.nickname }"></td>
+        <td th:text="${ notice.subCategory }"></td>
+        <td>
+            <a th:text="${ notice.postTitle }" th:href="@{ /admin/notice/detail(id=${notice.postCode}) }"></a>
+        </td>
+        <td th:text="${ #dates.format(notice.postDate, 'yyyy-MM-dd') }"></td>
+        <td>
+            <button type="button" th:onclick="|location.href='@{/admin/notice/update(id=${notice.postCode})}'|">수정</button>
+            <form th:action="@{/admin/notice/delete(id=${notice.postCode})}" method="post">
+                <button type="submit">삭제</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

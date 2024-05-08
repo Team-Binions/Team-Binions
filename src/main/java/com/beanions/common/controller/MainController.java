@@ -106,4 +106,10 @@ public class MainController {
         return new ObjectMapper().writeValueAsString(savedName);
     }
 
+    // feature/adminPost
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin/main/dashBoard";
+    }
+
 }

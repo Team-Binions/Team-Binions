@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+</head>
+<body>
+<!--    <div th:replace="/admin/layout.html"></div>-->
+<h1>게시글 상세 정보</h1>
+<div th:each="post : ${ postDetail }">
+    <h3 th:text="${ post.mainCategory}"></h3>
+    <h3 th:text="${ post.subCategory}"></h3>
+    <h3 th:text="${ post.postTitle}"></h3>
+    <h4 th:text="${ #dates.format(post.postDate, 'yyyy.MM.dd')}"></h4>
+    <!--        <input type="text" value="context" th:value="${ post.postContext}" style="height: 400px; width: 1000px">-->
+    <p th:text="${ post.postContext}"></p>
+    <button type="button" th:onclick="|location.href='@{/admin/post/update(id=${post.postCode})}'|">수정</button>
+    <form th:action="@{/admin/post/delete(id=${post.postCode})}" method="post">
+        <button type="submit">삭제</button>
+    </form>
+</div>
+<div>
+    <!--        <input type="submit" value="수정">-->
+</div>
+</body>
+</html>
