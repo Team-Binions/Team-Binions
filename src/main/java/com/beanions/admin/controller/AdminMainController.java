@@ -243,6 +243,24 @@ public class AdminMainController {
 
         return "/admin/magazine/update";
     }
+
+    @PostMapping("magazine/update")
+    public String magazineUpdate(PostDTO post, RedirectAttributes rttr) {
+
+//        System.out.println("id = " + id);
+
+//        int code = Integer.parseInt(id);
+        System.out.println("post = " + post);
+
+        adminService.noticeUpdate(post);
+
+
+        rttr.addFlashAttribute("successMessage", "매거진 수정 성공!");
+
+        return "redirect:/admin/magazine";
+    }
+
+
     @PostMapping("/magazine/delete")
     public String magazineDelete(@RequestParam("id") String id, RedirectAttributes rttr) {
 
