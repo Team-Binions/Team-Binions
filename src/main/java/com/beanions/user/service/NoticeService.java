@@ -1,4 +1,4 @@
-package com.beanions.common.service;
+package com.beanions.user.service;
 
 import com.beanions.common.dao.user.NoticeMapper;
 import com.beanions.common.dto.PostAndMemberDTO;

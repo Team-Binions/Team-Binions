@@ -1,8 +1,8 @@
-package com.beanions.common.controller;
+package com.beanions.user.controller;
 
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
-import com.beanions.common.service.NoticeService;
+import com.beanions.user.service.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
