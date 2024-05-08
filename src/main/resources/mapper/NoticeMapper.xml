@@ -53,15 +53,6 @@
         ORDER BY POST_CODE
     </select>
 
-<!--    <update id="modifyPost" parameterType="com.beanions.common.dto.PostDTO">-->
-<!--        UPDATE POST-->
-<!--           SET-->
-<!--               POST_TITLE = #{ postTitle },-->
-<!--               POST_CONTEXT = #{ postContext },-->
-<!--               POST_DATE = #{ postDate }-->
-<!--         WHERE POST_CODE = #{ id }-->
-<!--    </update>-->
-
     <update id="postModify" parameterType="com.beanions.common.dto.PostDTO">
         UPDATE POST
            SET

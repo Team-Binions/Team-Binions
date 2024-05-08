@@ -36,9 +36,6 @@ public class NoticeController {
         List<PostDTO> notice = noticeService.selectNotice(id);
         model.addAttribute("notice", notice);
 
-//        PostDTO previousNotice = noticeService.getPrevNotice(id);
-//        model.addAttribute("previousNotice", previousNotice);
-
         return "user/noticeboarddetail";
     }
 
