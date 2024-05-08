@@ -28,7 +28,7 @@ public class NoticeService {
         int code = Integer.parseInt(id);
         return noticeMapper.noticeSelectOneDetail(code);
     }
-
+    
     @Transactional
     public void modifyPost(PostDTO id) {
 
