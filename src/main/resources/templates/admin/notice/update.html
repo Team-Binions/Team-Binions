@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" href="../../css/default.css"/>
+</head>
+<body>
+    <h1>공지사항 수정</h1>
+    <form action="/admin/notice/update" method="post">
+        <div th:each="notice : ${ noticeDetail }">
+            <input type="hidden" th:value="${ notice.postCode }" name="postCode">
+            <input type="text" th:value="${ notice.postTitle }"
+                   name="postTitle" style="height: 30px; width: 800px">
+            <select name="subCategory">
+                <option value="점검">점검</option>
+                <option value="공지">공지</option>
+                <option value="이벤트">이벤트</option>
+                <option value="업데이트">업데이트</option>
+            </select>
+            <textarea th:text="${ notice.postContext }"
+                      name="postContext"
+                      style="height: 400px; width: 1000px; margin-top: 10px">
+            </textarea>
+        </div>
+        <button type="button" onclick="location.href='/admin/notice'">취소</button>
+        <button type="submit">완료</button>
+    </form>
+</body>
+</html>

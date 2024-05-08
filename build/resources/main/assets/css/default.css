@@ -74,22 +74,3 @@ input::placeholder {color: var(--input-color);}
 button {background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;}
 button:hover {background-color: var(--point-color); transition: background-color 200ms ease-in-out;}
 
-/* 두번째 버튼(라인만 있는 버튼) */
-button:nth-of-type(2) {background-color:#ffffff; border:1px solid var(--main-color); color: var(--main-color);transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out;}
-button:nth-of-type(2):hover {border-color:var(--point-color); background-color: var(--point-color); color: #ffffff; transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out; }
-
-/* 세번째 버튼(비활성화 버튼) */
-button:nth-of-type(3) {background-color:#ffffff; border:1px solid var(--inactive-btn); color: var(--inactive-btn);transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
-button:nth-of-type(3):hover {border-color:var(--inactive-btn); background-color: var(--inactive-btn); color: #ffffff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
-
-/* 텍스트 참고용 */
-p:first-of-type {font-family: "Poppins", sans-serif; font-size: 14px; font-weight: var(--regular);}
-p:nth-of-type(2) {font-family: "Poppins", sans-serif; font-size: 16px; font-weight: var(--regular);}
-p:nth-of-type(3) {font-family: "Poppins", sans-serif; font-size: 18px; font-weight: var(--medium);}
-p:nth-of-type(4) {font-family: "Poppins", sans-serif; font-size: 20px; font-weight: var(--semiBold);}
-p:nth-of-type(5) {font-family: "Poppins", sans-serif; font-size: 24px; font-weight: var(--semiBold);}
-p:nth-of-type(6) {font-family: "Noto Sans KR"; font-size: 14px; font-weight: var(--regular);}
-p:nth-of-type(7) {font-family: "Noto Sans KR"; font-size: 16px; font-weight: var(--regular);}
-p:nth-of-type(8) {font-family: "Noto Sans KR"; font-size: 18px; font-weight: var(--medium);}
-p:nth-of-type(9) {font-family: "Noto Sans KR"; font-size: 20px; font-weight: var(--semiBold);}
-p:nth-of-type(10) {font-family: "Noto Sans KR"; font-size: 24px; font-weight: var(--semiBold);}
