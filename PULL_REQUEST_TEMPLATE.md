@@ -4,7 +4,6 @@ about: 풀리퀘스트
 title: "[BranchName][도메인] 변경내용"
 labels: ''
 assignees: ''
-
 ---
 
 ## #️⃣연관된 이슈
