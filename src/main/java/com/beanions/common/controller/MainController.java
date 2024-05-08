@@ -1,6 +1,5 @@
 package com.beanions.common.controller;
 
-import com.beanions.common.dto.MailDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.service.MailService;
 import com.beanions.common.service.SignupService;
@@ -21,6 +20,7 @@ import java.util.UUID;
 public class MainController {
 
     private final MailService mailService;
+    private final SignupService signupService;
 
     @GetMapping(value = {"/","/main"})
     public String main(){
