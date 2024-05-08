@@ -20,4 +20,6 @@ public class PostDTO {
     private String subCategory;
     private String verifiedStatus;
 
+
+
 }
