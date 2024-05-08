@@ -244,7 +244,7 @@ public class AdminMainController {
         return "/admin/magazine/update";
     }
 
-    @PostMapping("magazine/update")
+    @PostMapping("/magazine/update")
     public String magazineUpdate(PostDTO post, RedirectAttributes rttr) {
 
 //        System.out.println("id = " + id);

@@ -7,8 +7,9 @@
 </head>
 <body>
 <h1>게시글 수정</h1>
-<!--    <form th:action="@{/admin/post/update/{id}(id=${postDetail.postCode})}" method="post">-->
-<form action="/admin/post/update" method="post">
+<div th:replace="admin/layout.html"></div>
+<article style="margin-top: -800px; margin-left: 160px">
+    <form action="/admin/post/update" method="post">
     <div th:each="post : ${ postDetail }">
         <input type="hidden" th:value="${ post.postCode }" name="postCode">
         <h3 th:text="${ post.mainCategory }"></h3>
@@ -25,6 +26,6 @@
     <button type="button" onclick="location.href='/admin/post'">취소</button>
     <button type="submit">완료</button>
 </form>
-
+</article>
 </body>
 </html>

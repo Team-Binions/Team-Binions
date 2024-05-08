@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
 </head>
 <body>
+<div th:replace="admin/layout.html"></div>
+<article style="margin-top: -800px; margin-left: 160px">
 <h1>공지사항 등록</h1>
 <form action="/admin/notice/regist" method="post">
     <div>
@@ -29,5 +31,6 @@
         <button type="submit">등록</button>
     </div>
 </form>
+</article>
 </body>
 </html>

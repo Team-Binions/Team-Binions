@@ -1,0 +1,59 @@
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
+.search_form{
+    padding-left: 300px;
+    padding-top: 10px;
+}
+
+.search_box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 260px;
+}
+.search_input {
+    position: absolute;
+    height: 36px;
+    padding: 0 66px 0 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--hashBg-color);
+}
+.search_input::placeholder {
+    color: var(--main-color);
+}
+.clear_btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 40px;
+    background: center / contain no-repeat
+    url("../../images/common/icons_delete.svg");
+    cursor: pointer;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 200ms ease-in-out, z-index 200ms ease-in-out;
+}
+.clear_btn.active {
+    opacity: 1;
+    z-index: 1;
+}
+.search_btn {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    right: 10px;
+    background: center / contain no-repeat
+    url("../../images/common/icon_search.svg");
+    cursor: pointer;
+}
