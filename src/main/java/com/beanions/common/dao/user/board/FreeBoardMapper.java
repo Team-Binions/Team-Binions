@@ -1,4 +1,4 @@
-package com.beanions.common.dao.user;
+package com.beanions.common.dao.user.board;
 
 import com.beanions.common.dto.MainCategoryDTO;
 import com.beanions.common.dto.PostAndMemberDTO;

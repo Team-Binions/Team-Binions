@@ -20,7 +20,7 @@
     <tr th:each="yesin, i : ${ PostAndMemberDTOList }" >
         <td th:text="${ (i.size + 1)-(i.count) }"></td>
         <td>
-        <a th:text="${ yesin.postTitle }" th:href="@{/user/yesinDetail(id=${yesin.postCode})}"></a>
+        <a th:text="${ yesin.postTitle }" th:href="@{/user/board/yesinDetail(id=${yesin.postCode})}"></a>
         </td>
         <td th:text="${ yesin.member.nickname }"></td>
         <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>

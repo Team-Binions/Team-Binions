@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.beanions.common.dao.user.NoticeMapper">
+<mapper namespace="com.beanions.common.dao.user.board.NoticeMapper">
 
     <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
         <id property="postCode" column="POST_CODE"/>

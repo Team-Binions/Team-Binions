@@ -1,8 +1,8 @@
-package com.beanions.user.controller;
+package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
-import com.beanions.user.service.NoticeService;
+import com.beanions.user.service.board.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/notice")
+@RequestMapping("/user/board")
 public class NoticeController {
 
     private final NoticeService noticeService;
@@ -20,23 +20,23 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
 
-    @GetMapping("/board")
+    @GetMapping("/notice")
     public String noticeList(Model model) {
 
         List<PostAndMemberDTO> noticeList = noticeService.allNoticeList();
 
         model.addAttribute("noticeList", noticeList);
 
-        return "user/noticeboard";
+        return "user/board/noticeboard";
     }
 
-    @GetMapping( "/board/detail")
+    @GetMapping( "/notice/detail")
     public String noticeDetail(@RequestParam("id") String id, Model model) {
 
         List<PostDTO> notice = noticeService.selectNotice(id);
         model.addAttribute("notice", notice);
 
-        return "user/noticeboarddetail";
+        return "user/board/noticeboarddetail";
     }
 
     @GetMapping("/modify")
@@ -48,7 +48,7 @@ public class NoticeController {
 
         System.out.println(modify);
 
-        return "user/modify";
+        return "user/board/modify";
     }
 
     @PostMapping("/modify")
@@ -57,6 +57,6 @@ public class NoticeController {
        noticeService.modifyPost(postDTO);
         rttr.addFlashAttribute("successMessage", "수정 성공..");
 
-        return "redirect:/notice/board";
+        return "redirect:/notice/board/board";
     }
 }

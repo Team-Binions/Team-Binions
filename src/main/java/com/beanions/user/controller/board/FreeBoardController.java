@@ -1,21 +1,19 @@
-package com.beanions.user.controller;
+package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.MainCategoryDTO;
-import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.SearchDTO;
-import com.beanions.user.service.FreeBoardService;
+import com.beanions.user.service.board.FreeBoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/board")
 public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
@@ -36,7 +34,7 @@ public class FreeBoardController {
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
 
-        return "user/yesinList";
+        return "user/board/yesinList";
 
     }
 
@@ -46,7 +44,7 @@ public class FreeBoardController {
 
         model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
 
-        return "user/yesinDetail";
+        return "user/board/yesinDetail";
     }
 
     @GetMapping("/postRegist")
@@ -66,6 +64,6 @@ public class FreeBoardController {
 
         rttr.addFlashAttribute("successMessage", "신규등록에 성공하였습니다.");
 
-        return "redirect:/user/yesin";
+        return "redirect:/user/board/yesin";
     }
 }
