@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<h1>매거진 관리</h1>
+<div>
+    <input type="text">
+    <button type="submit">검색</button>
+    <button onclick="location.href='/admin/magazine/regist'">등록</button>
+</div>
+<table align="center">
+    <tr>
+        <th>번호</th>
+        <th>시리즈</th>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>작성일</th>
+        <th>관리</th>
+    </tr>
+    <tr th:each="magazine, i : ${ magazineList }">
+        <td th:text="${ i.index + 1 }"></td>
+        <td th:text="${ magazine.subCategory }"></td>
+        <td th:text="${ magazine.member.nickname }"></td>
+        <td>
+            <a th:text="${ magazine.postTitle }" th:href="@{ /admin/magazine/detail(id=${ magazine.postCode })}"></a>
+        </td>
+        <td th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }"></td>
+        <td>
+            <button type="button" th:onclick="|location.href='@{/admin/magazine/update(id=${magazine.postCode})}'|">수정</button>
+            <form th:action="@{/admin/magazine/delete(id=${ magazine.postCode })}" method="post">
+                <button type="submit">삭제</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

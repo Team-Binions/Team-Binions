@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+</head>
+<body>
+<h1>매거진 상세 정보</h1>
+<div th:each="magazine : ${ magazineDetail }">
+    <div>
+        <h3 th:text="${ magazine.subCategory }"></h3>
+    </div>
+    <h2 th:text="${ magazine.postTitle }"></h2>
+    <h3 th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }"></h3>
+    <p th:text="${ magazine.postContext }"></p>
+    <button onclick="location.href='/admin/magazine'">목록</button>
+    <button type="button" th:onclick="|location.href='@{/admin/magazine/update(id=${magazine.postCode})}'|">수정</button>
+    <form th:action="@{/admin/magazine/delete(id=${ magazine.postCode })}" method="post">
+        <button type="submit">삭제</button>
+    </form>
+</div>
+</body>
+</html>
