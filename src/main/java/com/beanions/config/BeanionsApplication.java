@@ -1,5 +1,6 @@
 package com.beanions.config;
 
+
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

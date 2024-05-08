@@ -7,6 +7,7 @@ import com.beanions.common.dto.MembersDTO;
 >>>>>>> parent of 6143ba6 (cache conflict resolve)
 import com.beanions.common.service.MailService;
 import lombok.AllArgsConstructor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class MainController {
 
     @GetMapping(value = {"/","/main"})
     public String main(){
-        return "user/userMain";
+        return "user/main";
     }
 
     @GetMapping("/signup")

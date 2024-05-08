@@ -1,15 +1,14 @@
 package com.beanions.common.dto;
-
 import lombok.*;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @ToString
-public class PostDTO {
+@Setter
+@Getter
+public class PostAndMemberDTO {
 
     private int postCode;
     private int memberCode;
@@ -19,7 +18,6 @@ public class PostDTO {
     private String mainCategory;
     private String subCategory;
     private String verifiedStatus;
-
-
+    private MembersDTO member;
 
 }
