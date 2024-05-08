@@ -19,7 +19,7 @@ public class MainController {
 
     @GetMapping(value = {"/","/main"})
     public String main(){
-        return "user/userMain";
+        return "user/main";
     }
 
     @GetMapping("/signup")
