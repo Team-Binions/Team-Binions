@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/beanions.iml" filepath="$PROJECT_DIR$/.idea/modules/beanions.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/beanions.main.iml" filepath="$PROJECT_DIR$/.idea/modules/beanions.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/beanions.test.iml" filepath="$PROJECT_DIR$/.idea/modules/beanions.test.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,25 @@
+Index: src/main/java/com/beanions/common/dto/MembersDTO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.beanions.common.dto;\r\n\r\nimport com.beanions.common.MemberRole;\r\nimport lombok.*;\r\n\r\nimport java.util.Date;\r\n\r\n@NoArgsConstructor\r\n@AllArgsConstructor\r\n@Getter\r\n@Setter\r\n@ToString\r\npublic class MembersDTO {\r\n\r\n    private Integer memberCode;\r\n    private String memberId;\r\n    private String memberPw;\r\n    private String nickname;\r\n    private String email;\r\n    private String phone;\r\n    private String gender;\r\n    private String marriedStatus;\r\n//    private MemberRole memberRole;\r\n    private String memberRole;\r\n    private Boolean weddingVerified;\r\n    private Date signupDate;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/beanions/common/dto/MembersDTO.java b/src/main/java/com/beanions/common/dto/MembersDTO.java
+--- a/src/main/java/com/beanions/common/dto/MembersDTO.java	
++++ b/src/main/java/com/beanions/common/dto/MembersDTO.java	
+@@ -12,7 +12,7 @@
+ @ToString
+ public class MembersDTO {
+ 
+-    private Integer memberCode;
++    private int memberCode;
+     private String memberId;
+     private String memberPw;
+     private String nickname;
+@@ -24,5 +24,4 @@
+     private String memberRole;
+     private Boolean weddingVerified;
+     private Date signupDate;
+-
+ }

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a47facc1-d8e3-412a-a55f-7243b766e58d" name="Changes" comment="# 중간 브랜치 Merge to develop&#10;&#10;##" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="beanions" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/signup" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;cwul94&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="5644d569-abd3-4791-89f3-54f91c8090c3" />
+        <option name="url" value="https://github.com/Team-Binions/Team-Binions.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2ftG4HBY282gqKjrGZFQakErelW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Gradle.Build Team-Beanions.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BeanionsApplication.executor": "Run",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Lecture/Team-Beanions",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Lecture\Team-Beanions\src\main\java\com\beanions\config\handler" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\images\upload\admin" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\images\main" />
+      <recent name="C:\Lecture\Team-Binions" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\css\user" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\images\upload\user" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\images\main" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\templates\user" />
+      <recent name="C:\Lecture\Team-Beanions\src\main\resources\assets\images\upload\review" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.beanions.auth.model" />
+      <recent name="com.beanions.auth.model.service" />
+      <recent name="com.beanions.user.controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Team-Binions" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Team-Binions" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BeanionsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="beanions.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.beanions.config.BeanionsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-temurin-17.0.10-4caba194b151-b3785831" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a47facc1-d8e3-412a-a55f-7243b766e58d" name="Changes" comment="" />
+      <created>1714612768262</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714612768262</updated>
+      <workItem from="1714612769510" duration="208000" />
+      <workItem from="1714613038907" duration="1594000" />
+      <workItem from="1714614650664" duration="991000" />
+      <workItem from="1714615669511" duration="23543000" />
+      <workItem from="1715041679468" duration="29548000" />
+      <workItem from="1715128110571" duration="7042000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1714621623741</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714621623741</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add branch -develop">
+      <option name="closed" value="true" />
+      <created>1714621934738</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714621934738</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add branch -develop">
+      <option name="closed" value="true" />
+      <created>1714622093468</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714622093468</updated>
+    </task>
+    <task id="LOCAL-00004" summary="configDTO + lombok dependency 추가">
+      <option name="closed" value="true" />
+      <created>1714627663896</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714627663896</updated>
+    </task>
+    <task id="LOCAL-00005" summary="클래스명 변경&#10;&#10;회원가입 메일 발송 기능 추가">
+      <option name="closed" value="true" />
+      <created>1714639555526</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714639555526</updated>
+    </task>
+    <task id="LOCAL-00006" summary="merge test">
+      <option name="closed" value="true" />
+      <created>1714641024101</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714641024101</updated>
+    </task>
+    <task id="LOCAL-00007" summary="# MERGE TO MY FEATURE BRANCH">
+      <option name="closed" value="true" />
+      <created>1715077906170</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715077906170</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="add branch -develop" />
+    <MESSAGE value="configDTO + dependency injection" />
+    <MESSAGE value="configDTO + lombok dependency 추가" />
+    <MESSAGE value="클래스명 변경&#10;&#10;회원가입 메일 발송 기능 추가" />
+    <MESSAGE value="merge test" />
+    <MESSAGE value="# MERGE TO MY FEATURE BRANCH" />
+    <option name="LAST_COMMIT_MESSAGE" value="# MERGE TO MY FEATURE BRANCH" />
+  </component>
+</project>
