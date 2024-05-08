@@ -66,4 +66,6 @@ public class FreeBoardController {
 
         return "redirect:/user/board/yesin";
     }
+
+//    dddd
 }
