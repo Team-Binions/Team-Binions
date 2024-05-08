@@ -1,5 +1,5 @@
 /* CSS DEFAULT 설정 */
-*{margin: 0; padding: 0; box-sizing: border-box; color: #2A2A2A;}
+*{margin: 0; padding: 0; box-sizing: border-box; color: #2A2A2A; font-family: 'Noto Sans KR';}
 h1, h2, h3, h4, h5, h6, p {margin:0; padding:0;}
 header, footer, div, section, aside, main {margin:0; padding:0;}
 ul, ol, li {list-style: none;}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/user/main.css}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <title>YESINYERANG</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- HEADER -->
+        <div class="header_box">
+            <header>
+                <a href="#" class="logo">
+                    <img src="./images/common/logo.svg" alt="YESINYERANG logo">
+                </a>
+                <nav>
+                    <ul class="header_gnb">
+                        <li>
+                            <a href="#">예피셜</a>
+                            <ul class="sub_menu">
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">매거진</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">예수다</a>
+                            <ul class="sub_menu">
+                                <li><a href="#">예신</a></li>
+                                <li><a href="#">예랑</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">예리뷰</a></li>
+                    </ul>
+                    <ul class="right_menu">
+                        <li><a href="#">글쓰기</a></li>
+                        <li><a href="#">로그인</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <!-- //HEADER -->
+
+        <!-- main contents -->
+        <div class="main_cont">
+            <div class="banner_box">
+                <img src="./images/common/logo.svg" alt="banner image">
+            </div>
+            <!-- // banner -->
+
+            <!-- 검색 -->
+            <div class="search_box">
+                <p>어떤 글을 찾고 계세요?</p>
+                <div class="search_bar">
+                    <input type="search" placeholder="검색어를 입력하세요">
+                    <button>검색</button>
+                </div>
+                <ul>
+                    <li><a href="#">#웨딩홀</a></li>
+                    <li><a href="#">#스드메</a></li>
+                    <li><a href="#">#드레스</a></li>
+                    <li><a href="#">#예복</a></li>
+                    <li><a href="#">#반지</a></li>
+                    <li><a href="#">#시댁</a></li>
+                </ul>
+            </div>
+            <!-- // search -->
+
+            <!-- 예수다 -->
+            <div class="board_cont">
+                <p class="sec_tit">예수다</p>
+                <div class="board_inner_box">
+                    <div class="board_list_box">
+                        <ul>
+                            <li><a href="#">예신수다</a></li>
+                            <li><a href="#">더보기</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+                            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+                            <li><a href="#">결혼이 다 이런건가요? 정말 울고 싶어요 ㅠㅠㅠㅠㅠㅠ</a></li>
+                            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+                            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+                            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+                        </ul>
+                    </div>
+                    <div class="board_list_box">
+                        <ul>
+                            <li><a href="#">예랑수다</a></li>
+                            <li><a href="#">더보기</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">여친이 갑자기 파혼하자고 합니다....</a></li>
+                            <li><a href="#">답정너인 예신이 대처법</a></li>
+                            <li><a href="#">결혼이 다 이런건가요? 정말 울고 싶어요 ㅠㅠㅠㅠㅠㅠ</a></li>
+                            <li><a href="#">장모님이 저에게 자꾸 집에 대한 부담을 주십니다</a></li>
+                            <li><a href="#">플래너가 이상합니다.</a></li>
+                            <li><a href="#">프로포즈 다들 어떻게 하세요? 예산 궁금합니다.</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- // board_cont -->
+
+            <!-- 예리뷰 -->
+            <div class="review_cont">
+                <p class="sec_tit">예리뷰</p>
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">Slide 1</div>
+                        <div class="swiper-slide">Slide 2</div>
+                        <div class="swiper-slide">Slide 3</div>
+                    </div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <!-- //review_cont -->
+
+            <!-- 예피셜&공지사항 -->
+            <div class="magazine_notice_cont">
+                <div class="magazine_cont">
+                    <p class="sec_tit">예피셜</p>
+                    <div class="magazine_box">
+                        <img src="./images/common/logo.svg" alt="magazine image">
+                        <div class="magazine_text">
+                            <p class="magazine_no"><span class="eng">no 17</span> | 웨딩</p>
+                            <p class="magazine_tit">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
+                            <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
+                            <p class="magazine_contxt">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이 있을까요?<br>
+
+                                우리의 결혼식, 그 날은 우리의 사랑과 약속을 공식화하는 특별한 순간입니다. 이 특별한 여정을 함께 나누고, 더욱 특별하게 만들어줄 비밀들을 함께 살펴보도록 하죠.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="notice_cont">
+                    <p class="sec_tit">공지사항</p>
+                    <div class="notice_box">
+                        <ul>
+                            <li><a href="#"><span class="notice_tag red">긴급</span>서버점검 및 업데이트로 인한 서비스 이용 제한</a></li>
+                            <li><a href="#"><span class="notice_tag event">이벤트</span>신규 회원 게시글 작성 포인트 더블 적립</a></li>
+                            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 게시판 관련 이용 가이드</a></li>
+                            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 포인트 관련 이용 가이드</a></li>
+                            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 스케쥴 관련 이용 가이드</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- //magazine_notice_cont -->
+
+            <!-- contact -->
+            <div class="contact_cont">
+                <p class="sec_tit eng">CONTACT</p>
+                <div class="contact_box">
+                    <div class="contact_inner_box">
+                        <div class="contact_input">
+                            <p>문의사항 있으세요?</p>
+                            <input type="text" placeholder="이메일 주소를 입력해주세요">
+                            <textarea name="" placeholder="문의 내용을 입력해주세요"></textarea>
+                            <button>문의하기</button>
+                        </div>
+                        <div class="contact_img">
+                            <img src="./images/common/logo.svg" alt="contact image">
+                            <p><span><img src="" alt=""></span>beanions-cs@beanions.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //contact_cont -->
+        </div>
+        <!-- // main contents -->
+
+        <!-- FOOTER -->
+        <div class="footer_box">
+            <footer>
+                <div class="left_side">
+                    <a href="#" class="logo">
+                        <img src="./images/common/logo.svg" alt="YESINYERANG logo">
+                    </a>
+                    <div class="footer_menu">
+                        <ul>
+                            <li><a href="#">ABOUT US</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                            <li><a href="#">약관정책</a></li>
+                        </ul>
+                        <p>BEANIONS&copy;ALL RIGHTS RESERVED.</p>
+                    </div>
+                </div>
+                <ul class="sns_list">
+                    <li><a href="#"><img src="./images/common/icon-facebook.svg" alt=""></a></li>
+                    <li><a href="#"><img src="./images/common/icon-instagram.svg" alt=""></a></li>
+                    <li><a href="#"><img src="./images/common/icon-twitter.svg" alt=""></a></li>
+                </ul>
+            </footer>
+        </div>
+        <!-- //FOOTER -->
+    </div>
+    <script>
+        //header sub menu 활성화
+        const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+        const subMenu = document.querySelectorAll('.sub_menu');
+        gnbMenu.forEach(gnbmenu => {
+            gnbmenu.addEventListener('mouseover', (e) => {
+                e.currentTarget.nextElementSibling.classList.add("active");
+            })
+            gnbmenu.addEventListener('mouseout', (e) => {
+                e.currentTarget.nextElementSibling.classList.remove("active");
+            })
+        });
+
+        subMenu.forEach(submenu => {
+            submenu.addEventListener('mouseover', (e) => {
+                e.currentTarget.classList.add("active");
+            })
+            submenu.addEventListener('mouseout', (e) => {
+                e.currentTarget.classList.remove("active");
+            })
+        })
+
+        // 예리뷰 슬라이드
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+<!--    <script src="./js/common.js"></script>-->
+<!--    <script src="./js/main.js"></script>-->
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.beanions.common.dto.MailDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.service.MailService;
 import lombok.AllArgsConstructor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,7 @@ public class MainController {
 
     @GetMapping(value = {"/","/main"})
     public String main(){
-        return "user/userMain";
+        return "user/main";
     }
 
     @GetMapping("/signup")
