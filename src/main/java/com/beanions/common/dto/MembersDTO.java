@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class MembersDTO {
 
-    private int memberCode;
+    private Integer memberCode;
     private String memberId;
     private String memberPw;
     private String nickname;
