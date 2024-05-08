@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.beanions")
-@MapperScan(basePackages = "com.beanions")
+@MapperScan("com.beanions")
 public class BeanionsApplication {
 
     public static void main(String[] args) {
