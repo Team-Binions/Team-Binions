@@ -12,7 +12,7 @@
     </script>
 </head>
 <body>
-<!--    <div th:replace="admin/layout.html"></div>-->
+<!--    <div th:replace="/admin/layout.html"></div>-->
     <h1>게시판 관리</h1>
     <div>
         <input type="text">
@@ -57,31 +57,31 @@
 <button>버튼</button>
 
 <!--<th:block layout:fragment="script">-->
-    <script>
-        /*<![CDATA[*/
+<!--    <script>-->
+<!--        /*<![CDATA[*/-->
 
-        // 게시글 삭제
-        function deletePost() {
-            const id = [[ ${post.postCode} ]];
+<!--        // 게시글 삭제-->
+<!--        function deletePost() {-->
+<!--            const id = [[ ${post.postCode} ]];-->
 
-            if ( !confirm(postCode + '번 게시글을 삭제할까요?') ) {
-                return false;
-            }
+<!--            if ( !confirm(postCode + '번 게시글을 삭제할까요?') ) {-->
+<!--                return false;-->
+<!--            }-->
 
-            const formHtml = `
-                    <form id="deleteForm" action="/admin/post" method="post">
-                        <input type="hidden" id="postCode" name="id" value="${id}" />
-                    </form>
-                `;
-            const doc = new DOMParser().parseFromString(formHtml, 'text/html');
-            const form = doc.body.firstChild;
-            document.body.append(form);
-            document.getElementById('deleteForm').submit();
-        }
+<!--            const formHtml = `-->
+<!--                    <form id="deleteForm" action="/admin/post" method="post">-->
+<!--                        <input type="hidden" id="postCode" name="id" value="${id}" />-->
+<!--                    </form>-->
+<!--                `;-->
+<!--            const doc = new DOMParser().parseFromString(formHtml, 'text/html');-->
+<!--            const form = doc.body.firstChild;-->
+<!--            document.body.append(form);-->
+<!--            document.getElementById('deleteForm').submit();-->
+<!--        }-->
 
-        /*]]>*/
+<!--        /*]]>*/-->
 
-    </script>
+<!--    </script>-->
 <!--</th:block>-->
 </body>
 </html>
