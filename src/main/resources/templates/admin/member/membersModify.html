@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/membersCss.css}"/>
+
+</head>
+<body>
+<div class="membersDisplay">
+<h3>회원 상세 정보</h3>
+    
+<div>
+    <p class="memberModifyBox">게시글 수</p>
+    <p class="memberModifyBox">댓글 수</p>
+    <p class="memberModifyBox">보유 포인트</p>
+</div>
+    <ul>
+        <li>아이디</li>
+        <li>닉네임</li>
+        <li>성별</li>
+        <li>이메일</li>
+        <li>전화번호</li>
+        <li>기혼 여부</li>
+        <li>웨딩홀 인증</li>
+    </ul>
+    <hr class="hr">
+
+
+    <form action="/admin/member/membersModify" method="post">
+        <input type="text" name="nickname">
+
+        <a href="/admin/member/membersList">목록</a>
+        <button>수정</button>
+    </form>
+</div>
+
+</body>
+</html>

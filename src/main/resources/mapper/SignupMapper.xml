@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beanions.common.dao.admin.AdminMapper">
-
-    <resultMap id="membersResultMap" type="com.beanions.common.dto.MembersDTO">
+<mapper namespace="com.beanions.common.dao.signup.SignupMapper">
+    <resultMap id="memberInfo" type="com.beanions.common.dto.MembersDTO">
         <id property="memberCode" column="MEMBER_CODE"/>
         <result property="memberId" column="MEMBER_ID"/>
         <result property="memberPw" column="MEMBER_PW"/>
@@ -17,25 +16,19 @@
         <result property="weddingVerified" column="WEDD_VEF"/>
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
-
-    <select id="membersAllList" resultMap="membersResultMap">
+    <select id="checkDupId">
         SELECT
-            MEMBER_CODE
-        ,   MEMBER_ID
-        ,   MEMBER_PW
-        ,   NICKNAME
-        ,   EMAIL
-        ,   PHONE
-        ,   GENDER
-        ,   MARRIED_STATUS
-        ,   MEMBER_ROLE
-        ,   SIGNUP_DATE
-        FROM MEMBERS
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   MEMBER_ID = #{id}
     </select>
 
-    <update id="modifyOneMember" parameterType="com.beanions.common.dto.MembersDTO">
-        UPDATE MEMBERS
-        SET   NICKNAME = #{ nickname }
-    </update>
-
+    <select id="checkDupNkname">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   NICKNAME = #{nkname}
+    </select>
 </mapper>
