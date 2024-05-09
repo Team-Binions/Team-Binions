@@ -15,26 +15,30 @@
 <body>
 <!--<div th:replace="common/header.html"></div>-->
 
-<h3>예신 수다방</h3>
-<input type="text" name="search">
-<table>
-    <tr>
-        <th>No</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>작성시간</th>
-    </tr>
-    <tr th:each="yesin, i : ${ PostAndMemberDTOList }" >
-        <td th:text="${ (i.size + 1)-(i.count) }"></td>
-        <td>
-        <a th:text="${ yesin.postTitle }" th:href="@{/user/board/yesinDetail(id=${yesin.postCode})}"></a>
-        </td>
-        <td th:text="${ yesin.member.nickname }"></td>
-        <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
-    </tr>
+    <div th:each="yesin: ${ PostAndMemberDTOList }">
+        <h1 th:text="|${yesin.subCategory}수다방|"></h1>
+    </div>
 
-    <button type="button" th:onclick="|location.href='@{/user/postRegist}'|">글쓰기</button>
-</table>
+    <input type="text" name="search">
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>작성시간</th>
+        </tr>
+        <tr th:each="yesin, i : ${ PostAndMemberDTOList }" >
+            <td th:text="${ (i.size + 1)-(i.count) }"></td>
+            <td>
+            <a th:text="${ yesin.postTitle }" th:href="@{/user/board/yesinDetail(id=${yesin.postCode})}"></a>
+            </td>
+            <td th:text="${ yesin.member.nickname }"></td>
+            <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
+        </tr>
+
+        <button type="button" th:onclick="|location.href='@{/user/postRegist}'|">글쓰기</button>
+    </table>
     <div class="paging">
         <script th:inline="javascript">
             window.onload = () => {
