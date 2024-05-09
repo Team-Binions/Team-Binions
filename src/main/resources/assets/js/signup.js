@@ -135,7 +135,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             });
-            $("#pwdTxt").text("✅ 사용가능한 비밀번호입니다");
+            $("#pwdTxt").text("✔️ 사용 가능한 비밀번호입니다");
             totalConfirm.pwdconfirmchk = true;
         }
     })
@@ -288,7 +288,7 @@ $(document).ready(function () {
                 "font-size" : "10px"
             });
         } else {
-            $('#phoneTxt').html("<span id='phoneSpanTxt'>사용가능한 번호입니다.</span>")
+            $('#phoneTxt').html("<span id='phoneSpanTxt'>✔️ 사용 가능한 번호입니다.</span>")
             $('#phoneSpanTxt').css({
                 "padding-left" : "145px",
                 "color" : "#6667AB",
@@ -421,7 +421,7 @@ function chkDupIdConfirm(data, $idTxt){
     } else {
         totalConfirm.idconfirmchk = true;
         $('#memberid').prop('disabled',true);
-        $idTxt.html("<span id='idconfirmchk'>사용 가능한 아이디입니다</span>")
+        $idTxt.html("<span id='idconfirmchk'>✔️ 사용 가능한 아이디입니다</span>")
         $("#idconfirmchk").css({
             "padding-left" : "145px",
             "color" : "#6667AB",
@@ -444,7 +444,7 @@ function chkDupNknConfirm(data, $nicknameTxt){
         })
     } else {
         totalConfirm.nknconfirmchk = true;
-        $nicknameTxt.html("<span id='nknconfirmchk'>사용 가능한 별명입니다</span>")
+        $nicknameTxt.html("<span id='nknconfirmchk'>✔️ 사용 가능한 별명입니다</span>")
 
         $("#nknconfirmchk").css({
             "padding-left" : "145px",
@@ -469,7 +469,7 @@ function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
             })
         } else {
             totalConfirm.emconfirmchk = true;
-            $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+            $memailconfirmTxt.html("<span id='emconfirmchk'>✔️ 인증번호 확인 완료</span>")
 
             $("#emconfirmchk").css({
                 "padding-left" : "145px",
