@@ -2,6 +2,7 @@ package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.MainCategoryDTO;
 import com.beanions.common.dto.PostAndMemberDTO;
+import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.user.service.board.FreeBoardService;
 import org.springframework.stereotype.Controller;
@@ -58,14 +59,14 @@ public class FreeBoardController {
     }
     @PostMapping("/postRegist")
 
-    public String postRegist(PostAndMemberDTO newPost, RedirectAttributes rttr){
+    public String postRegist(PostDTO newPost, RedirectAttributes rttr){
 
         freeBoardService.postRegist(newPost);
 
-        rttr.addFlashAttribute("successMessage", "신규등록에 성공하였습니다.");
+        rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
-        return "redirect:/user/board/yesin";
+        return "redirect:/user/board/yesinList";
     }
 
-//    dddd
+
 }

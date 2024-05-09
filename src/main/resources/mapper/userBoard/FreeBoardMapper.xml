@@ -68,5 +68,26 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
     </select>
-
+    <insert id="postRegist" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , VEF_STATUS
+        )
+        VALUES
+        (
+         #{ memberCode }
+        , #{ postTitle }
+        , #{ postContext }
+        , #{ mainCategory }
+        , #{ subCategory }
+        , DATE_FORMAT(now(), '%y/%m/%d')
+        , NULL
+        )
+    </insert>
 </mapper>

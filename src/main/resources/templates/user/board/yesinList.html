@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>예신 수다방 조회</title>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if(successMessage){
+            alert(successMessage)
+        }
+    </script>
 </head>
 <body>
 <!--<div th:replace="common/header.html"></div>-->
@@ -26,7 +32,7 @@
         <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
 
-    <button type="button" th:onclick="|location.href='@{/user/postRegist}'|">글쓰기</button>
+    <button type="button" th:onclick="|location.href='@{/user/board/postRegist}'|">글쓰기</button>
 </table>
     <div class="paging">
         <script th:inline="javascript">

@@ -1,9 +1,7 @@
 package com.beanions.common.dao.user.board;
 
-import com.beanions.common.dto.MainCategoryDTO;
+import com.beanions.common.dto.*;
 import com.beanions.common.dto.PostAndMemberDTO;
-import com.beanions.common.dto.PostAndMemberDTO;
-import com.beanions.common.dto.SearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +15,7 @@ public interface FreeBoardMapper {
 
     List<PostAndMemberDTO> yesinDetail(String id);
 
-    void postRegist(PostAndMemberDTO newPost);
+    void postRegist(PostDTO newPost);
 
     List<MainCategoryDTO> findMainCategory();
 }
