@@ -22,4 +22,10 @@ public class MyPageService {
   public List<MyPageDTO> selectMyPageMainData() {
     return myPageMapper.selectMyPageMainData();
   }
+
+  public List<MyPageDTO> selectMyPageReviewData() { return myPageMapper.selectMyPageReviewData();}
+
+  public List<MyPageDTO> selectMyPageFreeData() { return myPageMapper.selectMyPageFreeData();}
+
+  public List<MyPageDTO> selectMyPageCommentData() {return myPageMapper.selectMyPageCommentData();}
 }

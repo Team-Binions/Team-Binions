@@ -3,6 +3,8 @@ package com.beanions.common.dto;
 public class MyPageDTO {
   private String nickname;
   private int postCount;
+  private int reviewCount;
+  private int freeCount;
   private int commentCount;
   private int totalCount;
   private int scheduleCount;
@@ -13,6 +15,20 @@ public class MyPageDTO {
   private SchedulesDTO schedules;
 
   public MyPageDTO(){}
+
+  public MyPageDTO(String nickname, int postCount, int reviewCount, int freeCount, int commentCount, int totalCount, int scheduleCount, MembersDTO members, PostDTO posts, CommentsDTO comments, SchedulesDTO schedules) {
+    this.nickname = nickname;
+    this.postCount = postCount;
+    this.reviewCount = reviewCount;
+    this.freeCount = freeCount;
+    this.commentCount = commentCount;
+    this.totalCount = totalCount;
+    this.scheduleCount = scheduleCount;
+    this.members = members;
+    this.posts = posts;
+    this.comments = comments;
+    this.schedules = schedules;
+  }
 
   public String getNickname() {
     return nickname;
@@ -28,6 +44,22 @@ public class MyPageDTO {
 
   public void setPostCount(int postCount) {
     this.postCount = postCount;
+  }
+
+  public int getReviewCount() {
+    return reviewCount;
+  }
+
+  public void setReviewCount(int reviewCount) {
+    this.reviewCount = reviewCount;
+  }
+
+  public int getFreeCount() {
+    return freeCount;
+  }
+
+  public void setFreeCount(int freeCount) {
+    this.freeCount = freeCount;
   }
 
   public int getCommentCount() {
@@ -91,6 +123,8 @@ public class MyPageDTO {
     return "MyPageDTO{" +
             "nickname='" + nickname + '\'' +
             ", postCount=" + postCount +
+            ", reviewCount=" + reviewCount +
+            ", freeCount=" + freeCount +
             ", commentCount=" + commentCount +
             ", totalCount=" + totalCount +
             ", scheduleCount=" + scheduleCount +

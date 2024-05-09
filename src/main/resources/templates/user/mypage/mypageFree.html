@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+    <title>MYPAGE</title>
+</head>
+<body>
+<div class="wrapper">
+    <!-- HEADER -->
+    <div th:replace="user/layout/header.html"></div>
+    <!-- //HEADER -->
+
+    <div class="mypage_cont">
+        <p class="page_tit">마이 페이지 > 예수다</p>
+
+        <!-- profile -->
+        <div class="profile_box">
+            <div class="profile_img">
+                <!-- <img src="" alt=""> -->
+                <!-- <input type="file" class="profile_img_upload"> -->
+            </div>
+            <div class="profile_txt">
+                <p class="profile_name"><span th:text="${userMypageFreeData.nickname}"></span>님</p>
+                <p class="total_posts_count">총 게시글 <span class="eng" th:text="${userMypageFreeData.totalCount}"></span></p>
+            </div>
+        </div>
+
+        <!-- sidebar & contents -->
+        <div class="contents_cont">
+            <div class="sidebar mypage">
+                <ul>
+                    <li><a href="#">나의 글</a></li>
+                    <li><a href="/user/mypage/review">예리뷰</a></li>
+                    <li class="active"><a href="/user/mypage/free">예수다</a></li>
+                    <li><a href="/user/mypage/comment">댓글</a></li>
+                    <li><a href="#">스케쥴</a></li>
+                    <!-- <li><a href="#">포인트</a></li> -->
+                    <li><a href="#">회원 정보 수정</a></li>
+                </ul>
+            </div>
+
+            <div class="mypage_contents">
+                <!-- null - 등록한 게시글 없는 경우 -->
+                <div class="null_txt" th:if="${userMypageFreeData.freeCount} == 0">
+                    <p>아직 등록한 글이 없어요.</p>
+                    <p>지금 바로 글을 작성하셔서<br>
+                        예쓰니가 되어주세요!</p>
+                </div>
+
+                <!-- 등록한 게시글이 있는 경우 -->
+                <div class="top_sec" th:unless="${userMypageFreeData.freeCount} == 0">
+                    <p class="table_tit">예수다 게시글<span class="posts_count eng" th:text="${userMypageFreeData.freeCount}"></span></p>
+                    <form class="search_form">
+                        <div class="search_box">
+                            <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+                            <span class="clear_btn"></span>
+                            <span class="search_btn"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="table_box" th:unless="${userMypageFreeData.freeCount} == 0">
+                    <table class="review_table">
+                        <thead>
+                        <tr>
+                            <th class="eng">NO</th>
+                            <th>제목</th>
+                            <th>조회수</th>
+                            <th>분류</th>
+                            <th>작성일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="free : ${userMypageFreeData.posts}">
+                            <td class="eng">1</td>
+                            <td th:text="${free.postTitle}"></td>
+                            <td class="eng">0</td>
+                            <td th:text="${free.subCategory}"></td>
+                            <td class="eng" th:text="${#dates.format(free.postDate, 'yyyy.MM.dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="user/layout/footer.html"></div>
+    <!-- //FOOTER -->
+</div>
+<!-- <script src="./js/common.js"></script> -->
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector('.clear_btn');
+    clearBtn.addEventListener('click', (e) => {
+        e.currentTarget.parentNode.querySelector('.search_input').value = null;
+        clearBtn.classList.remove("active");
+    })
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector('.search_input');
+    searchInput.addEventListener('input', (e) => {
+        if (e.currentTarget.value.length > 0) {
+            clearBtn.classList.add("active");
+        } else if (e.currentTarget.value.length <= 0) {
+            clearBtn.classList.remove("active");
+        }
+    })
+
+
+</script>
+</body>
+</html>

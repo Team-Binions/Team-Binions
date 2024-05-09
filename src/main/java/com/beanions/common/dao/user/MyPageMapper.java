@@ -10,4 +10,10 @@ public interface MyPageMapper {
   List<MyPageDTO> selectAllMyPageData();
 
   List<MyPageDTO> selectMyPageMainData();
+
+  List<MyPageDTO> selectMyPageReviewData();
+
+  List<MyPageDTO> selectMyPageFreeData();
+
+  List<MyPageDTO> selectMyPageCommentData();
 }

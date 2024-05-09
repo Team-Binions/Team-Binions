@@ -43,3 +43,11 @@
 .review_table tbody td {padding:8px 0; border-bottom: 1px solid var(--text-color); text-align: center; font-size: 16px; font-weight: var(--regular);}
 .review_table tbody tr:hover {background-color: var(--hashBg-color);}
 .review_table tbody td:nth-child(3) td {white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+
+/* summary */
+.summary_mypage {display: flex; justify-content: space-between; align-items: center;}
+.summary_mypage > li {width: calc((100% - 40px) / 3);}
+.summary_mypage > li > a {display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 20px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; border-radius:12px; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out, color 200ms ease-in-out;border: 1px solid var(--inactive-input-bg);}
+.summary_mypage > li > a:hover {color: #fff; background-color: var(--point-color);}
+.summary_mypage > li > a > span{transition: color 200ms ease-in-out;}
+.summary_mypage > li > a:hover > span{color: #fff;}
