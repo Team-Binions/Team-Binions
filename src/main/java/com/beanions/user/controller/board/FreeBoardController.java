@@ -5,6 +5,7 @@ import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.user.service.board.FreeBoardService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,17 @@ public class FreeBoardController {
 
     @PostMapping("/postRegist")
 
-    public String postRegist(PostDTO postDTO, RedirectAttributes rttr){
+    public String postRegist(PostDTO postDTO, RedirectAttributes rttr, HttpSession session){
+
+//        Integer memberCode = (Integer) session.getAttribute("memberCode");
+//
+//        if (memberCode != null) {
+//            postDTO.setMemberCode(memberCode);
+//            freeBoardService.postRegist(postDTO);
+//            rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
+//        } else {
+//            rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
+//        }
 
         freeBoardService.postRegist(postDTO);
 
