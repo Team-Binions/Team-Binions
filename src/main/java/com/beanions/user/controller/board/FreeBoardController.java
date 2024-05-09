@@ -67,10 +67,11 @@ public class FreeBoardController {
 
         if (postDTO.getSubCategory().equals("예신")){
             return "redirect:/user/board/yesinList";
-        }else {
+        } else {
             return "redirect:/user/board/yesinList";
         }
     }
+
     @GetMapping("/modify")
     public String modifyPost(@RequestParam("id") String id, Model model){
 

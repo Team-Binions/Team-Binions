@@ -71,6 +71,7 @@
     <insert id="postRegist" parameterType="com.beanions.common.dto.PostDTO">
         INSERT INTO POST
         (
+        MEMBER_CODE
         , POST_TITLE
         , POST_CONTEXT
         , MAIN_CATEGORY
@@ -80,10 +81,11 @@
         )
         VALUES
         (
-        , #{ postTitle }
-        , #{ postContext }
-        , #{ mainCategory }
-        , #{ subCategory }
+        #{memberCode}
+        , #{postTitle}
+        , #{postContext}
+        , #{mainCategory}
+        , #{subCategory}
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
         )
