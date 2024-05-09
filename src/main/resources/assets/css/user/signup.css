@@ -1,10 +1,11 @@
-.terms {
+
+.terms_body {
     width: 800px;
     height: 224px;
     margin: auto;
 }
 
-.termsbox {
+.terms_box {
     width: 800px;
     height: 224px;
     border-style: solid;
@@ -14,14 +15,23 @@
     resize: none;
 }
 
-.signupBody {
+.signup_body {
     width: 800px;
-    padding-top: 120px;
-    padding-bottom: 20px;
+    padding-top: 180px;
     margin: auto;
+    /*text-align: center;*/
 }
 
-.labelbox {
+.signup_item {
+    padding-right: 85px;
+    display: inline-block;
+}
+
+.item_box {
+    padding-bottom: 40px
+}
+
+.label_box {
     width: 800px;
     height: 10px;
     visibility: visible;
