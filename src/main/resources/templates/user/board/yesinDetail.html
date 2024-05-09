@@ -2,20 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>예신 수다방 상세</title>
+    <div th:each="yesin: ${ PostAndMemberDTO }">
+        <title th:text="${yesin.postTitle}"></title>
+    </div>
 </head>
 <body>
-<h1>예수다 | 예신 수다방</h1>
-<table>
 
- <div th:each="yesin: ${ PostAndMemberDTOList }" >
-    <p th:text="${yesin.postTitle}"></p>
-    <p th:text="${yesin.member.nickname}"></p>
-    <p th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
-    <p th:text="${yesin.postContext}"></p>
+    <table>
+    <div th:each="yesin: ${ PostAndMemberDTO }" >
+        <p th:text="${yesin.mainCategory}"></p>
+        <p th:text=" ${yesin.subCategory}"></p>
 
-  </div>
-</table>
+        <h1 th:text="${yesin.postTitle}"></h1>
+        <p th:text="${yesin.member.nickname}"></p>
+        <p th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
+        <p th:text="${yesin.postContext}"></p>
+
+        <button type="button" th:onclick="|location.href='@{/user/board/modify(id=${yesin.postCode})}'|">수정하기</button>
+        <form th:action="@{/user/board/delete(id=${yesin.postCode})}" method="post">
+            <input type="submit" value="삭제하기">
+        </form>
+
+    </div>
+    </table>
 
 
 </body>
