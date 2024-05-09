@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,25 +28,11 @@ public class SignupController {
         return "user/signup";
     }
 
-    @PostMapping(value = "/request-verify-mail")
-    @ResponseBody
-    public String requestSignUp(@RequestBody String email) throws Exception{
-
-        String code = mailService.sendMail(email);
-        System.out.println("인증코드 : " + code);
-
-//        //response객체에 json 형태로 인증코드를 저장하는 방법
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String jsonResponse = objectMapper.writeValueAsString(code);
-
-        return new ObjectMapper().writeValueAsString(code);
-    }
-
     @PostMapping(value = "/request-dupCheck-id")
     @ResponseBody
     public String requestDupCheckId(@RequestBody String id) throws Exception{
 
-        // 문자열로 넘어온 값의 쌍따옴표 제거
+        // 문자열로 넘어온 JSON값의 쌍따옴표 제거
         id = id.replaceAll("^\"|\"$", "");
 
         int count = signupService.checkDupId(id);
@@ -68,6 +53,28 @@ public class SignupController {
         return new ObjectMapper().writeValueAsString(count);
     }
 
+    @PostMapping(value = "/request-verify-mail")
+    @ResponseBody
+    public String requestSignUp(@RequestBody String email) throws Exception{
+
+        email = email.replaceAll("^\"|\"$", "");
+
+        int dupEmail = signupService.checkDupEmail(email);
+        System.out.println("이메일 중복 개수 : " + dupEmail);
+        if(dupEmail > 0) {
+            return new ObjectMapper().writeValueAsString(dupEmail);
+        }
+
+        String code = mailService.sendMail(email);
+        System.out.println("인증코드 : " + code);
+
+//        //response객체에 json 형태로 인증코드를 저장하는 방법
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String jsonResponse = objectMapper.writeValueAsString(code);
+        return new ObjectMapper().writeValueAsString(code);
+    }
+
+
     @PostMapping(value="/request-verify-wedd")
     @ResponseBody
     public String requestUploadVefFile(@RequestParam(value="file",required = false) MultipartFile file) throws Exception {
@@ -86,7 +93,7 @@ public class SignupController {
         String originFileName = file.getOriginalFilename();
         System.out.println("originFileName : " + originFileName);
         String ext = originFileName.substring(originFileName.lastIndexOf("."));
-        System.out.println("ext : " + ext);
+//        System.out.println("ext : " + ext);
 
         String savedName = UUID.randomUUID() + ext;
         System.out.println("savedName : " + savedName);
@@ -105,19 +112,9 @@ public class SignupController {
     }
 
     @PostMapping(value = "/request-join-member")
-    public String joinMember(Model model, @RequestBody MembersDTO member) {
+    public String joinMember(@RequestBody MembersDTO member) {
         System.out.println(member);
-        int result = signupService.regist(member);
-
-        String message = "";
-
-        if( result > 0 ) {
-            message = "회원가입이 정상적으로 완료되었습니다.";
-        } else {
-            message = "회원가입이 실패하였습니다.";
-        }
-
-        model.addAttribute("message",message);
+        signupService.regist(member);
 
         return "redirect:/main";
     }

@@ -1,0 +1,28 @@
+.terms {
+    width: 800px;
+    height: 224px;
+    margin: auto;
+}
+
+.termsbox {
+    width: 800px;
+    height: 224px;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 6px;
+    border-color: #C4C4C4;
+    resize: none;
+}
+
+.signupBody {
+    width: 800px;
+    padding-top: 120px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+.labelbox {
+    width: 800px;
+    height: 10px;
+    visibility: visible;
+}

@@ -32,6 +32,14 @@
         WHERE   NICKNAME = #{nkname}
     </select>
 
+    <select id="checkDupEmail">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   EMAIL = #{email}
+    </select>
+
     <insert id="joinMember" parameterType="com.beanions.common.dto.MembersDTO">
         INSERT INTO
                 MEMBERS

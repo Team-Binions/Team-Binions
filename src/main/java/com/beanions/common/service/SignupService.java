@@ -19,7 +19,11 @@ public class SignupService {
         return signupMapper.checkDupNkname(nkname);
     }
 
-    public int regist(MembersDTO member) {
-        return signupMapper.joinMember(member);
+    public void regist(MembersDTO member) {
+        signupMapper.joinMember(member);
+    }
+
+    public int checkDupEmail(String email) {
+        return signupMapper.checkDupEmail(email);
     }
 }

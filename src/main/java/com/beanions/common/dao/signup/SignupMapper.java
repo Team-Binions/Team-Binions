@@ -9,5 +9,7 @@ public interface SignupMapper {
 
     int checkDupNkname(String nkname);
 
-    int joinMember(MembersDTO member);
+    void joinMember(MembersDTO member);
+
+    int checkDupEmail(String email);
 }
