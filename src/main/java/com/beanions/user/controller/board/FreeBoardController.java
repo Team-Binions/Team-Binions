@@ -99,7 +99,7 @@ public class FreeBoardController {
     }
 
     @PostMapping("/delete")
-    public String deletePost(@RequestParam("id") String id, RedirectAttributes rttr, PostDTO postDTO){
+    public String deletePost(RedirectAttributes rttr, PostDTO postDTO){
 
         freeBoardService.deletePost(postDTO);
 
@@ -107,8 +107,12 @@ public class FreeBoardController {
         System.out.println("postDTO = " + postDTO);
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
-
-            return "redirect:/user/board/notice";
+        // 예랑 게시판 생성 하면 주소 변경하기
+        if (postDTO.getSubCategory().equals("예신")){
+            return "redirect:/user/board/yesinList";
+        }else {
+            return "redirect:/user/board/yesinList";
+        }
 
     }
 }
