@@ -55,21 +55,21 @@ public class FreeBoardController {
     public void postRegistPage(){}
 
 
-    @GetMapping(value = "category", produces = "application/json; charset=UTF-8")
-    @ResponseBody
-    public List<MainCategoryDTO> findMainCategoryList(){
-        return freeBoardService.findMainCategory();
-    }
-
     @PostMapping("/postRegist")
 
-    public String postRegist(PostDTO newPost, RedirectAttributes rttr){
+    public String postRegist(PostDTO postDTO, RedirectAttributes rttr){
 
-        freeBoardService.postRegist(newPost);
+        freeBoardService.postRegist(postDTO);
+
+        System.out.println("newPost = " + postDTO);
 
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
-        return "redirect:/user/board/yesinList";
+        if (postDTO.getSubCategory().equals("예신")){
+            return "redirect:/user/board/yesinList";
+        }else {
+            return "redirect:/user/board/yesinList";
+        }
     }
     @GetMapping("/modify")
     public String modifyPost(@RequestParam("id") String id, Model model){

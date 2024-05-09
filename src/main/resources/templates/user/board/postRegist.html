@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
@@ -15,7 +17,7 @@
 
 <h3>글쓰기</h3>
 <form action="/user/board/postRegist" method="post">
-    <select id="mainCategory" name= "mainCategory" >
+    <select id="mainCategory" name="mainCategory" >
         <option value="" disabled selected>게시판을 선택해 주세요.</option>
         <option value="예수다">예수다</option>
         <option value="예리뷰">예리뷰</option>
@@ -28,48 +30,20 @@
         <option value="스드메">스드메</option>
         <option value="기타-리뷰">기타</option>
     </select>
-<input type="text" name="postTitle" placeholder="제목을 입력하세요."><br>
-<hr>
-<input type="text" name="postContents" placeholder="내용을 입력하세요."><br>
-<label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요.">
-<button type="button" onclick="location.href='/user/board/yesinList'">취소</button>
-<input type="submit" value="등록">
+    <br>
+<input type="text" name="postTitle" placeholder="제목을 입력하세요.">
+    <br><hr>
+    <div>
+            <textarea name="postContext" placeholder="내용을 입력하세요."
+                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>
+    </div>
+<label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>
+<button type="button" onclick="history.back()">취소</button>
+<button type="submit">등록</button>
 
 </form>
 
 <script>
-    // const mainCategorySelect= document.getElementById('mainCategory');
-    // const subCategorySelect = document.getElementById('subCategory');
-    //
-    // mainCategorySelect.addEventListener('change',function() {
-    //     const selectMainCategory = mainCategorySelect.value;
-    //
-    //     subCategorySelect.innerHTML = '';
-    //
-    //     switch (selectMainCategory) {
-    //         case '예수다':
-    //             addSubCategoryOptions(['예신', '예랑']);
-    //             break;
-    //         case '예리뷰':
-    //             addSubCategoryOptions(['웨딩', '스드메', '기타-리뷰'])
-    //             break;
-    //         default:
-    //             addSubCategoryOptions(['서브']);
-    //             break;
-    //     }
-    // });
-    //
-    // function addSubCategoryOptions(options) {
-    //     options.forEach(option => {
-    //         const optionElement = document.createElement('option');
-    //         optionElement.value = option;
-    //         optionElement.textContent = option;
-    //         subCategorySelect.appendChild(optionElement);
-    //     });
-    // }
-    //
-    // addSubCategoryOptions(['서브']);
-
     $(document).ready(function() {
         const mainCategorySelect = $('#mainCategory');
         const subCategorySelect = $('#subCategory');

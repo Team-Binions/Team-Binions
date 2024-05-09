@@ -71,7 +71,6 @@
     <insert id="postRegist" parameterType="com.beanions.common.dto.PostDTO">
         INSERT INTO POST
         (
-        MEMBER_CODE
         , POST_TITLE
         , POST_CONTEXT
         , MAIN_CATEGORY
@@ -81,7 +80,6 @@
         )
         VALUES
         (
-         #{ memberCode }
         , #{ postTitle }
         , #{ postContext }
         , #{ mainCategory }
