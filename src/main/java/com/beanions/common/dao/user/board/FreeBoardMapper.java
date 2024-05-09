@@ -15,7 +15,7 @@ public interface FreeBoardMapper {
 
     List<PostAndMemberDTO> yesinDetail(int id);
 
-    void postRegist(PostAndMemberDTO newPost);
+    void postRegist(PostDTO newPost);
 
     List<MainCategoryDTO> findMainCategory();
 

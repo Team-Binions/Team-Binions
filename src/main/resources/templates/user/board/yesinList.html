@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <div th:each="yesin: ${ PostAndMemberDTOList }">
         <title th:text="|${yesin.subCategory}수다방|"></title>
     </div>
@@ -37,6 +38,7 @@
 
         <button type="button" th:onclick="|location.href='@{/user/postRegist}'|">글쓰기</button>
     </table>
+
     <div class="paging">
         <script th:inline="javascript">
             window.onload = () => {

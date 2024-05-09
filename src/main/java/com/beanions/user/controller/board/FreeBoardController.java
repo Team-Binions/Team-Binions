@@ -61,43 +61,11 @@ public class FreeBoardController {
 
     @PostMapping("/postRegist")
 
-    public String postRegist(PostAndMemberDTO newPost, RedirectAttributes rttr){
+    public String postRegist(PostDTO newPost, RedirectAttributes rttr){
 
         freeBoardService.postRegist(newPost);
 
-        rttr.addFlashAttribute("successMessage", "신규등록에 성공하였습니다.");
-
-        return "redirect:/user/board/yesin";
-    }
-
-    @GetMapping("/modify")
-    public String modifyPost(@RequestParam("id") String id, Model model){
-
-        List<PostAndMemberDTO> modify = freeBoardService.yesinDetail(id);
-
-        model.addAttribute("modify", modify);
-
-        return "user/board/freeboardmodify";
-    }
-
-    @PostMapping("/modify")
-    public String modifyPost(PostDTO postDTO, RedirectAttributes rttr){
-
-        freeBoardService.modifyPost(postDTO);
-
-        rttr.addFlashAttribute("successMessage", "수정 성공");
-
-        System.out.println("postDTO = " + postDTO);
-
-        return "redirect:/user/board/yesinList";
-    }
-
-    @PostMapping("/delete")
-    public String deletePost(@RequestParam("id") String id, RedirectAttributes rttr){
-
-        freeBoardService.deletePost(id);
-
-        rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
+        rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
         return "redirect:/user/board/yesinList";
     }

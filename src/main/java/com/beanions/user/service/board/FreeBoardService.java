@@ -53,7 +53,7 @@ public class FreeBoardService {
         return freeBoardMapper.yesinDetail(code);
     }
 
-    public void postRegist(PostAndMemberDTO newPost) {
+    public void postRegist(PostDTO newPost) {
 
         freeBoardMapper.postRegist(newPost);
     }
