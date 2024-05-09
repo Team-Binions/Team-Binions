@@ -14,8 +14,8 @@
 </head>
 <body>
 <div th:replace="admin/layout.html"></div>
-<article style="margin-top: -800px; margin-left: 160px">
-<h1>게시판 관리</h1>
+<article>
+<h1>게시판 전체조회</h1>
     <form class="search_form">
         <div class="search_box">
             <input type="search" class="search_input" placeholder="검색어를 입력하세요">
@@ -23,7 +23,8 @@
             <span class="search_btn"></span>
         </div>
     </form>
-<table align="center" style="padding-top: 40px">
+    <div class="table_box">
+    <table>
     <tr>
         <th>번호</th>
         <th>게시판</th>
@@ -35,32 +36,28 @@
         <th>관리</th>
     </tr>
     <tr th:each="post, i : ${ postList }">
-        <td th:text="${i.index + 1}"></td>
+        <td class="number" th:text="${i.index + 1}"></td>
         <td th:text="${ post.mainCategory }"></td>
         <td th:text="${ post.subCategory }"></td>
         <td>
             <a th:text="${post.postTitle}" th:href="@{/admin/post/detail(id=${post.postCode})}"></a>
         </td>
         <td th:text="${ post.member.nickname}"></td>
-        <td th:text="${#dates.format(post.postDate, 'yyyy.MM.dd') }" ></td>
+        <td class="number" th:text="${#dates.format(post.postDate, 'yyyy-MM-dd') }" ></td>
         <td>
-            <span th:if="${ post.verifiedStatus == 'Y' }">승인</span>
-            <span th:if="${ post.verifiedStatus == 'N' }">미승인</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'Y' }">활성화</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'N' }">비활성화</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'Y' }">승인</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'N' }">미승인</span>
         </td>
         <td>
-            <button type="button" th:onclick="|location.href='@{/admin/post/update(id=${post.postCode})}'|">변경</button>
-            <!--                <a th:href="@{/admin/post/delete(id=${post.postCode})}">삭제</a>-->
-            <!--                <button type="button" onclick="deletePost">삭제</button>-->
-            <form th:action="@{/admin/post/delete(id=${post.postCode})}" method="post">
-                <button type="submit">삭제</button>
-                <!--                    <input type="hidden" th:value="${post.postCode}" name="postCode">-->
-                <!--                    <input type="submit" value="삭제">-->
-            </form>
+            <button type="button" th:onclick="|location.href='@{/admin/post/detail(id=${post.postCode})}'|">상세</button>
         </td>
     </tr>
-</table>
-<button>버튼</button>
-    </article>
+    </table>
+    </div>
+</article>
+<div th:replace="admin/footer.html"></div>
 
 <!--<th:block layout:fragment="script">-->
     <script>
@@ -80,7 +77,6 @@
                 clearBtn.classList.remove("active");// x버튼 비활성화
             }
         });
-
     </script>
 <!--</th:block>-->
 </body>

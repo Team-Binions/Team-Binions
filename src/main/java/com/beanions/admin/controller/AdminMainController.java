@@ -50,7 +50,7 @@ public class AdminMainController {
 
         model.addAttribute("postDetail", postDetail);
 
-        return "/admin/post/freeDetail";
+        return "/admin/post/detail";
     }
 
     @GetMapping("/post/update")
@@ -85,6 +85,8 @@ public class AdminMainController {
 
         return "redirect:/admin/post";
     }
+
+
 
     @PostMapping("/post/delete")
     public String postDelete(@RequestParam("id") String id, RedirectAttributes rttr) {
