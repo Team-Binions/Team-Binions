@@ -8,6 +8,7 @@ import com.beanions.common.dto.SearchDTO;
 import com.beanions.common.paging.Pagination;
 import com.beanions.common.paging.PagingResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,9 @@ public class FreeBoardService {
 
     public List<PostAndMemberDTO> yesinDetail(String id) {
 
-        return freeBoardMapper.yesinDetail(id);
+        int code = Integer.parseInt(id);
+
+        return freeBoardMapper.yesinDetail(code);
     }
 
     public void postRegist(PostDTO newPost) {
@@ -57,5 +60,14 @@ public class FreeBoardService {
 
     public List<MainCategoryDTO> findMainCategory() {
         return freeBoardMapper.findMainCategory();
+    }
+
+    @Transactional
+    public void modifyPost(PostDTO postDTO) {
+        freeBoardMapper.postModify(postDTO);
+    }
+
+    public void deletePost(String postCode) {
+        freeBoardMapper.postDelete(postCode);
     }
 }

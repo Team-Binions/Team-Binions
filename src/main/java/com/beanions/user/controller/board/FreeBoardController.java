@@ -41,6 +41,7 @@ public class FreeBoardController {
 
     @GetMapping("/yesinDetail")
     public String yesinDetail(@RequestParam("id") String id,Model model){
+
         List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.yesinDetail(id);
 
         model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
@@ -57,6 +58,7 @@ public class FreeBoardController {
     public List<MainCategoryDTO> findMainCategoryList(){
         return freeBoardService.findMainCategory();
     }
+
     @PostMapping("/postRegist")
 
     public String postRegist(PostDTO newPost, RedirectAttributes rttr){
@@ -67,6 +69,5 @@ public class FreeBoardController {
 
         return "redirect:/user/board/yesinList";
     }
-
 
 }

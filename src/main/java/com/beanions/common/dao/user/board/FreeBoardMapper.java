@@ -13,9 +13,13 @@ public interface FreeBoardMapper {
     int count(SearchDTO params);
 
 
-    List<PostAndMemberDTO> yesinDetail(String id);
+    List<PostAndMemberDTO> yesinDetail(int id);
 
     void postRegist(PostDTO newPost);
 
     List<MainCategoryDTO> findMainCategory();
+
+    void postModify(PostDTO id);
+
+    void postDelete(String postCode);
 }

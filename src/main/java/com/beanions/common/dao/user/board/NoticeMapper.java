@@ -13,5 +13,4 @@ public interface NoticeMapper {
 
     List<PostDTO> noticeSelectOneDetail(int id);
 
-    void postModify(PostDTO id);
 }
