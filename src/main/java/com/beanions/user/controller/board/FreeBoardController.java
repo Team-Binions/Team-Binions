@@ -58,6 +58,7 @@ public class FreeBoardController {
     public List<MainCategoryDTO> findMainCategoryList(){
         return freeBoardService.findMainCategory();
     }
+
     @PostMapping("/postRegist")
 
     public String postRegist(PostAndMemberDTO newPost, RedirectAttributes rttr){
