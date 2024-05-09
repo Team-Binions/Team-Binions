@@ -8,6 +8,7 @@
 <h1>게시물 수정</h1>
 <form action="/user/board/modify" method="post">
     <div th:each="post : ${ modify }">
+        <input type="hidden" th:value="${post.subCategory}" name="subCategory">
         <input type="hidden" th:value="${post.postCode}" name="postCode">
         <input th:value="${post.postTitle}" name="postTitle"><br>
         <input th:value="${post.postContext}" name="postContext">

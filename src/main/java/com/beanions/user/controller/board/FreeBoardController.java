@@ -24,13 +24,15 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yesinList")
-    public String yesinAllList(@ModelAttribute("params") final SearchDTO params, Model model) {
+    public String yesinAllList(@ModelAttribute("params") final SearchDTO params, Model model, String id) {
 
         List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.yesinAllList(params);
 
         for(PostAndMemberDTO posts: PostAndMemberDTOList){
             System.out.println("posts = " + posts);
         }
+
+        System.out.println("id = " + id);
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
@@ -88,16 +90,25 @@ public class FreeBoardController {
 
         System.out.println("postDTO = " + postDTO);
 
-        return "redirect:/user/board/yesinList";
+        // 예랑 게시판 생성 하면 주소 변경하기
+        if (postDTO.getSubCategory().equals("예신")){
+            return "redirect:/user/board/yesinList";
+        }else {
+            return "redirect:/user/board/yesinList";
+        }
     }
 
     @PostMapping("/delete")
-    public String deletePost(@RequestParam("id") String id, RedirectAttributes rttr){
+    public String deletePost(@RequestParam("id") String id, RedirectAttributes rttr, PostDTO postDTO){
 
-        freeBoardService.deletePost(id);
+        freeBoardService.deletePost(postDTO);
 
+
+        System.out.println("postDTO = " + postDTO);
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
-        return "redirect:/user/board/yesinList";
+
+            return "redirect:/user/board/notice";
+
     }
 }

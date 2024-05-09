@@ -20,6 +20,7 @@
 
         <button type="button" th:onclick="|location.href='@{/user/board/modify(id=${yesin.postCode})}'|">수정하기</button>
         <form th:action="@{/user/board/delete(id=${yesin.postCode})}" method="post">
+            <input type="hidden" th:text="${yesin.subCategory}" name="subCategory">
             <input type="submit" value="삭제하기">
         </form>
 

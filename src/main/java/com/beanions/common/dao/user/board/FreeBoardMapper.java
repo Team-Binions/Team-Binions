@@ -21,5 +21,5 @@ public interface FreeBoardMapper {
 
     void postModify(PostDTO id);
 
-    void postDelete(String postCode);
+    void postDelete(PostDTO postDTO);
 }

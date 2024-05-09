@@ -96,13 +96,13 @@
            SET
                POST_TITLE = #{ postTitle },
                POST_CONTEXT = #{ postContext }
-         WHERE POST_CODE = #{ postCode }
+         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
     </update>
 
-    <delete id="postDelete" parameterType="String">
+    <delete id="postDelete" parameterType="com.beanions.common.dto.PostDTO">
         DELETE
           FROM
                POST
-         WHERE POST_CODE = #{ postCode }
+         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
     </delete>
 </mapper>
