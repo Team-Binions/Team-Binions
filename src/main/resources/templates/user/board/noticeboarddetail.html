@@ -5,8 +5,6 @@
   <title>Title</title>
 </head>
 <body>
-
-
   <div th:each=" notice: ${ notice }">
     <p th:text="${notice.mainCategory}"></p>
     <p th:text="${notice.subCategory}"></p>
@@ -19,9 +17,7 @@
   <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
   <!--  <button>다음글</button>-->
 
-  <button onclick="location.href='/notice/board'">목록</button>
-
-<button type="button" th:onclick="|location.href='@{/notice/modify(id=${notice.postCode})}'|">수정하기</button>
-</div>
+  <button onclick="location.href='/user/board/notice'">목록</button>
+  </div>
 </body>
 </html>

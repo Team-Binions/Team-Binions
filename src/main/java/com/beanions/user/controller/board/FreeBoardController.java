@@ -2,6 +2,7 @@ package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.MainCategoryDTO;
 import com.beanions.common.dto.PostAndMemberDTO;
+import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.user.service.board.FreeBoardService;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class FreeBoardController {
 
     @GetMapping("/yesinDetail")
     public String yesinDetail(@RequestParam("id") String id,Model model){
+
         List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.yesinDetail(id);
 
         model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
@@ -66,4 +68,29 @@ public class FreeBoardController {
 
         return "redirect:/user/board/yesin";
     }
+
+    @GetMapping("/modify")
+    public String modifyPost(@RequestParam("id") String id, Model model){
+
+
+        List<PostAndMemberDTO> modify = freeBoardService.yesinDetail(id);
+
+        model.addAttribute("modify", modify);
+
+
+        return "user/board/freeboardmodify";
+    }
+
+    @PostMapping("/modify")
+    public String modifyPost(PostDTO postDTO, RedirectAttributes rttr){
+
+        freeBoardService.modifyPost(postDTO);
+        rttr.addFlashAttribute("successMessage", "수정 성공");
+
+        System.out.println("postDTO = " + postDTO);
+
+        return "redirect:/user/board/yesinList";
+    }
+
+
 }
