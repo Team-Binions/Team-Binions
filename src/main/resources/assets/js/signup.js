@@ -259,6 +259,7 @@ $(document).ready(function () {
             .then(data => {
                 // 성공적인 응답을 처리한다.
                 console.log(data);
+                $("#fileName").val(data);
                 weddingVerified = data;
             })
             .catch(error => {
@@ -329,39 +330,35 @@ $(document).ready(function () {
         } else if (!totalConfirm.idconfirmchk) {
             alert("아이디를 확인해 주세요.");
             $('html, body').animate({
-                scrollTop: $('#memberId').offset().top
+                scrollTop: 100
             }, 'slow');
             $('#memberId').focus();
         } else if (!totalConfirm.pwdconfirmchk) {
             alert("비밀번호를 확인해 주세요.");
             $('html, body').animate({
-                scrollTop: $('#password').offset().top
+                scrollTop: 200
             }, 'slow');
             $('#password').focus();
         } else if (!totalConfirm.nknconfirmchk) {
             alert("닉네임을 확인해 주세요.");
             $('html, body').animate({
-                scrollTop: $('#nickname').offset().top
+                scrollTop: 300
             }, 'slow');
             $('#nickname').focus();
         } else if (!totalConfirm.emchk) {
             alert("이메일을 확인해 주세요.");
             $('html, body').animate({
-                scrollTop: $('#memail').offset().top
+                scrollTop: 400
             }, 'slow');
             $('#memail').focus();
         } else if (!totalConfirm.emconfirmchk) {
             alert("이메일 인증번호를 확인해 주세요.");
             $('html, body').animate({
-                scrollTop: $('#memailconfirm').offset().top
+                scrollTop: 500
             }, 'slow');
             $('#memailconfirm').focus();
         } else if (!totalConfirm.gdconfirmchk) {
             alert("성별을 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: $('#male').offset().top
-            }, 'slow');
-            $('#male').focus();
         } else {
 
             var gender = $('input[type="checkbox"][name="gender"]').val();
