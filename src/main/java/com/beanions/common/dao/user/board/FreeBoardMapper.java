@@ -19,6 +19,7 @@ public interface FreeBoardMapper {
 
     List<MainCategoryDTO> findMainCategory();
 
-    void postModify(PostDTO postDTO);
+    void postModify(PostDTO id);
 
+    void postDelete(String postCode);
 }

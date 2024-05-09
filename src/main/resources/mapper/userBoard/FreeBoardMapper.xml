@@ -75,4 +75,11 @@
                POST_CONTEXT = #{ postContext }
          WHERE POST_CODE = #{ postCode }
     </update>
+
+    <delete id="postDelete" parameterType="String">
+        DELETE
+          FROM
+               POST
+         WHERE POST_CODE = #{ postCode }
+    </delete>
 </mapper>

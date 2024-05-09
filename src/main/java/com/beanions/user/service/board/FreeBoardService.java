@@ -66,4 +66,8 @@ public class FreeBoardService {
     public void modifyPost(PostDTO postDTO) {
         freeBoardMapper.postModify(postDTO);
     }
+
+    public void deletePost(String postCode) {
+        freeBoardMapper.postDelete(postCode);
+    }
 }
