@@ -20,7 +20,7 @@ public class MagazineController {
     }
 
     @GetMapping("/magazine")
-    public String noticeList(Model model) {
+    public String magazineList(Model model) {
 
         List<PostAndMemberDTO> magazineList = magazineService.allMagazineList();
 
@@ -30,7 +30,7 @@ public class MagazineController {
     }
 
     @GetMapping( "/magazinedetail")
-    public String noticeDetail(@RequestParam("id") String id, Model model) {
+    public String magazineDetail(@RequestParam("id") String id, Model model) {
 
         List<PostAndMemberDTO> megazine = magazineService.selectMagazine(id);
 

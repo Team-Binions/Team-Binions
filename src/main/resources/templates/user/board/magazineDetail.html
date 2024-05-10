@@ -12,14 +12,14 @@
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
-<div th:each=" notice: ${ notice }">
-    <p th:text="${notice.mainCategory}"></p>
-    <p th:text="${notice.subCategory}"></p>
-    <h1 th:text="${notice.postTitle}"></h1>
+<div th:each=" magazine: ${ magazine }">
+    <p th:text="${magazine.mainCategory}"></p>
+    <p th:text="${magazine.subCategory}"></p>
+    <h1 th:text="${magazine.postTitle}"></h1>
 
-    <h4 th:text="${notice.memberCode}"></h4>
-    <h4 th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></h4>
-    <p th:text="${notice.postContext}"></p>
+    <h4 th:text="${magazine.memberCode}"></h4>
+    <h4 th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></h4>
+    <p th:text="${magazine.postContext}"></p>
 
     <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
     <!--  <button>다음글</button>-->
