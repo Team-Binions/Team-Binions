@@ -20,8 +20,9 @@
         <p th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
         <p th:text="${yesin.postContext}"></p>
 
-        <button type="button" th:onclick="|location.href='@{/user/board/freemodify(id=${yesin.postCode})}'|">수정하기</button>
-        <form th:action="@{/user/board/freeDelete(id=${yesin.postCode})}" method="post">
+        <button type="button" th:if="${yesin.subCategory.equals('예신')}" th:onclick="|location.href='@{/user/board/yesinmodify(id=${yesin.postCode})}'|">수정하기</button>
+        <button type="button" th:if="${yesin.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangmodify(id=${yesin.postCode})}'|">수정하기</button>
+        <form th:action="@{/user/board/freedelete(id=${yesin.postCode})}" method="post">
             <input type="hidden" th:value="${yesin.subCategory}" name="subCategory">
             <input type="hidden" th:value="${yesin.postCode}" name="postCode">
             <button type="submit">삭제하기</button>
