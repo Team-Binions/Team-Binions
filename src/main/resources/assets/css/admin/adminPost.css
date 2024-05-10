@@ -1,3 +1,80 @@
+/* 컨텐츠 전체 영역 */
+.all-content {
+    margin-right: 5%;
+}
+/* 게시글 상세정보 */
+.contents_head {
+    margin-top: 40px;
+    font-weight: var(--bold);
+    font-size: 24px;
+}
+
+/* 예수다, 예리뷰 */
+.post_main_sub_category {
+    margin-top: 38px;
+    display: flex;
+}
+
+.post_main_text {
+    font-size: 20px;
+    color: #6F6F6F;
+    font-weight: var(--semiBold);
+}
+
+/* 자유, 리뷰 */
+.main_sub_category {
+    margin-left: 50px;
+    display: flex;
+}
+
+.main_text {
+    color: var(--previewText-color);
+    font-weight: var(--regular);
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.main_sub {
+    font-family: 'Poppins';
+    color: var(--previewText-color);
+    font-weight: var(--regular);
+    font-size: 16px;
+}
+
+/* 하위 분류 */
+.sub_text {
+    margin-left: 5px;
+    color: #6F6F6F;
+    font-weight: var(--regular);
+    font-size: 16px;
+}
+/* 게시글 제목 */
+.title_text {
+    margin-top: 28px;
+    font-weight: var(--semiBold);
+    font-size: 24px;
+}
+
+/* 작성자 */
+.member_text {
+    margin-top: 26px;
+    font-weight: var(--bold);
+    font-size: 16px;
+}
+
+/* 작성일 */
+.number {
+    position: absolute;
+    top: 336px;
+    right: 100px;
+    font-weight: var(--regular);
+    font-size: 20px;
+    color: #6F6F6F;
+}
+/* 내용 */
+
+
+
 /* 삭제, 목록, 상태변경 버튼 */
 .button_box button {
     display: inline-block;
@@ -60,7 +137,7 @@
     width: 300px;
     height: 200px;
     /*margin: -100px 0 -100px 700px ;*/
-    margin-top: -3%;
+    margin-top: -8%;
     margin-left: 35%;
     padding: 10px 10px;
     background: #ffffff;

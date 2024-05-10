@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>Beanions</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
 </head>
 <body>
-<div th:replace="admin/layout.html"></div>
-<article style="margin-top: -800px; margin-left: 160px">
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+    <article class="all-content">
 <h1>매거진 수정</h1>
 <form action="/admin/magazine/update" method="post">
     <div th:each="magazine : ${ magazineDetail }">
@@ -27,6 +30,8 @@
     <button type="button" onclick="location.href='/admin/magazine'">취소</button>
     <button type="submit">완료</button>
 </form>
+        <div th:replace="admin/footer.html"></div>
 </article>
+</div>
 </body>
 </html>
