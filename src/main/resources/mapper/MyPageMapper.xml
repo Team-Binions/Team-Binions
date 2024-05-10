@@ -108,7 +108,7 @@
 		<result property="reviewCount" column="REVIEW_COUNT"/>
 		<result property="freeCount" column="FREE_COUNT"/>
 		<result property="totalCount" column="Total"/>
-		<collection property="posts" javaType="com.beanions.common.dto.PostDTO">
+		<collection property="posts" ofType="com.beanions.common.dto.PostDTO">
 			<id property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
 			<result property="postTitle" column="POST_TITLE"/>
@@ -122,6 +122,7 @@
 	<select id="selectMyPageReviewData" resultMap="selectMyPagePostsResultMap">
 		SELECT
 				A.NICKNAME,
+				B.POST_CODE,
 				B.POST_TITLE,
 				B.POST_CONTEXT,
 				B.POST_DATE,
@@ -141,6 +142,7 @@
 	<select id="selectMyPageFreeData" resultMap="selectMyPagePostsResultMap">
 		SELECT
 				A.NICKNAME,
+				B.POST_CODE,
 				B.POST_TITLE,
 				B.POST_CONTEXT,
 				B.POST_DATE,
@@ -163,13 +165,23 @@
 		<id property="nickname" column="NICKNAME"/>
 		<result property="commentCount" column="COMMENT_COUNT"/>
 		<result property="totalCount" column="Total"/>
-		<association property="comments" javaType="com.beanions.common.dto.CommentsDTO">
+		<collection property="comments" ofType="com.beanions.common.dto.CommentsDTO">
 			<id property="commentCode" column="COMMENT_CODE"/>
 			<result property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
 			<result property="commentContext" column="COMMENT_CONTEXT"/>
 			<result property="commentDate" column="COMMENT_DATE"/>
-		</association>
+		</collection>
+		<collection property="posts" ofType="com.beanions.common.dto.PostDTO">
+			<id property="postCode" column="POST_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="postTitle" column="POST_TITLE"/>
+			<result property="postContext" column="POST_CONTEXT"/>
+			<result property="postDate" column="POST_DATE"/>
+			<result property="mainCategory" column="MAIN_CATEGORY"/>
+			<result property="subCategory" column="SUB_CATEGORY"/>
+			<result property="verifiedStatus" column="VEF_STATUS"/>
+		</collection>
 	</resultMap>
 	<select id="selectMyPageCommentData" resultMap="selectMyPageCommentsResultMap">
 		SELECT
@@ -187,5 +199,16 @@
 		,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
 		( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) D
 		ORDER BY B.COMMENT_DATE DESC
+	</select>
+	<select id="selectMyPageCommentPostCategory" resultMap="selectMyPageCommentsResultMap">
+		SELECT
+					A.COMMENT_CODE,
+					A.COMMENT_DATE,
+					B.POST_CODE,
+					B.MAIN_CATEGORY
+		FROM COMMENTS A
+		LEFT JOIN POST B ON A.POST_CODE = B.POST_CODE
+		WHERE A.MEMBER_CODE = 15
+		ORDER BY A.COMMENT_DATE DESC
 	</select>
 </mapper>

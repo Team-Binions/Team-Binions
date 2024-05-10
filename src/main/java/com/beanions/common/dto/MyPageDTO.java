@@ -1,5 +1,7 @@
 package com.beanions.common.dto;
 
+import java.util.List;
+
 public class MyPageDTO {
   private String nickname;
   private int postCount;
@@ -10,13 +12,13 @@ public class MyPageDTO {
   private int scheduleCount;
 
   private MembersDTO members;
-  private PostDTO posts;
-  private CommentsDTO comments;
-  private SchedulesDTO schedules;
+  private List<PostDTO> posts;
+  private List<CommentsDTO> comments;
+  private List<SchedulesDTO> schedules;
 
   public MyPageDTO(){}
 
-  public MyPageDTO(String nickname, int postCount, int reviewCount, int freeCount, int commentCount, int totalCount, int scheduleCount, MembersDTO members, PostDTO posts, CommentsDTO comments, SchedulesDTO schedules) {
+  public MyPageDTO(String nickname, int postCount, int reviewCount, int freeCount, int commentCount, int totalCount, int scheduleCount, MembersDTO members, List<PostDTO> posts, List<CommentsDTO> comments, List<SchedulesDTO> schedules) {
     this.nickname = nickname;
     this.postCount = postCount;
     this.reviewCount = reviewCount;
@@ -94,27 +96,27 @@ public class MyPageDTO {
     this.members = members;
   }
 
-  public PostDTO getPosts() {
+  public List<PostDTO> getPosts() {
     return posts;
   }
 
-  public void setPosts(PostDTO posts) {
+  public void setPosts(List<PostDTO> posts) {
     this.posts = posts;
   }
 
-  public CommentsDTO getComments() {
+  public List<CommentsDTO> getComments() {
     return comments;
   }
 
-  public void setComments(CommentsDTO comments) {
+  public void setComments(List<CommentsDTO> comments) {
     this.comments = comments;
   }
 
-  public SchedulesDTO getSchedules() {
+  public List<SchedulesDTO> getSchedules() {
     return schedules;
   }
 
-  public void setSchedules(SchedulesDTO schedules) {
+  public void setSchedules(List<SchedulesDTO> schedules) {
     this.schedules = schedules;
   }
 
