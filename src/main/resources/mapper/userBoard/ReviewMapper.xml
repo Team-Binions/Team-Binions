@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beanions.common.dao.user.board.FreeBoardMapper">
+
+<mapper namespace="com.beanions.common.dao.user.board.ReviewMapper">
 
     <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
         <id property="postCode" column="post_code"/>
@@ -19,7 +20,7 @@
         </association>
     </resultMap>
 
-    <select id="freeList" parameterType="com.beanions.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+    <select id="reviewAllList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -32,12 +33,12 @@
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id }
+        WHERE MAIN_CATEGORY = '리뷰'
         ORDER BY POST_DATE desc
-<!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
+        <!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
     </select>
 
-    <select id="freeDetail" resultMap="PostAndMemberResultMap">
+    <select id="reviewDetail" resultMap="PostAndMemberResultMap">
         SELECT
         POST_CODE,
         MEMBER_CODE,
@@ -47,11 +48,11 @@
         MAIN_CATEGORY,
         SUB_CATEGORY
         FROM POST
-        WHERE SUB_CATEGORY = '예신' AND POST_CODE = #{ id }
-        ORDER BY POST_CODE
+        WHERE MAIN_CATEGORY = '리뷰' AND POST_CODE = #{ id }
+        ORDER BY POST_DATE desc
     </select>
 
-    <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">
+    <insert id="reviewRegist" parameterType="com.beanions.common.dto.PostDTO">
         INSERT INTO POST
         (
         MEMBER_CODE
@@ -74,18 +75,18 @@
         )
     </insert>
 
-    <update id="freeModify" parameterType="com.beanions.common.dto.PostDTO">
+    <update id="reviewModify" parameterType="com.beanions.common.dto.PostDTO">
         UPDATE POST
-           SET
-               POST_TITLE = #{ postTitle },
-               POST_CONTEXT = #{ postContext }
-         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+        SET
+        POST_TITLE = #{ postTitle },
+        POST_CONTEXT = #{ postContext }
+        WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
     </update>
 
-    <delete id="freeDelete" parameterType="com.beanions.common.dto.PostDTO">
+    <delete id="reviewDelete" parameterType="com.beanions.common.dto.PostDTO">
         DELETE
-          FROM
-               POST
-         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+        FROM
+        POST
+        WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
     </delete>
 </mapper>

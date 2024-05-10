@@ -1,12 +1,10 @@
 package com.beanions.user.controller;
 
-import com.beanions.common.dto.CommentsDTO;
 import com.beanions.common.dto.MyPageDTO;
 import com.beanions.user.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/user/common.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/user/main.css}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="user/layout/header.html"></div>
+<div th:each=" magazine: ${ magazine }">
+    <p th:text="${magazine.mainCategory}"></p>
+    <p th:text="${magazine.subCategory}"></p>
+    <h1 th:text="${magazine.postTitle}"></h1>
+
+    <h4 th:text="${magazine.memberCode}"></h4>
+    <h4 th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></h4>
+    <p th:text="${magazine.postContext}"></p>
+
+    <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
+    <!--  <button>다음글</button>-->
+
+    <button onclick="location.href='/user/board/notice'">목록</button>
+</div>
+<div th:replace="user/layout/footer.html"></div>
+<script th:inline="javascript">
+    //header sub menu 활성화
+    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+    const subMenu = document.querySelectorAll('.sub_menu');
+    gnbMenu.forEach(gnbmenu => {
+        gnbmenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.nextElementSibling.classList.add("active");
+        })
+        gnbmenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.nextElementSibling.classList.remove("active");
+        })
+    });
+
+    subMenu.forEach(submenu => {
+        submenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.classList.add("active");
+        })
+        submenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.classList.remove("active");
+        })
+    })
+
+    // 예리뷰 슬라이드
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+</body>
+</html>

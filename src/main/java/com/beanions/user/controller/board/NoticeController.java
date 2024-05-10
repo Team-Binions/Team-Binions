@@ -1,12 +1,10 @@
 package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.PostAndMemberDTO;
-import com.beanions.common.dto.PostDTO;
 import com.beanions.user.service.board.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class NoticeController {
 
         model.addAttribute("noticeList", noticeList);
 
-        return "user/board/noticeboard";
+        return "user/board/noticeList";
     }
 
     @GetMapping( "/noticedetail")
@@ -37,6 +35,6 @@ public class NoticeController {
 
         model.addAttribute("notice", notice);
 
-        return "user/board/noticeboarddetail";
+        return "user/board/noticeDetail";
     }
 }

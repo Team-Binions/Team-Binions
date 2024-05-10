@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.beanions.common.dao.user.board.NoticeMapper">
+<mapper namespace="com.beanions.common.dao.user.board.MagazineMapper">
 
     <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
         <id property="postCode" column="POST_CODE"/>
@@ -20,8 +20,7 @@
         </association>
     </resultMap>
 
-    <!-- 공지사항 전체 조회 -->
-    <select id="allNoticeList" parameterType="com.beanions.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+    <select id="allMagazineList" parameterType="com.beanions.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -34,12 +33,11 @@
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '공지사항'
+        WHERE MAIN_CATEGORY = '매거진'
         ORDER BY POST_DATE desc
     </select>
 
-    <!-- 공지사항 상세 조회 -->
-    <select id="noticeSelectOneDetail" resultMap="PostAndMemberResultMap">
+    <select id="magazineSelectOneDetail" resultMap="PostAndMemberResultMap">
         SELECT
         POST_CODE,
         MEMBER_CODE,
@@ -49,6 +47,6 @@
         MAIN_CATEGORY,
         SUB_CATEGORY
         FROM POST
-        WHERE MAIN_CATEGORY = '공지사항' AND POST_CODE = #{ id }
+        WHERE MAIN_CATEGORY = '매거진' AND POST_CODE = #{ id }
     </select>
 </mapper>
