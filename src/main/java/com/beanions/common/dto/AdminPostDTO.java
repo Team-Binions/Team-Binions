@@ -20,6 +20,8 @@ public class AdminPostDTO {
     private String mainCategory;
     private String subCategory;
     private String verifiedStatus;
+    private String reviewStatus;
+    private int viewCount;
     private MembersDTO member;
 //    private String nickname;
 }

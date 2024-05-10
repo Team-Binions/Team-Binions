@@ -29,13 +29,15 @@
     <table>
     <tr>
         <th>번호</th>
-        <th>게시판</th>
-        <th>분류</th>
+        <th class="manage_th">게시판</th>
+        <th class="manage_th">분류</th>
         <th>제목</th>
         <th>작성자</th>
         <th>작성일</th>
-        <th>비고</th>
-        <th>관리</th>
+        <th class="manage_th">조회수</th>
+        <th class="manage_th">상태</th>
+        <th class="manage_th">비고</th>
+        <th class="manage_th">관리</th>
     </tr>
     <tr th:each="post, i : ${ postList }">
         <td class="number" th:text="${i.index + 1}"></td>
@@ -44,14 +46,14 @@
         <td>
             <a th:text="${post.postTitle}" th:href="@{/admin/post/detail(id=${post.postCode})}"></a>
         </td>
-        <td th:text="${ post.member.nickname}"></td>
+        <td th:text="${ post.member.nickname }"></td>
         <td class="number" th:text="${#dates.format(post.postDate, 'yyyy-MM-dd') }" ></td>
+        <td th:text="${ post.viewCount }"></td>
         <td>
-            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == '활성' }">활성화</span>
-            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == '비활성' }">비활성화</span>
-            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == '활성' }">승인</span>
-            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == '비활성' }">미승인</span>
+            <span th:if="${ post.verifiedStatus == '활성'}">활성화</span>
+            <span th:if="${ post.verifiedStatus == '비활성'}">비활성화</span>
         </td>
+        <td th:text="${ post.reviewStatus }"></td>
         <td>
             <button type="button" th:onclick="|location.href='@{/admin/post/detail(id=${post.postCode})}'|">상세</button>
         </td>

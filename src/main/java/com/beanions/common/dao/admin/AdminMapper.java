@@ -18,6 +18,8 @@ public interface AdminMapper {
 
     void postUpdate(PostDTO post);
 
+    void postReview(PostDTO post);
+
     void postDelete(int postCode);
 
     List<AdminPostDTO> selectAllNotice();
@@ -29,4 +31,5 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllMagazine();
 
     void magazineRegist(PostDTO newMagazine);
+
 }

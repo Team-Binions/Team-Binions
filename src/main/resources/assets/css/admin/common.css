@@ -16,10 +16,8 @@ html, body {
 
 
 .search_form{
-    background-color: #A7A8C9;
-    padding-left: 900px;
-    /*padding-top: 10px;*/
-    /*margin-top: -10px;*/
+    position: absolute;
+    right: 27px;
 }
 
 .search_box {
@@ -73,7 +71,10 @@ html, body {
 
 /* 컨텐츠 전체 영역 */
 article {
-    margin-left: 26px;
+    margin-top: 136px;
+    margin-left: 176px;
+    margin-right: 26px;
+    width: 100%;
 
 
 }
@@ -113,6 +114,10 @@ th {
     color: #ffffff;
     font-weight: var(--regular);
     font-size: 16px;
+}
+
+.manage_th {
+    width: 110px;
 }
 
 h1 {
