@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <title>Beanions</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
 </head>
 <body>
-<div th:replace="admin/layout.html"></div>
-<article style="margin-top: -800px; margin-left: 160px">
-<h1>게시글 상세 정보</h1>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
+<article class="all-content">
+<p class="contents_head">게시글 상세 정보</p>
 <div th:each="post : ${ postDetail }">
-    <div>
-        <h3 th:if="${ post.mainCategory == '자유'}">예수다</h3>
-        <h3 th:if="${ post.mainCategory == '리뷰'}">예피셜</h3>
-        <h3 th:text="${ post.mainCategory}"></h3>
-        <h3 th:text="${ post.subCategory}"></h3>
+    <div class="post_main_sub_category">
+        <p class="post_main_text" th:if="${ post.mainCategory == '자유'}">예수다</p>
+        <p class="post_main_text" th:if="${ post.mainCategory == '리뷰'}">예리뷰</p>
+        <div class="main_sub_category">
+            <p class="main_text" th:text="${ post.mainCategory}"></p>
+            <p class="main_sub">|</p>
+            <p class="sub_text" th:text="${ post.subCategory}"></p>
+        </div>
     </div>
-    <h3 th:text="${ post.postTitle}"></h3>
-    <h4 th:text="${ post.member.nickname }"></h4>
-    <h4 th:text="${ #dates.format(post.postDate, 'yyyy.MM.dd')}"></h4>
-    <p th:text="${ post.postContext}"></p>
+    <p class="title_text" th:text="${ post.postTitle}"></p>
+    <p class="member_text" th:text="${ post.member.nickname }"></p>
+    <p th:text="${ #dates.format(post.postDate, 'yyyy-MM-dd')}" class="number"></p>
+    <hr class="up_line_context">
+    <p class="context_text" th:text="${ post.postContext}"></p>
+    <hr class="down_line_context">
     <!-- 삭제, 목록, 변경 버튼 div -->
     <div class="button_box">
         <!-- 삭제 버튼 -->
@@ -33,19 +41,19 @@
         <form action="/admin/post/update" method="post">
             <input type="hidden" th:value="${ post.postCode }" name="postCode">
             <span th:if="${ post.mainCategory == '자유'}">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'Y' || post.verifiedStatus == null}">
-                    <input type="hidden" name="verifiedStatus" value="N">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성' || post.verifiedStatus == null}">
+                    <input type="hidden" name="verifiedStatus" value="비활성">
                     비활성화</button>
-                <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == 'N'}">
-                    <input type="hidden" name="verifiedStatus" value="Y">
+                <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == '비활성'}">
+                    <input type="hidden" name="verifiedStatus" value="활성">
                     활성화</button>
             </span>
             <span th:if="${ post.mainCategory == '리뷰'}">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'Y'}">
-                    <input type="hidden" name="verifiedStatus" value="N">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성'}">
+                    <input type="hidden" name="verifiedStatus" value="비활성">
                     미승인</button>
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'N'}">
-                    <input type="hidden" name="verifiedStatus" value="Y">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '비활성'}">
+                    <input type="hidden" name="verifiedStatus" value="활성">
                     승인</button>
             </span>
         </form>
@@ -68,7 +76,9 @@
         <div class="deleteModal_layer"></div>
     </div>
 </div>
+    <div th:replace="admin/footer.html"></div>
 </article>
+</div>
 <script>
     document.getElementById("deleteModal_open_btn").onclick = function () {
         document.getElementById("deleteModal").style.display = "block";

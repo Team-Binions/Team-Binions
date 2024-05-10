@@ -13,7 +13,9 @@
     </script>
 </head>
 <body>
-<div th:replace="admin/layout.html"></div>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
 <article>
 <h1>공지사항 전체조회</h1>
     <div class="regist_search_box">
@@ -50,8 +52,9 @@
     </tr>
 </table>
 </div>
-</article>
 <div th:replace="admin/footer.html"></div>
+</article>
+</div>
 <script>
     // 검색시 x버튼
     const clearBtn = document.querySelector(".clear_btn");

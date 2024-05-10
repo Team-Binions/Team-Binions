@@ -9,6 +9,12 @@ input::-webkit-search-results-decoration {
     display: none;
 }
 
+/* 사이드바의 세로 길이를 화면 높이에 맞추기 위한 설정 */
+html, body {
+    height: 100%;
+}
+
+
 .search_form{
     background-color: #A7A8C9;
     padding-left: 900px;
@@ -59,17 +65,23 @@ input::-webkit-search-results-decoration {
     url("../../images/common/icon_search.svg");
     cursor: pointer;
 }
+/* 사이드바 + 컨텐츠 전체 영역 */
+.sidebar_content {
+    display: flex;
+}
+
+
 /* 컨텐츠 전체 영역 */
 article {
-    margin-top: -800px;
-    margin-left: 22%;
-    width: 1400px;
-    /*background-color: #A7A8C9;*/
+    margin-left: 26px;
+
+
 }
 
 /* 게시판 관리 */
 /* 테이블 전체 영역 */
 .table_box {
+    width: 100%;
     margin-top: 40px;
     display: inline-block;      /* 내부 테이블 크기에 맞춤 */
     border: 1px solid var(--text-color);    /* border 표시 */
@@ -77,7 +89,7 @@ article {
     overflow: hidden;       /* 넘치는 내용 감춤 */
 }
 table {
-    width: 1200px;
+    width: 100%;
     text-align: center;
     border-style: hidden;   /* 두께 맞추기 위해 border-style 숨김 */
     /*border: 2px groove var(--text-color);*/
@@ -92,7 +104,7 @@ tr, th, td {
 
 th, td {
     height: 40px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
@@ -128,7 +140,7 @@ h1 {
 
 .regist_search_box {
     position: absolute;
-    top: 135px;
+    top: 127px;
     /*background-color: #C9C9C9;*/
     display: inline-block;
 }

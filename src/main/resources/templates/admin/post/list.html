@@ -13,7 +13,9 @@
     </script>
 </head>
 <body>
-<div th:replace="admin/layout.html"></div>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
 <article>
 <h1>게시판 전체조회</h1>
     <form class="search_form">
@@ -45,10 +47,10 @@
         <td th:text="${ post.member.nickname}"></td>
         <td class="number" th:text="${#dates.format(post.postDate, 'yyyy-MM-dd') }" ></td>
         <td>
-            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'Y' }">활성화</span>
-            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'N' }">비활성화</span>
-            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'Y' }">승인</span>
-            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'N' }">미승인</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == '활성' }">활성화</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == '비활성' }">비활성화</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == '활성' }">승인</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == '비활성' }">미승인</span>
         </td>
         <td>
             <button type="button" th:onclick="|location.href='@{/admin/post/detail(id=${post.postCode})}'|">상세</button>
@@ -56,8 +58,9 @@
     </tr>
     </table>
     </div>
-</article>
 <div th:replace="admin/footer.html"></div>
+</article>
+</div>
 
 <!--<th:block layout:fragment="script">-->
     <script>
