@@ -1,4 +1,4 @@
-package com.beanions.common.dao.user;
+package com.beanions.common.dao.user.board;
 
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
@@ -11,7 +11,6 @@ public interface NoticeMapper {
 
     List<PostAndMemberDTO> allNoticeList();
 
-    List<PostDTO> noticeSelectOneDetail(int id);
+    List<PostAndMemberDTO> noticeSelectOneDetail(int id);
 
-    void postModify(PostDTO id);
 }

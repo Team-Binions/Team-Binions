@@ -1,6 +1,6 @@
-package com.beanions.user.service;
+package com.beanions.user.service.board;
 
-import com.beanions.common.dao.user.NoticeMapper;
+import com.beanions.common.dao.user.board.NoticeMapper;
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
@@ -23,15 +23,9 @@ public class NoticeService {
     }
 
 
-    public List<PostDTO> selectNotice(String id) {
+    public List<PostAndMemberDTO> selectNotice(String id) {
 
         int code = Integer.parseInt(id);
         return noticeMapper.noticeSelectOneDetail(code);
-    }
-    
-    @Transactional
-    public void modifyPost(PostDTO id) {
-
-        noticeMapper.postModify(id);
     }
 }
