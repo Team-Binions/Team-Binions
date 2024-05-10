@@ -25,7 +25,7 @@ public class NoticeController {
 
         model.addAttribute("noticeList", noticeList);
 
-        return "notice";
+        return "user/board/noticeList";
     }
 
     @GetMapping( "/noticedetail")
@@ -35,6 +35,6 @@ public class NoticeController {
 
         model.addAttribute("notice", notice);
 
-        return "noticedetail";
+        return "user/board/noticeDetail";
     }
 }

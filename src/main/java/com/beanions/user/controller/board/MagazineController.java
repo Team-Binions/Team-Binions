@@ -2,7 +2,6 @@ package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.user.service.board.MagazineService;
-import com.beanions.user.service.board.NoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

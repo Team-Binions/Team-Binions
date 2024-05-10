@@ -2,7 +2,6 @@ package com.beanions.user.controller.board;
 
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
-import com.beanions.common.dto.SearchDTO;
 import com.beanions.user.service.board.FreeBoardService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -10,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -29,9 +25,11 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yesinList")
-    public String yesinList(@ModelAttribute("params") final SearchDTO params, Model model, String id) {
+    public String yesinList(@RequestParam("id") String id , Model model) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(params);
+        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id);
+
+        model.addAttribute("name", id);
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
@@ -39,9 +37,11 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yerangList")
-    public String yerangList(@ModelAttribute("params") final SearchDTO params, Model model, String id) {
+    public String yerangList(@RequestParam("id") String id , Model model) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(params);
+        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id);
+
+        model.addAttribute("name", id);
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 

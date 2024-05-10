@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface FreeBoardMapper {
-    List<PostAndMemberDTO> freeList(SearchDTO params);
+    List<PostAndMemberDTO> freeList(String id);
 
     List<PostAndMemberDTO> freeDetail(int id);
 

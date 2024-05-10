@@ -1,7 +1,6 @@
 package com.beanions.user.service.board;
 
 import com.beanions.common.dao.user.board.MagazineMapper;
-import com.beanions.common.dao.user.board.NoticeMapper;
 import com.beanions.common.dto.PostAndMemberDTO;
 import org.springframework.stereotype.Service;
 
