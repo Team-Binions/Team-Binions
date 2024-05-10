@@ -44,18 +44,31 @@
 <button type="button" onclick="history.back()">취소</button>
 <button type="submit">등록</button>
 
-</form>
+    </form>
+
 
 <script>
     $(document).ready(function() {
         const mainCategorySelect = $('#mainCategory');
         const subCategorySelect = $('#subCategory');
 
+            mainCategorySelect.change(function () {
+                const selectedMainCategory = $(this).val();
 
-        mainCategorySelect.change(function() {
-            const selectedMainCategory = $(this).val();
+                subCategorySelect.empty();
 
-            subCategorySelect.empty();
+                switch (selectedMainCategory) {
+                    case '예수다':
+                        addSubCategoryOptions(['예신', '예랑']);
+                        break;
+                    case '예리뷰':
+                        addSubCategoryOptions(['웨딩', '스드메', '기타']);
+                        break;
+                    default :
+                        addSubCategoryOptions(['']);
+                        break;
+                }
+            });
 
             switch (selectedMainCategory) {
                 case '자유':
@@ -68,19 +81,9 @@
                     addSubCategoryOptions(['']);
                     break;
             }
+
         });
 
-        function addSubCategoryOptions(options) {
-            $.each(options, function(index, option) {
-                subCategorySelect.append($('<option>', {
-                    value: option,
-                    text: option
-                }));
-            });
-        }
-
-    });
-
-</script>
+    </script>
 </body>
 </html>
