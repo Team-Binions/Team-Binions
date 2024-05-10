@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/user/main.css}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <div th:each="review: ${ PostAndMemberDTOList }">
         <title th:text="|${review.subCategory}수다방|"></title>
@@ -15,7 +19,7 @@
     </script>
 </head>
 <body>
-<!--<div th:replace="common/header.html"></div>-->
+<div th:replace="user/layout/header.html"></div>
 
 <h1>예비들을 위한 리뷰</h1>
 
@@ -31,13 +35,13 @@
     <tr th:each="review, i : ${ PostAndMemberDTOList }" >
         <td th:text="${ (i.size + 1)-(i.count) }"></td>
         <td>
-            <a th:text="${ review.postTitle }" th:href="@{/user/board/yesinDetail(id=${review.postCode})}"></a>
+            <a th:text="${ review.postTitle }" th:href="@{/user/board/reviewDetail(id=${review.postCode})}"></a>
         </td>
         <td th:text="${ review.member.nickname }"></td>
         <td th:text="${ #dates.format(review.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
 
-    <button type="button" th:onclick="|location.href='@{/user/board/postRegist}'|">글쓰기</button>
+    <button type="button" th:onclick="|location.href='@{/user/board/reviewRegist}'|">글쓰기</button>
 </table>
 
 <div class="paging">
@@ -49,8 +53,49 @@
 
 
     </script>
-
-
 </div>
+
+<div th:replace="user/layout/footer.html"></div>
+
+<script>
+    //header sub menu 활성화
+    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+    const subMenu = document.querySelectorAll('.sub_menu');
+    gnbMenu.forEach(gnbmenu => {
+        gnbmenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.nextElementSibling.classList.add("active");
+        })
+        gnbmenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.nextElementSibling.classList.remove("active");
+        })
+    });
+
+    subMenu.forEach(submenu => {
+        submenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.classList.add("active");
+        })
+        submenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.classList.remove("active");
+        })
+    })
+
+    // 예리뷰 슬라이드
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
 </body>
 </html>
