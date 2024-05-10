@@ -22,7 +22,7 @@ public class MembersDTO {
     private String marriedStatus;
 //    private MemberRole memberRole;
     private String memberRole;
-    private Boolean weddingVerified;
+    private String weddingVerified;
     private Date signupDate;
 
 }

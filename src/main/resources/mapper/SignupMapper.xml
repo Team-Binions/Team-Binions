@@ -31,4 +31,44 @@
                 MEMBERS
         WHERE   NICKNAME = #{nkname}
     </select>
+
+    <select id="checkDupEmail">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   EMAIL = #{email}
+    </select>
+
+    <insert id="joinMember" parameterType="com.beanions.common.dto.MembersDTO">
+        INSERT INTO
+                MEMBERS
+                (
+                    MEMBER_CODE,
+                    MEMBER_ID,
+                    MEMBER_PW,
+                    NICKNAME,
+                    EMAIL,
+                    PHONE,
+                    GENDER,
+                    MARRIED_STATUS,
+                    MEMBER_ROLE,
+                    WEDD_VEF,
+                    SIGNUP_DATE
+                )
+        VALUES
+        (
+            NULL,
+            #{memberId},
+            #{memberPw},
+            #{nickname},
+            #{email},
+            #{phone},
+            #{gender},
+            #{marriedStatus},
+            'USER',
+            #{weddingVerified},
+            CURDATE()
+        )
+    </insert>
 </mapper>

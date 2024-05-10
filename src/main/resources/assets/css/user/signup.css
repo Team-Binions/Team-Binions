@@ -1,0 +1,89 @@
+
+.terms_body {
+    width: 800px;
+    height: 224px;
+    margin: auto;
+}
+
+.terms_box {
+    width: 800px;
+    height: 224px;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 6px;
+    border-color: #C4C4C4;
+    resize: none;
+}
+
+.signup_body {
+    width: 800px;
+    padding-top: 180px;
+    padding-bottom: 80px;
+    margin: auto;
+}
+
+.signup_item {
+    padding-right: 85px;
+    display: inline-block;
+}
+
+.input_item {
+    width: 497px;
+    height: 48px;
+    border-radius: 12px;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+.input_item::file-selector-button {
+    width: 130px;
+    height: 48px;
+    background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;
+    border-radius: 12px;
+    &:hover {
+        background-color: var(--point-color); transition: background-color 200ms ease-in-out;
+    }
+}
+
+.file_box {
+    padding-left: 17px; display: inline-block;
+}
+
+.file_box label {
+    display: inline-block;
+    padding: 12px 43px;
+    height: 48px;
+    background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+        background-color: var(--point-color); transition: background-color 200ms ease-in-out;
+    }
+}
+
+.file_box input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.btn_item {
+    width: 130px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.item_box {
+    padding-bottom: 40px
+}
+
+.label_box {
+    width: 800px;
+    height: 10px;
+    visibility: visible;
+}
