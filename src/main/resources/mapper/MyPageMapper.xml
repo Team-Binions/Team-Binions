@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+				PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.common.dao.user.MyPageMapper">
+
+	<!-- MyPageDTO association+collection 적용한 AllData resultMap	-->
+	<resultMap id="memberAndPostsResultMap" type="com.beanions.common.dto.MyPageDTO">
+		<association property="memberCode" javaType="com.beanions.common.dto.MembersDTO">
+			<id property="memberCode" column="MEMBER_CODE"/>
+			<result property="memberId" column="MEMBER_ID"/>
+			<result property="memberPw" column="MEMBER_PW"/>
+			<result property="nickname" column="NICKNAME"/>
+			<result property="email" column="EMAIL"/>
+			<result property="phone" column="PHONE"/>
+			<result property="gender" column="GENDER"/>
+			<result property="marriedStatus" column="MARRIED_STATUS"/>
+			<result property="memberRole" column="MEMBER_ROLE"/>
+			<result property="weddingVerified" column="WEDD_VEF"/>
+			<result property="signupDate" column="SIGNUP_DATE"/>
+		</association>
+		<collection property="postCode" javaType="com.beanions.common.dto.PostDTO">
+			<id property="postCode" column="POST_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="postTitle" column="POST_TITLE"/>
+			<result property="postContext" column="POST_CONTEXT"/>
+			<result property="postDate" column="POST_DATE"/>
+			<result property="mainCategory" column="MAIN_CATEGORY"/>
+			<result property="subCategory" column="SUB_CATEGORY"/>
+			<result property="verifiedStatus" column="VEF_STATUS"/>
+		</collection>
+		<collection property="commentCode" javaType="com.beanions.common.dto.CommentsDTO">
+			<id property="commentCode" column="COMMENT_CODE"/>
+			<result property="postCode" column="POST_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="commentContext" column="COMMENT_CONTEXT"/>
+			<result property="commentDate" column="COMMENT_DATE"/>
+		</collection>
+		<collection property="scheduleCode" javaType="com.beanions.common.dto.SchedulesDTO">
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="scheduleTitle" column="SCHEDULE_TITLE"/>
+			<result property="scheduleDate" column="SCHEDULE_DATE"/>
+			<result property="scheduleContext" column="SCHEDULE_CONTEXT"/>
+		</collection>
+	</resultMap>
+	<select id="selectAllMyPageData" resultMap="memberAndPostsResultMap">
+		SELECT
+		A.MEMBER_CODE,
+		A.MEMBER_ID,
+		A.NICKNAME,
+		A.EMAIL,
+		A.PHONE,
+		A.GENDER,
+		A.MARRIED_STATUS,
+		A.MEMBER_ROLE,
+		A.WEDD_VEF,
+		A.SIGNUP_DATE,
+		B.POST_CODE,
+		B.POST_TITLE,
+		C.COMMENT_CODE,
+		C.COMMENT_CONTEXT,
+		D.SCHEDULE_CODE,
+		D.SCHEDULE_TITLE
+		FROM MEMBERS A
+		LEFT JOIN POST B ON A.MEMBER_CODE = B.MEMBER_CODE
+		LEFT JOIN COMMENTS C ON B.MEMBER_CODE = C.MEMBER_CODE
+		LEFT JOIN SCHEDULES D ON A.MEMBER_CODE = D.MEMBER_CODE
+		WHERE A.MEMBER_ROLE NOT LIKE "ADMIN"
+		ORDER BY A.SIGNUP_DATE DESC
+	</select>
+	
+	<!-- MYPAGE 메인 페이지 필요 데이터	-->
+	<!-- 총게시글	-->
+
+	<resultMap id="selectMyPageMainDataResultMap" type="com.beanions.common.dto.MyPageDTO">
+		<id property="nickname" column="NICKNAME"/>
+		<result property="postCount" column="POST_COUNT"/>
+		<result property="reviewCount" column="REVIEW_COUNT"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="commentCount" column="COMMENT_COUNT"/>
+		<result property="totalCount" column="Total"/>
+		<result property="scheduleCount" column="SCHEDULE_COUNT"/>
+	</resultMap>
+	<select id="selectMyPageMainData" resultMap="selectMyPageMainDataResultMap">
+		SELECT
+		a.NICKNAME,
+		b.POST_COUNT,
+		c.REVIEW_COUNT,
+		d.FREE_COUNT,
+		e.COMMENT_COUNT,
+		f.Total,
+		g.SCHEDULE_COUNT
+		FROM
+		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 5) a
+		,   ( select count(*) POST_COUNT from POST      where MEMBER_CODE   = 5 ) b
+		,   ( select count(*) REVIEW_COUNT from POST      where MEMBER_CODE   = 5 AND MAIN_CATEGORY = "리뷰" ) c
+		,   ( select count(*) FREE_COUNT from POST      where MEMBER_CODE   = 5 AND MAIN_CATEGORY = "자유" ) d
+		,  ( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = 5 ) e
+		,  ( select (( select count(*) POST_COUNT from POST      where MEMBER_CODE   = 5 ) +
+		( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = 5 ) ) Total) f
+		,  (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = 5 ) g;
+	</select>
+
+	<!-- 게시글수 / 댓글수	-->
+	<!-- 예리뷰 & 예수다 -->
+	<resultMap id="selectMyPagePostsResultMap" type="com.beanions.common.dto.MyPageDTO">
+		<id property="nickname" column="NICKNAME"/>
+		<result property="reviewCount" column="REVIEW_COUNT"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="totalCount" column="Total"/>
+		<collection property="posts" javaType="com.beanions.common.dto.PostDTO">
+			<id property="postCode" column="POST_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="postTitle" column="POST_TITLE"/>
+			<result property="postContext" column="POST_CONTEXT"/>
+			<result property="postDate" column="POST_DATE"/>
+			<result property="mainCategory" column="MAIN_CATEGORY"/>
+			<result property="subCategory" column="SUB_CATEGORY"/>
+			<result property="verifiedStatus" column="VEF_STATUS"/>
+		</collection>
+	</resultMap>
+	<select id="selectMyPageReviewData" resultMap="selectMyPagePostsResultMap">
+		SELECT
+				A.NICKNAME,
+				B.POST_TITLE,
+				B.POST_CONTEXT,
+				B.POST_DATE,
+				B.MAIN_CATEGORY,
+				B.SUB_CATEGORY,
+				B.VEF_STATUS,
+				C.REVIEW_COUNT,
+				D.Total
+		FROM
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
+			,   ( select * from POST where MEMBER_CODE = 15 AND MAIN_CATEGORY = "리뷰" ) B
+			,   ( select count(*) REVIEW_COUNT from POST where MEMBER_CODE = 15 AND MAIN_CATEGORY = "리뷰" ) C
+			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) D
+		ORDER BY B.POST_DATE DESC
+	</select>
+	<select id="selectMyPageFreeData" resultMap="selectMyPagePostsResultMap">
+		SELECT
+				A.NICKNAME,
+				B.POST_TITLE,
+				B.POST_CONTEXT,
+				B.POST_DATE,
+				B.MAIN_CATEGORY,
+				B.SUB_CATEGORY,
+				B.VEF_STATUS,
+				C.FREE_COUNT,
+				D.Total
+		FROM
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 8) A
+			,   ( select * from POST where MEMBER_CODE = 8 AND MAIN_CATEGORY = "자유" ) B
+			,   ( select count(*) FREE_COUNT from POST where MEMBER_CODE = 8 AND MAIN_CATEGORY = "자유" ) C
+			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 8 ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 8 ) ) Total) D
+		ORDER BY B.POST_DATE DESC
+	</select>
+
+	<!-- 댓글 -->
+	<resultMap id="selectMyPageCommentsResultMap" type="com.beanions.common.dto.MyPageDTO">
+		<id property="nickname" column="NICKNAME"/>
+		<result property="commentCount" column="COMMENT_COUNT"/>
+		<result property="totalCount" column="Total"/>
+		<association property="comments" javaType="com.beanions.common.dto.CommentsDTO">
+			<id property="commentCode" column="COMMENT_CODE"/>
+			<result property="postCode" column="POST_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="commentContext" column="COMMENT_CONTEXT"/>
+			<result property="commentDate" column="COMMENT_DATE"/>
+		</association>
+	</resultMap>
+	<select id="selectMyPageCommentData" resultMap="selectMyPageCommentsResultMap">
+		SELECT
+		A.NICKNAME,
+		B.COMMENT_CODE,
+		B.POST_CODE,
+		B.COMMENT_CONTEXT,
+		B.COMMENT_DATE,
+		C.COMMENT_COUNT,
+		D.Total
+		FROM
+		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
+		,   ( select * from COMMENTS where MEMBER_CODE = 15) B
+		,   ( select count(*) COMMENT_COUNT from COMMENTS where MEMBER_CODE = 15 ) C
+		,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
+		( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) D
+		ORDER BY B.COMMENT_DATE DESC
+	</select>
+</mapper>
