@@ -16,7 +16,7 @@
         <th>글쓴이</th>
         <th>작성시간</th>
     </tr>
-    <tr th:each=" notice, i : ${ noticeList }">
+    <tr th:each=" notice, i : ${ magazineList }">
         <td th:text="${(i.size + 1)-(i.count)}"></td>
         <td><a th:text="${notice.postTitle}" th:href="@{/user/board/noticedetail(id=${notice.postCode})}"></a></td>
         <td th:text="${notice.member.nickname}"></td>

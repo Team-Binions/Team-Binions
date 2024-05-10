@@ -8,18 +8,13 @@ import java.util.List;
 
 @Mapper
 public interface FreeBoardMapper {
-    List<PostAndMemberDTO> yesinAllList(SearchDTO params);
+    List<PostAndMemberDTO> freeList(SearchDTO params);
 
-    int count(SearchDTO params);
+    List<PostAndMemberDTO> freeDetail(int id);
 
+    void freeRegist(PostDTO postDTO);
 
-    List<PostAndMemberDTO> yesinDetail(int id);
+    void freeModify(PostDTO id);
 
-    void postRegist(PostDTO postDTO);
-
-    List<MainCategoryDTO> findMainCategory();
-
-    void postModify(PostDTO id);
-
-    void postDelete(PostDTO postDTO);
+    void freeDelete(PostDTO postDTO);
 }

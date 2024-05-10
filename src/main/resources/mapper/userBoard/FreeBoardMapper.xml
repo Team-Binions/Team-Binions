@@ -29,7 +29,7 @@
         </association>
     </resultMap>
 
-    <select id="yesinAllList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
+    <select id="freeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -54,7 +54,7 @@
             POST
     </select>
 
-    <select id="yesinDetail" resultMap="PostAndMemberResultMap">
+    <select id="freeDetail" resultMap="PostAndMemberResultMap">
         SELECT
         POST_CODE,
         MEMBER_CODE,
@@ -68,7 +68,7 @@
         ORDER BY POST_CODE
     </select>
 
-    <insert id="postRegist" parameterType="com.beanions.common.dto.PostDTO">
+    <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">
         INSERT INTO POST
         (
         MEMBER_CODE
@@ -91,7 +91,7 @@
         )
     </insert>
 
-    <update id="postModify" parameterType="com.beanions.common.dto.PostDTO">
+    <update id="freeModify" parameterType="com.beanions.common.dto.PostDTO">
         UPDATE POST
            SET
                POST_TITLE = #{ postTitle },
@@ -99,7 +99,7 @@
          WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
     </update>
 
-    <delete id="postDelete" parameterType="com.beanions.common.dto.PostDTO">
+    <delete id="freeDelete" parameterType="com.beanions.common.dto.PostDTO">
         DELETE
           FROM
                POST
