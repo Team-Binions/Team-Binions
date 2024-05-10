@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.common.dao.user.board.FreeBoardMapper">
+
+    <resultMap id="mainCategoryResultMap" type="com.beanions.common.dto.MainCategoryDTO">
+        <id property="code" column="main_code"/>
+        <result property="name" column="main_name"/>
+    </resultMap>
+
+    <resultMap id="subCategoryResultMap" type="com.beanions.common.dto.SubCategoryDTO">
+        <id property="code" column="sub_code"/>
+        <result property="name" column="sub_name"/>
+    </resultMap>
+
+    <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContext" column="post_context"/>
+        <result property="postDate" column="post_date"/>
+        <result property="mainCategory" column="main_category"/>
+        <result property="subCategory" column="sub_category"/>
+        <result property="verifiedStatus" column="vef_status"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="member_code"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+    </resultMap>
+
+    <select id="yesinAllList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = '예신'
+        ORDER BY POST_CODE desc
+        <!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
+    </select>
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST
+    </select>
+
+    <select id="yesinDetail" resultMap="PostAndMemberResultMap">
+        SELECT
+        POST_CODE,
+        MEMBER_CODE,
+        POST_TITLE,
+        POST_CONTEXT,
+        POST_DATE,
+        MAIN_CATEGORY,
+        SUB_CATEGORY
+        FROM POST
+        WHERE SUB_CATEGORY = '예신' AND POST_CODE = #{ id }
+        ORDER BY POST_CODE
+    </select>
+
+    <insert id="postRegist" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , VEF_STATUS
+        )
+        VALUES
+        (
+        #{memberCode}
+        , #{postTitle}
+        , #{postContext}
+        , #{mainCategory}
+        , #{subCategory}
+        , DATE_FORMAT(now(), '%y/%m/%d')
+        , NULL
+        )
+    </insert>
+
+    <update id="postModify" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE POST
+        SET
+        POST_TITLE = #{ postTitle },
+        POST_CONTEXT = #{ postContext }
+        WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+    </update>
+
+    <delete id="postDelete" parameterType="com.beanions.common.dto.PostDTO">
+        DELETE
+        FROM
+        POST
+        WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+    </delete>
+</mapper>

@@ -1,6 +1,5 @@
 package com.beanions.user.controller.board;
 
-import com.beanions.common.dto.MainCategoryDTO;
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
@@ -33,7 +32,7 @@ public class FreeBoardController {
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
-        return "user/board/yesinList";
+        return "freeList";
     }
 
     @GetMapping("/yesinDetail")
@@ -43,7 +42,7 @@ public class FreeBoardController {
 
         model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
 
-        return "user/board/yesinDetail";
+        return "freeDetail";
     }
 
 
@@ -71,7 +70,7 @@ public class FreeBoardController {
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/user/board/freeList";
         } else {
             return "redirect:/user/board/yesinList";
         }
@@ -84,7 +83,7 @@ public class FreeBoardController {
 
         model.addAttribute("modify", modify);
 
-        return "user/board/freeboardmodify";
+        return "freemodify";
     }
 
     @PostMapping("/modify")
@@ -96,7 +95,7 @@ public class FreeBoardController {
 
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/user/board/freeList";
         }else {
             return "redirect:/user/board/yesinList";
         }
@@ -111,7 +110,7 @@ public class FreeBoardController {
 
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/user/board/freeList";
         }else {
             return "redirect:/user/board/yesinList";
         }
