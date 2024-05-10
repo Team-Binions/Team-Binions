@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+
     <div th:each="yesin: ${ PostAndMemberDTO }">
         <title th:text="${yesin.postTitle}"></title>
     </div>
@@ -22,7 +24,7 @@
         <form th:action="@{/user/board/delete(id=${yesin.postCode})}" method="post">
             <input type="hidden" th:value="${yesin.subCategory}" name="subCategory">
             <input type="hidden" th:value="${yesin.postCode}" name="postCode">
-            <input type="submit" value="삭제하기">
+            <button type="submit">삭제하기</button>
         </form>
 
     </div>

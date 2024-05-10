@@ -30,10 +30,11 @@ public class NoticeController {
         return "user/board/noticeboard";
     }
 
-    @GetMapping( "/notice/detail")
+    @GetMapping( "/noticedetail")
     public String noticeDetail(@RequestParam("id") String id, Model model) {
 
-        List<PostDTO> notice = noticeService.selectNotice(id);
+        List<PostAndMemberDTO> notice = noticeService.selectNotice(id);
+
         model.addAttribute("notice", notice);
 
         return "user/board/noticeboarddetail";

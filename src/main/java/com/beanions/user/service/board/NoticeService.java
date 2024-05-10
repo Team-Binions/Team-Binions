@@ -23,7 +23,7 @@ public class NoticeService {
     }
 
 
-    public List<PostDTO> selectNotice(String id) {
+    public List<PostAndMemberDTO> selectNotice(String id) {
 
         int code = Integer.parseInt(id);
         return noticeMapper.noticeSelectOneDetail(code);
