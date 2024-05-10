@@ -15,35 +15,42 @@
 <body>
 <!--<div th:replace="common/header.html"></div>-->
 
-    <h3>글쓰기</h3>
-    <form action="/user/board/postRegist" method="post">
-        <select id="mainCategory" name="mainCategory">
-            <option value="" disabled selected>게시판을 선택해 주세요.</option>
-            <option value="예수다">예수다</option>
-            <option value="예리뷰">예리뷰</option>
-        </select>
-        <select id="subCategory" name="subCategory">
-            <option value="" disabled selected>카테고리를 선택해주세요.</option>
-            <option value="예신">예신</option>
-            <option value="예랑">예랑</option>
-            <option value="웨딩">웨딩</option>
-            <option value="스드메">스드메</option>
-            <option value="기타-리뷰">기타</option>
-        </select>
-        <input type="text" name="postTitle" placeholder="제목을 입력하세요."><br>
-        <hr>
-        <input type="text" name="postContents" placeholder="내용을 입력하세요."><br>
-        <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요.">
-        <button type="button" onclick="location.href='/user/board/yesinList'">취소</button>
-        <input type="submit" value="등록">
+<h3>글쓰기</h3>
+<form action="/user/board/postRegist" method="post">
+    <select id="mainCategory" name="mainCategory" th:value="mainCategory">
+        <option value="" disabled selected>게시판을 선택해 주세요.</option>
+        <option value="자유">예수다</option>
+        <option value="리뷰">예리뷰</option>
+    </select>
+    <select id="subCategory" name="subCategory" th:value="subCategory">
+        <option value="" disabled selected>카테고리를 선택해주세요.</option>
+        <option value="예신">예신</option>
+        <option value="예랑">예랑</option>
+        <option value="웨딩">웨딩</option>
+        <option value="스드메">스드메</option>
+        <option value="기타-리뷰">기타</option>
+    </select>
+    <br>
+<input type="text" name="postTitle" placeholder="제목을 입력하세요.">
+    <br>
+    <hr>
+    <input type="text" th:value="${memberCode}" name="memberCode">
+    <input type="hidden" th:value="${postDate}" name="memberCode">
+    <div>
+            <textarea name="postContext" placeholder="내용을 입력하세요."
+                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>
+    </div>
+<label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>
+<button type="button" onclick="history.back()">취소</button>
+<button type="submit">등록</button>
 
     </form>
 
-    <script>
-        $(document).ready(function () {
-            const mainCategorySelect = $('#mainCategory');
-            const subCategorySelect = $('#subCategory');
 
+<script>
+    $(document).ready(function() {
+        const mainCategorySelect = $('#mainCategory');
+        const subCategorySelect = $('#subCategory');
 
             mainCategorySelect.change(function () {
                 const selectedMainCategory = $(this).val();
@@ -63,13 +70,16 @@
                 }
             });
 
-            function addSubCategoryOptions(options) {
-                $.each(options, function (index, option) {
-                    subCategorySelect.append($('<option>', {
-                        value: option,
-                        text: option
-                    }));
-                });
+            switch (selectedMainCategory) {
+                case '자유':
+                    addSubCategoryOptions(['예신', '예랑']);
+                    break;
+                case '리뷰':
+                    addSubCategoryOptions(['웨딩', '스드메', '기타']);
+                    break;
+                default :
+                    addSubCategoryOptions(['']);
+                    break;
             }
 
         });
