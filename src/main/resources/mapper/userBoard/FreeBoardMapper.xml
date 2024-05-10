@@ -81,11 +81,11 @@
         )
         VALUES
         (
-         #{ memberCode }
-        , #{ postTitle }
-        , #{ postContext }
-        , #{ mainCategory }
-        , #{ subCategory }
+        #{memberCode}
+        , #{postTitle}
+        , #{postContext}
+        , #{mainCategory}
+        , #{subCategory}
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
         )

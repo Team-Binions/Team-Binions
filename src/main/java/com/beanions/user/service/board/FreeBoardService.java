@@ -53,9 +53,10 @@ public class FreeBoardService {
         return freeBoardMapper.yesinDetail(code);
     }
 
-    public void postRegist(PostDTO newPost) {
+    @Transactional
+    public void postRegist(PostDTO postDTO) {
 
-        freeBoardMapper.postRegist(newPost);
+        freeBoardMapper.postRegist(postDTO);
     }
 
     public List<MainCategoryDTO> findMainCategory() {

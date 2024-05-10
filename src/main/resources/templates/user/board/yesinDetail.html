@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+
     <div th:each="yesin: ${ PostAndMemberDTO }">
         <title th:text="${yesin.postTitle}"></title>
     </div>
