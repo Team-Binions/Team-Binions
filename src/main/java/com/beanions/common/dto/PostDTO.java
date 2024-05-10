@@ -19,5 +19,7 @@ public class PostDTO {
     private String mainCategory;
     private String subCategory;
     private String verifiedStatus;
+    private String reviewStatus;
+    private int viewCount;
 
 }
