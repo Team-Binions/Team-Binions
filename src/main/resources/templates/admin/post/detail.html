@@ -26,8 +26,9 @@
     <p class="title_text" th:text="${ post.postTitle}"></p>
     <p class="member_text" th:text="${ post.member.nickname }"></p>
     <p th:text="${ #dates.format(post.postDate, 'yyyy-MM-dd')}" class="number"></p>
-    <hr>
-    <p th:text="${ post.postContext}"></p>
+    <hr class="up_line_context">
+    <p class="context_text" th:text="${ post.postContext}"></p>
+    <hr class="down_line_context">
     <!-- 삭제, 목록, 변경 버튼 div -->
     <div class="button_box">
         <!-- 삭제 버튼 -->
@@ -40,19 +41,19 @@
         <form action="/admin/post/update" method="post">
             <input type="hidden" th:value="${ post.postCode }" name="postCode">
             <span th:if="${ post.mainCategory == '자유'}">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'Y' || post.verifiedStatus == null}">
-                    <input type="hidden" name="verifiedStatus" value="N">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성' || post.verifiedStatus == null}">
+                    <input type="hidden" name="verifiedStatus" value="비활성">
                     비활성화</button>
-                <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == 'N'}">
-                    <input type="hidden" name="verifiedStatus" value="Y">
+                <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == '비활성'}">
+                    <input type="hidden" name="verifiedStatus" value="활성">
                     활성화</button>
             </span>
             <span th:if="${ post.mainCategory == '리뷰'}">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'Y'}">
-                    <input type="hidden" name="verifiedStatus" value="N">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성'}">
+                    <input type="hidden" name="verifiedStatus" value="비활성">
                     미승인</button>
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == 'N'}">
-                    <input type="hidden" name="verifiedStatus" value="Y">
+                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '비활성'}">
+                    <input type="hidden" name="verifiedStatus" value="활성">
                     승인</button>
             </span>
         </form>

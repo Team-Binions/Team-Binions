@@ -1,17 +1,18 @@
 /* 컨텐츠 전체 영역 */
 .all-content {
     margin-right: 5%;
+    width: 1500px;
 }
 /* 게시글 상세정보 */
 .contents_head {
-    margin-top: 40px;
+    margin-top: 20px;
     font-weight: var(--bold);
     font-size: 24px;
 }
 
 /* 예수다, 예리뷰 */
 .post_main_sub_category {
-    margin-top: 38px;
+    margin-top: 26px;
     display: flex;
 }
 
@@ -50,14 +51,14 @@
 }
 /* 게시글 제목 */
 .title_text {
-    margin-top: 28px;
+    margin-top: 24px;
     font-weight: var(--semiBold);
     font-size: 24px;
 }
 
 /* 작성자 */
 .member_text {
-    margin-top: 26px;
+    margin-top: 22px;
     font-weight: var(--bold);
     font-size: 16px;
 }
@@ -65,19 +66,38 @@
 /* 작성일 */
 .number {
     position: absolute;
-    top: 336px;
-    right: 100px;
+    top: 300px;
+    right: 240px;
     font-weight: var(--regular);
     font-size: 20px;
     color: #6F6F6F;
 }
+
+/* 내용 위 가로 선 */
+.up_line_context {
+    margin-top: 27px;
+    width: 100%;
+}
 /* 내용 */
+.context_text {
+    margin-top: 16px;
+    width: 1200px;
+    height: 420px;
+    margin-bottom: 30px;
+}
+/* 내용 아래 가로 선 */
+.down_line_context_line_context {
+    width: 100%;
+}
 
+.button_box {
+    display: flex;
 
+}
 
 /* 삭제, 목록, 상태변경 버튼 */
 .button_box button {
-    display: inline-block;
+    margin-top: 30px;
     cursor: pointer;
     width: 170px;
     height: 48px;
@@ -106,6 +126,12 @@
     border: solid thin var(--point-color);
     color: var(--point-color);
     transition: background-color 200ms ease-in-out;
+}
+
+/* 상태변경 버튼 */
+.button_box .modify_btn {
+    position: absolute;
+    right: 220px;
 }
 
 /* 모달 전체 영역 */
