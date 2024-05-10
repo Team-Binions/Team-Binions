@@ -34,7 +34,7 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '매거진'
-        ORDER BY POST_CODE desc
+        ORDER BY POST_DATE desc
     </select>
 
     <select id="magazineSelectOneDetail" resultMap="PostAndMemberResultMap">
@@ -48,6 +48,6 @@
         SUB_CATEGORY
         FROM POST
         WHERE MAIN_CATEGORY = '매거진' AND POST_CODE = #{ id }
-        ORDER BY POST_CODE
+        ORDER BY POST_DATE desc
     </select>
 </mapper>
