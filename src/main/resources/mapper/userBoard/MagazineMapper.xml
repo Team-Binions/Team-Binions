@@ -48,6 +48,5 @@
         SUB_CATEGORY
         FROM POST
         WHERE MAIN_CATEGORY = '매거진' AND POST_CODE = #{ id }
-        ORDER BY POST_DATE desc
     </select>
 </mapper>
