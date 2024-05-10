@@ -13,7 +13,6 @@ public class MemberService {
 
     private final AdminMapper adminMapper;
 
-    @Autowired
     public MemberService(AdminMapper adminMapper) {
         this.adminMapper = adminMapper;
     }

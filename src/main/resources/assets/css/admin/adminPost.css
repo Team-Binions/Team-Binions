@@ -1,0 +1,116 @@
+/* 삭제, 목록, 상태변경 버튼 */
+.button_box button {
+    display: inline-block;
+    cursor: pointer;
+    width: 170px;
+    height: 48px;
+}
+
+.button_box #deleteModal_open_btn {
+    background-color: #F4F4F9;
+    color: var(--main-color);
+    font-weight: var(--semiBold);
+}
+#deleteModal_open_btn:hover {
+    background-color: #F4F4F9;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+/* 목록 버튼 */
+.button_box #back_post_btn {
+    background-color: #F4F4F9;
+    color: var(--main-color);
+    font-weight: var(--semiBold);
+}
+#back_post_btn:hover {
+    background-color: #F4F4F9;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+/* 모달 전체 영역 */
+#deleteModal {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* 모달 글 */
+#deleteModal p {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* 모달 안에 있는 버튼 */
+#deleteModal button {
+    display: inline-block;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    /*margin-left: calc(100% - 100px - 10px);*/
+}
+
+/* 모달 내용 */
+#deleteModal .deleteModal_content {
+    width: 300px;
+    height: 200px;
+    /*margin: -100px 0 -100px 700px ;*/
+    margin-top: -3%;
+    margin-left: 35%;
+    padding: 10px 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    /*border: 2px solid #666;*/
+}
+
+/* 모달 뒷 배경 */
+#deleteModal .deleteModal_layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+#deleteModal .deleteModal_icon_box {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#deleteModal .deleteModal_icon {
+    height: 40px;
+    width: 40px;
+}
+
+#deleteModal .deleteModal_button_box {
+    height: 40px;
+    width: 215px;
+    margin-top: 25px;
+
+    margin-left: 33px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#deleteModal_close_btn {
+    background-color: #ffffff;
+    color: var(--main-color);
+    border: solid thin var(--main-color);
+    font-weight: var(--semiBold);
+    /*margin-right: 15px;*/
+
+}
+
+#deleteModal_close_btn:hover {
+    background-color: #ffffff;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}

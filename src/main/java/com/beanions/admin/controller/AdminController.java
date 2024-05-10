@@ -19,7 +19,6 @@ public class AdminController {
 
     private final MemberService memberService;
 
-    @Autowired
     public AdminController(MemberService memberService) {
         this.memberService = memberService;
     }

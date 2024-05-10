@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Beanions</title>
     <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../css/admin/common.css}">
     <script>
         const successMessage = `[[${ successMessage }]]`;
         if (successMessage) {
@@ -12,13 +13,18 @@
     </script>
 </head>
 <body>
-<!--    <div th:replace="/admin/layout.html"></div>-->
-<h1>게시판 관리</h1>
-<div>
-    <input type="text">
-    <button type="submit">검색</button>
-</div>
-<table align="center">
+<div th:replace="admin/layout.html"></div>
+<article>
+<h1>게시판 전체조회</h1>
+    <form class="search_form">
+        <div class="search_box">
+            <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+            <span class="clear_btn"></span>
+            <span class="search_btn"></span>
+        </div>
+    </form>
+    <div class="table_box">
+    <table>
     <tr>
         <th>번호</th>
         <th>게시판</th>
@@ -30,58 +36,48 @@
         <th>관리</th>
     </tr>
     <tr th:each="post, i : ${ postList }">
-        <td th:text="${i.index + 1}"></td>
+        <td class="number" th:text="${i.index + 1}"></td>
         <td th:text="${ post.mainCategory }"></td>
         <td th:text="${ post.subCategory }"></td>
         <td>
             <a th:text="${post.postTitle}" th:href="@{/admin/post/detail(id=${post.postCode})}"></a>
         </td>
         <td th:text="${ post.member.nickname}"></td>
-        <td th:text="${#dates.format(post.postDate, 'yyyy.MM.dd') }" ></td>
+        <td class="number" th:text="${#dates.format(post.postDate, 'yyyy-MM-dd') }" ></td>
         <td>
-            <span th:if="${ post.verifiedStatus == 'Y' }">승인</span>
-            <span th:if="${ post.verifiedStatus == 'N' }">미승인</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'Y' }">활성화</span>
+            <span th:if="${ post.mainCategory == '자유'} and ${ post.verifiedStatus == 'N' }">비활성화</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'Y' }">승인</span>
+            <span th:if="${ post.mainCategory == '리뷰'} and ${ post.verifiedStatus == 'N' }">미승인</span>
         </td>
         <td>
-            <button type="button" th:onclick="|location.href='@{/admin/post/update(id=${post.postCode})}'|">수정</button>
-            <!--                <a th:href="@{/admin/post/delete(id=${post.postCode})}">삭제</a>-->
-            <!--                <button type="button" onclick="deletePost">삭제</button>-->
-            <form th:action="@{/admin/post/delete(id=${post.postCode})}" method="post">
-                <button type="submit">삭제</button>
-                <!--                    <input type="hidden" th:value="${post.postCode}" name="postCode">-->
-                <!--                    <input type="submit" value="삭제">-->
-            </form>
+            <button type="button" th:onclick="|location.href='@{/admin/post/detail(id=${post.postCode})}'|">상세</button>
         </td>
     </tr>
-</table>
-<button>버튼</button>
+    </table>
+    </div>
+</article>
+<div th:replace="admin/footer.html"></div>
 
 <!--<th:block layout:fragment="script">-->
-<!--    <script>-->
-<!--        /*<![CDATA[*/-->
+    <script>
+        // 검색시 x버튼
+        const clearBtn = document.querySelector(".clear_btn");
+        clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+            e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+            clearBtn.classList.remove("active"); // x버튼 비활성화
+        });
 
-<!--        // 게시글 삭제-->
-<!--        function deletePost() {-->
-<!--            const id = [[ ${post.postCode} ]];-->
-
-<!--            if ( !confirm(postCode + '번 게시글을 삭제할까요?') ) {-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            const formHtml = `-->
-<!--                    <form id="deleteForm" action="/admin/post" method="post">-->
-<!--                        <input type="hidden" id="postCode" name="id" value="${id}" />-->
-<!--                    </form>-->
-<!--                `;-->
-<!--            const doc = new DOMParser().parseFromString(formHtml, 'text/html');-->
-<!--            const form = doc.body.firstChild;-->
-<!--            document.body.append(form);-->
-<!--            document.getElementById('deleteForm').submit();-->
-<!--        }-->
-
-<!--        /*]]>*/-->
-
-<!--    </script>-->
+        // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+        const searchInput = document.querySelector(".search_input");
+        searchInput.addEventListener("input", (e) => {
+            if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+                clearBtn.classList.add("active"); // x버튼 활성화
+            } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+                clearBtn.classList.remove("active");// x버튼 비활성화
+            }
+        });
+    </script>
 <!--</th:block>-->
 </body>
 </html>

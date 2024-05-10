@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
 </head>
 <body>
+<div th:replace="admin/layout.html"></div>
+<article style="margin-top: -800px; margin-left: 160px">
 <h1>공지사항 상세 정보</h1>
 <div th:each="notice : ${ noticeDetail }">
     <div>
@@ -22,5 +24,6 @@
         <button type="submit">삭제</button>
     </form>
 </div>
+</article>
 </body>
 </html>
