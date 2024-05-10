@@ -96,14 +96,24 @@ public class FreeBoardController {
             return "redirect:/user/board/yerangList";}
     }
 
-    @GetMapping("/freemodify")
-    public String modifyPost(@RequestParam("id") String id, Model model){
+    @GetMapping("/yesinmodify")
+    public String yesinModify(@RequestParam("id") String id, Model model){
 
         List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
 
         model.addAttribute("modify", modify);
 
-        return "user/board/freemodify";
+        return "user/board/freeModify";
+    }
+
+    @GetMapping("/yerangmodify")
+    public String yerangModify(@RequestParam("id") String id, Model model){
+
+        List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
+
+        model.addAttribute("modify", modify);
+
+        return "user/board/freeModify";
     }
 
     @PostMapping("/yesinmodify")
