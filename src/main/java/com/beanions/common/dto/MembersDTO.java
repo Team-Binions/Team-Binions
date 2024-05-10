@@ -23,6 +23,7 @@ public class MembersDTO {
 //    private MemberRole memberRole;
     private String memberRole;
     private String weddingVerified;
+
     private Date signupDate;
 
 }

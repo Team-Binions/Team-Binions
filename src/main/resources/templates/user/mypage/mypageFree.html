@@ -65,7 +65,7 @@
                     <table class="review_table">
                         <thead>
                         <tr>
-                            <th class="eng">NO</th>
+                            <th class="eng">no</th>
                             <th>제목</th>
                             <th>조회수</th>
                             <th>분류</th>
@@ -73,8 +73,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="free : ${userMypageFreeData.posts}">
-                            <td class="eng">1</td>
+                        <tr th:each="free, i : ${userMypageFreeData.posts}" th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|">
+                            <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${free.postTitle}"></td>
                             <td class="eng">0</td>
                             <td th:text="${free.subCategory}"></td>

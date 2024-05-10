@@ -28,4 +28,6 @@ public class MyPageService {
   public List<MyPageDTO> selectMyPageFreeData() { return myPageMapper.selectMyPageFreeData();}
 
   public List<MyPageDTO> selectMyPageCommentData() {return myPageMapper.selectMyPageCommentData();}
+
+  public List<MyPageDTO> selectMyPageCommentPostCategory() {return myPageMapper.selectMyPageCommentPostCategory();}
 }

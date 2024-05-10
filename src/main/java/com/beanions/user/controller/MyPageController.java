@@ -25,8 +25,6 @@ public class MyPageController {
 
     List<MyPageDTO> userMypageMainDataList = myPageService.selectMyPageMainData();
 
-    System.out.println("logined user : "+ userMypageMainDataList);
-
     model.addAttribute("userMypageMainData", userMypageMainDataList.get(0));
 
     return "user/mypage/mypageMain";
@@ -37,10 +35,6 @@ public class MyPageController {
   public String mypageReview(Model model){
 
     List<MyPageDTO> userMypageReivewDataList = myPageService.selectMyPageReviewData();
-
-    System.out.println("REVIEW : "+ userMypageReivewDataList);
-    System.out.println("REVIEWCount : "+ userMypageReivewDataList.get(0).getReviewCount());
-    System.out.println();
 
     model.addAttribute("userMypageReivewData", userMypageReivewDataList.get(0));
 
@@ -53,9 +47,6 @@ public class MyPageController {
 
     List<MyPageDTO> userMypageFreeDataList = myPageService.selectMyPageFreeData();
 
-    System.out.println("Free : "+ userMypageFreeDataList);
-    System.out.println("freeCount : "+ userMypageFreeDataList.get(0).getFreeCount());
-
     model.addAttribute("userMypageFreeData", userMypageFreeDataList.get(0));
 
     return "user/mypage/mypageFree";
@@ -66,11 +57,12 @@ public class MyPageController {
   public String mypageComment(Model model){
 
     List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData();
+    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory();
 
-    System.out.println("Comment : "+ userMypageCommentDataList);
-    System.out.println("Comment length : "+ userMypageCommentDataList.size());
+    System.out.println("category : " + userMypageCommentPostCategoryList);
 
     model.addAttribute("userMypageCommentData", userMypageCommentDataList.get(0));
+    model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
 
     return "user/mypage/mypageComment";
   }

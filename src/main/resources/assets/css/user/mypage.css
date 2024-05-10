@@ -38,9 +38,9 @@
 
 /* table */
 .review_table {width: 100%; margin-top: 20px; border-collapse: collapse;}
-.review_table thead th {padding:8px 0; border: 1px solid var(--text-color); border-left: none; border-right: none; }
+.review_table thead th {padding:8px 0; border: 1px solid var(--text-color); border-left: none; border-right: none; background-color: var(--main-color); color: #fff; font-size: 14px; font-weight: var(--regular);}
 .review_table tbody tr {transition: background-color 200ms ease-in-out; cursor: pointer;}
-.review_table tbody td {padding:8px 0; border-bottom: 1px solid var(--text-color); text-align: center; font-size: 16px; font-weight: var(--regular);}
+.review_table tbody td {padding:8px 0; border-bottom: 1px solid var(--text-color); text-align: center; font-size: 16px; font-weight: var(--regular);font-size: 14px; font-weight: var(--medium);}
 .review_table tbody tr:hover {background-color: var(--hashBg-color);}
 .review_table tbody td:nth-child(3) td {white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
 
@@ -51,3 +51,26 @@
 .summary_mypage > li > a:hover {color: #fff; background-color: var(--point-color);}
 .summary_mypage > li > a > span{transition: color 200ms ease-in-out;}
 .summary_mypage > li > a:hover > span{color: #fff;}
+
+/* search input */
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
+/* comment */
+.comment_contxt_box {display: flex;}
+.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
+.check_mark {display: block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}
+.check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
+.comment_info {width: 100%; text-align: left;}
+.comment_text {font-size: 14px;}
+.comment_date {font-size: 12px;}
+.comment_post_tit {font-size: 14px; color: var(--inactive-input-bg);}

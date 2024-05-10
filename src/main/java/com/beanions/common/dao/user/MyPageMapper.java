@@ -16,4 +16,6 @@ public interface MyPageMapper {
   List<MyPageDTO> selectMyPageFreeData();
 
   List<MyPageDTO> selectMyPageCommentData();
+
+  List<MyPageDTO> selectMyPageCommentPostCategory();
 }

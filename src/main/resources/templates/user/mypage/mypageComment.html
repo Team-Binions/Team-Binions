@@ -67,16 +67,47 @@
                         <tr>
                             <th class="eng">NO</th>
                             <th>내용</th>
-                            <th>게시글 번호</th>
+<!--                            <th>게시글 번호</th>-->
                             <th>작성일자</th>
                         </tr>
                         </thead>
+<!--                         th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|"-->
                         <tbody>
-                        <tr th:each="comment : ${userMypageCommentData.comments}">
-                            <td class="eng">1</td>
+                        <tr th:each="comment, i : ${userMypageCommentData.comments}">
+                            <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${comment.commentContext}"></td>
-                            <td th:text="${comment.postCode}"></td>
                             <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="review_table">
+                        <thead>
+                        <tr>
+                            <th class="eng">no</th>
+                            <th>내용</th>
+                            <th>작성일자</th>
+                            <!--                            <th>게시글 번호</th>-->
+                            <th>선택</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="comment, i : ${userMypageCommentData.comments}">
+                            <td class="eng" th:text="${i.count}"></td>
+                            <td>
+                                <div class="comment_contxt_box">
+                                    <div class="comment_info">
+                                        <p class="comment_text" th:text="${comment.commentContext}"></p>
+                                        <p class="comment_post_tit eng">aklflkjflk</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
+                            <td>
+                                <label class="check_box">
+                                    <input type="checkbox" class="check_input">
+                                    <span class="check_mark"></span>
+                                </label>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
