@@ -57,6 +57,15 @@ public class FreeBoardController {
 
         return "/user/board/freeDetail";
     }
+    @GetMapping("/yerangDetail")
+    public String yerangDetail(@RequestParam("id") String id, Model model){
+
+        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
+
+        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
+
+        return "/user/board/freeDetail";
+    }
 
     @GetMapping("/freeRegist")
     public void postRegistPage(){}
@@ -97,7 +106,7 @@ public class FreeBoardController {
         return "user/board/freemodify";
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/yesinmodify")
     public String yesinModify(PostDTO postDTO, RedirectAttributes rttr){
 
         freeBoardService.freeModify(postDTO);
@@ -111,7 +120,7 @@ public class FreeBoardController {
             return "redirect:/user/board/yerangList";}
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/yerangmodify")
     public String yerangModify(PostDTO postDTO, RedirectAttributes rttr){
 
         freeBoardService.freeModify(postDTO);
@@ -125,7 +134,7 @@ public class FreeBoardController {
             return "redirect:/user/board/yerangList";}
         }
 
-    @PostMapping("/delete")
+    @PostMapping("/freedelete")
     public String deletePost(RedirectAttributes rttr, PostDTO postDTO){
 
         freeBoardService.deletePost(postDTO);

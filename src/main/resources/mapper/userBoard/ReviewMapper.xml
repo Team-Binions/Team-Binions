@@ -2,17 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beanions.common.dao.user.board.FreeBoardMapper">
 
-    <resultMap id="mainCategoryResultMap" type="com.beanions.common.dto.MainCategoryDTO">
-        <id property="code" column="main_code"/>
-        <result property="name" column="main_name"/>
-    </resultMap>
-
-    <resultMap id="subCategoryResultMap" type="com.beanions.common.dto.SubCategoryDTO">
-        <id property="code" column="sub_code"/>
-        <result property="name" column="sub_name"/>
-    </resultMap>
+<mapper namespace="com.beanions.common.dao.user.board.ReviewMapper">
 
     <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
         <id property="postCode" column="post_code"/>
@@ -45,13 +36,6 @@
         WHERE MAIN_CATEGORY = '리뷰'
         ORDER BY POST_DATE desc
         <!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
-    </select>
-
-    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
-        SELECT
-        COUNT(*)
-        FROM
-        POST
     </select>
 
     <select id="reviewDetail" resultMap="PostAndMemberResultMap">
