@@ -5,13 +5,15 @@ import com.beanions.common.service.MailService;
 import com.beanions.common.service.SignupService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -81,7 +83,7 @@ public class SignupController {
 
         /* 서버로 전달 된 File을 서버에서 설정하는 경로에 저장한다. */
         String root = "src/main/resources/assets/images/upload";
-        String filePath = root + "/user/verify";
+        String filePath = root + "/user/signupTemp";
 
         File dir = new File(filePath);
 
@@ -98,6 +100,7 @@ public class SignupController {
         String savedName = UUID.randomUUID() + ext;
         System.out.println("savedName : " + savedName);
 
+
         /* 파일 저장 */
         try {
             Path path= Paths.get(filePath + "/" + savedName).toAbsolutePath();
@@ -112,11 +115,44 @@ public class SignupController {
     }
 
     @PostMapping(value = "/request-join-member")
-    public String joinMember(@RequestBody MembersDTO member) {
-        System.out.println(member);
-        signupService.regist(member);
+    public ResponseEntity<Object> joinMember(@RequestBody MembersDTO member) {
+        // 가입처리
 
-        return "redirect:/main";
+        if ( member.getWeddingVerified() == null ) {
+            System.out.println(member);
+            signupService.regist(member);
+        } else {
+            String fileName = member.getWeddingVerified();
+
+            String root = "src/main/resources/assets/images/upload";
+
+            String filePath = root + "/user/signupTemp/" + fileName;
+            String copyFolderPath = root + "/user/verify";
+
+            File file = new File(filePath);
+            File folder = new File(copyFolderPath);
+
+            try {
+                // 기존 경로 폴더에 있던 파일을(Temp폴더) 해당하는 폴더로 복붙한다.
+                Path sourcePath = Paths.get(filePath);
+                if (!Files.exists(sourcePath)) {
+                    // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
+
+                System.out.println(member);
+                signupService.regist(member);
+
+                Path destinationPath = Paths.get(copyFolderPath + file.getName());
+                Files.move(sourcePath, destinationPath);
+
+            } catch (IOException e) {
+                System.out.println("error : " + e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 }

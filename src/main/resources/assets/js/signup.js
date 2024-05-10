@@ -258,9 +258,9 @@ $(document).ready(function () {
             })
             .then(data => {
                 // 성공적인 응답을 처리한다.
-                console.log(data);
                 $("#fileName").val(data);
                 weddingVerified = data;
+                console.log(data);
             })
             .catch(error => {
                 // 오류가 발생했을 때 처리한다.
@@ -389,8 +389,8 @@ $(document).ready(function () {
                 .then(response => {
                     if (!response.ok) {
                         alert("회원가입이 실패하였습니다..")
+                        window.location.href="/signup";
                         throw new Error("Network response was not ok");
-                        return window.location.href="/signup";
                     }
                     alert("회원가입이 완료되었습니다! \n 로그인창으로 이동합니다..");
                     return window.location.href="/";
