@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
 
-    <div th:each="yesin: ${ PostAndMemberDTOList }">
-        <title th:text="|${yesin.subCategory}수다방|"></title>
+    <div th:each="review: ${ PostAndMemberDTOList }">
+        <title th:text="|${review.subCategory}수다방|"></title>
     </div>
     <script>
         const successMessage = `[[${ successMessage }]]`
@@ -17,7 +17,7 @@
 <body>
 <!--<div th:replace="common/header.html"></div>-->
 
-<h1>예신수다방</h1>
+<h1>예비들을 위한 리뷰</h1>
 
 <input type="text" name="search">
 
@@ -28,13 +28,13 @@
         <th>글쓴이</th>
         <th>작성시간</th>
     </tr>
-    <tr th:each="yesin, i : ${ PostAndMemberDTOList }" >
+    <tr th:each="review, i : ${ PostAndMemberDTOList }" >
         <td th:text="${ (i.size + 1)-(i.count) }"></td>
         <td>
-            <a th:text="${ yesin.postTitle }" th:href="@{/user/board/yesinDetail(id=${yesin.postCode})}"></a>
+            <a th:text="${ review.postTitle }" th:href="@{/user/board/yesinDetail(id=${review.postCode})}"></a>
         </td>
-        <td th:text="${ yesin.member.nickname }"></td>
-        <td th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></td>
+        <td th:text="${ review.member.nickname }"></td>
+        <td th:text="${ #dates.format(review.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
 
     <button type="button" th:onclick="|location.href='@{/user/board/postRegist}'|">글쓰기</button>
@@ -43,7 +43,7 @@
 <div class="paging">
     <script th:inline="javascript">
         window.onload = () => {
-            yesinAllList();
+            reviewAllList();
         }
 
 
