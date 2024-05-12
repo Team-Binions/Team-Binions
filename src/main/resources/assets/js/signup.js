@@ -144,7 +144,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             });
-            $("#pwdTxt").text("*영문,숫자,특수문자 조합 8자 이상 입력해 주세요");
+            $("#pwdTxt").text("* 영문,숫자,특수문자 조합 8자 이상 입력해 주세요");
         }
         else {
             totalConfirm.pwdconfirmchk = true;
@@ -170,7 +170,12 @@ $(document).ready(function () {
             $("#pwdCheckTxt").text("! 비밀번호를 확인해주세요.");
         } else if ( value.length === 0 ){
             totalConfirm.chkpwdconfirmchk = false;
-            $("#pwdCheckTxt").text("");
+            $("#pwdCheckTxt").css({
+                "color" : "#6667AB",
+                "font-weight" : "bold",
+                "font-size" : "10px"
+            });
+            $("#pwdCheckTxt").text("* 비밀번호를 한번 더 입력해주세요");
         }
         else {
             totalConfirm.chkpwdconfirmchk = true;
