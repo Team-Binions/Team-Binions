@@ -47,7 +47,7 @@
         MAIN_CATEGORY,
         SUB_CATEGORY
         FROM POST
-        WHERE SUB_CATEGORY = '예신' AND POST_CODE = #{ id }
+        WHERE SUB_CATEGORY = #{ name } AND POST_CODE = #{ id }
         ORDER BY POST_CODE
     </select>
 
@@ -61,6 +61,7 @@
         , SUB_CATEGORY
         , POST_DATE
         , VEF_STATUS
+        , VIEW_COUNT
         )
         VALUES
         (
@@ -71,6 +72,7 @@
         , #{subCategory}
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
+        , 0
         )
     </insert>
 
