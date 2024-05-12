@@ -30,7 +30,7 @@ $(document).ready(function () {
         var spe = id.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
-        if ( id.length != 0 && (id.length < 5 || id.length > 15) ) {
+        if ( id.length !== 0 && (id.length < 5 || id.length > 15) ) {
             totalConfirm.idconfirmchk = false;
             $('#idTxt').html("<span id='idconfirmchk'>! 아이디는 최대 5~15자 까지 가능합니다</span>")
             $("#idconfirmchk").css({
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if (id.length != 0 && pattern.test(id)) {
+        } else if (id.length !== 0 && pattern.test(id)) {
             totalConfirm.idconfirmchk = false;
             $('#idTxt').html("<span id='idconfirmchk'>! 아이디에 공백이 포함될 수 없습니다</span>")
             $("#idconfirmchk").css({
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if ( id.length != 0 && (num < 0 || eng < 0 || spe > 0) ) {
+        } else if ( id.length !== 0 && (num < 0 || eng < 0 || spe > 0) ) {
             totalConfirm.idconfirmchk = false;
             $('#idTxt').html("<span id='idconfirmchk'>! 아이디는 영어+숫자로 이루어져야 합니다</span>")
             $("#idconfirmchk").css({
@@ -54,7 +54,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if ( id.length == 0 ) {
+        } else if ( id.length === 0 ) {
             totalConfirm.idconfirmchk = false;
             $('#idTxt').html("<span id='idconfirmchk'></span>")
         } else {
@@ -113,7 +113,7 @@ $(document).ready(function () {
         var spe = value.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
-        if(value.length != 0 && (value.length < 8 || value.length > 20) ) {
+        if(value.length !== 0 && (value.length < 8 || value.length > 20) ) {
             totalConfirm.pwdconfirmchk = false;
             $("#pwdTxt").css({
                 "color" : "#FA3E3E",
@@ -121,15 +121,7 @@ $(document).ready(function () {
                 "font-size" : "10px"
             });
             $("#pwdTxt").text("! 비밀번호는 8자리 이상 20자리 이하여야 합니다");
-        } else if (value.length != 0 && (num < 0 || eng < 0 || spe < 0) ){
-            totalConfirm.pwdconfirmchk = false;
-            $("#pwdTxt").css({
-                "color" : "#FA3E3E",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            });
-            $("#pwdTxt").text("! 비밀번호는 영어+숫자+특수문자로 이루어져야 합니다");
-        } else if ( value.length != 0 && pattern.test(value) ){
+        } else if ( value.length !== 0 && pattern.test(value) ){
             totalConfirm.pwdconfirmchk = false;
             $("#pwdTxt").css({
                 "color" : "#FA3E3E",
@@ -137,7 +129,15 @@ $(document).ready(function () {
                 "font-size" : "10px"
             });
             $("#pwdTxt").text("! 비밀번호에 공백은 사용할 수 없습니다");
-        } else if ( value.length == 0 ){
+        } else if (value.length !== 0 && (num < 0 || eng < 0 || spe < 0) ){
+            totalConfirm.pwdconfirmchk = false;
+            $("#pwdTxt").css({
+                "color" : "#FA3E3E",
+                "font-weight" : "bold",
+                "font-size" : "10px"
+            });
+            $("#pwdTxt").text("! 비밀번호는 영어+숫자+특수문자로 이루어져야 합니다");
+        } else if ( value.length === 0 ){
             totalConfirm.pwdconfirmchk = false;
             $("#pwdTxt").css({
                 "color" : "#6667AB",
@@ -160,7 +160,7 @@ $(document).ready(function () {
     $("#checkPw").keyup(function () {
         var value = $(event.target).val();
 
-        if( value.length != 0 && value != $("#password").val() ) {
+        if( value.length !== 0 && value !== $("#password").val() ) {
             totalConfirm.chkpwdconfirmchk = false;
             $("#pwdCheckTxt").css({
                 "color" : "#FA3E3E",
@@ -168,7 +168,7 @@ $(document).ready(function () {
                 "font-size" : "10px"
             });
             $("#pwdCheckTxt").text("! 비밀번호를 확인해주세요.");
-        } else if ( value.length == 0 ){
+        } else if ( value.length === 0 ){
             totalConfirm.chkpwdconfirmchk = false;
             $("#pwdCheckTxt").text("");
         }
@@ -192,7 +192,7 @@ $(document).ready(function () {
         var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
-        if ( nickname != 0 && (nickname.length < 5 || nickname.length > 15) ) {
+        if ( nickname !== 0 && (nickname.length < 5 || nickname.length > 15) ) {
             totalConfirm.nknconfirmchk = false;
             $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 최대 5~15자 까지 가능합니다</span>")
             $("#nknconfirmchk").css({
@@ -200,7 +200,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if (nickname.length != 0 && pattern.test(nickname)) {
+        } else if (nickname.length !== 0 && pattern.test(nickname)) {
             totalConfirm.nknconfirmchk = false;
             $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임에 공백이 포함될 수 없습니다</span>")
             $("#nknconfirmchk").css({
@@ -208,7 +208,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if ( nickname.length != 0 && (num < 0 || eng < 0 || spe > 0) ) {
+        } else if ( nickname.length !== 0 && (num < 0 || eng < 0 || spe > 0) ) {
             totalConfirm.nknconfirmchk = false;
             $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 영어+숫자로 이루어져야 합니다</span>")
             $("#nknconfirmchk").css({
@@ -216,7 +216,7 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if ( nickname == 0 ) {
+        } else if ( nickname === 0 ) {
             totalConfirm.nknconfirmchk = false;
             $('#nicknameTxt').html("<span id='idconfirmchk'></span>")
         } else {
@@ -311,25 +311,25 @@ $(document).ready(function () {
         var value = $(event.target).val();
         var phone = $('#phone').val();
         var regex = new RegExp("^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$");
-        if (value.length != 0 && (value.length < 13 || value.length > 13) ) {
-            $('#phoneTxt').html("<span id='phoneSpanTxt'>! 휴대폰번호는 하이픈 포함 13글자여야 합니다</span>")
-            $('#phoneSpanTxt').css({
+        if (value.length !== 0 && (value.length < 13 || value.length > 13) ) {
+            $('#phoneTxt').text("! 휴대폰번호는 하이픈 포함 13글자여야 합니다")
+            $('#phoneTxt').css({
                 "color" : "#FA3E3E",
                 "font-weight" : "bold",
                 "font-size" : "10px"
             });
-        } else if (value.length != 0 && (!regex.test(phone))) {
-            $('#phoneTxt').html("<span id='phoneSpanTxt'>! 휴대폰번호 정규식에 맞게 작성해주세요</span>")
-            $('#phoneSpanTxt').css({
+        } else if (value.length !== 0 && (!regex.test(phone))) {
+            $('#phoneTxt').html("! 휴대폰번호 정규식에 맞게 작성해주세요")
+            $('#phoneTxt').css({
                 "color" : "#FA3E3E",
                 "font-weight" : "bold",
                 "font-size" : "10px"
             });
-        } else if (value.length == 0) {
-            $('#phoneTxt').html("<span id='phoneSpanTxt'></span>")
+        } else if (value.length === 0) {
+            $('#phoneTxt').html("")
         } else {
-            $('#phoneTxt').html("<span id='phoneSpanTxt'>✔️ 사용 가능한 번호입니다.</span>")
-            $('#phoneSpanTxt').css({
+            $('#phoneTxt').html("✔️ 사용 가능한 번호입니다")
+            $('#phoneTxt').css({
                 "color" : "#6667AB",
                 "font-weight" : "bold",
                 "font-size" : "10px"
@@ -461,7 +461,7 @@ $(document).ready(function () {
             })
                 .then(response => {
                     if (!response.ok) {
-                        alert("회원가입이 실패하였습니다..")
+                        alert("유효 기간이 지나 회원가입이 실패하였습니다..")
                         window.location.href="/signup";
                         throw new Error("Network response was not ok");
                     }
@@ -481,17 +481,16 @@ $(document).ready(function () {
 function chkDupIdConfirm(data, $idTxt){
     if (data != 0) {
         totalConfirm.idconfirmchk = false;
-        $idTxt.html("<span id='idconfirmchk'>! 이미 사용중인 아이디입니다</span>")
-        $("#idconfirmchk").css({
+        $idTxt.text("! 이미 사용중인 아이디입니다")
+        $("#idTxt").css({
             "color" : "#FA3E3E",
             "font-weight" : "bold",
             "font-size" : "10px"
         })
     } else {
         totalConfirm.idconfirmchk = true;
-        $('#memberid').prop('disabled',true);
-        $idTxt.html("<span id='idconfirmchk'>✔️ 사용 가능한 아이디입니다</span>")
-        $("#idconfirmchk").css({
+        $idTxt.text("✔️ 사용 가능한 아이디입니다")
+        $("#idTxt").css({
             "color" : "#6667AB",
             "font-weight" : "bold",
             "font-size" : "10px"
@@ -503,16 +502,16 @@ function chkDupIdConfirm(data, $idTxt){
 function chkDupNknConfirm(data, $nicknameTxt){
     if (data != 0) {
         totalConfirm.nknconfirmchk = false;
-        $nicknameTxt.html("<span id='nknconfirmchk'>! 이미 사용중인 별명입니다</span>")
-        $("#nknconfirmchk").css({
+        $nicknameTxt.text("! 이미 사용중인 별명입니다")
+        $("#nicknameTxt").css({
             "color" : "#FA3E3E",
             "font-weight" : "bold",
             "font-size" : "10px"
         })
     } else {
         totalConfirm.nknconfirmchk = true;
-        $nicknameTxt.html("<span id='nknconfirmchk'>✔️ 사용 가능한 별명입니다</span>")
-        $("#nknconfirmchk").css({
+        $nicknameTxt.text("✔️ 사용 가능한 별명입니다")
+        $("#nicknameTxt").css({
             "color" : "#6667AB",
             "font-weight" : "bold",
             "font-size" : "10px"
@@ -525,16 +524,16 @@ function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
     $memailconfirm.on("keyup", function(){
         if (data != $memailconfirm.val()) {
             totalConfirm.emconfirmchk = false;
-            $memailconfirmTxt.html("<span id='emconfirmchk'>! 인증번호가 잘못되었습니다</span>")
-            $("#emconfirmchk").css({
+            $memailconfirmTxt.text("! 인증번호가 잘못되었습니다")
+            $("#memailconfirmTxt").css({
                 "color" : "#FA3E3E",
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
         } else {
             totalConfirm.emconfirmchk = true;
-            $memailconfirmTxt.html("<span id='emconfirmchk'>✔️ 인증번호 확인 완료</span>")
-            $("#emconfirmchk").css({
+            $memailconfirmTxt.text("✔️ 인증번호 확인 완료")
+            $("#memailconfirmTxt").css({
                 "color" : "#6667AB",
                 "font-weight" : "bold",
                 "font-size" : "10px"

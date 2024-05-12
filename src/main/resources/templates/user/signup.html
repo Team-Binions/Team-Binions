@@ -31,45 +31,45 @@
         </div>
     </div>
     <div class="signup_body">
-        <div class="item_box">
+        <div style="padding-bottom: 38.5px">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 85px; display: inline-block">아이디</h4>
             <input class="input_item" type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요">
             <div style="padding-left: 20px; display: inline-block">
                 <button class="btn_item" type="button" id="checkId">중복확인</button>
             </div>
-            <div class="label_box">
-                <label for="memberId" id="idTxt"></label>
+            <div class="message_box">
+                <span id="idTxt"></span>
             </div>
         </div>
-        <div style="padding-bottom: 28px">
+        <div class="item_box">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 70px; display: inline-block">비밀번호</h4>
             <input class="input_item" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요"/>
-            <div class="label_box">
-                <label for="password" id="pwdTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*영문,숫자,특수문자 조합 8자 이상 입력해 주세요</label>
+            <div class="message_box">
+                <span id="pwdTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*영문,숫자,특수문자 조합 8자 이상 입력해 주세요</span>
             </div>
         </div>
-        <div style="padding-bottom: 28px">
-        <span style="color: #FA3E3E">*</span>
-        <h4 style="padding-right: 37px; display: inline-block">비밀번호 확인 </h4>
-        <input class="input_item" type="password" name="checkPw" id="checkPw" placeholder="비밀번호를 한번 더 입력해주세요"/>
-        <div class="label_box" style="padding-left: 145px">
-            <label for="password" id="pwdCheckTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*비밀번호를 한번 더 입력해주세요</label>
-        </div>
-    </div>
         <div class="item_box">
+            <span style="color: #FA3E3E">*</span>
+            <h4 style="padding-right: 37px; display: inline-block">비밀번호 확인</h4>
+            <input class="input_item" type="password" name="checkPw" id="checkPw" placeholder="비밀번호를 한번 더 입력해주세요"/>
+            <div class="message_box" style="padding-left: 145px">
+                <span id="pwdCheckTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*비밀번호를 한번 더 입력해주세요</span>
+            </div>
+        </div>
+        <div style="padding-bottom: 38.5px">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 85px; display: inline-block">닉네임</h4>
             <input class="input_item" type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해주세요"/>
             <div style="padding-left: 20px; display: inline-block">
                 <button class="btn_item" type="button" id="checkNkname">중복확인</button>
             </div>
-            <div class="label_box">
-                <label for="nickname" id="nicknameTxt"></label>
+            <div class="message_box">
+                <span id="nicknameTxt"></span>
             </div>
         </div>
-        <div class="item_box">
+        <div style="padding-bottom: 48.5px">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 85px; display: inline-block">이메일</h4>
             <input class="input_item" type="email" name="memail" id="memail" placeholder="이메일을 입력해 주세요">
@@ -81,15 +81,15 @@
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 70px; display: inline-block">인증번호</h4>
             <input class="input_item" type="text" id="memailconfirm" placeholder="인증번호를 입력해주세요">
-            <div class="label_box">
+            <div class="message_box">
                 <span id="memailconfirmTxt"></span>
             </div>
         </div>
         <div style="padding-bottom: 47px">
             <h4 style="padding-left: 12px; padding-right: 69px; display: inline-block">전화번호</h4>
             <input class="input_item" type="text" id="phone" placeholder="전화번호를 입력해주세요">
-            <div class="label_box">
-                <label for="phone" id="phoneTxt"></label>
+            <div class="message_box">
+                <span id="phoneTxt"></span>
             </div>
         </div>
         <div style="padding-bottom: 64.6px">
@@ -106,7 +106,7 @@
                 여자
             </label>
         </div>
-        <div style="padding-bottom: 64.6px">
+        <div style="padding-bottom: 63.6px">
             <h4 style="padding-left: 12px; padding-right: 76px; display: inline-block">결혼 여부</h4>
             <label class="check_box" for="married" style="padding-right: 20px">
                 <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼">
@@ -135,9 +135,6 @@
     </div>
     <div style="padding-bottom: 60px; text-align: center;">
         <button class="btn_item" type="button" id="join" style="width: 476px;">가입하기</button>
-<!--        <div style="padding-left: 80px; display:inline-block">-->
-<!--            <a href="/" style="text-decoration-line: none"><button class="btn_item">취소</button></a>-->
-<!--        </div>-->
     </div>
 
     <!--FOOTER-->
