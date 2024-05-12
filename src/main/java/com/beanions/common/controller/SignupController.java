@@ -118,23 +118,23 @@ public class SignupController {
     public ResponseEntity<Object> joinMember(@RequestBody MembersDTO member) {
         // 가입처리
 
-        if ( member.getWeddingVerified() == null ) {
+        if ( member.getWeddingFile() == null ) {
             System.out.println(member);
             signupService.regist(member);
         } else {
-            String fileName = member.getWeddingVerified();
+            String fileName = member.getWeddingFile();
 
             String root = "src/main/resources/assets/images/upload";
 
             String filePath = root + "/user/signupTemp/" + fileName;
-            String copyFolderPath = root + "/user/verify";
+            String copyFolderPath = root + "/user/verify/";
 
             File file = new File(filePath);
-            File folder = new File(copyFolderPath);
 
             try {
                 // 기존 경로 폴더에 있던 파일을(Temp폴더) 해당하는 폴더로 복붙한다.
                 Path sourcePath = Paths.get(filePath);
+                System.out.println(sourcePath);
                 if (!Files.exists(sourcePath)) {
                     // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -145,6 +145,8 @@ public class SignupController {
 
                 Path destinationPath = Paths.get(copyFolderPath + file.getName());
                 Files.move(sourcePath, destinationPath);
+                System.out.println(destinationPath);
+                System.out.println("파일 복사 완료.");
 
             } catch (IOException e) {
                 System.out.println("error : " + e);

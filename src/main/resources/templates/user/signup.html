@@ -19,8 +19,11 @@
         <h3 style="padding-bottom: 10px; padding-left: 10px">회원가입 약관 동의 <span style="font-size: smaller; color: #FA3E3E">(필수)</span></h3>
         <textarea name="terms" class="terms_box" readonly>대충 약관</textarea>
         <div style="padding-top: 10px; padding-left: 15px">
-            <input type="checkbox" name="agree" id="agree">
-            <label for="agree">&nbsp;동의합니다.</label>
+            <label class="check_box" for="agree">
+                <input class="check_input" type="checkbox" name="agree" id="agree">
+                <span class="check_mark"></span>
+                &nbsp;동의합니다
+            </label>
         </div>
         <div style="width: 800px; padding-top: 30px; text-align: center">
             <h5 style="text-align: end; padding-right: 10px; padding-bottom: 5px"><span style="color: red; padding-right: 5px">*</span>필수 입력 사항</h5>
@@ -43,10 +46,18 @@
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 70px; display: inline-block">비밀번호</h4>
             <input class="input_item" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요"/>
-            <div style="padding-left: 145px">
-                <label for="password" id="pwdTxt" style="font-weight:bold; font-size: 10px">*영문,숫자,특수문자 조합 8자 이상 입력해 주세요</label>
+            <div class="label_box">
+                <label for="password" id="pwdTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*영문,숫자,특수문자 조합 8자 이상 입력해 주세요</label>
             </div>
         </div>
+        <div style="padding-bottom: 28px">
+        <span style="color: #FA3E3E">*</span>
+        <h4 style="padding-right: 37px; display: inline-block">비밀번호 확인 </h4>
+        <input class="input_item" type="password" name="checkPw" id="checkPw" placeholder="비밀번호를 한번 더 입력해주세요"/>
+        <div class="label_box" style="padding-left: 145px">
+            <label for="password" id="pwdCheckTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">*비밀번호를 한번 더 입력해주세요</label>
+        </div>
+    </div>
         <div class="item_box">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 85px; display: inline-block">닉네임</h4>
@@ -84,17 +95,29 @@
         <div style="padding-bottom: 64.6px">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 110px; display: inline-block">성별</h4>
-            <input type="checkbox" name="gender" id="male" value="male">
-            <label for="male" style="padding-left: 5px; padding-right: 40px">남자</label>
-            <input type="checkbox" name="gender" id="female" value="female">
-            <label for="female" style="padding-left: 5px">여자</label>
+            <label class="check_box" for="male" style="padding-right: 20px">
+                <input class="check_input" type="checkbox" name="gender" id="male" value="남자">
+                <span class="check_mark"></span>
+                남자
+            </label>
+            <label class="check_box" for="female">
+                <input class="check_input" type="checkbox" name="gender" id="female" value="여자">
+                <span class="check_mark"></span>
+                여자
+            </label>
         </div>
         <div style="padding-bottom: 64.6px">
             <h4 style="padding-left: 12px; padding-right: 76px; display: inline-block">결혼 여부</h4>
-            <input type="checkbox" name="verifyMarried" id="married" value="married">
-            <label for="married" style="padding-left: 5px; padding-right: 40px">기혼</label>
-            <input type="checkbox" name="verifyMarried" id="single" value="single">
-            <label for="single" style="padding-left: 5px">미혼</label>
+            <label class="check_box" for="married" style="padding-right: 20px">
+                <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼">
+                <span class="check_mark"></span>
+                기혼
+            </label>
+            <label class="check_box" for="single">
+                <input class="check_input" type="checkbox" name="verifyMarried" id="single" value="미혼">
+                <span class="check_mark"></span>
+                미혼
+            </label>
         </div>
         <div class="item_box">
             <h4 style="padding-left: 12px; padding-right: 31px; display: inline-block">웨딩홀 인증</h4>
