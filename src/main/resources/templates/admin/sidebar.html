@@ -1,22 +1,56 @@
 
-<div align="center" style="position: fixed; margin-top: 102px; width: 150px; border-right-style: solid; border-right-color: #6667AB; border-right-width: 1px; height: 100% " >
-    <div onclick="location.href='/admin'" style="cursor: pointer">
+<div class="container" align="center" th:fragment="admin-sidebar">
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin')" data-menu="admin" style="cursor: pointer" >
         <img th:src="@{/images/common/admin/icon_dashBoard.svg}" alt="icon_adminDashBoard" style="margin-top:30px; height: 40px; width: 40px">
     </div>
-    <div  onclick="location.href='/admin/member/membersList'" style="cursor: pointer">
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/member/membersList')" data-menu="membersList">
         <img th:src="@{/images/common/admin/icon_user.svg}" alt="icon_adminUser" style="margin-top:30px; height: 40px; width: 40px">
         <p>회원 관리</p>
     </div>
-    <div onclick="location.href='/admin/post'" style="cursor: pointer">
-        <img th:src="@{/images/common/admin/icon_postBoard.svg}" alt="icon_adminPostBoard" style="margin-top:30px; height: 40px; width: 40px">
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/post')" data-menu="post">
+        <img th:src="@{/images/common/admin/icon_postBoard.svg}" alt="icon_adminPostBoard" style="margin-top:30px;height: 40px; width: 40px">
         <p>게시판 관리</p>
     </div>
-    <div onclick="location.href='/admin/notice'" style="cursor: pointer" >
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/notice')" data-menu="notice">
         <img th:src="@{/images/common/admin/icon_notice.svg}" alt="icon_adminNotice" style="margin-top:30px; height: 40px; width: 40px">
         <p>공지사항 관리</p>
     </div>
-    <div onclick="location.href='/admin/magazine'" style="cursor: pointer">
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/magazine')" data-menu="magazine">
         <img th:src="@{/images/common/admin/icon_magazine.svg}" alt="icon_adminMagazine" style="margin-top:30px; height: 40px; width: 40px">
         <p>매거진 관리</p>
     </div>
 </div>
+<script>
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function() {
+        // 저장된 메뉴 아이템의 상태를 확인하여 'active' 클래스 추가
+        var activeMenuItem = sessionStorage.getItem('activeMenuItem');
+        if (activeMenuItem) {
+            var menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(function(item) {
+                if (item.getAttribute('data-menu') === activeMenuItem) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    }
+
+    function highlightMenuItem(element, url) {
+        // 모든 메뉴 아이템에서 'active' 클래스 제거
+        var menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(function(item) {
+            item.classList.remove('active');
+        });
+
+        // 클릭한 메뉴 아이템에 'active' 클래스 추가
+        element.classList.add('active');
+
+        // 해당 URL로 이동
+        window.location.href = url;
+
+        // 클릭한 메뉴 아이템의 상태를 세션에 저장
+        var activeMenuItem = element.getAttribute('data-menu');
+        sessionStorage.setItem('activeMenuItem', activeMenuItem);
+    }
+
+</script>

@@ -72,31 +72,35 @@ public class AdminMainController {
 
     /* vef_status */
     @PostMapping("/post/update")
-    public String postUpdate(PostDTO post, RedirectAttributes rttr) {
+    public String postUpdate(PostDTO post, RedirectAttributes rttr, HttpServletRequest request) {
 
-//        System.out.println("id = " + id);
-
-//        int code = Integer.parseInt(id);
         System.out.println("post = " + post);
 
         adminService.postUpdate(post);
 
 
-        rttr.addFlashAttribute("successMessage", "게시글 수정 성공!");
+        rttr.addFlashAttribute("successMessage", "게시글 상태 변경 성공!");
 
-        return "redirect:/admin/post";
+        if (request.getHeader("Referer") != null) {
+
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+
+            return "redirect:/admin/post";
+        }
     }
 
     /* review_status */
     @PostMapping("/post/review")
-    public String postReview(PostDTO post, RedirectAttributes rttr, HttpServletRequest request) {
+    public String postReview(PostDTO post, RedirectAttributes rttr,  HttpServletRequest request) {
 
         System.out.println("post = " + post);
 
         adminService.postReview(post);
 
-        rttr.addFlashAttribute("successMessage", "게시물 수정 성공!");
+        rttr.addFlashAttribute("successMessage", "게시물 상태 변경 성공!");
 
+//        return "redirect:/admin/post";
         if (request.getHeader("Referer") != null) {
 
             return "redirect:" + request.getHeader("Referer");

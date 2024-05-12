@@ -15,7 +15,8 @@
 <body>
 <div th:replace="admin/header.html"></div>
 <div class="sidebar_content">
-<div th:replace="admin/sidebar.html"></div>
+<div th:replace="admin/sidebar :: admin-sidebar"></div>
+<!--<div th:replace="admin/sidebar.html"></div>-->
 <article>
 <h1>게시판 전체조회</h1>
     <form class="search_form">
@@ -82,6 +83,58 @@
                 clearBtn.classList.remove("active");// x버튼 비활성화
             }
         });
+
+        // 페이지 로드 시 실행되는 함수
+        window.onload = function() {
+            // 저장된 메뉴 아이템의 상태를 확인하여 'active' 클래스 추가
+            var activeMenuItem = sessionStorage.getItem('activeMenuItem');
+            if (activeMenuItem) {
+                var menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(function(item) {
+                    if (item.getAttribute('data-menu') === activeMenuItem) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        function highlightMenuItem(element, url) {
+            // 모든 메뉴 아이템에서 'active' 클래스 제거
+            var menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            // 클릭한 메뉴 아이템에 'active' 클래스 추가
+            element.classList.add('active');
+
+            // 해당 URL로 이동
+            window.location.href = url;
+
+            // 클릭한 메뉴 아이템의 상태를 세션에 저장
+            var activeMenuItem = element.getAttribute('data-menu');
+            sessionStorage.setItem('activeMenuItem', activeMenuItem);
+        }
+
+
+
+
+
+
+        // const nonClick = document.querySelectorAll(".non-click");
+
+        // function handleClick(event) {
+        //     // div에서 모든 "click" 클래스 제거
+        //     nonClick.forEach((e) => {
+        //         e.classList.remove("click");
+        //     });
+        //     // 클릭한 div만 "click"클래스 추가
+        //     event.target.classList.add("click");
+        // }
+        //
+        // nonClick.forEach((e) => {
+        //     e.addEventListener("click", handleClick);
+        // });
     </script>
 <!--</th:block>-->
 </body>

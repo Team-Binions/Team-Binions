@@ -8,10 +8,36 @@ input::-webkit-search-results-button,
 input::-webkit-search-results-decoration {
     display: none;
 }
+.container {
+    position: fixed; margin-top: 102px;
+    width: 150px;
+    border-right-style: solid;
+    border-right-color: #6667AB;
+    border-right-width: 1px;
+    height: 100%
+}
+
+.menu-item {
+    padding-bottom: 30px;
+    cursor: pointer
+}
+
+.menu-item.active {
+    background-color: #D4CFEB;
+}
+
 
 /* 사이드바의 세로 길이를 화면 높이에 맞추기 위한 설정 */
 html, body {
     height: 100%;
+}
+
+/* 컨텐츠 전체 영역 */
+article {
+    margin-top: 126px;
+    margin-left: 176px;
+    margin-right: 26px;
+    width: 100%;
 }
 
 
@@ -69,15 +95,6 @@ html, body {
 }
 
 
-/* 컨텐츠 전체 영역 */
-article {
-    margin-top: 136px;
-    margin-left: 176px;
-    margin-right: 26px;
-    width: 100%;
-
-
-}
 
 /* 게시판 관리 */
 /* 테이블 전체 영역 */
@@ -118,10 +135,6 @@ th {
 
 .manage_th {
     width: 110px;
-}
-
-h1 {
-    margin-top: 10px;
 }
 
 .number {
