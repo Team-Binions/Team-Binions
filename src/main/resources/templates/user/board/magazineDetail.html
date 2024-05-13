@@ -17,7 +17,7 @@
     <p th:text="${magazine.subCategory}"></p>
     <h1 th:text="${magazine.postTitle}"></h1>
 
-    <h4 th:text="${magazine.memberCode}"></h4>
+    <h4 th:text="${magazine.member.nickname}"></h4>
     <h4 th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></h4>
     <p th:text="${magazine.postContext}"></p>
 
