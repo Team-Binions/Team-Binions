@@ -13,6 +13,7 @@
         <result property="gender" column="GENDER"/>
         <result property="marriedStatus" column="MARRIED_STATUS"/>
         <result property="memberRole" column="MEMBER_ROLE"/>
+        <result property="weddingFile" column="WEDD_FILE"/>
         <result property="weddingVerified" column="WEDD_VEF"/>
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
@@ -53,6 +54,7 @@
                     GENDER,
                     MARRIED_STATUS,
                     MEMBER_ROLE,
+                    WEDD_FILE,
                     WEDD_VEF,
                     SIGNUP_DATE
                 )
@@ -67,7 +69,8 @@
             #{gender},
             #{marriedStatus},
             'USER',
-            #{weddingVerified},
+            #{weddingFile},
+            'N',
             CURDATE()
         )
     </insert>
