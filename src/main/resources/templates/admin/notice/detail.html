@@ -5,30 +5,74 @@
     <title>Beanions</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
 <div class="sidebar_content">
 <div th:replace="admin/sidebar.html"></div>
-<article>
-<h1>공지사항 상세 정보</h1>
+<article class="all-content">
+<p class="contents_head">공지사항 상세 정보</p>
 <div th:each="notice : ${ noticeDetail }">
-    <div>
-        <h3 th:text="${ notice.mainCategory }"></h3>
-        <h4 th:text="${ notice.subCategory }"></h4>
+    <div class="post_main_sub_category">
+        <p class="post_main_text">예피셜</p>
+        <div class="main_sub_category">
+            <p class="main_text" th:text="${ notice.mainCategory }"></p>
+            <p class="main_sub">|</p>
+            <p class="sub_text" th:text="${ notice.subCategory }"></p>
+        </div>
     </div>
-    <h2 th:text="${ notice.postTitle }"></h2>
-    <h3 th:text="${ notice.member.nickname }"></h3>
-    <h4 th:text="${ #dates.format(notice.postDate, 'yyyy-MM-dd') }"></h4>
-    <p th:text="${ notice.postContext }"></p>
-    <button onclick="location.href='/admin/notice'">목록</button>
-    <button type="button" th:onclick="|location.href='@{/admin/notice/update(id=${notice.postCode})}'|">수정</button>
-    <form th:action="@{/admin/notice/delete(id=${notice.postCode})}" method="post">
-        <button type="submit">삭제</button>
-    </form>
+    <p class="title_text" th:text="${ notice.postTitle }"></p>
+    <p class="member_text" th:text="${ notice.member.nickname }"></p>
+    <p th:text="${ #dates.format(notice.postDate, 'yyyy-MM-dd') }" class="number"></p>
+    <hr class="up_line_context">
+    <pre class="context_text"  th:text="${ notice.postContext }"></pre>
+    <hr class="down_line_context">
+    <!-- 삭제, 목록, 수정 버튼 div -->
+    <div class="button_box">
+        <!-- 삭제 버튼 -->
+        <div id="root">
+            <button type="button" id="deleteModal_open_btn">삭제</button>
+        </div>
+        <!-- 목록 버튼 -->
+        <button id="back_post_btn" onclick="location.href='/admin/notice'">목록</button>
+        <!-- 수정 버튼 -->
+        <button class="modify_btn" type="button" th:onclick="|location.href='@{/admin/notice/update(id=${notice.postCode})}'|">수정</button>
+    </div>
+
+    <!-- 삭제 모달창 -->
+    <div id="deleteModal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <p>공지사항을 삭제하시겠습니까?</p>
+            <form th:action="@{/admin/notice/delete(id=${notice.postCode})}" method="post">
+                <div class="deleteModal_button_box">
+                    <button type="submit" id="deleteModal_check_btn">확인</button>
+                    <button type="button" id="deleteModal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
 </div>
     <div th:replace="admin/footer.html"></div>
 </article>
 </div>
+
+<script>
+    document.getElementById("deleteModal_open_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "block";
+    }
+
+    document.getElementById("deleteModal_close_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+
+    document.getElementById("deleteModal_check_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+</script>
 </body>
 </html>

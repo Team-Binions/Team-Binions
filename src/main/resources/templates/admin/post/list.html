@@ -15,8 +15,7 @@
 <body>
 <div th:replace="admin/header.html"></div>
 <div class="sidebar_content">
-<div th:replace="admin/sidebar :: admin-sidebar"></div>
-<!--<div th:replace="admin/sidebar.html"></div>-->
+<div th:replace="admin/sidebar.html"></div>
 <article>
 <h1>게시판 전체조회</h1>
     <form class="search_form">
@@ -29,12 +28,12 @@
     <div class="table_box">
     <table>
     <tr>
-        <th>번호</th>
+        <th class="index_th">번호</th>
         <th class="manage_th">게시판</th>
         <th class="manage_th">분류</th>
         <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
+        <th class="nickname_th">작성자</th>
+        <th class="date_th">작성일</th>
         <th class="manage_th">조회수</th>
         <th class="manage_th">상태</th>
         <th class="manage_th">비고</th>
@@ -83,41 +82,6 @@
                 clearBtn.classList.remove("active");// x버튼 비활성화
             }
         });
-
-        // 페이지 로드 시 실행되는 함수
-        window.onload = function() {
-            // 저장된 메뉴 아이템의 상태를 확인하여 'active' 클래스 추가
-            var activeMenuItem = sessionStorage.getItem('activeMenuItem');
-            if (activeMenuItem) {
-                var menuItems = document.querySelectorAll('.menu-item');
-                menuItems.forEach(function(item) {
-                    if (item.getAttribute('data-menu') === activeMenuItem) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-        }
-
-        function highlightMenuItem(element, url) {
-            // 모든 메뉴 아이템에서 'active' 클래스 제거
-            var menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(function(item) {
-                item.classList.remove('active');
-            });
-
-            // 클릭한 메뉴 아이템에 'active' 클래스 추가
-            element.classList.add('active');
-
-            // 해당 URL로 이동
-            window.location.href = url;
-
-            // 클릭한 메뉴 아이템의 상태를 세션에 저장
-            var activeMenuItem = element.getAttribute('data-menu');
-            sessionStorage.setItem('activeMenuItem', activeMenuItem);
-        }
-
-
-
 
 
 

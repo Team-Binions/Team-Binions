@@ -133,9 +133,11 @@ th {
     font-size: 16px;
 }
 
-.manage_th {
-    width: 110px;
-}
+/* 테이블 컬럼 폭 */
+.index_th {width: 70px;}
+.nickname_th {width: 150px;}
+.date_th {width: 130px;}
+.manage_th {width: 110px;}
 
 .number {
     font-family: 'Poppins';
@@ -158,14 +160,14 @@ th {
 
 .regist_search_box {
     position: absolute;
-    top: 127px;
+    top: 140px;
+    right: 340px;
     /*background-color: #C9C9C9;*/
-    display: inline-block;
+    display: block;
 }
 
 .regist_search_box button {
     /*margin-top: 20px;*/
-    margin-left: 750px;
     width: 140px;
     height: 40px;
 }
