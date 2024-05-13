@@ -112,38 +112,42 @@ public class FreeBoardController {
     public String yerangModify(@RequestParam("id") String id, Model model){
 
         List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
+        System.out.println("modify = " + modify);
 
         model.addAttribute("modify", modify);
 
         return "user/board/freeModify";
     }
 
-    @PostMapping("/yesinmodify")
-    public String yesinModify(PostDTO postDTO, RedirectAttributes rttr){
+//    @PostMapping("/yesinmodify")
+//    public String yesinModify(PostDTO postDTO, RedirectAttributes rttr){
+//
+//        freeBoardService.freeModify(postDTO);
+//
+//        rttr.addFlashAttribute("successMessage", "수정 성공");
+//
+//        // 예랑 게시판 생성 하면 주소 변경하기
+//        if (postDTO.getSubCategory().equals("예신")){
+//            return "redirect:/user/board/yesinList";
+//        } else {
+//            return "redirect:/user/board/yerangList";}
+//    }
 
-        freeBoardService.freeModify(postDTO);
-
-        rttr.addFlashAttribute("successMessage", "수정 성공");
-
-        // 예랑 게시판 생성 하면 주소 변경하기
-        if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
-        } else {
-            return "redirect:/user/board/yerangList";}
-    }
-
-    @PostMapping("/yerangmodify")
+    @PostMapping("/freeModify")
     public String yerangModify(PostDTO postDTO, RedirectAttributes rttr){
 
         freeBoardService.freeModify(postDTO);
 
         rttr.addFlashAttribute("successMessage", "수정 성공");
 
+        System.out.println("postDTO = " + postDTO);
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            System.out.println(postDTO.getSubCategory());
+            return "redirect:/user/board/yesinList?id=예신";
         } else {
-            return "redirect:/user/board/yerangList";}
+            return "redirect:/user/board/yerangList?id=예랑";
+        }
         }
 
     @PostMapping("/freedelete")
