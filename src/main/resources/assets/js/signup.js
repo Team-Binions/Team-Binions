@@ -300,6 +300,9 @@ $(document).ready(function () {
                     alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
                     totalConfirm.emchk = true;
                     $('#memail').prop('disabled',true);
+                    $("#memail").css({
+                        "cursor" : "not-allowed",
+                    })
                     chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
                 })
                 .catch(error => {
@@ -539,7 +542,7 @@ function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
                 "color" : "#6667AB",
                 "font-weight" : "bold",
                 "font-size" : "10px"
-            })
+            });
         }
     })
 }
