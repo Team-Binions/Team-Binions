@@ -36,7 +36,8 @@
 }
 
 .file_box {
-    padding-left: 17px; display: inline-block;
+    padding-left: 17px;
+    display: inline-block;
 }
 
 .file_box label {

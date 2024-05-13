@@ -5,7 +5,9 @@
     <title>예신예랑 회원가입</title>
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/css/user/signup.css}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -120,10 +122,10 @@
             </label>
         </div>
         <div class="item_box">
-            <h4 style="padding-left: 12px; padding-right: 31px; display: inline-block">웨딩홀 인증</h4>
+            <h4 style="padding-left: 12px; padding-right: 33px; display: inline-block">웨딩홀 인증</h4>
             <div class="file_box">
                 <input class="input_item" id="fileName" value="첨부파일" readonly>
-                <div style="padding-left: 20px; display: inline-block; float: right">
+                <div style="padding-left: 30px; display: inline-block; float: right">
                     <label for="verifyFile">업로드</label>
                 </div>
                 <input type="file" id="verifyFile" accept="image/jpeg, image/png, image/jpg, image/gif, image/webg">
@@ -145,5 +147,27 @@
     <!--/FOOTER-->
 
     <script src="/js/signup.js"></script>
+    <script>
+        //header sub menu 활성화
+        const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+        const subMenu = document.querySelectorAll('.sub_menu');
+        gnbMenu.forEach(gnbmenu => {
+            gnbmenu.addEventListener('mouseover', (e) => {
+                e.currentTarget.nextElementSibling.classList.add("active");
+            })
+            gnbmenu.addEventListener('mouseout', (e) => {
+                e.currentTarget.nextElementSibling.classList.remove("active");
+            })
+        });
+
+        subMenu.forEach(submenu => {
+            submenu.addEventListener('mouseover', (e) => {
+                e.currentTarget.classList.add("active");
+            })
+            submenu.addEventListener('mouseout', (e) => {
+                e.currentTarget.classList.remove("active");
+            })
+        })
+    </script>
 </body>
 </html>
