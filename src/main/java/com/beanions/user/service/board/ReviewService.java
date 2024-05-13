@@ -20,9 +20,9 @@ public class ReviewService {
     }
 
 
-    public List<PostAndMemberDTO> reviewAllList(final SearchDTO params) {
+    public List<PostAndMemberDTO> reviewAllList() {
 
-        return reviewMapper.reviewAllList(params);
+        return reviewMapper.reviewAllList();
 
     }
 
@@ -54,10 +54,6 @@ public class ReviewService {
     public void reviewRegist(PostDTO postDTO) {
 
         reviewMapper.reviewRegist(postDTO);
-    }
-
-    public List<MainCategoryDTO> findMainCategory() {
-        return reviewMapper.findMainCategory();
     }
 
     @Transactional

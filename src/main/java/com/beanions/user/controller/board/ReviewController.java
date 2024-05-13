@@ -26,9 +26,9 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewList")
-    public String reviewAllList(@ModelAttribute("params") final SearchDTO params, Model model) {
+    public String reviewAllList(Model model) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = reviewService.reviewAllList(params);
+        List<PostAndMemberDTO> PostAndMemberDTOList = reviewService.reviewAllList();
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
@@ -98,7 +98,7 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
-        return "user/board/reviewList";
+        return "redirect:/user/board/reviewList";
     }
 
 }

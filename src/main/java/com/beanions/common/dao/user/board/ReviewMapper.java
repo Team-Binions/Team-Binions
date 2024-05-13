@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface ReviewMapper {
-    List<PostAndMemberDTO> reviewAllList(SearchDTO params);
+    List<PostAndMemberDTO> reviewAllList();
 
     List<PostAndMemberDTO> reviewDetail(int id);
 
