@@ -27,8 +27,20 @@ public class FreeBoardService {
 
         int code = Integer.parseInt(id);
 
+        List<PostAndMemberDTO> postAndMemberDTOS = freeBoardMapper.freeDetail(code);
+
+        if(postAndMemberDTOS != null && !postAndMemberDTOS.isEmpty()){
+            PostAndMemberDTO post = postAndMemberDTOS.get(0);
+
+            int updateViewCount = post.getViewCount() + 1;
+
+            post.setViewCount(updateViewCount);
+
+            freeBoardMapper.updateViewCount(code, updateViewCount);
+        }
         return freeBoardMapper.freeDetail(code);
     }
+
 
     @Transactional
     public void freeRegist(PostDTO postDTO) {

@@ -22,7 +22,7 @@
         <input th:value="${post.postTitle}" name="postTitle"><br>
         <input th:value="${post.postContext}" name="postContext">
         <button type="submit">수정하기</button>
-        <button type="button" th:onclick="|location.href='@{/user/board/yesinDetail(id=${post.postCode})}'|">이전으로</button>
+        <button type="button" th:onclick="history.back()">이전으로</button>
     </div>
 </form>
 
