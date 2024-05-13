@@ -1,6 +1,7 @@
 package com.beanions.user.service.board;
 
 import com.beanions.common.dao.user.board.FreeBoardMapper;
+//import com.beanions.common.dto.Page;
 import com.beanions.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
