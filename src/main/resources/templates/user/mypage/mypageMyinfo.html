@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <title>MYPAGE</title>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+  <!-- //HEADER -->
+
+  <div class="mypage_cont">
+    <p class="page_tit">마이 페이지</p>
+
+    <!-- profile -->
+    <div class="profile_box">
+      <div class="profile_img">
+        <!-- <img src="" alt=""> -->
+        <!-- <input type="file" class="profile_img_upload"> -->
+      </div>
+      <div class="profile_txt">
+        <!--         th:text="${userMypageMainData.nickname}"-->
+        <p class="profile_name"><span>비니언즈</span>님</p>
+        <!--          th:text="${userMypageMainData.totalCount}"-->
+        <p class="total_posts_count">총 게시글 <span class="eng">5</span></p>
+      </div>
+    </div>
+
+    <!-- sidebar & contents -->
+    <div class="contents_cont">
+      <div class="sidebar mypage">
+        <ul>
+          <li><a href="/user/mypage/review">나의 글</a></li>
+          <li><a href="/user/mypage/review">예리뷰</a></li>
+          <li><a href="/user/mypage/free">예수다</a></li>
+          <li><a href="/user/mypage/comment">댓글</a></li>
+          <li><a href="/mypage/schedule">스케쥴</a></li>
+          <!-- <li><a href="#">포인트</a></li> -->
+          <li class="active"><a href="/mypage/myinfo">회원 정보 수정</a></li>
+        </ul>
+      </div>
+
+      <div class="mypage_contents">
+        <div class="top_sec">
+          <p class="table_tit">회원 정보 수정</p>
+        </div>
+
+        <form class="myinfo_form">
+          <ul class="myinfo_list">
+            <li>
+              <span class="list_item_tit">아이디</span>
+              <input type="text" class="id_input" value="beanions777" readonly>
+            </li>
+            <li>
+              <span class="list_item_tit">비밀번호</span>
+              <div class="password_box">
+                <input type="password" value="qwer1234">
+                <!--  <img th:src="@{/images/common/icon_show.png}" alt="popup icon image"> -->
+                <span class="show_pw_btn"></span>
+              </div>
+            </li>
+            <li>
+              <span class="list_item_tit">닉네임</span>
+              <div class="duplicate_box">
+                <input type="text" class="duplicate_input" value="윤BOB">
+                <span class="check_duplicate_btn">중복확인</span>
+              </div>
+            </li>
+            <li>
+              <span class="list_item_tit">이메일</span>
+              <div class="duplicate_box">
+                <input type="text" class="duplicate_input" value="beanions777@beanions.com">
+                <span class="check_duplicate_btn">중복확인</span>
+              </div>
+            </li>
+            <li>
+              <span class="list_item_tit">전화번호</span>
+              <input type="text" value="">
+            </li>
+            <li>
+              <span class="list_item_tit">성별</span>
+            </li>
+            <li>
+              <span class="list_item_tit">기혼 여부</span>
+            </li>
+            <li>
+              <span class="list_item_tit">웨딩홀 인증</span>
+              <div class="upload_cont">
+                <div class="upload_box">
+                  <span class="upload_name_box"></span>
+                  <label class="file_upload_box">
+                    <span class="upload_btn">업로드</span>
+                    <input type="file" class="file_upload_input">
+                  </label>
+                </div>
+                <p class="upload_txt">업로드 최대 용량은 10MB</p>
+              </div>
+            </li>
+          </ul>
+          <button class="modify_btn">수정하기</button>
+        </form>
+        <button class="leave_btn">회원탈퇴</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+</div>
+<!-- popup -->
+<div class="pop_bg"></div>
+<div class="pop_cont selective">
+<!--   th:src="@{/images/common/icon_group_modal_ban.svg}" alt="popup icon image"-->
+  <span class="pop_icon"><img src="" alt=""></span>
+  <p>회원님께서 등록하신<br>
+    모든 게시물이 삭제되며<br>
+    보유 포인트가 소멸됩니다.</p>
+  <p>탈퇴를 진행하시겠습니까?</p>
+  <ul class="pop_btn_list">
+    <li class="cancel_btn"><a href="#">확인</a></li>
+    <li class="confirm_btn">취소</li>
+  </ul>
+</div>
+<!-- <script src="./js/common.js"></script> -->
+<script>
+    //비밀번호 보기 아이콘 버튼 클릭시, 비밀번호 노출/비노출
+    $(".show_pw_btn").click((e) => {
+        if($(e.target).hasClass("active")){
+            $(e.target).removeClass("active");
+            $(e.target).siblings("input").attr("type", "password");
+        }else{
+            $(e.target).addClass("active");
+            $(e.target).siblings("input").attr("type", "text");
+        }
+    })
+
+    //회원탈퇴 버튼 클릭시, 재확인 팝업창 활성화
+    $(".leave_btn").on(('click'), () => {
+        $(".pop_bg, .pop_cont").addClass("active");
+    })
+
+    $(".pop_btn_list > li").click((e) => {
+        if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
+            console.log("회원탈퇴 확인 버튼 클릭");
+        }else{//회원탈퇴 취소 버튼을 클릭시
+            console.log("회원탈퇴 취소 버튼 클릭");
+        }
+
+        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+    })
+</script>
+</body>
+</html>

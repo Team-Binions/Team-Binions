@@ -23,8 +23,10 @@
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
-        <p class="profile_name"><span th:text="${userMypageMainData.nickname}"></span>님</p>
-        <p class="total_posts_count">총 게시글 <span class="eng"  th:text="${userMypageMainData.totalCount}"></span></p>
+<!--         th:text="${userMypageMainData.nickname}"-->
+        <p class="profile_name"><span>비니언즈</span>님</p>
+<!--          th:text="${userMypageMainData.totalCount}"-->
+        <p class="total_posts_count">총 게시글 <span class="eng">5</span></p>
       </div>
     </div>
 
@@ -32,29 +34,38 @@
     <div class="contents_cont">
       <div class="sidebar mypage">
         <ul>
-          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">나의 글</a></li>
           <li><a href="/mypage/review">예리뷰</a></li>
           <li><a href="/mypage/free">예수다</a></li>
           <li><a href="/mypage/comment">댓글</a></li>
-          <li><a href="/mypage/schedule">스케쥴</a></li>
+          <li class="active"><a href="/mypage/schedule">스케쥴</a></li>
           <!-- <li><a href="#">포인트</a></li> -->
-          <li><a href="mypage/myinfo">회원 정보 수정</a></li>
+          <li><a href="/mypage/myinfo">회원 정보 수정</a></li>
         </ul>
       </div>
 
       <div class="mypage_contents">
         <!-- null - 등록한 게시글 없는 경우 -->
-        <div class="null_txt" th:if="${userMypageMainData.totalCount} == 0">
-          <p>아직 등록한 글이 없어요.</p>
-          <p>지금 바로 글을 작성하셔서<br>
-            예쓰니가 되어주세요!</p>
+        <!-- <div class="null_txt">
+          <p>아직 등록한 스케쥴이 없어요.</p>
+          <p>스케쥴을 등록해서<br>
+            일정관리를 해보세요!</p>
+        </div> -->
+
+
+        <!-- 등록한 게시글이 있는 경우 -->
+        <div class="top_sec">
+          <button class="register_schedule_btn">스케쥴 등록</button>
+          <p class="today_date eng"><span class="eng">TODAY</span>&nbsp;2024.05.13</p>
         </div>
 
-        <!-- 등록한 게시물이 있는 경우 -->
-        <ul class="summary_mypage" th:unless="${userMypageMainData.totalCount} == 0">
-          <li><a th:href="@{/mypage/review}"><span>예리뷰</span><span class="eng" th:text="${userMypageMainData.reviewCount}"></span></a></li>
-          <li><a href="/mypage/free"><span>예수다</span><span class="eng" th:text="${userMypageMainData.freeCount}"></span></a></li>
-          <li><a href="/mypage/comment"><span>댓글</span><span class="eng" th:text="${userMypageMainData.commentCount}"></span></a></li>
+        <ul class="schedule_list">
+          <li>
+            <a href="/mypage/scheduleManage">
+              <p class="eng"><span>2024.05.24</span><span class="manage_schedule_btn"></span></p>
+              <p>스튜디오 예약 확인</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
