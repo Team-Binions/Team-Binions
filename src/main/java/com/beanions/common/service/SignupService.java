@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @AllArgsConstructor
@@ -24,11 +26,14 @@ public class SignupService {
 
         if (directory != null && Files.isDirectory(directory)) {
             try {
+                LocalDateTime now = LocalDateTime.now();
+                String formatedNow = now.format(DateTimeFormatter.ofPattern("MMM dd EEE HH:mm:ss yyyy"));
+
                 Files.walk(directory)
                         .filter(Files::isRegularFile)
                         .map(Path::toFile)
                         .forEach(File::delete);
-                System.out.println("회원가입 이미지 임시저장 파일이 삭제되었습니다...");
+                System.out.println("회원가입 이미지 임시저장 파일이 삭제되었습니다..." + formatedNow);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error occurred while deleting files.");
