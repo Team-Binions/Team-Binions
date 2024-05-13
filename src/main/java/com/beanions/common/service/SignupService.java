@@ -27,13 +27,13 @@ public class SignupService {
         if (directory != null && Files.isDirectory(directory)) {
             try {
                 LocalDateTime now = LocalDateTime.now();
-                String formatedNow = now.format(DateTimeFormatter.ofPattern("MMM dd EEE HH:mm:ss yyyy"));
+                String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-EE HH:mm:ss"));
 
                 Files.walk(directory)
                         .filter(Files::isRegularFile)
                         .map(Path::toFile)
                         .forEach(File::delete);
-                System.out.println("회원가입 이미지 임시저장 파일이 삭제되었습니다..." + formatedNow);
+                System.out.println(formatedNow + " --- 회원가입 임시저장 업로드 파일이 삭제되었습니다...");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error occurred while deleting files.");

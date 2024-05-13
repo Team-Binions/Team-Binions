@@ -192,8 +192,6 @@ $(document).ready(function () {
     $('#nickname').keyup(function (){
 
         var nickname = $(event.target).val();
-        var num = nickname.search(/[0-9]/g);
-        var eng = nickname.search(/[a-z]/ig);
         var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
@@ -213,9 +211,9 @@ $(document).ready(function () {
                 "font-weight" : "bold",
                 "font-size" : "10px"
             })
-        } else if ( nickname.length !== 0 && (num < 0 || eng < 0 || spe > 0) ) {
+        } else if (nickname.length !== 0 && spe > 0) {
             totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 영어+숫자로 이루어져야 합니다</span>")
+            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임에 특수문자가 포함될 수 없습니다</span>")
             $("#nknconfirmchk").css({
                 "color" : "#FA3E3E",
                 "font-weight" : "bold",
@@ -232,17 +230,16 @@ $(document).ready(function () {
     $("#checkNkname").click(function() {
         // 닉네임 값을 가져온다.
         var nickname = $("#nickname").val();
-        var num = nickname.search(/[0-9]/g);
-        var eng = nickname.search(/[a-z]/ig);
         var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
         if( nickname === '' ) {
             alert("닉네임을 입력해주세요.");
             $("#nickname").focus();
-        } else if ( nickname.length < 5 || nickname.length > 15 ) {}
+        }
+        else if ( nickname.length < 5 || nickname.length > 15 ) {}
         else if(pattern.test(nickname)){}
-        else if(num < 0 || eng < 0 || spe > 0){}
+        else if(spe > 0){}
         else {
             // Fetch를 이용하여 요청을 보낸다.
             fetch("/request-dupCheck-nickname", {

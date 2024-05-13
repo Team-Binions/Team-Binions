@@ -2,16 +2,19 @@
 .terms_body {
     width: 800px;
     height: 360px;
+    padding-top: 20px;
     margin: auto;
 }
 
 .terms_box {
     width: 800px;
     height: 224px;
+    padding: 20px;
     border-style: solid;
     border-width: thin;
     border-radius: 6px;
-    border-color: #C4C4C4;
+    border-color: #A7A8C9;
+    outline: none;
     resize: none;
 }
 
@@ -80,10 +83,10 @@
     visibility: visible;
 }
 
-.check_box {cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.check_box {display: inline-flex; justify-content: flex-start; align-items: center; cursor: pointer; font-size: 16px; -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 .check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
 .check_mark {display: inline-block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}
-.check_box > input.check_input:checked + .check_mark {line-height: 20px; background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
+.check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
 
 /*.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}*/
 /*.check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}*/
