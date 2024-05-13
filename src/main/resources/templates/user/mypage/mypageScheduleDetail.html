@@ -18,7 +18,7 @@
   <!-- //HEADER -->
 
   <div class="mypage_cont">
-    <p class="page_tit">마이 페이지</p>
+    <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}" alt="right arrow icon">&nbsp;스케쥴 상세</p>
 
     <!-- profile -->
     <div class="profile_box">
@@ -47,7 +47,9 @@
       </div>
 
       <div class="mypage_contents">
-        <form action="/mypage/deleteSchedule" method="post">
+        <!--        th:action="@{'/mypage/scheduleManage/' + ${userScheduleInfo.scheduleCode}}"-->
+        <form th:action="@{'/mypage/deleteSchedule/' + ${userScheduleInfo.scheduleCode}}" method="post">
+          <input type="hidden" name="scheduleCode" th:value="${userScheduleInfo.scheduleCode}">
           <div class="regist_top_sec">
             <p class="schedule_detail_date" th:text="${#dates.format(userScheduleInfo.scheduleDate, 'yyyy-MM-dd')}"></p>
             <p class="schedule_detail_tit" th:text="${userScheduleInfo.scheduleTitle}"></p>
@@ -57,9 +59,11 @@
           </div>
           <div class="schedule_btn_list">
             <button class="cancel_btn" type="submit">삭제</button>
-            <button class="register_btn" th:onclick="|location.href='@{/mypage/scheduleManage}'|">수정</button>
           </div>
         </form>
+        <div class="schedule_btn_list right">
+          <button class="register_btn" th:onclick="|location.href='@{/mypage/scheduleManage(id=${userScheduleInfo.scheduleCode})}'|">수정</button>
+        </div>
       </div>
     </div>
 
@@ -71,18 +75,6 @@
 </div>
 <!-- <script src="./js/common.js"></script> -->
 <script>
-    // daterangepicker 스케쥴 날짜 선택
-    $('input[name="datefilter"]').daterangepicker({
-        "singleDatePicker": true,
-        "minYear": 2024,
-        "maxYear": 2026,
-        "autoApply": true,
-        "startDate": "05/07/2024",
-        "minDate": "05/13/2024"
-    }, function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        console.log($('input[name="datefilter"]').val());
-    });
 
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
     $(window).on('load', () => {

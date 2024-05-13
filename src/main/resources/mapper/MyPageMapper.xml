@@ -242,7 +242,6 @@
 				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) B
 				, (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = 15 ) D
 				, (select * from SCHEDULES WHERE MEMBER_CODE = 15) C
-				ORDER BY C.SCHEDULE_DATE DESC
 	</select>
 	<!-- 스케쥴 상세 조회 -->
 	<select id="selectScheduleDetail" resultMap="selectMyPageScheduleInfoResultMap">
@@ -280,4 +279,20 @@
 			#{scheduleContext}
 		)
 	</insert>
+
+	<!-- 스케쥴 수정-->
+	<update id="modifySchedule" parameterType="com.beanions.common.dto.SchedulesDTO">
+		UPDATE SCHEDULES
+		   SET
+			   SCHEDULE_TITLE = #{scheduleTitle},
+			   SCHEDULE_DATE = #{scheduleDate},
+			   SCHEDULE_CONTEXT = #{scheduleContext}
+		 WHERE SCHEDULE_CODE = #{scheduleCode}
+	</update>
+
+	<!-- 스케쥴 삭제-->
+	<delete id="deleteSchedule" parameterType="com.beanions.common.dto.SchedulesDTO">
+		DELETE FROM SCHEDULES
+		WHERE SCHEDULE_CODE = #{code}
+	</delete>
 </mapper>

@@ -47,21 +47,27 @@
       </div>
 
       <div class="mypage_contents">
-        <form>
+<!--        th:action="@{'/mypage/scheduleManage/' + ${userScheduleInfo.scheduleCode}}"-->
+        <form action="/mypage/scheduleManage" method="post">
+          <input type="hidden" name="scheduleCode" th:value="${userScheduleInfo.scheduleCode}">
           <div class="regist_top_sec">
-            <input type="text" class="schedule_date_input" name="scheduleDate"/>
-<!--             th:value="${#dates.format(userScheduleInfo.scheduleDate, 'yyyy-MM-dd')}" -->
-            <div class="schedule_tit_box"><input type="text" class="schedule_tit" th:value="${userScheduleInfo.scheduleTitle}" maxlength="50" placeholder="제목을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/50</span></div>
+            <input type="text" class="schedule_date_input" name="scheduleDate" th:value="${#dates.format(userScheduleInfo.scheduleDate, 'yyyy-MM-dd')}"/>
+            <div class="schedule_tit_box">
+              <input type="text" name="scheduleTitle" class="schedule_tit" th:value="${userScheduleInfo.scheduleTitle}" maxlength="50" placeholder="제목을 입력하세요">
+              <span class="tit_count eng"><span class="tit_counted">0</span>/50</span>
+            </div>
           </div>
           <div class="schedule_txt_box">
-            <textarea class="schedule_contxt_box" placeholder="내용을 입력하세요" maxlength="100" th:text="${userScheduleInfo.scheduleContext}"></textarea>
+            <textarea class="schedule_contxt_box" name="scheduleContext" placeholder="내용을 입력하세요" maxlength="100" th:text="${userScheduleInfo.scheduleContext}"></textarea>
             <span class="txt_count eng"><span class="txt_counted">0</span>/100</span>
           </div>
-          <div class="schedule_btn_list">
-            <button class="cancel_btn" th:onclick="|location.href='@{/mypage/schedule}'|">취소</button>
-            <button class="register_btn">수정</button>
+          <div class="schedule_btn_list right noMargin">
+            <button class="register_btn" type="submit">수정</button>
           </div>
         </form>
+        <div class="schedule_btn_list left">
+          <button class="cancel_btn" th:onclick="|location.href='@{/mypage/schedule}'|">취소</button>
+        </div>
       </div>
     </div>
 
@@ -73,25 +79,21 @@
 </div>
 <!-- <script src="./js/common.js"></script> -->
 <script>
-    const registeredDate1 = `[[${#dates.format(scheduleDate, 'yyyy-MM-dd')}]]`
-    const registeredDate2 = `[[${scheduleDate}]]`
-    console.log(registeredDate1);
-    console.log(registeredDate2);
+    const registeredDate = `[[${#dates.format(scheduleDate, 'yyyy-MM-dd')}]]`;
+    console.log(registeredDate);
     // daterangepicker 스케쥴 날짜 선택
     $('input[name="scheduleDate"]').daterangepicker({
         "singleDatePicker": true,
+        "locale": {
+            "format": "YYYY/MM/DD",
+            "separator": " - ",
+        },
         "minYear": 2024,
         "maxYear": 2026,
         "autoApply": true,
-        dateFormat: 'YYYY-MM-DD',
-        // rangeInputFormat : 'YYYY-MM-DD',
-        // dateInputFormat: 'YYYY-MM-DD',
-        // "startDate": parseInt(registeredDate.format('YYYY-MM-DD')),
-        "startDate": registeredDate2,
+        "startDate": registeredDate,
         "minDate": new Date()
-        //registeredDate2 <= new Date() ? new Date() : registeredDate2
     }, function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         console.log('input date : '+ $('input[name="scheduleDate"]').val());
     });
 

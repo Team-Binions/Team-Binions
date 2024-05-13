@@ -6,6 +6,7 @@ import com.beanions.user.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,14 +73,8 @@ public class MyPageController {
   // 마이페이지 > 스케쥴 관리
   @GetMapping("/mypage/schedule")
   public String mypageSchedule(Model model){
-
     List<MyPageDTO> userMypageScheduleInfo = myPageService.selectMyPageScheduleInfo();
-//    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory();
-//
-//    System.out.println("category : " + userMypageCommentPostCategoryList);
-//
     model.addAttribute("userMypageScheduleInfo", userMypageScheduleInfo.get(0));
-//    model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
 
     return "user/mypage/mypageSchedule";
   }
@@ -109,15 +104,15 @@ public class MyPageController {
   public String mypageRegisterSchedule(SchedulesDTO newSchedule, RedirectAttributes rttr){
     myPageService.registNewSchedule(newSchedule);
     //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록 성공\uD83C\uDF8A");
-    return "redirect:mypage/schedule";
+    return "redirect:/mypage/schedule";
   }
 
   // 마이페이지 > 스케쥴 삭제 post
-  @PostMapping("/mypage/deleteSchedule")
-  public String mypageDeleteSchedule(@RequestParam("id") String id, RedirectAttributes rttr){
-//    myPageService.deleteSchedule(id);
+  @PostMapping("/mypage/deleteSchedule/{scheduleCode}")
+  public String mypageDeleteSchedule(@RequestParam("scheduleCode") int code, RedirectAttributes rttr){
+    myPageService.deleteSchedule(code);
     //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록 성공\uD83C\uDF8A");
-    return "redirect:/mypage/mypageSchedule";
+    return "redirect:/mypage/schedule";
   }
 
   // 마이페이지 > 스케쥴 수정
@@ -130,6 +125,13 @@ public class MyPageController {
     model.addAttribute("scheduleDate", userScheduleInfo.get(0).getScheduleDate());
 
     return "user/mypage/mypageScheduleManage";
+  }
+
+  // 마이페이지 > 스케쥴 수정 update
+  @PostMapping("/mypage/scheduleManage")
+  public String mypageUpdateSchedule(SchedulesDTO modifiedSchedule, RedirectAttributes rttr){
+    myPageService.modifySchedule(modifiedSchedule);
+    return "redirect:/mypage/schedule";
   }
 
   // 마이페이지 > 회원 정보 수정

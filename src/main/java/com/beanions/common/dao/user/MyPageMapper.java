@@ -20,10 +20,13 @@ public interface MyPageMapper {
 
   List<MyPageDTO> selectMyPageCommentPostCategory();
 
-
   void insertNewSchedule(SchedulesDTO newSchedule);
 
   List<MyPageDTO> selectMyPageScheduleInfo();
 
   List<MyPageDTO> selectScheduleDetail(int code);
+
+  void modifySchedule(SchedulesDTO modifiedSchedule);
+
+  void deleteSchedule(int code);
 }

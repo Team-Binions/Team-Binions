@@ -46,4 +46,11 @@ public class MyPageService {
     int code = Integer.parseInt(id);
     return myPageMapper.selectScheduleDetail(code);
   }
+
+  @Transactional
+  public void modifySchedule(SchedulesDTO modifiedSchedule) { myPageMapper.modifySchedule(modifiedSchedule);
+  }
+
+  @Transactional
+  public void deleteSchedule(int code) {myPageMapper.deleteSchedule(code);}
 }
