@@ -85,13 +85,15 @@ public class FreeBoardController {
 
         freeBoardService.freeRegist(postDTO);
 
+        rttr.addAttribute("id", postDTO.getSubCategory());
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
             return "redirect:/user/board/yesinList";
-        } else {
-            return "redirect:/user/board/yerangList";}
+        } else if (postDTO.getSubCategory().equals("예랑")){
+            return "redirect:/user/board/yerangList";
+        } else { return "redirect:/user/board/reviewList"; }
 
 
     }
@@ -151,6 +153,7 @@ public class FreeBoardController {
 
         freeBoardService.deletePost(postDTO);
 
+        rttr.addAttribute("id", postDTO.getSubCategory());
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
         // 예랑 게시판 생성 하면 주소 변경하기

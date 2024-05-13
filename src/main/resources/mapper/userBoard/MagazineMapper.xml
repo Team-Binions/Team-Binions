@@ -39,14 +39,17 @@
 
     <select id="magazineSelectOneDetail" resultMap="PostAndMemberResultMap">
         SELECT
-        POST_CODE,
-        MEMBER_CODE,
-        POST_TITLE,
-        POST_CONTEXT,
-        POST_DATE,
-        MAIN_CATEGORY,
-        SUB_CATEGORY
-        FROM POST
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '매거진' AND POST_CODE = #{ id }
     </select>
 </mapper>
