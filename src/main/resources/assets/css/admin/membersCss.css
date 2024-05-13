@@ -1,14 +1,10 @@
 .membersDisplay {
-    width: 1200px;
-    margin-left: 20px;
-    margin-right: 20px;
+    max-width: 1600px;
+    min-height: calc(100vh - 200px);
+    padding: 60px 0 0 20px;: 40px 0;
 
 
 }
-.searchBox {
-
-}
-
 .memberModifyBox {
     background-color: white;
     width: 400px;
@@ -19,6 +15,10 @@
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
+}
+.post_comment {
+
+
 }
 .hr {
     color: #D4CFEB;

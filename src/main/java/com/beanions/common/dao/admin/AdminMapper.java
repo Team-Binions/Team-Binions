@@ -10,7 +10,11 @@ import java.util.List;
 public interface AdminMapper {
     List<MembersDTO> membersAllList();
 
-    void modifyOneMember(MembersDTO modify);
+    List<MembersDTO> selectMembers(int code);
+
+    void memberModify(MembersDTO modify);
+
+    void memberDelete(int memberCode);
 
     List<AdminPostDTO> selectAllPost();
 
@@ -29,4 +33,7 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllMagazine();
 
     void magazineRegist(PostDTO newMagazine);
+
+
+
 }

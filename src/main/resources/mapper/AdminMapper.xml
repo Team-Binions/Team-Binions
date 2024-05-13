@@ -20,7 +20,7 @@
 
     <select id="membersAllList" resultMap="membersResultMap">
         SELECT
-            MEMBER_CODE
+        MEMBER_CODE
         ,   MEMBER_ID
         ,   MEMBER_PW
         ,   NICKNAME
@@ -33,10 +33,35 @@
         FROM MEMBERS
     </select>
 
-    <update id="modifyOneMember" parameterType="com.beanions.common.dto.MembersDTO">
+    <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
+        SELECT
+        MEMBER_CODE
+        ,   MEMBER_ID
+        ,   MEMBER_PW
+        ,   NICKNAME
+        ,   EMAIL
+        ,   PHONE
+        ,   GENDER
+        ,   MARRIED_STATUS
+        ,   MEMBER_ROLE
+        ,   WEDD_VEF
+        ,   SIGNUP_DATE
+        FROM MEMBERS
+        WHERE MEMBER_CODE = #{ codes }
+    </select>
+
+    <update id="memberModify" parameterType="com.beanions.common.dto.MembersDTO">
         UPDATE MEMBERS
-        SET   NICKNAME = #{ nickname }
+        SET NICKNAME = #{ nickname }
+        WHERE MEMBER_CODE = #{ memberCode }
     </update>
+
+    <delete id="memberDelete" parameterType="_int">
+        DELETE
+        FROM MEMBERS
+        WHERE MEMBER_CODE = #{ id }
+    </delete>
+
     <resultMap id="adminPostResultMap" type="com.beanions.common.dto.AdminPostDTO">
         <id property="postCode" column="post_code"/>
         <result property="memberCode" column="member_code"/>

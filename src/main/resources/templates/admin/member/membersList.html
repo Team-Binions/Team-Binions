@@ -3,33 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin/membersCss.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
 </head>
 <body>
-    <table border="1px solid" align="center">
-    <h2 align="center">회원 전체조회</h2>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+    <article>
+        <div class="membersDisplay">
+            <h2>회원 전체조회</h2>
+            <form class="search_form">
+                <div class="search_box">
+                    <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+                    <span class="clear_btn"></span>
+                    <span class="search_btn"></span>
+                </div>
+            </form>
+            <div class="table_box">
+                <table>
+                    <tr>
+                        <th>회원번호</th>
+                        <th>아이디</th>
+                        <th>닉네임</th>
+                        <th>이메일</th>
+                        <th>전화번호</th>
+                        <th>성별</th>
+                        <th>가입일</th>
+                        <th>관리</th>
+                    </tr>
+                    <tr th:each="members: ${ membersList }">
+                        <td th:text="${ members.memberCode }"></td>
+                        <td>
+                            <a th:text="${ members.memberId }"
+                               th:href="@{/admin/member/membersDetail(id=${members.memberCode})}"></a>
+                        </td>
+                        <td th:text="${ members.nickname }"></td>
+                        <td th:text="${ members.email }"></td>
+                        <td th:text="${ members.phone }"></td>
+                        <td th:text="${ members.gender }"></td>
+                        <td th:text="${ #dates.format(members.signupDate, 'yyyy.MM.dd') }"></td>
+                        <td>
+                            <button type="button"
+                                    th:onclick="|location.href='@{/admin/member/membersModify(id=${members.memberCode})}'|">
+                                상세
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div th:replace="admin/footer.html"></div>
+        </div>
+    </article>
+</div>
 
-    <tr>
-        <th>회원번호</th>
-        <th>아이디</th>
-        <th>닉네임</th>
-        <th>이메일</th>
-        <th>전화번호</th>
-        <th>성별</th>
-        <th>가입일</th>
-    </tr>
-    <tr th:each="members: ${ membersList }">
-        <td th:text="${ members.memberCode }"></td>
-        <td>
-            <a href="/admin/member/membersModify" th:text="${ members.memberId }"></a>
-        </td>
-        <td th:text="${ members.nickname }"></td>
-        <td th:text="${ members.email }"></td>
-        <td th:text="${ members.phone }"></td>
-        <td th:text="${ members.gender }"></td>
-        <td th:text="${ #dates.format(members.signupDate, 'yyyy.MM.dd') }"></td>
-    </tr>
-    </table>
+<!--<th:block layout:fragment="script">-->
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
+</script>
+<!--</th:block>-->
+
 
 </body>
 </html>
