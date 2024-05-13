@@ -1,10 +1,14 @@
 package com.beanions.user.controller;
 
 import com.beanions.common.dto.MyPageDTO;
+import com.beanions.common.dto.SchedulesDTO;
 import com.beanions.user.service.MyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -69,26 +73,62 @@ public class MyPageController {
   @GetMapping("/mypage/schedule")
   public String mypageSchedule(Model model){
 
-//    List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData();
+    List<MyPageDTO> userMypageScheduleInfo = myPageService.selectMyPageScheduleInfo();
 //    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory();
 //
 //    System.out.println("category : " + userMypageCommentPostCategoryList);
 //
-//    model.addAttribute("userMypageCommentData", userMypageCommentDataList.get(0));
+    model.addAttribute("userMypageScheduleInfo", userMypageScheduleInfo.get(0));
 //    model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
 
     return "user/mypage/mypageSchedule";
   }
 
-  // 마이페이지 > 스케쥴 관리
+  // 마이페이지 > 스케쥴 상세 페이지
+  @GetMapping("/mypage/scheduleDetail")
+  public String mypageScheduleDetail(@RequestParam("id") String id, Model model){
+    List<MyPageDTO> userMypageScheduleInfo = myPageService.selectScheduleDetail(id);
+    List<SchedulesDTO> userScheduleInfo = userMypageScheduleInfo.get(0).getSchedules();
+    model.addAttribute("userMypageInfo", userMypageScheduleInfo.get(0));
+    model.addAttribute("userScheduleInfo", userScheduleInfo.get(0));
+
+    return "user/mypage/mypageScheduleDetail";
+  }
+
+  // 마이페이지 > 스케쥴 등록
   @GetMapping("/mypage/scheduleRegister")
   public String mypageScheduleRegister(Model model){
+    List<MyPageDTO> userMypageScheduleInfo = myPageService.selectMyPageScheduleInfo();
+    model.addAttribute("userMypageScheduleInfo", userMypageScheduleInfo.get(0));
+
     return "user/mypage/mypageScheduleRegister";
   }
 
-  // 마이페이지 > 스케쥴 관리
+  // 마이페이지 > 스케쥴 등록 post
+  @PostMapping("/mypage/scheduleRegister")
+  public String mypageRegisterSchedule(SchedulesDTO newSchedule, RedirectAttributes rttr){
+    myPageService.registNewSchedule(newSchedule);
+    //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록 성공\uD83C\uDF8A");
+    return "redirect:mypage/schedule";
+  }
+
+  // 마이페이지 > 스케쥴 삭제 post
+  @PostMapping("/mypage/deleteSchedule")
+  public String mypageDeleteSchedule(@RequestParam("id") String id, RedirectAttributes rttr){
+//    myPageService.deleteSchedule(id);
+    //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록 성공\uD83C\uDF8A");
+    return "redirect:/mypage/mypageSchedule";
+  }
+
+  // 마이페이지 > 스케쥴 수정
   @GetMapping("/mypage/scheduleManage")
-  public String mypageScheduleManage(Model model){
+  public String mypageScheduleManage(@RequestParam("id") String id, Model model){
+    List<MyPageDTO> userMypageScheduleInfo = myPageService.selectScheduleDetail(id);
+    List<SchedulesDTO> userScheduleInfo = userMypageScheduleInfo.get(0).getSchedules();
+    model.addAttribute("userMypageInfo", userMypageScheduleInfo.get(0));
+    model.addAttribute("userScheduleInfo", userScheduleInfo.get(0));
+    model.addAttribute("scheduleDate", userScheduleInfo.get(0).getScheduleDate());
+
     return "user/mypage/mypageScheduleManage";
   }
 

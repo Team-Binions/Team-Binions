@@ -18,7 +18,7 @@
   <!-- //HEADER -->
 
   <div class="mypage_cont">
-    <p class="page_tit">마이 페이지</p>
+    <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}" alt="right arrow icon">&nbsp;스케쥴 수정</p>
 
     <!-- profile -->
     <div class="profile_box">
@@ -27,10 +27,8 @@
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
-        <!--         th:text="${userMypageMainData.nickname}"-->
-        <p class="profile_name"><span>비니언즈</span>님</p>
-        <!--          th:text="${userMypageMainData.totalCount}"-->
-        <p class="total_posts_count">총 게시글 <span class="eng">5</span></p>
+        <p class="profile_name"><span th:text="${userMypageInfo.nickname}">비니언즈</span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng" th:text="${userMypageInfo.totalCount}"></span></p>
       </div>
     </div>
 
@@ -51,15 +49,16 @@
       <div class="mypage_contents">
         <form>
           <div class="regist_top_sec">
-            <input type="text" class="schedule_date_input" name="datefilter" value="" />
-            <div class="schedule_tit_box"><input type="text" class="schedule_tit" value="등록된 제목" maxlength="50" placeholder="제목을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/50</span></div>
+            <input type="text" class="schedule_date_input" name="scheduleDate"/>
+<!--             th:value="${#dates.format(userScheduleInfo.scheduleDate, 'yyyy-MM-dd')}" -->
+            <div class="schedule_tit_box"><input type="text" class="schedule_tit" th:value="${userScheduleInfo.scheduleTitle}" maxlength="50" placeholder="제목을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/50</span></div>
           </div>
           <div class="schedule_txt_box">
-            <textarea class="schedule_contxt_box" placeholder="내용을 입력하세요" maxlength="100">등록된 내용</textarea>
+            <textarea class="schedule_contxt_box" placeholder="내용을 입력하세요" maxlength="100" th:text="${userScheduleInfo.scheduleContext}"></textarea>
             <span class="txt_count eng"><span class="txt_counted">0</span>/100</span>
           </div>
           <div class="schedule_btn_list">
-            <button class="cancel_btn">삭제</button>
+            <button class="cancel_btn" th:onclick="|location.href='@{/mypage/schedule}'|">취소</button>
             <button class="register_btn">수정</button>
           </div>
         </form>
@@ -74,17 +73,26 @@
 </div>
 <!-- <script src="./js/common.js"></script> -->
 <script>
+    const registeredDate1 = `[[${#dates.format(scheduleDate, 'yyyy-MM-dd')}]]`
+    const registeredDate2 = `[[${scheduleDate}]]`
+    console.log(registeredDate1);
+    console.log(registeredDate2);
     // daterangepicker 스케쥴 날짜 선택
-    $('input[name="datefilter"]').daterangepicker({
+    $('input[name="scheduleDate"]').daterangepicker({
         "singleDatePicker": true,
         "minYear": 2024,
         "maxYear": 2026,
         "autoApply": true,
-        "startDate": "05/07/2024",
-        "minDate": "05/13/2024"
+        dateFormat: 'YYYY-MM-DD',
+        // rangeInputFormat : 'YYYY-MM-DD',
+        // dateInputFormat: 'YYYY-MM-DD',
+        // "startDate": parseInt(registeredDate.format('YYYY-MM-DD')),
+        "startDate": registeredDate2,
+        "minDate": new Date()
+        //registeredDate2 <= new Date() ? new Date() : registeredDate2
     }, function(start, end, label) {
         console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        console.log($('input[name="datefilter"]').val());
+        console.log('input date : '+ $('input[name="scheduleDate"]').val());
     });
 
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영

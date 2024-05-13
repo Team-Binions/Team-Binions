@@ -27,10 +27,8 @@
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
-        <!--         th:text="${userMypageMainData.nickname}"-->
-        <p class="profile_name"><span>비니언즈</span>님</p>
-        <!--          th:text="${userMypageMainData.totalCount}"-->
-        <p class="total_posts_count">총 게시글 <span class="eng">5</span></p>
+        <p class="profile_name"><span th:text="${userMypageInfo.nickname}"></span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng" th:text="${userMypageInfo.totalCount}"></span></p>
       </div>
     </div>
 
@@ -49,18 +47,17 @@
       </div>
 
       <div class="mypage_contents">
-        <form>
+        <form action="/mypage/deleteSchedule" method="post">
           <div class="regist_top_sec">
-            <input type="text" class="schedule_date_input" name="datefilter" value="" />
-            <div class="schedule_tit_box"><input type="text" class="schedule_tit" value="등록된 제목" maxlength="50" placeholder="제목을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/50</span></div>
+            <p class="schedule_detail_date" th:text="${#dates.format(userScheduleInfo.scheduleDate, 'yyyy-MM-dd')}"></p>
+            <p class="schedule_detail_tit" th:text="${userScheduleInfo.scheduleTitle}"></p>
           </div>
           <div class="schedule_txt_box">
-            <textarea class="schedule_contxt_box" placeholder="내용을 입력하세요" maxlength="100">등록된 내용</textarea>
-            <span class="txt_count eng"><span class="txt_counted">0</span>/100</span>
+            <div class="schedule_contxt_box" th:text="${userScheduleInfo.scheduleContext}"></div>
           </div>
           <div class="schedule_btn_list">
-            <button class="cancel_btn">삭제</button>
-            <button class="register_btn">수정</button>
+            <button class="cancel_btn" type="submit">삭제</button>
+            <button class="register_btn" th:onclick="|location.href='@{/mypage/scheduleManage}'|">수정</button>
           </div>
         </form>
       </div>

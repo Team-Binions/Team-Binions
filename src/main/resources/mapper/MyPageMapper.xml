@@ -211,4 +211,73 @@
 		WHERE A.MEMBER_CODE = 15
 		ORDER BY A.COMMENT_DATE DESC
 	</select>
+
+	<!--	스케쥴 리스트 -->
+	<!-- 기본 정보 : 사용자 닉네임 & 총 게시글 & 스케쥴 등록 수	-->
+	<resultMap id="selectMyPageScheduleInfoResultMap" type="com.beanions.common.dto.MyPageDTO">
+		<id property="nickname" column="NICKNAME"/>
+		<result property="totalCount" column="Total"/>
+		<result property="scheduleCount" column="SCHEDULE_COUNT"/>
+		<collection property="schedules" ofType="com.beanions.common.dto.SchedulesDTO">
+			<id property="scheduleCode" column="SCHEDULE_CODE"/>
+			<result property="memberCode" column="MEMBER_CODE"/>
+			<result property="scheduleTitle" column="SCHEDULE_TITLE"/>
+			<result property="scheduleDate" column="SCHEDULE_DATE"/>
+			<result property="scheduleContext" column="SCHEDULE_CONTEXT"/>
+		</collection>
+	</resultMap>
+	<select id="selectMyPageScheduleInfo" resultMap="selectMyPageScheduleInfoResultMap">
+		SELECT
+					A.NICKNAME,
+					B.Total,
+					D.SCHEDULE_COUNT,
+					C.SCHEDULE_CODE,
+					C.MEMBER_CODE,
+					C.SCHEDULE_TITLE,
+					C.SCHEDULE_DATE,
+					C.SCHEDULE_CONTEXT
+		FROM
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
+				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) B
+				, (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = 15 ) D
+				, (select * from SCHEDULES WHERE MEMBER_CODE = 15) C
+				ORDER BY C.SCHEDULE_DATE DESC
+	</select>
+	<!-- 스케쥴 상세 조회 -->
+	<select id="selectScheduleDetail" resultMap="selectMyPageScheduleInfoResultMap">
+		SELECT
+					A.NICKNAME,
+					B.Total,
+					C.SCHEDULE_CODE,
+					C.MEMBER_CODE,
+					C.SCHEDULE_TITLE,
+					C.SCHEDULE_DATE,
+					C.SCHEDULE_CONTEXT
+		FROM
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
+				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) B
+				, (select * from SCHEDULES WHERE MEMBER_CODE = 15 AND SCHEDULE_CODE = #{code}) C
+	</select>
+
+	<!-- 신규 스케쥴 등록-->
+	<insert id="insertNewSchedule" parameterType="com.beanions.common.dto.SchedulesDTO">
+		INSERT INTO SCHEDULES
+		(
+			SCHEDULE_CODE,
+			MEMBER_CODE,
+			SCHEDULE_TITLE,
+			SCHEDULE_DATE,
+			SCHEDULE_CONTEXT
+		)
+		VALUES
+		(
+			NULL,
+			#{memberCode},
+			#{scheduleTitle},
+			#{scheduleDate},
+			#{scheduleContext}
+		)
+	</insert>
 </mapper>
