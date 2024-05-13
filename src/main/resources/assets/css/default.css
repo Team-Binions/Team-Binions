@@ -69,6 +69,11 @@ input {border:1px solid var(--input-color); transition: border-color 200ms ease-
 input:focus {outline: none; border-color: var(--point-color); transition: border-color 200ms ease-in-out;}
 input::placeholder {color: var(--input-color);}
 
+/* textarea 기본 설정 */
+textarea {resize: none; border:1px solid var(--input-color); border-radius: 12px; transition: border-color 200ms ease-in-out;}
+textarea:focus {outline: none; border-color: var(--point-color);}
+textarea::placeholder {color: var(--input-color);}
+
 /* 버튼 설정 */
 /* 기본 버튼 */
 button {background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;}
