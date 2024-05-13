@@ -39,17 +39,14 @@
 
     <select id="freeDetail" resultMap="PostAndMemberResultMap">
         SELECT
-        A.POST_CODE,
-        A.MEMBER_CODE,
-        A.POST_TITLE,
-        A.POST_CONTEXT,
-        A.POST_DATE,
-        A.MAIN_CATEGORY,
-        A.SUB_CATEGORY,
-        B.MEMBER_CODE,
-        B.NICKNAME
-        FROM POST A
-        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        POST_CODE,
+        MEMBER_CODE,
+        POST_TITLE,
+        POST_CONTEXT,
+        POST_DATE,
+        MAIN_CATEGORY,
+        SUB_CATEGORY
+        FROM POST
         WHERE POST_CODE = #{ id }
     </select>
 
