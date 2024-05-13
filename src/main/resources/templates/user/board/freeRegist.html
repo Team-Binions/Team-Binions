@@ -55,12 +55,18 @@
         const mainCategorySelect = $('#mainCategory');
         const subCategorySelect = $('#subCategory');
 
+        subCategorySelect.prop('disabled', true);
+
         mainCategorySelect.change(function () {
-            const selectedMainCategory = $(this).val();
 
             subCategorySelect.empty();
 
-            switch (selectedMainCategory) {
+            if(mainCategorySelect.val() === ""){
+                subCategorySelect.prop('disabled', true);
+            } else {subCategorySelect.prop('disabled', false)}
+
+
+            switch (mainCategorySelect.val()) {
                 case '자유':
                     addSubCategoryOptions(['예신', '예랑']);
                     break;

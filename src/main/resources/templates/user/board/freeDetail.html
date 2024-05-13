@@ -23,6 +23,20 @@
         <p th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></p>
         <p th:text="${free.postContext}"></p>
 
+        <a>댓글</a>
+        <tr th:each="cmt : ${comments}">
+            <td th:text="${item.comment}"></td>
+            <td th:text="${item.nickname}"></td>
+            <td th:text="${#temporals.format(item.modifiedAt, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        <form id="comment-form">
+            <div class="form-group">
+                <label for="comment">댓글 추가:</label>
+                <textarea class="form-control" id="comment" rows="3"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" id="create-comment-btn">댓글 작성</button>
+        </form>
+
         <button type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/user/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
         <button type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>
         <form th:action="@{/user/board/freedelete(id=${free.postCode})}" method="post">
