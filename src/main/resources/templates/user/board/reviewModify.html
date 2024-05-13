@@ -15,7 +15,7 @@
 
 <h1>게시물 수정</h1>
 
-<form action="/user/board/modify" method="post">
+<form action="/user/board/reviewModify" method="post">
     <div th:each="post : ${ modify }">
         <input type="hidden" th:value="${post.subCategory}" name="subCategory">
         <input type="hidden" th:value="${post.postCode}" name="postCode">

@@ -88,7 +88,7 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "수정 성공");
 
-        return "user/board/reviewList";
+        return "redirect:/user/board/reviewList";
     }
 
     @PostMapping("/delete")
