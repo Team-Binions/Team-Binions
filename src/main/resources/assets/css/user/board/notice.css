@@ -1,0 +1,136 @@
+/* ----------- 공지사항 List ----------- */
+
+/* 공지사항 타이틀 */
+.notice_title {
+    font-size: 24px;
+    font-weight: var(--bold);
+    margin-top: 60px;
+    margin-left: 10%;
+    margin-bottom: 50px;
+}
+
+/* 공지사항 검색 */
+.search {
+    float: right;
+    margin-right: 10%;
+    margin-bottom: 20px;
+}
+
+/* 공지사항 table */
+.notice_List {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 60px;
+    border-collapse: collapse;
+}
+
+.eng {
+    font-family: 'Poppins';
+}
+
+.notice_List tbody tr {
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+}
+
+.notice_List tbody tr:hover {
+    background-color: var(--hashBg-color);
+}
+
+.notice_List thead th {
+    padding:8px 0;
+    border: 1px solid var(--text-color);
+    border-left: none;
+    border-right: none;
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 16px;
+    font-weight: var(--semiBold);
+}
+
+.notice_List tbody td {
+    padding:8px 0;
+    font-size: 16px;
+    font-weight: var(--medium);
+    border-bottom: 1px solid var(--text-color);
+    text-align: center;
+}
+
+/* ----------- 공지사항 상세페이지 ----------- */
+
+/* 공지사항 카테고리 title */
+.notice_category {
+    width: 80%;
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    max-width: 1000px;
+}
+
+.notice_mainCategory {
+    font-size: 20px;
+    font-weight: var(--semiBold);
+    color: var(--inactive-text);
+    display: inline;
+}
+
+.category_line {
+    color: var(--inactive-text);
+    display: inline;
+}
+
+.notice_subCategory {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+/* 공지사항 내용 */
+
+.notice_data {
+    width: 80%;
+    margin: auto;
+    max-width: 1000px;
+}
+
+.notice_detail_title {
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: var(--medium);
+    margin-bottom: 40px;
+}
+
+.notice_content_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.notice_nickname {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: var(--bold);
+    display: inline;
+    margin-bottom: 24px;
+}
+
+.notice_Date {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+.notice_content_line {
+    color: var(--inactive-input-bg);
+}
+
+.notice_content {
+    min-height: 600px;
+    margin: 12px 8px 12px 8px;
+}
+
+.notice_back_button {
+    width: 100px;
+    height: 50px;
+    background-color: var(--inactive-input-bg);
+    margin-top: 12px;
+    margin-bottom: 60px;
+    float: right;
+}
