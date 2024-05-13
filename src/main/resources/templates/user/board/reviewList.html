@@ -38,6 +38,7 @@
         <td>
             <a th:text="${ review.postTitle }" th:href="@{/user/board/reviewDetail(id=${review.postCode})}"></a>
         </td>
+        <td th:text="${ review.viewCount }"></td>
         <td th:text="${ review.member.nickname }"></td>
         <td th:text="${ #dates.format(review.postDate, 'yyyy.MM.dd') }"></td>
     </tr>
