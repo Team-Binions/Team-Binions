@@ -47,8 +47,7 @@
         MAIN_CATEGORY,
         SUB_CATEGORY
         FROM POST
-        WHERE SUB_CATEGORY = #{ name } AND POST_CODE = #{ id }
-        ORDER BY POST_CODE
+        WHERE POST_CODE = #{ id }
     </select>
 
     <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">

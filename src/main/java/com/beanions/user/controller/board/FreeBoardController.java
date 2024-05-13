@@ -48,17 +48,8 @@ public class FreeBoardController {
         return "/user/board/freeList";
     }
 
-    @GetMapping("/yesinDetail")
-    public String yesinDetail(@RequestParam("id") String id, Model model){
-
-        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
-
-        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
-
-        return "/user/board/freeDetail";
-    }
     @GetMapping("/freeDetail")
-    public String yerangDetail(@RequestParam("id") String id, Model model){
+    public String freeDetail(@RequestParam("id") String id, Model model){
 
         List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
 
