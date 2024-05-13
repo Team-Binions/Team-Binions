@@ -71,6 +71,8 @@
         <result property="mainCategory" column="main_category"/>
         <result property="subCategory" column="sub_category"/>
         <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="viewCount" column="view_count"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="member_code"/>
             <result property="nickname" column="nickname"/>
@@ -87,6 +89,8 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
@@ -105,6 +109,8 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
@@ -117,6 +123,14 @@
         POST
         SET
         VEF_STATUS = #{ verifiedStatus }
+        WHERE POST_CODE = #{ postCode }
+    </update>
+
+    <update id="postReview" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE
+        POST
+        SET
+        REVIEW_STATUS = #{ reviewStatus }
         WHERE POST_CODE = #{ postCode }
     </update>
 
@@ -136,6 +150,8 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
@@ -153,6 +169,8 @@
         , MAIN_CATEGORY
         , SUB_CATEGORY
         , POST_DATE
+        , REVIEW_STATUS
+        , VIEW_COUNT
         , VEF_STATUS
         )
         VALUES
@@ -164,6 +182,8 @@
         , #{ subCategory }
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
+        , NULL
+        , 0
         )
     </insert>
 
@@ -187,6 +207,8 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
@@ -205,6 +227,8 @@
         , SUB_CATEGORY
         , POST_DATE
         , VEF_STATUS
+        , REVIEW_STATUS
+        , VIEW_COUNT
         )
         VALUES
         (
@@ -215,6 +239,8 @@
         , #{ subCategory }
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
+        , NULL
+        , 0
         )
     </insert>
 </mapper>

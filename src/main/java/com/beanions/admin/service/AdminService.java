@@ -34,6 +34,12 @@ public class AdminService {
         adminMapper.postUpdate(post);
     }
 
+    @Transactional
+    public void postReview(PostDTO post) {
+
+        adminMapper.postReview(post);
+    }
+
 //    public void postDelete(Long id) {
 //    }
 
@@ -67,4 +73,5 @@ public class AdminService {
 
         adminMapper.magazineRegist(newMagazine);
     }
+
 }

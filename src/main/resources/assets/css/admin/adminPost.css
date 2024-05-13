@@ -1,11 +1,11 @@
-/* 컨텐츠 전체 영역 */
-.all-content {
-    margin-right: 5%;
-    width: 1500px;
-}
+/*!* 컨텐츠 전체 영역 *!*/
+/*.all-content {*/
+/*    margin-right: 5%;*/
+/*    width: 1500px;*/
+/*}*/
 /* 게시글 상세정보 */
 .contents_head {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     font-weight: var(--bold);
     font-size: 24px;
 }
@@ -67,7 +67,7 @@
 .number {
     position: absolute;
     top: 300px;
-    right: 240px;
+    right: 26px;
     font-weight: var(--regular);
     font-size: 20px;
     color: #6F6F6F;
@@ -105,6 +105,7 @@
 
 .button_box #deleteModal_open_btn {
     background-color: #F4F4F9;
+    margin-right: 10px;
     color: var(--main-color);
     font-weight: var(--semiBold);
 }
@@ -131,16 +132,23 @@
 /* 상태변경 버튼 */
 .button_box .modify_btn {
     position: absolute;
-    right: 220px;
+    right: 26px;  /* 220*/
+}
+
+/* 상태변경 버튼 */
+.button_box .review_btn {
+    position: absolute;
+    right: 206px;
 }
 
 /* 모달 전체 영역 */
 #deleteModal {
     display: none;
-    position: relative;
+    position: absolute;
+    /*position: relative;*/
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
 }
 
 /* 모달 글 */
@@ -163,8 +171,11 @@
     width: 300px;
     height: 200px;
     /*margin: -100px 0 -100px 700px ;*/
-    margin-top: -8%;
-    margin-left: 35%;
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    /*margin-top: -16%;*/
+    /*margin-left: 28%;*/
     padding: 10px 10px;
     background: #ffffff;
     border-radius: 12px;

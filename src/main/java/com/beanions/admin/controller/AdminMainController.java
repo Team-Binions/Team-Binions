@@ -3,6 +3,7 @@ package com.beanions.admin.controller;
 import com.beanions.admin.service.AdminService;
 import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,39 +54,61 @@ public class AdminMainController {
         return "/admin/post/detail";
     }
 
-    @GetMapping("/post/update")
-    public String postUpdate(@RequestParam("id") String id, Model model) {
-
-        System.out.println("id = " + id);
-
-        int code = Integer.parseInt(id);
-
-        List<AdminPostDTO> postDetail = adminService.selectPost(code);
-
-        System.out.println("postDetail = " + postDetail);
-
-        model.addAttribute("postDetail", postDetail);
-
-        return "/admin/post/update";
-    }
-
-    //    @PostMapping("post/update/{id}")
-    @PostMapping("/post/update")
-    public String postUpdate(PostDTO post, RedirectAttributes rttr) {
-
+//    @GetMapping("/post/update")
+//    public String postUpdate(@RequestParam("id") String id, Model model) {
+//
 //        System.out.println("id = " + id);
-
+//
 //        int code = Integer.parseInt(id);
+//
+//        List<AdminPostDTO> postDetail = adminService.selectPost(code);
+//
+//        System.out.println("postDetail = " + postDetail);
+//
+//        model.addAttribute("postDetail", postDetail);
+//
+//        return "/admin/post/update";
+//    }
+
+    /* vef_status */
+    @PostMapping("/post/update")
+    public String postUpdate(PostDTO post, RedirectAttributes rttr, HttpServletRequest request) {
+
         System.out.println("post = " + post);
 
         adminService.postUpdate(post);
 
 
-        rttr.addFlashAttribute("successMessage", "게시글 수정 성공");
+        rttr.addFlashAttribute("successMessage", "게시글 상태 변경 성공!");
 
-        return "redirect:/admin/post";
+        if (request.getHeader("Referer") != null) {
+
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+
+            return "redirect:/admin/post";
+        }
     }
 
+    /* review_status */
+    @PostMapping("/post/review")
+    public String postReview(PostDTO post, RedirectAttributes rttr,  HttpServletRequest request) {
+
+        System.out.println("post = " + post);
+
+        adminService.postReview(post);
+
+        rttr.addFlashAttribute("successMessage", "게시물 상태 변경 성공!");
+
+//        return "redirect:/admin/post";
+        if (request.getHeader("Referer") != null) {
+
+            return "redirect:" + request.getHeader("Referer");
+        } else {
+
+            return "redirect:/admin/post";
+        }
+    }
 
 
     @PostMapping("/post/delete")

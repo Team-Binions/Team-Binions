@@ -6,6 +6,13 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -40,22 +47,23 @@
         <!-- 상태 변경 버튼 -->
         <form action="/admin/post/update" method="post">
             <input type="hidden" th:value="${ post.postCode }" name="postCode">
-            <span th:if="${ post.mainCategory == '자유'}">
                 <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성' || post.verifiedStatus == null}">
                     <input type="hidden" name="verifiedStatus" value="비활성">
                     비활성화</button>
-                <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == '비활성'}">
-                    <input type="hidden" name="verifiedStatus" value="활성">
-                    활성화</button>
-            </span>
-            <span th:if="${ post.mainCategory == '리뷰'}">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성'}">
-                    <input type="hidden" name="verifiedStatus" value="비활성">
-                    미승인</button>
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '비활성'}">
-                    <input type="hidden" name="verifiedStatus" value="활성">
-                    승인</button>
-            </span>
+            <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == '비활성'}">
+                <input type="hidden" name="verifiedStatus" value="활성">
+                활성화</button>
+        </form>
+        <form action="/admin/post/review" method="post">
+            <input type="hidden" th:value="${ post.postCode }" name="postCode">
+                <span th:if="${ post.mainCategory == '리뷰'}">
+                    <button class="review_btn" type="submit" th:if="${ post.reviewStatus == '승인'}">
+                        <input type="hidden" name="reviewStatus" value="미승인">
+                        미승인</button>
+                    <button class="review_btn" type="submit" th:if="${ post.reviewStatus == '미승인'}">
+                        <input type="hidden" name="reviewStatus" value="승인">
+                        승인</button>
+                </span>
         </form>
     </div>
 
