@@ -85,8 +85,6 @@ public class FreeBoardController {
 
         freeBoardService.freeRegist(postDTO);
 
-        System.out.println("newPost = " + postDTO);
-
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
         // 예랑 게시판 생성 하면 주소 변경하기
@@ -112,7 +110,6 @@ public class FreeBoardController {
     public String yerangModify(@RequestParam("id") String id, Model model){
 
         List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
-        System.out.println("modify = " + modify);
 
         model.addAttribute("modify", modify);
 
@@ -134,19 +131,18 @@ public class FreeBoardController {
 //    }
 
     @PostMapping("/freeModify")
-    public String yerangModify(PostDTO postDTO, RedirectAttributes rttr){
+    public String freeModify(PostDTO postDTO, RedirectAttributes rttr){
 
         freeBoardService.freeModify(postDTO);
 
-        rttr.addFlashAttribute("successMessage", "수정 성공");
+        rttr.addAttribute("id", postDTO.getSubCategory());
 
-        System.out.println("postDTO = " + postDTO);
+        rttr.addFlashAttribute("successMessage", "수정 성공");
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            System.out.println(postDTO.getSubCategory());
-            return "redirect:/user/board/yesinList?id=예신";
+            return "redirect:/user/board/yesinList";
         } else {
-            return "redirect:/user/board/yerangList?id=예랑";
+            return "redirect:/user/board/yerangList";
         }
         }
 
