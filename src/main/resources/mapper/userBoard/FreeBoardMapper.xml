@@ -47,8 +47,7 @@
         MAIN_CATEGORY,
         SUB_CATEGORY
         FROM POST
-        WHERE SUB_CATEGORY = '예신' AND POST_CODE = #{ id }
-        ORDER BY POST_CODE
+        WHERE POST_CODE = #{ id }
     </select>
 
     <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">
@@ -61,6 +60,7 @@
         , SUB_CATEGORY
         , POST_DATE
         , VEF_STATUS
+        , VIEW_COUNT
         )
         VALUES
         (
@@ -71,6 +71,7 @@
         , #{subCategory}
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
+        , 0
         )
     </insert>
 

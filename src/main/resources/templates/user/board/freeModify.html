@@ -18,9 +18,11 @@
         <input type="hidden" th:value="${post.postCode}" name="postCode">
         <input th:value="${post.postTitle}" name="postTitle"><br>
         <input th:value="${post.postContext}" name="postContext">
-        <button type="submit" th:onclick="|location.href='@{/user/board/yesinmodify(id=${post.postCode})}'|">수정하기</button>
-        <button type="button" th:if="${post.subCategory.equals('예신')}" th:onclick="|location.href='@{/user/board/yesinDetail(id=${post.postCode})}'|">이전으로</button>
-        <button type="button" th:if="${post.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangDetail(id=${post.postCode})}'|">이전으로</button>
+        <button type="submit">수정하기</button>
+<!--        <button type="submit" th:if="${post.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangList?id={post.postCode}'|">수정하기</button>-->
+<!--        <button type="submit" th:onclick="|location.href='@{/user/board/freemodify(id=${post.postCode})}'|">수정하기</button>-->
+        <button type="button" onclick="history.back()">이전으로</button>
+<!--        <button type="button" th:if="${post.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangDetail(id=${post.postCode})}'|">이전으로</button>-->
     </div>
 </form>
 <div th:replace="user/layout/footer.html"></div>
