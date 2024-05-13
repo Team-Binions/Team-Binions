@@ -60,8 +60,7 @@
               <span class="list_item_tit">비밀번호</span>
               <div class="password_box">
                 <input type="password" value="qwer1234">
-                <!--  <img th:src="@{/images/common/icon_show.png}" alt="popup icon image"> -->
-                <span class="show_pw_btn"></span>
+                <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="popup icon image"></span>
               </div>
             </li>
             <li>
@@ -117,8 +116,7 @@
 <!-- popup -->
 <div class="pop_bg"></div>
 <div class="pop_cont selective">
-<!--   th:src="@{/images/common/icon_group_modal_ban.svg}" alt="popup icon image"-->
-  <span class="pop_icon"><img src="" alt=""></span>
+  <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
   <p>회원님께서 등록하신<br>
     모든 게시물이 삭제되며<br>
     보유 포인트가 소멸됩니다.</p>
@@ -132,12 +130,16 @@
 <script>
     //비밀번호 보기 아이콘 버튼 클릭시, 비밀번호 노출/비노출
     $(".show_pw_btn").click((e) => {
-        if($(e.target).hasClass("active")){
-            $(e.target).removeClass("active");
-            $(e.target).siblings("input").attr("type", "password");
-        }else{
-            $(e.target).addClass("active");
-            $(e.target).siblings("input").attr("type", "text");
+        if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
+            $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
+            $(e.target).attr("th:src","@{/images/common/icon_show.png}"); // show 아이콘 이미지로 변경
+            $(e.target).attr("src","/images/common/icon_show.png"); // show 아이콘 이미지로 변경
+            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
+        }else{ // 비활성화된 상태라면
+            $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
+            $(e.target).attr("th:src","@{/images/common/icon_hide.png}"); // hide 아이콘 이미지로 변경
+            $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
+            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
         }
     })
 

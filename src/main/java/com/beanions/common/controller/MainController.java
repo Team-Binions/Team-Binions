@@ -25,6 +25,11 @@ public class MainController {
         return "user/main";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "user/login";
+    }
+
     // feature/adminPost
     @GetMapping("/admin")
     public String admin() {
