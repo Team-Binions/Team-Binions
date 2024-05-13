@@ -251,64 +251,6 @@
     transition: background-color 200ms ease-in-out;
 }
 
-/* select 박스 */
-.select_box {padding: 10px;}
-select::-ms-expand {display: none;}
-select {
-    /*-o-appearance: none;*/
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-.subCategory_select {
-    position: relative;
-    width: 200px;
-    height: 35px;
-    border-radius: 12px;
-    border: 1px solid var(--main-color);
-}
-
-.subCategory_select .select {
-    width: inherit;
-    height: inherit;
-    background: transparent;
-    border: 0 none;
-    outline: 0 none;
-    padding: 0 5px;
-    position: relative;
-    z-index: 2;
-}
-
-.subCategory_select .select option {
-    background: #ffffff;
-    color: var(--text-color);
-    padding: 10px 0;
-    font-size: 16px;
-}
-
-.subCategory_select .iconArrow {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    width: 35px;
-    height: inherit;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.subCategory_select .iconArrow img {
-    width: 50%;
-    transform: rotate(270deg);
-    transition: .3s;
-}
-
-.subCategory_select .select:focus + .iconArrow img {
-    transform: rotate(90deg);
-}
-
-
 
 /* div로 select 박스 만들기*/
 .subCategory_select_box * {box-sizing: border-box;}
@@ -326,17 +268,6 @@ select {
 .subCategory_select_box:hover {
     border: 1px solid var(--point-color);
 }
-
-/*.subCategory_select_box:after {*/
-/*    !*content: '';*!*/
-/*    display: block;*/
-/*    width: 2px;*/
-/*    height: 100%;*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    right: 35px;*/
-/*    !*background: #6667AB;*!*/
-/*}*/
 
 .subCategory_select_box .label {
     color: #2A2A2A;
@@ -417,4 +348,21 @@ select {
 
 .subCategory_select_box .label:focus + .iconArrow img {
     transform: rotate(90deg);
+}
+
+/* regist 제목 */
+.input_title {
+    height: 53px;
+    width: 100%;
+    margin-top: 23px;
+    border-radius: 12px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.input_context {
+    height: 400px;
+    width: 100%;
+    margin-top: 18px;
+    padding: 17px 17px 17px 17px;
 }

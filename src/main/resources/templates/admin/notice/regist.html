@@ -14,18 +14,6 @@
 <article class="all-content">
 <h1>공지사항 등록</h1>
 <form action="/admin/notice/regist" method="post">
-<!--    <div class="select_box">-->
-<!--        <div class="subCategory_select">-->
-<!--            <select name="subCategory" class="select">-->
-<!--                <option disabled selected>분류</option>-->
-<!--                <option value="점검">점검</option>-->
-<!--                <option value="공지">공지</option>-->
-<!--                <option value="이벤트">이벤트</option>-->
-<!--                <option value="업데이트">업데이트</option>-->
-<!--            </select>-->
-<!--            <span class="iconArrow"><img th:src="@{../../images/common/icon_arrow_right_colored.svg}" alt="icon_arrow_right_colored"></span>-->
-<!--        </div>-->
-<!--    </div>-->
     <div class="subCategory_select_box">
         <button type="button" class="label">분류</button>
         <span class="iconArrow"><img th:src="@{../../images/common/icon_arrow_right_colored.svg}" alt="icon_arrow_right_colored"></span>
@@ -37,12 +25,9 @@
             <li class="optionItem" value="업데이트">업데이트</li>
         </ul>
     </div>
-        <input type="text" name="postTitle"
-               placeholder="제목을 입력하세요."
-                  style="height: 53px; width: 100%; margin-top: 23px; border-radius: 12px; padding-left: 17px; padding-right: 17px">
+    <input class="input_title" type="text" name="postTitle" placeholder="제목을 입력하세요.">
     <div>
-            <textarea name="postContext" placeholder="내용을 입력하세요."
-                      style="height: 400px; width: 100%; margin-top: 18px; padding: 17px 17px 17px 17px"></textarea>
+        <textarea class="input_context" name="postContext" placeholder="내용을 입력하세요."></textarea>
     </div>
     <div class="button_box" id="regist_button_box">
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
@@ -54,7 +39,6 @@
 </div>
 
 <script>
-    /* 화살표 함수 */
     const label = document.querySelector('.label');
     const options = document.querySelectorAll('.optionItem');
     const subCategory = document.querySelector('.subCategory');

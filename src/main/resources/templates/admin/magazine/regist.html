@@ -14,28 +14,56 @@
     <article class="all-content">
 <h1>매거진 등록</h1>
 <form action="/admin/magazine/regist" method="post">
-    <div>
-        <input type="text" name="postTitle"
-               placeholder="제목을 입력하세요."
-               style="height: 30px; width: 800px">
-        <select name="subCategory">
-            <option value="정보">정보</option>
-            <option value="꿀팁">꿀팁</option>
-            <option value="뉴스">뉴스</option>
-            <option value="기타">기타</option>
-        </select>
+    <div class="subCategory_select_box">
+        <button type="button" class="label">시리즈</button>
+        <span class="iconArrow"><img th:src="@{../../images/common/icon_arrow_right_colored.svg}" alt="icon_arrow_right_colored"></span>
+        <input type="hidden" class="subCategory" name="subCategory">
+        <ul class="optionList">
+            <li class="optionItem">정보</li>
+            <li class="optionItem">꿀팁</li>
+            <li class="optionItem">뉴스</li>
+            <li class="optionItem">기타</li>
+        </ul>
     </div>
+    <input class="input_title" type="text" name="postTitle" placeholder="제목을 입력하세요.">
     <div>
-            <textarea name="postContext" placeholder="내용을 입력하세요."
-                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>
+        <textarea class="input_context" name="postContext" placeholder="내용을 입력하세요."></textarea>
     </div>
-    <div>
-        <button type="button" onclick="location.href='/admin/magazine'">취소</button>
+    <div class="button_box" id="regist_button_box">
+        <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
         <button type="submit">등록</button>
     </div>
 </form>
 <div th:replace="admin/footer.html"></div>
 </article>
 </div>
+<script>
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    const subCategory = document.querySelector('.subCategory');
+
+    // 클릭한 옵션의 텍스트를 라벨 안에 넣음
+    const handleSelect = (item) => {
+        // console.log(item.textContent);
+        // console.log(label.textContent);
+        label.parentNode.classList.remove('active');
+        label.textContent = item.textContent;
+        subCategory.value = item.textContent;   // input value에 텍스트를 넣음
+        // console.log(subCategory.value);
+    }
+    // 옵션 클릭시 클릭한 옵션을 넘김
+    options.forEach(option => {
+        option.addEventListener('click', () => handleSelect(option))
+    })
+
+    // 라벨을 클릭시 옵션 목록이 열림/닫힘
+    label.addEventListener('click', () => {
+        if(label.parentNode.classList.contains('active')) {
+            label.parentNode.classList.remove('active');
+        } else {
+            label.parentNode.classList.add('active');
+        }
+    })
+</script>
 </body>
 </html>
