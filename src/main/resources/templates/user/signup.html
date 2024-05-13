@@ -15,21 +15,21 @@
     <div th:replace="user/layout/header.html"></div>
     <!--/HEADER-->
     <div>
-        <h2 style="padding-top: 50px; text-align: center">회원가입</h2>
+        <h2 style="padding-top: 50px; text-align: center; font-size: 30px">회원가입</h2>
     </div>
     <div class="terms_body">
         <h3 style="padding-bottom: 10px; padding-left: 10px">회원가입 약관 동의 <span style="font-size: smaller; color: #FA3E3E">(필수)</span></h3>
-        <textarea name="terms" class="terms_box" readonly>대충 약관</textarea>
-        <div style="padding-top: 10px; padding-left: 15px">
+        <textarea class="terms_box" name="terms" readonly>대충 약관</textarea>
+        <div style="padding-top: 10px; padding-left: 10px">
             <label class="check_box" for="agree">
                 <input class="check_input" type="checkbox" name="agree" id="agree">
                 <span class="check_mark"></span>
-                &nbsp;동의합니다
+                &nbsp;&nbsp;약관 내용에 동의합니다.
             </label>
         </div>
         <div style="width: 800px; padding-top: 30px; text-align: center">
             <h5 style="text-align: end; padding-right: 10px; padding-bottom: 5px"><span style="color: red; padding-right: 5px">*</span>필수 입력 사항</h5>
-            <hr>
+            <hr style="border-top: 1px; border-color: #A7A8C9">
         </div>
     </div>
     <div class="signup_body">
@@ -94,37 +94,37 @@
                 <span id="phoneTxt"></span>
             </div>
         </div>
-        <div style="padding-bottom: 64.6px">
+        <div style="padding-bottom: 64.6px; display:flex; align-items: center">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 110px; display: inline-block">성별</h4>
             <label class="check_box" for="male" style="padding-right: 20px">
                 <input class="check_input" type="checkbox" name="gender" id="male" value="남성">
                 <span class="check_mark"></span>
-                남성
+                &nbsp;&nbsp;남성
             </label>
             <label class="check_box" for="female">
                 <input class="check_input" type="checkbox" name="gender" id="female" value="여성">
                 <span class="check_mark"></span>
-                여성
+                &nbsp;&nbsp;여성
             </label>
         </div>
-        <div style="padding-bottom: 63.6px">
-            <h4 style="padding-left: 12px; padding-right: 76px; display: inline-block">결혼 여부</h4>
+        <div style="padding-bottom: 63.6px; display:flex; align-items: center">
+            <h4 style="padding-left: 12px; padding-right: 72px; display: inline-block">결혼 여부</h4>
             <label class="check_box" for="married" style="padding-right: 20px">
                 <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼">
                 <span class="check_mark"></span>
-                기혼
+                &nbsp;&nbsp;기혼
             </label>
             <label class="check_box" for="single">
                 <input class="check_input" type="checkbox" name="verifyMarried" id="single" value="미혼">
                 <span class="check_mark"></span>
-                미혼
+                &nbsp;&nbsp;미혼
             </label>
         </div>
         <div class="item_box">
             <h4 style="padding-left: 12px; padding-right: 33px; display: inline-block">웨딩홀 인증</h4>
             <div class="file_box">
-                <input class="input_item" id="fileName" value="첨부파일" readonly>
+                <input class="input_item" id="fileName" value="첨부파일" style="color: #A7A8C9" readonly>
                 <div style="padding-left: 30px; display: inline-block; float: right">
                     <label for="verifyFile">업로드</label>
                 </div>

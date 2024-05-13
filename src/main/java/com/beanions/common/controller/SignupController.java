@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Controller
@@ -117,6 +119,8 @@ public class SignupController {
     @PostMapping(value = "/request-join-member")
     public ResponseEntity<Object> joinMember(@RequestBody MembersDTO member) {
         // 가입처리
+        LocalDateTime now = LocalDateTime.now();
+        String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-EE HH:mm:ss"));
 
         if ( member.getWeddingFile() == null ) {
             System.out.println(member);
@@ -134,7 +138,7 @@ public class SignupController {
             try {
                 // 기존 경로 폴더에 있던 파일을(Temp폴더) 해당하는 폴더로 복붙한다.
                 Path sourcePath = Paths.get(filePath);
-                System.out.println(sourcePath);
+                System.out.println("임시파일 저장 폴더 : " + sourcePath);
                 if (!Files.exists(sourcePath)) {
                     // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -145,14 +149,17 @@ public class SignupController {
 
                 Path destinationPath = Paths.get(copyFolderPath + file.getName());
                 Files.move(sourcePath, destinationPath);
-                System.out.println(destinationPath);
-                System.out.println("파일 복사 완료.");
+                System.out.println("복사된 폴더 경로 : " + destinationPath);
 
             } catch (IOException e) {
                 System.out.println("error : " + e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
+        System.out.println("===========================================");
+        System.out.println("가입 날짜 : " + formatedNow);
+        System.out.println(member.getMemberId()+"님 회원가입 완료!");
+        System.out.println("===========================================");
 
         return ResponseEntity.ok().build();
     }
