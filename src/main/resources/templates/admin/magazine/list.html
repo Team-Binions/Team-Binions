@@ -31,12 +31,13 @@
     <div class="table_box">
 <table>
     <tr>
-        <th>번호</th>
-        <th>시리즈</th>
-        <th>작성자</th>
+        <th class="index_th">번호</th>
+        <th class="manage_th">시리즈</th>
+        <th class="nickname_th">작성자</th>
         <th>제목</th>
-        <th>작성일</th>
-        <th>관리</th>
+        <th class="date_th">작성일</th>
+        <th class="manage_th">조회수</th>
+        <th class="manage_th">관리</th>
     </tr>
     <tr th:each="magazine, i : ${ magazineList }">
         <td class="number" th:text="${ i.index + 1 }"></td>
@@ -46,6 +47,7 @@
             <a th:text="${ magazine.postTitle }" th:href="@{ /admin/magazine/detail(id=${ magazine.postCode })}"></a>
         </td>
         <td class="number" th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }"></td>
+        <td th:text="${ magazine.viewCount }"></td>
         <td>
             <button type="button" th:onclick="|location.href='@{/admin/magazine/detail(id=${magazine.postCode})}'|">상세</button>
         </td>

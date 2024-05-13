@@ -1,9 +1,9 @@
 
 <div class="container" align="center" th:fragment="admin-sidebar">
-    <div class="menu-item" onclick="highlightMenuItem(this, '/admin')" data-menu="admin" style="cursor: pointer" >
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin')" data-menu="admin">
         <img th:src="@{/images/common/admin/icon_dashBoard.svg}" alt="icon_adminDashBoard" style="margin-top:30px; height: 40px; width: 40px">
     </div>
-    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/member/membersList')" data-menu="membersList">
+    <div class="menu-item" onclick="highlightMenuItem(this, '/admin/member')" data-menu="membersList">
         <img th:src="@{/images/common/admin/icon_user.svg}" alt="icon_adminUser" style="margin-top:30px; height: 40px; width: 40px">
         <p>회원 관리</p>
     </div>
@@ -23,6 +23,7 @@
 <script>
     // 페이지 로드 시 실행되는 함수
     window.onload = function() {
+        console.log('sidebar function///')
         // 저장된 메뉴 아이템의 상태를 확인하여 'active' 클래스 추가
         var activeMenuItem = sessionStorage.getItem('activeMenuItem');
         if (activeMenuItem) {
