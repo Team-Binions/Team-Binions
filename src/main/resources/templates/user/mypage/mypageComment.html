@@ -32,13 +32,13 @@
         <div class="contents_cont">
             <div class="sidebar mypage">
                 <ul>
-                    <li><a href="#">나의 글</a></li>
-                    <li><a href="/user/mypage/review">예리뷰</a></li>
-                    <li><a href="/user/mypage/free">예수다</a></li>
-                    <li class="active"><a href="/user/mypage/comment">댓글</a></li>
-                    <li><a href="#">스케쥴</a></li>
+                    <li><a href="/mypage">나의 글</a></li>
+                    <li><a href="/mypage/review">예리뷰</a></li>
+                    <li><a href="/mypage/free">예수다</a></li>
+                    <li class="active"><a href="/mypage/comment">댓글</a></li>
+                    <li><a href="/mypage/schedule">스케쥴</a></li>
                     <!-- <li><a href="#">포인트</a></li> -->
-                    <li><a href="#">회원 정보 수정</a></li>
+                    <li><a href="/mypage/mypage/myinfo">회원 정보 수정</a></li>
                 </ul>
             </div>
 
@@ -80,37 +80,37 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="review_table">
-                        <thead>
-                        <tr>
-                            <th class="eng">no</th>
-                            <th>내용</th>
-                            <th>작성일자</th>
-                            <!--                            <th>게시글 번호</th>-->
-                            <th>선택</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="comment, i : ${userMypageCommentData.comments}">
-                            <td class="eng" th:text="${i.count}"></td>
-                            <td>
-                                <div class="comment_contxt_box">
-                                    <div class="comment_info">
-                                        <p class="comment_text" th:text="${comment.commentContext}"></p>
-                                        <p class="comment_post_tit eng">aklflkjflk</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
-                            <td>
-                                <label class="check_box">
-                                    <input type="checkbox" class="check_input">
-                                    <span class="check_mark"></span>
-                                </label>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+<!--                    <table class="review_table">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th class="eng">no</th>-->
+<!--                            <th>내용</th>-->
+<!--                            <th>작성일자</th>-->
+<!--                            &lt;!&ndash;                            <th>게시글 번호</th>&ndash;&gt;-->
+<!--                            <th>선택</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}">-->
+<!--                            <td class="eng" th:text="${i.count}"></td>-->
+<!--                            <td>-->
+<!--                                <div class="comment_contxt_box">-->
+<!--                                    <div class="comment_info">-->
+<!--                                        <p class="comment_text" th:text="${comment.commentContext}"></p>-->
+<!--                                        <p class="comment_post_tit eng">aklflkjflk</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>-->
+<!--                            <td>-->
+<!--                                <label class="check_box">-->
+<!--                                    <input type="checkbox" class="check_input">-->
+<!--                                    <span class="check_mark"></span>-->
+<!--                                </label>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
 
 /* 마이페이지 메뉴 & 컨텐츠 영역 */
 .contents_cont {display: flex; justify-content: space-between; padding-top: 20px; padding-bottom: 60px;}
-.sidebar.mypage {padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
+.sidebar.mypage {align-self: flex-start; padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
 .sidebar.mypage ul li.active a{color: var(--main-color);}
 .sidebar.mypage ul li a {display: block; padding: 8px 0; transition: color 200ms ease-in-out; white-space: nowrap;}
 .sidebar.mypage ul li:first-child a {padding-top: 0;}
@@ -74,3 +74,81 @@ input::-webkit-search-results-decoration {
 .comment_text {font-size: 14px;}
 .comment_date {font-size: 12px;}
 .comment_post_tit {font-size: 14px; color: var(--inactive-input-bg);}
+
+/* schedule */
+.register_schedule_btn {height: 40px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out; cursor: pointer;}
+.register_schedule_btn:hover {background-color: var(--point-color);}
+.today_date {font-size: 20px; font-weight: var(--medium);}
+.schedule_list {padding-top: 20px;}
+.schedule_list li {width: calc(100% / 3 - 40px);}
+.schedule_list li > a{display: block; width: 100%; padding: 20px; border-radius: 12px; font-size: 16px; font-weight: var(--medium); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
+.schedule_list li > a:hover {color: #fff; background-color: var(--point-color);}
+.schedule_list li > a:hover p, .schedule_list li > a:hover span {color: #fff;}
+.schedule_list li > a > p:first-child {display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
+.schedule_list li > a > p:last-child {padding-top: 10px;}
+.manage_schedule_btn {display: block; width: 24px; height: 24px; background-color: var(--main-color);}
+
+/* schedule-regist */
+.regist_top_sec {display: flex; justify-content: space-between; align-items: center;}
+.schedule_date_input {width: 120px; height: 48px; padding: 0 10px; font-size: 16px; font-weight: var(--medium); border: none; border-bottom: 1px solid var(--input-color); cursor: pointer;}
+.schedule_tit_box {position: relative; width: calc(100% - 140px); height: 48px;}
+.schedule_tit_box .tit_count {position: absolute; top: 50%; right: 20px; transform: translateY(-50%); font-size: 12px; color: var(--input-color);}
+.schedule_tit {width: 100%; height: 48px; padding-left: 10px; padding-right: 60px; border: none; border-bottom: 1px solid var(--inactive-input-bg); font-size: 16px; font-weight: var(--medium);}
+.schedule_tit_box .tit_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_tit:focus + .tit_count > .tit_counted {color: var(--point-color);}
+.schedule_tit::placeholder, .schedule_contxt_box::placeholder  {font-size: 14px; font-weight: var(--regular); color: var(--inactive-input-bg);}
+.schedule_txt_box {position: relative; width: 100%; height: 200px; padding: 20px 0;}
+.schedule_contxt_box {position: absolute; width: 100%; height: 160px; padding:10px; border:1px solid var(--inactive-input-bg); border-radius: 12px; font-size: 14px; transition : border-color 200ms ease-in-out; resize: none; outline: none;}
+.schedule_contxt_box:focus {border-color: var(--point-color);}
+.txt_count {position: absolute; bottom: 40px; right: 20px; font-size: 12px; color: var(--input-color);}
+.txt_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_contxt_box:focus + .txt_count .txt_counted {color: var(--point-color);}
+.schedule_btn_list {display: flex; justify-content: flex-end; align-items: center;}
+.schedule_btn_list > button {height: 50px; padding: 0 20px; font-size: 16px; font-weight: var(--medium); cursor: pointer;}
+.schedule_btn_list > button.cancel_btn {margin-right: 20px;}
+.cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
+.cancel_btn:hover {background-color: var(--hashBg-color);}
+
+/* myinfo 회원 정보 수정 */
+.myinfo_form { display: flex; flex-direction: column;padding-bottom: 60px; border-bottom: 1px solid var(--input-color);}
+.myinfo_list {padding-top: 60px;}
+.myinfo_list li {display: flex; align-items: center; padding-bottom: 20px;}
+.myinfo_list li input {width: calc(100% - 120px); height: 48px; padding: 0 10px; border-radius: 12px;}
+.myinfo_list li input.duplicate_input { height: 48px; padding: 0 10px; border-radius: 12px;}
+.duplicate_box {display: flex; justify-content: space-between; align-items: center; width: calc(100% - 120px);}
+.id_input {background-color: var(--inactive-input-bg); border: none; cursor:not-allowed;}
+.list_item_tit {width: 120px; font-size: 16px; font-weight: var(--medium);}
+.password_box {position: relative; width:calc(100% - 120px); height: 48px;}
+.myinfo_list .password_box > input {width: 100%; height: 48px; border-radius: 12px;}
+.password_box .show_pw_btn {position: absolute; width: 24px; height: 24px; background-color: var(--main-color); right:20px; top: 50%; transform: translateY(-50%); cursor: pointer;}
+.password_box .show_pw_btn.active {}
+
+.upload_cont {width: calc(100% - 120px);}
+.upload_box {display: flex; justify-content: space-between; align-items: center; width: 100%;}
+.file_upload_box {display: flex; justify-content: center; align-items: center;}
+.file_upload_box .file_upload_input {width: 0; padding:0; visibility: hidden;}
+.upload_name_box {display: block; width: calc(100% - 120px); height: 48px; border: 1px solid var(--input-color); border-radius: 12px;}
+.upload_btn {width: 100px; height: 48px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+.upload_btn:hover {background-color: var(--point-color);}
+.upload_txt {padding-left: 5px; padding-top: 5px; font-size: 8px; font-weight: var(--regular);}
+.modify_btn {width: 180px; height: 50px; padding: 0 30px;align-self: center; font-size: 16px; font-weight: var(--medium); cursor: pointer;}
+
+.leave_btn { height: 50px; padding: 0 20px;margin-top: 60px; border: 1px solid var(--inactive-input-bg); color: var(--inactive-input-bg); font-size: 16px; font-weight: var(--regular); background-color: #fff; cursor: pointer;}
+.leave_btn:hover {background-color: var(--inactive-input-bg); color: #fff; cursor: pointer;}
+
+.check_duplicate_btn {height: 48px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+.check_duplicate_btn:hover {background-color: var(--point-color);}
+.pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
+.pop_cont {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_bg.active {z-index: 200; opacity: 1;}
+.pop_cont.active {z-index: 500; opacity: 1;}
+.pop_icon {display: inline-block; width: 36px; height: 36px; margin-bottom: 20px; background-color: var(--main-color); border-radius: 50%;}
+.pop_cont.selective p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
+.pop_cont.selective p:last-of-type {font-weight: var(--semiBold);}
+
+.pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
+.pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
+.pop_btn_list li > a {display: block; width: 100%; height: 100%; line-height: 50px;}
+.pop_btn_list .cancel_btn a {color: var(--main-color);}
+.confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
+.confirm_btn:hover {background-color: var(--point-color);}

@@ -20,7 +20,7 @@ public class MyPageController {
   }
 
   // 마이페이지 main
-  @GetMapping("/user/mypage")
+  @GetMapping("/mypage")
   public String mypageMain(Model model){
 
     List<MyPageDTO> userMypageMainDataList = myPageService.selectMyPageMainData();
@@ -31,7 +31,7 @@ public class MyPageController {
   }
 
   // 마이페이지 > 예리뷰
-  @GetMapping("/user/mypage/review")
+  @GetMapping("/mypage/review")
   public String mypageReview(Model model){
 
     List<MyPageDTO> userMypageReivewDataList = myPageService.selectMyPageReviewData();
@@ -42,7 +42,7 @@ public class MyPageController {
   }
 
   // 마이페이지 > 예수다
-  @GetMapping("/user/mypage/free")
+  @GetMapping("/mypage/free")
   public String mypageFree(Model model){
 
     List<MyPageDTO> userMypageFreeDataList = myPageService.selectMyPageFreeData();
@@ -53,7 +53,7 @@ public class MyPageController {
   }
 
   // 마이페이지 > 댓글
-  @GetMapping("/user/mypage/comment")
+  @GetMapping("/mypage/comment")
   public String mypageComment(Model model){
 
     List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData();
@@ -65,5 +65,38 @@ public class MyPageController {
     model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
 
     return "user/mypage/mypageComment";
+  }
+
+  // 마이페이지 > 스케쥴 관리
+  @GetMapping("/mypage/schedule")
+  public String mypageSchedule(Model model){
+
+//    List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData();
+//    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory();
+//
+//    System.out.println("category : " + userMypageCommentPostCategoryList);
+//
+//    model.addAttribute("userMypageCommentData", userMypageCommentDataList.get(0));
+//    model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
+
+    return "user/mypage/mypageSchedule";
+  }
+
+  // 마이페이지 > 스케쥴 관리
+  @GetMapping("/mypage/scheduleRegister")
+  public String mypageScheduleRegister(Model model){
+    return "user/mypage/mypageScheduleRegister";
+  }
+
+  // 마이페이지 > 스케쥴 관리
+  @GetMapping("/mypage/scheduleManage")
+  public String mypageScheduleManage(Model model){
+    return "user/mypage/mypageScheduleManage";
+  }
+
+  // 마이페이지 > 회원 정보 수정
+  @GetMapping("/mypage/myinfo")
+  public String mypageMyinfo(Model model){
+    return "user/mypage/mypageMyinfo";
   }
 }

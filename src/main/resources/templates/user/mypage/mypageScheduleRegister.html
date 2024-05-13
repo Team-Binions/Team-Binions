@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <title>MYPAGE</title>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+  <!-- //HEADER -->
+
+  <div class="mypage_cont">
+    <p class="page_tit">마이 페이지</p>
+
+    <!-- profile -->
+    <div class="profile_box">
+      <div class="profile_img">
+        <!-- <img src="" alt=""> -->
+        <!-- <input type="file" class="profile_img_upload"> -->
+      </div>
+      <div class="profile_txt">
+        <!--         th:text="${userMypageMainData.nickname}"-->
+        <p class="profile_name"><span>비니언즈</span>님</p>
+        <!--          th:text="${userMypageMainData.totalCount}"-->
+        <p class="total_posts_count">총 게시글 <span class="eng">5</span></p>
+      </div>
+    </div>
+
+    <!-- sidebar & contents -->
+    <div class="contents_cont">
+      <div class="sidebar mypage">
+        <ul>
+          <li><a href="/user/mypage/review">나의 글</a></li>
+          <li><a href="/user/mypage/review">예리뷰</a></li>
+          <li><a href="/user/mypage/free">예수다</a></li>
+          <li><a href="/user/mypage/comment">댓글</a></li>
+          <li class="active"><a href="/mypage/schedule">스케쥴</a></li>
+          <!-- <li><a href="#">포인트</a></li> -->
+          <li><a href="/mypage/myinfo">회원 정보 수정</a></li>
+        </ul>
+      </div>
+
+      <div class="mypage_contents">
+        <form>
+          <div class="regist_top_sec">
+            <input type="text" class="schedule_date_input" name="datefilter" value="" />
+            <div class="schedule_tit_box"><input type="text" class="schedule_tit" maxlength="50" placeholder="제목을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/50</span></div>
+          </div>
+          <div class="schedule_txt_box">
+            <textarea class="schedule_contxt_box" placeholder="내용을 입력하세요" maxlength="100"></textarea>
+            <span class="txt_count eng"><span class="txt_counted">0</span>/100</span>
+          </div>
+          <div class="schedule_btn_list">
+            <button class="cancel_btn">취소</button>
+            <button class="register_btn">등록</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+</div>
+<!-- <script src="./js/common.js"></script> -->
+<script>
+    // daterangepicker 스케쥴 날짜 선택
+    $('input[name="datefilter"]').daterangepicker({
+        "singleDatePicker": true,
+        "minYear": 2024,
+        "maxYear": 2026,
+        "autoApply": true,
+        "startDate": "05/13/2024",
+        "minDate": "05/13/2024"
+    }, function(start, end, label) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        console.log($('input[name="datefilter"]').val());
+    });
+
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        $(".tit_counted").text($(".schedule_tit").val().length);
+        $(".txt_counted").text($(".schedule_contxt_box").val().length);
+    })
+
+    //스케쥴 제목 입력시 텍스트 길이 실시간 반영
+    $(".schedule_tit").on('input', (e) => {
+        $(".tit_counted").text(e.target.value.length);
+    })
+
+    //스케쥴 내용 입력시 텍스트 길이 실시간 반영
+    $(".schedule_contxt_box").on('input', (e) => {
+        $(".txt_counted").text(e.target.value.length);
+    })
+
+    // 날짜/input/textarea 클릭시, 스크롤 100px 내리기
+    //window.scrollTo({top: 0, behavior: 'smooth'});
+    $('.schedule_tit, .schedule_date_input, .schedule_contxt_box').on('click', () => {
+        $('html, body').animate({scrollTop:100}, 200);
+    })
+</script>
+</body>
+</html>
