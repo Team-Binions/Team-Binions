@@ -18,7 +18,7 @@
     <p th:text="${notice.subCategory}"></p>
     <h1 th:text="${notice.postTitle}"></h1>
 
-    <h4 th:text="${notice.memberCode}"></h4>
+    <h4 th:text="${notice.member.nickname}"></h4>
     <h4 th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></h4>
     <p th:text="${notice.postContext}"></p>
 
