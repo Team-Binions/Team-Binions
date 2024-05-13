@@ -2,7 +2,6 @@ package com.beanions.admin.service;
 
 import com.beanions.common.dao.admin.AdminMapper;
 import com.beanions.common.dto.MembersDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +21,23 @@ public class MemberService {
         return adminMapper.membersAllList();
     }
 
-    @Transactional
-    public void modifyOneMember(MembersDTO modify) {
+    public List<MembersDTO> selectMembers(int code) {
 
-        adminMapper.modifyOneMember(modify);
+        return adminMapper.selectMembers(code);
+    }
+
+    @Transactional
+    public void memberModify(MembersDTO modify) {
+
+        System.out.println("memberModify service 매소드 호출...");
+        System.out.println("modify = " + modify);
+        adminMapper.memberModify(modify);
+    }
+
+    @Transactional
+    public void memberDelete(int memberCode) {
+
+        adminMapper.memberDelete(memberCode);
     }
 }
+
