@@ -3,6 +3,7 @@ package com.beanions.common.service;
 import com.beanions.common.dao.signup.SignupMapper;
 import com.beanions.common.dto.MembersDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 @EnableScheduling
 public class SignupService {
 
+    @Autowired
     private final SignupMapper signupMapper;
 
     @Scheduled(fixedRate = 300000) // ms 기준 / 매번 약 5분마다 실행
