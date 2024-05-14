@@ -27,7 +27,7 @@ public class SignupController {
     private final MailService mailService;
     private final SignupService signupService;
 
-    @GetMapping("/user/signup")
+    @GetMapping("/signup")
     public String signup(){
         return "user/signup";
     }

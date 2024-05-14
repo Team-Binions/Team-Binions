@@ -2,65 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/default.css}">
-    <link rel="stylesheet" th:href="@{/css/user/common.css}">
-    <link rel="stylesheet" th:href="@{/css/user/login.css}">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <title>YESINYERANG-LOGIN</title>
+    <title>Title</title>
 </head>
 <body>
-<!-- 기존 내용 -->
-<!--    <h1>로그인</h1>-->
-<!--    <form th:action="@{/auth/login}" method="post">-->
-<!--        ID : <input type="text" name="user"><br>-->
-<!--        PWD : <input type="password" name="pass"><br>-->
-<!--        <button>로그인</button>-->
-<!--    </form>-->
-<!--    <button onclick="location.href = '/user/signup'">회원가입</button>-->
-
-<div class="wrapper">
-    <div class="login_cont">
-        <div class="left_side">
-            <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
-            <p class="logo_tit">예신예랑</p>
-            <a href="/main" class="go_to_main">살펴보기</a>
-        </div>
-
-        <!-- 로그인 박스 영역 -->
-        <div class="login_box">
-            <form action="">
-                <p class="box_tit">로그인</p>
-                <input type="text" class="login_input id" placeholder="아이디를 입력하세요">
-                <div class="password_box">
-                    <input type="password" class="login_input password" placeholder="비밀번호를 입력하세요">
-                    <span class="show_pw_btn"><img th:src="@{/images/common/icons_show.png}" alt="popup icon image"></span>
-                </div>
-                <ul class="find_id_pw">
-                    <li><a href="#">아이디 찾기</a></li>
-                    <li>|</li>
-                    <li><a href="#">비밀번호 찾기</a></li>
-                </ul>
-                <button class="login_btn" type="submit">로그인</button>
-            </form>
-            <span class="divide_line"></span>
-            <p class="signup_txt">아직 회원이 아니신가요?</p>
-            <button type="button" class="login_btn go_signup" onclick="location:href='/signup'">회원가입</button>
-        </div>
-    </div>
-</div>
-<script>
-    $(".show_pw_btn").click((e) => {
-        console.log("target : " + e.target);
-        if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
-            $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
-            $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
-            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
-        }else{ // 비활성화된 상태라면
-            $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
-            $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
-            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
-        }
-    })
-</script>
+    <h1>로그인</h1>
+    <form th:action="@{/auth/login}" method="post">
+        ID : <input type="text" name="user"><br>
+        PWD : <input type="password" name="pass"><br>
+        <button>로그인</button>
+    </form>
+    <button onclick="location.href = '/signup'">회원가입</button>
 </body>
 </html>

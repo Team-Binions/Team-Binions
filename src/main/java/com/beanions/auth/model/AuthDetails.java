@@ -34,7 +34,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        System.out.println("6. getAuthorities() 메서드 동작");
+        System.out.println("getAuthorities() 메서드 동작, 유저의 권한을 대조/조회합니다.");
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         loginUserDTO.getRole().forEach(role -> authorities.add(() -> role));
         return authorities;
@@ -42,13 +42,16 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        System.out.println("4. getPassword() 메서드 동작 : " + loginUserDTO.getPassword());
-        return loginUserDTO.getPassword();
+        System.out.println("getPassword() 메서드 동작, 비밀번호를 권한 대조/조회에 사용하도록 값을 담습니다.");
+        System.out.println("권한 조회 비밀번호 : " + loginUserDTO.getMemberPw());
+
+        return loginUserDTO.getMemberPw();
     }
 
     @Override
     public String getUsername() {
-        System.out.println("5. getUsername() 메서드 동작 : " + loginUserDTO.getMemberId());
+        System.out.println("getUsername() 메서드 동작, 아이디를 권한 대조/조회에 사용하도록 값을 담습니다.");
+        System.out.println("권한 조회 아이디 : " + loginUserDTO.getMemberId());
         return loginUserDTO.getMemberId();
     }
 
