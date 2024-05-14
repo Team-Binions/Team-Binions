@@ -67,50 +67,22 @@
                         <tr>
                             <th class="eng">NO</th>
                             <th>내용</th>
-<!--                            <th>게시글 번호</th>-->
+                            <th>분류</th>
                             <th>작성일자</th>
                         </tr>
                         </thead>
-<!--                         th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|"-->
+<!--                         th:with="category = ${userMypageCommentCategory.mainCategory =='리뷰'} ? 'review' : 'free'"-->
+<!--                        @{user/board/Detail(id=${userMypageCommentData.comments.postCode})}-->
+<!--                        th:with="category = ${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory =='리뷰'} ? 'review' : 'free'"-->
                         <tbody>
-                        <tr th:each="comment, i : ${userMypageCommentData.comments}">
-                            <td class="eng" th:text="${i.count}"></td>
-                            <td th:text="${comment.commentContext}"></td>
-                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
-                        </tr>
+                                <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category = ${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory =='리뷰'} ? '@{user/board/reviewDetail(id=${userMypageCommentData.comments.postCode})}' : '@{user/board/freeDetail(id=${userMypageCommentData.comments.postCode})}'" th:value="${category}" th:onclick="|location.href=${category}|">
+                                    <td class="eng" th:text="${i.count}"></td>
+                                    <td th:text="${comment.commentContext}"></td>
+                                    <td th:text="${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory}"></td>
+                                    <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
+                                </tr>
                         </tbody>
                     </table>
-<!--                    <table class="review_table">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th class="eng">no</th>-->
-<!--                            <th>내용</th>-->
-<!--                            <th>작성일자</th>-->
-<!--                            &lt;!&ndash;                            <th>게시글 번호</th>&ndash;&gt;-->
-<!--                            <th>선택</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}">-->
-<!--                            <td class="eng" th:text="${i.count}"></td>-->
-<!--                            <td>-->
-<!--                                <div class="comment_contxt_box">-->
-<!--                                    <div class="comment_info">-->
-<!--                                        <p class="comment_text" th:text="${comment.commentContext}"></p>-->
-<!--                                        <p class="comment_post_tit eng">aklflkjflk</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </td>-->
-<!--                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>-->
-<!--                            <td>-->
-<!--                                <label class="check_box">-->
-<!--                                    <input type="checkbox" class="check_input">-->
-<!--                                    <span class="check_mark"></span>-->
-<!--                                </label>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
                 </div>
             </div>
         </div>

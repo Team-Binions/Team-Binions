@@ -14,7 +14,7 @@
     <!-- //HEADER -->
 
     <div class="mypage_cont">
-        <p class="page_tit">마이 페이지 > 예리뷰</p>
+        <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}" alt="right arrow icon">&nbsp;예리뷰</p>
 
         <!-- profile -->
         <div class="profile_box">
@@ -73,14 +73,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="review, i : ${userMypageReivewData.posts}" >
-                      <a th:href="@{/user/board/reviewDetail(id=${review.postCode})}">
-                        <td class="eng" th:text="${i.count}"></td>
-                        <td th:text="${review.postTitle}"></td>
-                        <td class="eng">0</td>
-                        <td th:text="${review.subCategory}"></td>
-                        <td class="eng" th:text="${#dates.format(review.postDate, 'yyyy.MM.dd')}"></td>
-                      </a>
+                    <tr th:each="review, i : ${userMypageReivewData.posts}"  th:onclick="|location.href='@{/board/reviewDetail(id=${review.postCode})}'|">
+                      <td class="eng" th:text="${i.count}"></td>
+                      <td th:text="${review.postTitle}"></td>
+                      <td class="eng">0</td>
+                      <td th:text="${review.subCategory}"></td>
+                      <td class="eng" th:text="${#dates.format(review.postDate, 'yyyy.MM.dd')}"></td>
                     </tr>
                     </tbody>
                   </table>

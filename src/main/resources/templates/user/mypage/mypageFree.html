@@ -14,7 +14,7 @@
     <!-- //HEADER -->
 
     <div class="mypage_cont">
-        <p class="page_tit">마이 페이지 > 예수다</p>
+        <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}" alt="right arrow icon">&nbsp;예수다</p>
 
         <!-- profile -->
         <div class="profile_box">
@@ -73,7 +73,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="free, i : ${userMypageFreeData.posts}" th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|">
+                        <tr th:each="free, i : ${userMypageFreeData.posts}" th:onclick="|location.href='@{/board/freeDetail(id=${free.postCode})}'|">
                             <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${free.postTitle}"></td>
                             <td class="eng">0</td>

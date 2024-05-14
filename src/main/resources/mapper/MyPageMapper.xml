@@ -175,12 +175,7 @@
 		<collection property="posts" ofType="com.beanions.common.dto.PostDTO">
 			<id property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
-			<result property="postTitle" column="POST_TITLE"/>
-			<result property="postContext" column="POST_CONTEXT"/>
-			<result property="postDate" column="POST_DATE"/>
 			<result property="mainCategory" column="MAIN_CATEGORY"/>
-			<result property="subCategory" column="SUB_CATEGORY"/>
-			<result property="verifiedStatus" column="VEF_STATUS"/>
 		</collection>
 	</resultMap>
 	<select id="selectMyPageCommentData" resultMap="selectMyPageCommentsResultMap">
