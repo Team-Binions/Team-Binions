@@ -1,26 +1,91 @@
-/* ----------- 공지사항 List ----------- */
-
-/* 공지사항 타이틀 */
-.notice_title {
-    font-size: 24px;
-    font-weight: var(--bold);
-    margin-top: 60px;
-    margin-left: 10%;
-    margin-bottom: 50px;
+/* search input */
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
 }
 
-/* 공지사항 검색 */
-.search {
-    float: right;
-    margin-right: 10%;
-    margin-bottom: 20px;
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
+/* ----------- 공지사항 List ----------- */
+
+article {
+    margin-top: 126px;
+    margin-left: 176px;
+    margin-right: 26px;
+    width: 100%;
+}
+
+.notice_title {
+    font-weight: var(--bold);
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 60px;
+}
+
+.search_form{
+    position: absolute;
+    right: 27px;
+}
+
+.search_box {
+    display: inline-block;
+    align-items: center;
+    position: relative;
+    margin-top: -160px;
+    margin-right: 80px;
+    width: 300px;
+}
+
+.search_input {
+    position: absolute;
+    height: 40px;
+    padding: 0 105px 0 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--hashBg-color);
+}
+
+.search_input::placeholder {
+    color: var(--main-color);
+}
+
+.clear_btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 40px;
+    background: center / contain no-repeat
+    url("../../../images/common/icons_delete.svg");
+    cursor: pointer;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 200ms ease-in-out, z-index 200ms ease-in-out;
+}
+
+.clear_btn.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.search_btn {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    right: 10px;
+    background: center / contain no-repeat
+    url("../../../images/common/icon_search.svg");
+    cursor: pointer;
 }
 
 /* 공지사항 table */
 .notice_List {
     width: 80%;
-    margin: auto;
-    margin-bottom: 60px;
     border-collapse: collapse;
 }
 
