@@ -6,7 +6,7 @@
     <resultMap id="memberTest" type="com.beanions.common.dto.LoginUserDTO">
         <id property="memberCode" column="MEMBER_CODE"/>
         <result property="memberId" column="MEMBER_ID"/>
-        <result property="password" column="MEMBER_PW"/>
+        <result property="memberPw" column="MEMBER_PW"/>
         <result property="nickname" column="NICKNAME"/>
         <result property="email" column="EMAIL"/>
         <result property="phone" column="PHONE"/>

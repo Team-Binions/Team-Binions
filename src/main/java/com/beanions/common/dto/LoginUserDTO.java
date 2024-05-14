@@ -16,7 +16,7 @@ public class LoginUserDTO {
 
     private Integer memberCode;
     private String memberId;
-    private String password;
+    private String memberPw;
     private String nickname;
     private String email;
     private String phone;
@@ -29,7 +29,6 @@ public class LoginUserDTO {
 
     public List<String> getRole(){
         if(!this.memberRole.getRole().isEmpty()) {
-            System.out.println("5");
             return Arrays.asList(this.memberRole.getRole().split(","));
         }
         return null;
