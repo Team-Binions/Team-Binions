@@ -34,7 +34,7 @@ public class AdminController {
 
         model.addAttribute("membersList", membersList);
 
-        return "admin/member/membersList";
+        return "/admin/member/membersList";
     }
 
     @GetMapping("/member/membersDetail")

@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/membersCss.css}">
+
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -15,62 +16,68 @@
     <article class="all-content">
         <h2>회원 상세 정보</h2>
         <div>
-            <p class="memberModifyBox">게시글 수</p>
-            <p class="memberModifyBox">댓글 수</p>
-            <p class="memberModifyBox">보유 포인트</p>
+            <p class="memberDBox">게시글 수</p>
+            <p class="memberDBox">댓글 수</p>
+            <p class="memberDBox">보유 포인트</p>
         </div>
+
         <h3>회원 상세 정보 수정</h3>
-        <form action="admin/member/update" method="post">
-        <div th:each="members: ${ memberModify }">
-            <div>아이디
-                <input class="input" type="text" name="memberId" th:value="${ members.memberId }" readonly="readonly">
-            </div>
-            <div>
-                <label th:for="nickname">닉네임</label>
-                <input type="text" id="nickname" name="nickname" th:value="${ members.nickname }">
-            </div>
-            <div>성별
-                <input type="text" name="gender" th:value="${ members.gender }" readonly="readonly">
-            </div>
-            <div>이메일
-                <input type="text" name="email" th:value="${ members.email }" readonly="readonly">
-            </div>
-            <div>전화번호
-                <input type="text" name="phone" th:value="${ members.phone }" readonly="readonly">
-            </div>
-            <div>기혼 여부
-                <p th:text="${ members.marriedStatus }" readonly="readonly"></p>
-            </div>
-            <div>웨딩홀 인증
-                <input type="text" name="weddingVerified" th:value="${ members.weddingVerified }">
-            </div>
-
-            <div class="button_box">
-                <input type="submit" value="전송">수정
-                <button onclick="location.href='/admin'" id="back_member_btn">취소</button>
-
-                <div id="root">
-                    <button type="button" id="deleteModal_open_btn">계정 삭제</button>
+        <form action="/admin/member/update" method="post">
+            <div th:each="members: ${ memberModify }">
+                <div>
+                    <label>아이디</label>
+                    <input class="input" type="text" name="memberId" th:value="${ members.memberId }" readonly="readonly">
+                </div>
+                <div>
+                    <label th:for="nickname">닉네임</label>
+                    <input type="text" id="nickname" name="nickname" th:value="${ members.nickname }">
+                </div>
+                <div>성별
+                    <input type="text" name="gender" th:value="${ members.gender }" readonly="readonly">
+                </div>
+                <div>이메일
+                    <input type="text" name="email" th:value="${ members.email }" readonly="readonly">
+                </div>
+                <div>전화번호
+                    <input type="text" name="phone" th:value="${ members.phone }" readonly="readonly">
+                </div>
+                <div>기혼 여부
+                    <p th:text="${ members.marriedStatus }"></p>
+                </div>
+                <div>웨딩홀 인증
+                    <input type="text" name="weddingVerified" th:value="${ members.weddingVerified }">
                 </div>
 
-            <!-- 삭제 모달창 -->
-            <div id="deleteModal">
-                <div class="deleteModal_content">
-                    <div class="deleteModal_icon_box">
-                        <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}"
-                             alt="icon_group_modal_bang">
+                <div class="button_box">
+                    <input type="submit" name="nickname" value="수정" class="button">
+                    <br>
+
+
+                    <button onclick="location.href='/admin/member'" id="back_member_btn">취소</button>
+                    <div id="root">
+                        <button type="button" id="deleteModal_open_btn">계정 삭제</button>
                     </div>
-                    <p>계정을 삭제하시겠습니까?</p>
-                    <form th:action="@{/admin/member/delete(id=${members.memberCode})}" method="post">
-                        <div class="deleteModal_button_box">
-                            <button type="submit" id="deleteModal_check_btn">확인</button>
-                            <button type="button" id="deleteModal_close_btn">취소</button>
+                    <!-- 삭제 모달창 -->
+                    <div id="deleteModal">
+                        <div class="deleteModal_content">
+                            <div class="deleteModal_icon_box">
+                                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}"
+                                     alt="icon_group_modal_bang">
+                            </div>
+                            <p>계정을 삭제하시겠습니까?</p>
+                            <form th:action="@{/admin/member/delete(id=${members.memberCode})}" method="post">
+                                <div class="deleteModal_button_box">
+                                    <button type="submit" id="deleteModal_check_btn">확인</button>
+                                    <button type="button" id="deleteModal_close_btn">취소</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                        <div class="deleteModal_layer"></div>
+                    </div>
+                    <div th:replace="admin/footer.html"></div>
                 </div>
-                <div class="deleteModal_layer"></div>
             </div>
-            <div th:replace="admin/footer.html"></div>
+        </form>
     </article>
 </div>
 <script>
