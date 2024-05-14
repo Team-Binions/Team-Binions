@@ -24,7 +24,6 @@ public class MembersDTO {
     private String memberRole;
     private String weddingFile;
     private String weddingVerified;
-
     private Date signupDate;
 
 }
