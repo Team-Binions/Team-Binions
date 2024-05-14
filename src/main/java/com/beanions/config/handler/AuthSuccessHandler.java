@@ -52,6 +52,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         Collection<GrantedAuthority> authlist = dto.getAuthorities();
         Iterator<GrantedAuthority> authlist_it= authlist.iterator();
         System.out.println("=======================================================");
+
         String url="/";
 
         while(authlist_it.hasNext()) {
