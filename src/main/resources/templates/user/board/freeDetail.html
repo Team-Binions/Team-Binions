@@ -13,6 +13,7 @@
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
+<!--게시글 영역-->
     <table>
     <div th:each="free: ${ PostAndMemberDTO }" >
         <p th:text="${free.mainCategory}"></p>
@@ -22,19 +23,19 @@
         <p th:text="${free.member.nickname}"></p>
         <p th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></p>
         <p th:text="${free.postContext}"></p>
-
+<!--댓글 영역-->
         <a>댓글</a>
         <tr th:each="cmt : ${comments}">
-            <td th:text="${item.comment}"></td>
-            <td th:text="${item.nickname}"></td>
-            <td th:text="${#temporals.format(item.modifiedAt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${cmt.comment}"></td>
+            <td th:text="${cmt.nickname}"></td>
+            <td th:text="${#temporals.format(cmt.modifiedAt, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
-        <form id="comment-form">
-            <div class="form-group">
-                <label for="comment">댓글 추가:</label>
-                <textarea class="form-control" id="comment" rows="3"></textarea>
+        <form>
+            <div>
+                <label for="comment">댓글 작성</label>
+                <textarea class="form-control" id="comment" rows="1"></textarea>
             </div>
-            <button type="button" class="btn btn-primary" id="create-comment-btn">댓글 작성</button>
+            <button type="button">등록</button>
         </form>
 
         <button type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/user/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
@@ -49,6 +50,19 @@
     </table>
 
 <div th:replace="user/layout/footer.html"></div>
+<!--댓글 관련 script-->
+<!--<script>-->
+<!--    const bno = `${postCode}`;-->
+<!--    const URL = '/user/board/freeDetail';-->
+<!--    function showReplies(pageNum = 1) {-->
+
+<!--        fetch(URL + '?boardNo=' + bno + '&pageNum=' + pageNum)-->
+<!--            .then(res => res.json())-->
+<!--            .then(replyMap => {-->
+<!--                makeReplyDOM(replyMap);-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
 <script th:inline="javascript">
     //header sub menu 활성화
     const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
@@ -88,6 +102,7 @@
             prevEl: '.swiper-button-prev',
         },
     });
+
 </script>
 </body>
 </html>

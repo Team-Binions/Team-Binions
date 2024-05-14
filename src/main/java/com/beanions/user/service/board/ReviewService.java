@@ -47,6 +47,18 @@ public class ReviewService {
 
         int code = Integer.parseInt(id);
 
+        List<PostAndMemberDTO> postAndMemberDTOS = reviewMapper.reviewDetail(code);
+
+        if(postAndMemberDTOS != null && !postAndMemberDTOS.isEmpty()){
+            PostAndMemberDTO post = postAndMemberDTOS.get(0);
+
+            int updateViewCount = post.getViewCount() + 1;
+
+            post.setViewCount(updateViewCount);
+
+            reviewMapper.updateViewCount(code, updateViewCount);
+        }
+
         return reviewMapper.reviewDetail(code);
     }
 
