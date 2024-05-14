@@ -5,6 +5,12 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -45,7 +51,7 @@
                         <td th:text="${ #dates.format(members.signupDate, 'yyyy.MM.dd') }"></td>
                         <td>
                             <button type="button"
-                                    th:onclick="|location.href='@{/admin/member/membersModify(id=${members.memberCode})}'|">
+                                    th:onclick="|location.href='@{/admin/member/membersDetail(id=${members.memberCode})}'|">
                                 상세
                             </button>
                         </td>

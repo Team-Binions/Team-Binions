@@ -6,55 +6,62 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/membersCss.css}">
-    <script>
-        const successMessage = `[[${ successMessage }]]`;
-        if (successMessage) {
-            alert(successMessage);
-        }
-    </script>
+
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
 <div class="sidebar_content">
     <div th:replace="admin/sidebar.html"></div>
     <article class="all-content">
-        <h3>회원 상세 정보</h3>
 
         <div>
-            <p class="memberModifyBox">게시글 수</p>
-            <p class="memberModifyBox">댓글 수</p>
-            <p class="memberModifyBox">보유 포인트</p>
+        <p class="title_text_font">회원 정보</p>
+
+        <div>
+            <p class="memberBox">게시글 수</p>
+            <p class="memberBox">댓글 수</p>
+            <p class="memberBox">보유 포인트</p>
+        </div>
+
+        <p>회원 상세 정보</p>
+        <div>
+        <div th:each="members: ${ memberDetail }">
+            <div class="memberD">
+                <div>아이디
+                    <input type="text" class="memberDBox" name="memberId" th:value="${ members.memberId }" readonly="readonly">
+                </div>
+                <div>
+                    <label th:for="nickname">닉네임</label>
+                    <input type="text" class="memberDBox" name="nickname" th:value="${ members.nickname }" readonly="readonly">
+                </div>
+            </div>
+                <div >성별
+                    <p class="memberD" th:text="${ members.gender }" >
+                </div>
+                <div>이메일
+                    <input type="text" class="memberDBox" name="email" th:value="${ members.email }" readonly="readonly">
+                </div>
+                <div>전화번호
+                    <input type="text"class="memberDBox" name="phone" th:value="${ members.phone }" readonly="readonly">
+                </div>
+                <div>기혼 여부
+                    <p class="memberD" th:text="${ members.marriedStatus }"></p>
+                </div>
+            <div>웨딩홀 인증
+                    <input type="text" class="memberDBox" name="weddingVerified" th:value="${ members.weddingVerified }" readonly="readonly">
+            </div>
         </div>
 
 
-        <table>
-            <tr>
-                <td>아이디</td>
-                <td>닉네임</td>
-                <td>성별</td>
-                <td>이메일</td>
-                <td>전화번호</td>
-                <td>기혼 여부</td>
-                <td>웨딩홀 인증</td>
-            </tr>
-            <tr th:each="members: ${ memberDetail }">
-                <td th:text="${ members.memberId }"></td>
-                <td th:text="${ members.nickname }"></td>
-                <td th:text="${ members.gender }"></td>
-                <td th:text="${ members.email }"></td>
-                <td th:text="${ members.phone }"></td>
-                <td th:text="${ members.marriedStatus }"></td>
-                <td th:text="${ members.weddingVerified }"></td>
-            </tr>
-        </table>
+
+        <!-- 수정 버튼 -->
+        <button onclick="location.href='/admin/member'">목록</button>
         <div th:each="members: ${ memberDetail }">
             <button type="button" th:onclick="|location.href='@{/admin/member/membersModify(id=${members.memberCode})}'|">수정</button>
         </div>
-        <hr class="hr">
-        <!-- 수정 버튼 -->
-        <button onclick="location.href='/admin/member'">목록</button>
 
         <div th:replace="admin/footer.html"></div>
+        </div>
     </article>
 </div>
 </body>
