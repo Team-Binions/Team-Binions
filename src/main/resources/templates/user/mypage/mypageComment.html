@@ -74,8 +74,16 @@
 <!--                         th:with="category = ${userMypageCommentCategory.mainCategory =='리뷰'} ? 'review' : 'free'"-->
 <!--                        @{user/board/Detail(id=${userMypageCommentData.comments.postCode})}-->
 <!--                        th:with="category = ${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory =='리뷰'} ? 'review' : 'free'"-->
+<!--                        .get(0).getPosts().get(0)-->
+<!--                        th:onclick="|location.href='@{/board/freeDetail(id=${free.postCode})}'|"-->
+<!--                         th:onclick="|location.href='@{/example/}| + ${example.id} + |'|"-->
+<!--                         th:onclick="|location.href='@{/user/board/|+${category}+|Detail(id=${comment.postCode})}'|"-->
+<!--                        'location.href=\'' + @{view(uid=${ad.uid})} + '\''-->
+<!--                        th:onclick="'location.href=' + '\'' + @{/basic/items/add} + '\''"-->
+<!--                        'location.href=' + '\'' + @{/basic/items/add} + '\''-->
+<!--                        th:with="category='@{/user/board/'+${userMypageCommentCategory.get(i.count - 1).posts.get(0).subCategory} + 'Detail(id='+${comment.postCode}+')'" th:value="${category}"-->
                         <tbody>
-                                <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category = ${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory =='리뷰'} ? '@{user/board/reviewDetail(id=${userMypageCommentData.comments.postCode})}' : '@{user/board/freeDetail(id=${userMypageCommentData.comments.postCode})}'" th:value="${category}" th:onclick="|location.href=${category}|">
+                                <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category='/user/board/'+${userMypageCommentCategory.get(i.count - 1).posts.get(0).subCategory} + 'Detail?id='+${comment.postCode}" th:value="${category}" th:onclick="clickRoute([[${category}]]);">
                                     <td class="eng" th:text="${i.count}"></td>
                                     <td th:text="${comment.commentContext}"></td>
                                     <td th:text="${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory}"></td>
@@ -112,7 +120,11 @@
         }
     })
 
-
+    // onclick 함수
+    function clickRoute(category){
+        location.href = category;
+        //location.href = "@{/user/board/"+category+"Detail(id="+postCode+")}";
+    }
 </script>
 </body>
 </html>

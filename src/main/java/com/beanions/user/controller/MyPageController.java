@@ -62,11 +62,6 @@ public class MyPageController {
     List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData();
     List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory();
 
-    System.out.println("category : " + userMypageCommentPostCategoryList);
-    System.out.println("category(0) : " + userMypageCommentPostCategoryList.get(0));
-    System.out.println("category(0) : " + userMypageCommentPostCategoryList.get(1));
-    System.out.println("category(0) : " + userMypageCommentPostCategoryList.get(2));
-
     model.addAttribute("userMypageCommentData", userMypageCommentDataList.get(0));
     model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList);
 

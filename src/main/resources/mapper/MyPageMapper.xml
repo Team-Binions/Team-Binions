@@ -176,6 +176,7 @@
 			<id property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
 			<result property="mainCategory" column="MAIN_CATEGORY"/>
+			<result property="subCategory" column="MAIN_CATEGORY_KR"/>
 		</collection>
 	</resultMap>
 	<select id="selectMyPageCommentData" resultMap="selectMyPageCommentsResultMap">
@@ -200,11 +201,12 @@
 					A.COMMENT_CODE,
 					A.COMMENT_DATE,
 					B.POST_CODE,
-					B.MAIN_CATEGORY
+					B.MAIN_CATEGORY,
+					IF(B.MAIN_CATEGORY = "리뷰", "review", "free") AS MAIN_CATEGORY_KR
 		FROM COMMENTS A
 		LEFT JOIN POST B ON A.POST_CODE = B.POST_CODE
 		WHERE A.MEMBER_CODE = 15
-		ORDER BY A.COMMENT_DATE DESC
+		ORDER BY A.COMMENT_DATE DESC;
 	</select>
 
 	<!--	스케쥴 리스트 -->
