@@ -8,41 +8,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <th:block th:if="${ str == '아이디'}">
-        <a href="#" class="logo">
-            <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
-        </a>
+    <a href="#" class="logo">
+        <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
+    </a>
+    <th:block th:if="${ param.id == 1 }">
+        <h2>아이디 찾기</h2>
+    </th:block>
+    <th:block th:if="${ param.id == 2 }">
+        <h2>비밀번호 찾기</h2>
         <div>
-            <div>
-                <h2>아이디 찾기</h2>
-            </div>
-            <div>
-                <h5 style="font-weight:bold; font-size: 10px; color: #6667AB">
-                    가입 시 입력하신 이메일 주소를 입력해주세요.<br>
-                    해당 이메일로 인증코드를 전송해 드릴게요!
-                </h5>
-            </div>
-            <div>
-                <input class="input_item" type="email" name="memail" id="memail" placeholder="이메일을 입력해 주세요">
-            </div>
-            <div style="padding-left: 20px; display: inline-block">
-                <button class="btn_item" type="button" id="checkEmail">인증코드 받기</button>
-            </div>
-            <hr>
-            <div>
-                <h6>예신예랑 회원이신가요?</h6>
-            </div>
-            <div style="padding-left: 20px; display: inline-block">
-                <button onclick="location.href='/login'">로그인</button>
-            </div>
+            <input class="input_item" type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요">
         </div>
-
-
-
     </th:block>
-
-    <th:block th:if="${ str == '비밀번호'}">
-    </th:block>
+    <div id="email_div">
+        <div>
+            <h5 style="font-weight:bold; font-size: 10px; color: #6667AB">
+                가입 시 입력하신 이메일 주소를 입력해주세요.<br>
+                해당 이메일로 인증코드를 전송해 드릴게요!
+            </h5>
+        </div>
+        <div>
+            <input class="input_item" type="email" name="memail" id="memail" placeholder="이메일을 입력해 주세요">
+        </div>
+        <div style="padding-left: 20px; display: inline-block">
+            <button class="btn_item" type="button" id="checkEmail">인증코드 받기</button>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h6>예신예랑 회원이신가요?</h6>
+    </div>
+    <div style="padding-left: 20px; display: inline-block">
+        <button onclick="location.href='/login'">로그인</button>
+    </div>
 
     <script src="/js/forgetInfo.js"></script>
 

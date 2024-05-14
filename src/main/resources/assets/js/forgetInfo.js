@@ -1,4 +1,14 @@
+var forgetIdConfirm = {
+    emconfirmchk : false
+}
+
+var forgetPwdConfirm = {
+    idconfirmchk : false,
+    emconfirmchk : false
+}
+
 $(document).ready(function () {
+
     $("#checkEmail").click(function() {
 
         // 제한시간을 설정한다.
@@ -47,9 +57,22 @@ $(document).ready(function () {
                     // 성공적인 응답을 처리한다.
                     alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
 
-                    var changeTag = "<"
+                    var afterChkEmail =
+                        "<div>"
+                        + "<h5 style=\"font-weight:bold; font-size: 10px; color: #6667AB\">"
+                        + "이메일로 전송 받은 인증 코드를 입력해주세요.<br>"
+                        + "제한 시간 초과 시 재전송 받아야해요."
+                        + "</h5>"
+                        + "</div>"
+                        + "<input class=\"input_item\" type=\"text\" id=\"memailconfirm\" placeholder=\"인증번호를 입력해주세요\">"
+                        + "<span class=\"show_pw_btn\"><img th:src=\"@{/images/common/icons_show.png}\" alt=\"popup icon image\"></span>"
+                        + "<div class=\"message_box\">"
+                        + "</div>"
+                        + "<div style=\"padding-left: 20px; display: inline-block\">"
+                        + "<button className=\"btn_item\" type=\"button\" id=\"checkEmail\">인증하기</button>"
+                        + "</div>";
 
-                    $("#memail").replaceWith();
+                    $("#email_div").html(afterChkEmail);
                     chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
                 })
                 .catch(error => {
@@ -58,5 +81,25 @@ $(document).ready(function () {
                 });
         }
     })
+
+    function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
+        $memailconfirm.on("click", function(){
+            if (data != $memailconfirm.val()) {
+                alert("인증번호가 잘못되었습니다.")
+                $("#memailconfirmTxt").css({
+                    "color" : "#FA3E3E",
+                    "font-weight" : "bold",
+                    "font-size" : "10px"
+                })
+            } else {
+                forgetIdConfirm.emconfirmchk = true;
+                $("#memailconfirmTxt").css({
+                    "color" : "#6667AB",
+                    "font-weight" : "bold",
+                    "font-size" : "10px"
+                });
+            }
+        })
+    }
 
 });

@@ -68,6 +68,7 @@ public class SecurityConfig {
             
             // UserRole에 설정해준 상수 값과 비교해 접근 권한 부여
             auth.requestMatchers("/user/*").hasAnyAuthority(MemberRole.USER.getRole());
+            auth.requestMatchers("/admin").hasAnyAuthority(MemberRole.ADMIN.getRole());
             auth.requestMatchers("/admin/*").hasAnyAuthority(MemberRole.ADMIN.getRole());
             auth.anyRequest().authenticated();
 
@@ -76,8 +77,6 @@ public class SecurityConfig {
             login.loginPage("/auth/login");
             login.usernameParameter("user");
             login.passwordParameter("pass");
-//            login.successForwardUrl("/checkRole");
-//            login.defaultSuccessUrl("/",true);
             login.successHandler(authSuccessHandler);
             login.failureHandler(authFailHandler);
 

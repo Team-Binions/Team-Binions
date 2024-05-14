@@ -5,8 +5,8 @@
     <title>예신예랑 회원가입</title>
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/css/user/signup.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -14,8 +14,8 @@
     <!--HEADER-->
     <div th:replace="user/layout/header.html"></div>
     <!--/HEADER-->
-    <div>
-        <h2 style="padding-top: 50px; text-align: center; font-size: 24px">회원가입</h2>
+    <div style="padding-top: 50px; padding-bottom: 20px; text-align: center">
+        <h2 style="font-size: 24px">회원가입</h2>
     </div>
     <div class="terms_body">
         <h3 style="padding-bottom: 10px; padding-left: 10px">회원가입 약관 동의 <span style="font-size: smaller; color: #FA3E3E">(필수)</span></h3>
@@ -44,18 +44,20 @@
                 <span id="idTxt"></span>
             </div>
         </div>
-        <div class="item_box">
+        <div class="password_box">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 70px; display: inline-block">비밀번호</h4>
             <input class="input_item" type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요"/>
+            <span class="show_pw_btn"><img th:src="@{/images/common/icons_show.png}" alt="popup icon image"></span>
             <div class="message_box">
                 <span id="pwdTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">* 영문,숫자,특수문자 조합 8자 이상 입력해 주세요</span>
             </div>
         </div>
-        <div class="item_box">
+        <div class="password_box">
             <span style="color: #FA3E3E">*</span>
             <h4 style="padding-right: 37px; display: inline-block">비밀번호 확인</h4>
             <input class="input_item" type="password" name="checkPw" id="checkPw" placeholder="비밀번호를 한번 더 입력해주세요"/>
+            <span class="show_pw_btn"><img th:src="@{/images/common/icons_show.png}" alt="popup icon image"></span>
             <div class="message_box" style="padding-left: 145px">
                 <span id="pwdCheckTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">* 비밀번호를 한번 더 입력해주세요</span>
             </div>
@@ -167,6 +169,19 @@
             submenu.addEventListener('mouseout', (e) => {
                 e.currentTarget.classList.remove("active");
             })
+        });
+
+        $(".show_pw_btn").click((e) => {
+            console.log("target : " + e.target);
+            if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
+                $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
+                $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
+                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
+            }else{ // 비활성화된 상태라면
+                $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
+                $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
+                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
+            }
         })
     </script>
 </body>

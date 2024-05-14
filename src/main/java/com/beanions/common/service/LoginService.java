@@ -1,4 +1,4 @@
-package com.beanions.common.controller;
+package com.beanions.common.service;
 
 import com.beanions.common.dao.user.UserMapper;
 import com.beanions.common.dto.LoginUserDTO;

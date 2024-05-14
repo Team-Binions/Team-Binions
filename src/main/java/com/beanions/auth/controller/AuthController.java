@@ -22,4 +22,10 @@ public class AuthController {
         return mv;
     }
 
+    @GetMapping("/forgetInfo")
+    public ModelAndView forgetInfo(ModelAndView mv){
+
+        return mv;
+    }
+
 }
