@@ -228,3 +228,141 @@
     color: var(--point-color);
     transition: background-color 200ms ease-in-out;
 }
+
+.subCategory_select {
+    /*position: absolute; left: 330px; top: 134px;*/
+    margin-top: 23px;
+}
+
+#regist_button_box {
+    justify-content: flex-end;
+}
+
+.button_box .cancel_btn {
+    background-color: #F4F4F9;
+    margin-right: 10px;
+    color: var(--main-color);
+    font-weight: var(--semiBold);
+}
+.cancel_btn:hover {
+    background-color: #F4F4F9;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+
+/* div로 select 박스 만들기*/
+.subCategory_select_box * {box-sizing: border-box;}
+.subCategory_select_box {
+    margin-top: 23px;
+    position: relative;
+    width: 230px;
+    height: 43px;
+    border-radius: 12px;
+    font-size: 14px;
+    border: 1px solid var(--main-color);
+    cursor: pointer;
+}
+
+.subCategory_select_box:hover {
+    border: 1px solid var(--point-color);
+}
+
+.subCategory_select_box .label {
+    color: #2A2A2A;
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: inherit;
+    border: 0 none;
+    outline: 0 none;
+    padding-left: 15px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.subCategory_select_box .optionList {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 100%;
+    background: #6667AB;
+    color: #ffffff;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    max-height: 0;
+    transition: .3s ease-in;
+}
+
+.subCategory_select_box.active .optionList {
+    margin-top: 5px;
+    max-height: 700px;
+}
+
+.subCategory_select_box .optionItem {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    height: 30px;
+    border-bottom: 1px dashed #40416c;
+    background: #6667AB;
+    color: #ffffff;
+    transition: .1s;
+}
+
+.subCategory_select_box .optionItem:hover {
+    background: #40416c;
+}
+
+.subCategory_select_box .optionItem:last-child {
+    border-bottom: 0 none;
+}
+
+/* 스크롤 커스텀 */
+.subCategory_select_box .optionList::-webkit-scrollbar {width: 6px}
+.subCategory_select_box .optionList::-webkit-scrollbar-track {background: transparent}
+.subCategory_select_box .optionList::-webkit-scrollbar-thumb {background: #2A2A2A; border-radius: 45px}
+.subCategory_select_box .optionList::-webkit-scrollbar-thumb:hover {background: #2A2A2A;}
+
+
+.subCategory_select_box .iconArrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 35px;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subCategory_select_box .iconArrow img {
+    width: 50%;
+    transform: rotate(270deg);
+    transition: .3s;
+}
+
+.subCategory_select_box .label:focus + .iconArrow img {
+    transform: rotate(90deg);
+}
+
+/* regist 제목 */
+.input_title {
+    height: 53px;
+    width: 100%;
+    margin-top: 23px;
+    border-radius: 12px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.input_context {
+    height: 400px;
+    width: 100%;
+    margin-top: 18px;
+    padding: 17px 17px 17px 17px;
+}

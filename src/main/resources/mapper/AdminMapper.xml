@@ -182,8 +182,8 @@
         , #{ subCategory }
         , DATE_FORMAT(now(), '%y/%m/%d')
         , NULL
-        , NULL
         , 0
+        , NULL
         )
     </insert>
 

@@ -22,10 +22,38 @@ input::-webkit-search-results-decoration {
     cursor: pointer
 }
 
+.menu-item:hover {
+    font-weight: var(--bold);
+}
+
 .menu-item.active {
     background-color: #D4CFEB;
 }
 
+/* 관리자 메인페이지 */
+/* 회원 관련 정보 box */
+.member_box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.member_item {
+    background-color: #6667AB;
+    color: #ffffff;
+    width: 32%;
+    /*width: 500px;*/
+    height: 150px;
+    border-radius: 12px;
+}
+
+.main_content_box {
+    padding: 10px;
+}
+
+.member_text {
+    color: #ffffff;
+}
 
 /* 사이드바의 세로 길이를 화면 높이에 맞추기 위한 설정 */
 html, body {
