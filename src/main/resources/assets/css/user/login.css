@@ -1,0 +1,27 @@
+/* login 로그인 페이지 */
+body {overflow: hidden;}
+.wrapper {width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: center / cover no-repeat url(../../images/common/stampBg.svg);}
+.login_cont {display: flex; justify-content: space-between; width: 80%; max-width: 1200px; padding: 40px; background-color: rgba(255,255,255, 0.74); border-radius:20px; }
+.left_side {display: flex; flex-direction: column; justify-content: center; align-items: center; width: 55%;}
+.left_side img {width: 200px; height: 200px;}
+.logo_tit {padding-top: 20px; font-size: 36px; font-weight: var(--bold); color: var(--main-color);}
+.go_to_main {display: flex; justify-content: center; align-items: center; margin-top: 20px; height: 50px; padding:0 40px; background-color: var(--main-color); border-radius: 12px; font-size: 16px; font-weight: var(--medium); color: #fff; transition: background-color 200ms ease-in-out;}
+.go_to_main:hover {background-color: var(--point-color);}
+.login_box {width: 45%; max-width: 444px; padding:40px; background-color: #fff; border-radius:20px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2);}
+.box_tit {padding-bottom: 40px; font-size: 24px; font-weight: var(--bold); color: var(--main-color); }
+.login_input {width: 100%; height: 48px; padding:0 10px; border-radius:12px; color: var(--main-color); font-size: 16px; font-weight: var(--medium);}
+.login_input::placeholder {font-size: 14px;}
+.password_box {position: relative; width: 100%; height: 48px; margin-top: 20px; margin-bottom: 10px;}
+.password_box .show_pw_btn {position: absolute; width: 24px; height: 24px; right:20px; top: 50%; transform: translateY(-50%); cursor: pointer;}
+.password_box .show_pw_btn img {width: 24px; height: 24px;}
+.password_box .show_pw_btn.active{}
+.find_id_pw {display: flex; justify-content: flex-end; align-items: center;}
+.find_id_pw > li {margin-right: 10px; padding-bottom: 40px; color: var(--input-color);}
+.find_id_pw > li:last-child {margin-right: 0;}
+.find_id_pw > li > a, .signup_txt {color: var(--input-color); font-size: 12px; font-weight: var(--regular);}
+.login_btn {width: 100%; height: 50px; margin-bottom: 20px; border-radius:12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--bold); cursor: pointer; transition: background-color 200ms ease-in-out;}
+.login_btn:hover {background-color: var(--point-color);}
+.divide_line {display: block; width: 100%; border-top: 1px solid var(--input-color);}
+.signup_txt {padding-top: 20px; padding-bottom: 20px; text-align: center;}
+.go_signup { margin-bottom: 0; border: 1px solid var(--main-color); background-color: #fff; color: var(--main-color);}
+.go_signup:hover { border: none; color: #fff;}
