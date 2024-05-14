@@ -16,6 +16,7 @@ public class MagazineService {
 
     public List<PostAndMemberDTO> allMagazineList() {
 
+
         return magazineMapper.allMagazineList();
     }
 
@@ -23,6 +24,7 @@ public class MagazineService {
     public List<PostAndMemberDTO> selectMagazine(String id) {
 
         int code = Integer.parseInt(id);
+
         return magazineMapper.magazineSelectOneDetail(code);
     }
 }

@@ -48,6 +48,7 @@
         , A.POST_DATE
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A

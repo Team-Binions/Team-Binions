@@ -11,6 +11,7 @@ import java.util.Date;
 @ToString
 public class PostDTO {
 
+
     private int postCode;
     private int memberCode;
     private String postTitle;
@@ -21,5 +22,4 @@ public class PostDTO {
     private String verifiedStatus;
     private String reviewStatus;
     private int viewCount;
-
 }
