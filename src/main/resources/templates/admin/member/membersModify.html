@@ -24,6 +24,7 @@
         <h3>회원 상세 정보 수정</h3>
         <form action="/admin/member/update" method="post">
             <div th:each="members: ${ memberModify }">
+                <input type="hidden" th:value="${ members.memberCode}" name="memberCode">
                 <div>
                     <label>아이디</label>
                     <input class="input" type="text" name="memberId" th:value="${ members.memberId }" readonly="readonly">
@@ -49,11 +50,11 @@
                 </div>
 
                 <div class="button_box">
-                    <input type="submit" name="nickname" value="수정" class="button">
+                    <button type="submit" class="button">수정</button>
                     <br>
 
 
-                    <button onclick="location.href='/admin/member'" id="back_member_btn">취소</button>
+                    <button type="button" onclick="location.href='/admin/member'" id="back_member_btn">취소</button>
                     <div id="root">
                         <button type="button" id="deleteModal_open_btn">계정 삭제</button>
                     </div>
