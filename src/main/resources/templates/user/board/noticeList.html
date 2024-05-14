@@ -33,7 +33,7 @@
     <tbody>
     <tr th:each=" notice, i : ${ noticeList }">
       <td class="eng" th:text="${(i.size + 1)-(i.count)}"></td>
-      <td><a th:text="${notice.postTitle}" th:href="@{/user/board/noticedetail(id=${notice.postCode})}"></a></td>
+      <td><a th:text="${notice.postTitle}" th:href="@{/board/noticedetail(id=${notice.postCode})}"></a></td>
       <td th:text="${notice.member.nickname}"></td>
       <td class="eng" th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
     </tr>

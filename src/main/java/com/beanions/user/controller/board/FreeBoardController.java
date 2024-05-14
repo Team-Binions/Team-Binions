@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/board")
+@RequestMapping("/board")
 public class FreeBoardController {
 
 
@@ -63,7 +63,7 @@ public class FreeBoardController {
 
         if (memberCode != null) {
             // 회원 아이디를 글쓰기 페이지로 리다이렉트하면서 전달
-            return "redirect:/user/board/freeRegist?memberCode=" + memberCode;
+            return "redirect:/board/freeRegist?memberCode=" + memberCode;
         } else {
             // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -90,10 +90,10 @@ public class FreeBoardController {
 
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/board/yesinList";
         } else if (postDTO.getSubCategory().equals("예랑")){
-            return "redirect:/user/board/yerangList";
-        } else { return "redirect:/user/board/reviewList"; }
+            return "redirect:/board/yerangList";
+        } else { return "redirect:/board/reviewList"; }
 
 
     }
@@ -142,9 +142,9 @@ public class FreeBoardController {
         rttr.addFlashAttribute("successMessage", "수정 성공");
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/board/yesinList";
         } else {
-            return "redirect:/user/board/yerangList";
+            return "redirect:/board/yerangList";
         }
         }
 
@@ -158,9 +158,9 @@ public class FreeBoardController {
 
         // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
-            return "redirect:/user/board/yesinList";
+            return "redirect:/board/yesinList";
         } else {
-            return "redirect:/user/board/yerangList";}
+            return "redirect:/board/yerangList";}
     }
 
     

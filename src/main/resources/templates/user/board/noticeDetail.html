@@ -29,10 +29,8 @@
     <hr class="notice_content_line">
     <p class="notice_content" th:text="${notice.postContext}"></p>
     <hr class="notice_content_line">
-  <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
-  <!--  <button>다음글</button>-->
 
-  <button class="notice_back_button" onclick="location.href='/user/board/notice'">목록</button>
+  <button class="notice_back_button" onclick="location.href='/board/notice'">목록</button>
   </div>
 
 <div th:replace="user/layout/footer.html"></div>

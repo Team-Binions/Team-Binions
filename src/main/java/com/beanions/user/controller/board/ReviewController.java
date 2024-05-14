@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/board")
+@RequestMapping("/board")
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -67,7 +67,7 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
-            return "redirect:/user/board/reviewList";
+            return "redirect:/board/reviewList";
 
     }
 
@@ -88,7 +88,7 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "수정 성공");
 
-        return "redirect:/user/board/reviewList";
+        return "redirect:/board/reviewList";
     }
 
     @PostMapping("/delete")
@@ -98,7 +98,7 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
-        return "redirect:/user/board/reviewList";
+        return "redirect:/board/reviewList";
     }
 
 }

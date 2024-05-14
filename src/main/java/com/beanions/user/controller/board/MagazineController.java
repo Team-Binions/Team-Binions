@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/board")
+@RequestMapping("/board")
 public class MagazineController {
     private final MagazineService magazineService;
 

@@ -35,14 +35,14 @@
         <tr th:each="free, i : ${ PostAndMemberDTOList }" >
             <td th:text="${ (i.size + 1)-(i.count) }"></td>
             <td>
-            <a th:text="${ free.postTitle }" th:href="@{/user/board/freeDetail(id=${free.postCode})}"></a>
+            <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
             </td>
             <td th:text="${ free.viewCount }"></td>
             <td th:text="${ free.member.nickname }"></td>
             <td th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></td>
         </tr>
 
-        <button type="button" th:onclick="|location.href='@{/user/board/freeRegist}'|">글쓰기</button>
+        <button type="button" th:onclick="|location.href='@{/board/freeRegist}'|">글쓰기</button>
 
     </table>
 <div th:replace="user/layout/footer.html"></div>

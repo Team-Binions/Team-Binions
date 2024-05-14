@@ -21,10 +21,7 @@
     <h4 th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></h4>
     <p th:text="${magazine.postContext}"></p>
 
-    <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
-    <!--  <button>다음글</button>-->
-
-    <button onclick="location.href='/user/board/notice'">목록</button>
+    <button onclick="location.href='/board/notice'">목록</button>
 </div>
 <div th:replace="user/layout/footer.html"></div>
 <script th:inline="javascript">

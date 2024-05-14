@@ -38,9 +38,9 @@
             <button type="button">등록</button>
         </form>
 
-        <button type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/user/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
-        <button type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/user/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>
-        <form th:action="@{/user/board/freedelete(id=${free.postCode})}" method="post">
+        <button type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
+        <button type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>
+        <form th:action="@{/board/freedelete(id=${free.postCode})}" method="post">
             <input type="hidden" th:value="${free.subCategory}" name="subCategory">
             <input type="hidden" th:value="${free.postCode}" name="postCode">
             <button type="submit">삭제하기</button>

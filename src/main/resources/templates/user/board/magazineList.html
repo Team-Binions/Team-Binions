@@ -23,7 +23,7 @@
     </tr>
     <tr th:each=" magazine, i : ${ magazineList }">
         <td th:text="${(i.size + 1)-(i.count)}"></td>
-        <td><a th:text="${magazine.postTitle}" th:href="@{/user/board/magazinedetail(id=${magazine.postCode})}"></a></td>
+        <td><a th:text="${magazine.postTitle}" th:href="@{/board/magazinedetail(id=${magazine.postCode})}"></a></td>
         <td th:text="${magazine.member.nickname}"></td>
         <td th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></td>
     </tr>
