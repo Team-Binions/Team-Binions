@@ -44,7 +44,7 @@ public class SecurityConfig {
         /* 요청에 대한 권한 체크 */
         http.authorizeHttpRequests( auth -> {
 
-            // 로그인 하지 않아도 볼 수 있는 url요청 목록
+            // 로그인 하지 않아도 요청가능한 url요청 목록(get/post)
             auth.requestMatchers(
                     "/request-dupCheck-id",
                     "/request-dupCheck-nickname",
@@ -55,7 +55,7 @@ public class SecurityConfig {
                     "/auth/fail",
                     "/",
                     "/main",
-                    "/user/signup",
+                    "/signup",
                     "/user/board/reviewList",
                     "/user/board/reviewDetail",
                     "/user/board/notice",
