@@ -35,4 +35,6 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllMagazine();
 
     void magazineRegist(PostDTO newMagazine);
+
+    List<AdminPostDTO> selectCurrentBoard();
 }

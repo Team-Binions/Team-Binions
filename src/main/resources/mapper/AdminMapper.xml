@@ -243,4 +243,33 @@
         , 0
         )
     </insert>
+
+
+    <resultMap id="selectCurrenBoardResultMap" type="com.beanions.common.dto.PostDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContext" column="post_context"/>
+        <result property="postDate" column="post_date"/>
+        <result property="mainCategory" column="main_category"/>
+        <result property="subCategory" column="sub_category"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="viewCount" column="viewCount"/>
+    </resultMap>
+    <select id="selectCurrentBoard" resultMap="selectCurrenBoardResultMap">
+        SELECT
+               POST_CODE
+             , MEMBER_CODE
+             , POST_TITLE
+             , POST_CONTEXT
+             , POST_DATE
+             , MAIN_CATEGORY
+             , SUB_CATEGORY
+             , REVIEW_STATUS
+             , VIEW_COUNT
+          FROM POST
+         WHERE MAIN_CATEGORY = '공지사항'
+         ORDER BY POST_DATE DESC
+         LIMIT 5
+    </select>
 </mapper>

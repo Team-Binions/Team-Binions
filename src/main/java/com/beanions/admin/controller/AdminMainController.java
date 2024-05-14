@@ -24,6 +24,19 @@ public class AdminMainController {
         this.adminService = adminService;
     }
 
+//    public String selectDashBoard(Model model) {
+//
+//        List<AdminPostDTO> postList = adminService.selectCurrentBoard();
+//
+//        for (AdminPostDTO post : postList) {
+//            System.out.println("post = " + post);
+//        }
+//
+//        model.addAttribute("postList", postList);
+//
+//        return "admin/main/dashBoard";
+//    }
+
     @GetMapping("/post")
     public String selectAllPost(Model model) {
 

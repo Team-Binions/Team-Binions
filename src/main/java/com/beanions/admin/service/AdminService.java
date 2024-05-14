@@ -54,11 +54,13 @@ public class AdminService {
         return adminMapper.selectAllNotice();
     }
 
+    @Transactional
     public void noticeRegist(PostDTO newNotice) {
 
         adminMapper.noticeRegist(newNotice);
     }
 
+    @Transactional
     public void noticeUpdate(PostDTO post) {
 
         adminMapper.noticeUpdate(post);
@@ -69,9 +71,14 @@ public class AdminService {
         return adminMapper.selectAllMagazine();
     }
 
+    @Transactional
     public void magazineRegist(PostDTO newMagazine) {
 
         adminMapper.magazineRegist(newMagazine);
     }
 
+    public List<AdminPostDTO> selectCurrentBoard() {
+
+        return adminMapper.selectCurrentBoard();
+    }
 }
