@@ -11,7 +11,6 @@ input::-webkit-search-results-decoration {
     display: none;
 }
 
-/* ----------- 공지사항 List ----------- */
 .content {
     display: flex;
     justify-content: center;
@@ -24,7 +23,7 @@ article {
     max-width: 1200px;
 }
 
-.notice_title {
+.review_title {
     font-weight: var(--bold);
     font-size: 24px;
     color: var(--text-color);
@@ -91,8 +90,7 @@ article {
     cursor: pointer;
 }
 
-/* 공지사항 table */
-.notice_List {
+.review_List {
     width: 100%;
     border-collapse: collapse;
 }
@@ -101,16 +99,16 @@ article {
     font-family: 'Poppins';
 }
 
-.notice_List tbody tr {
+.review_List tbody tr {
     transition: background-color 200ms ease-in-out;
     cursor: pointer;
 }
 
-.notice_List tbody tr:hover {
+.review_List tbody tr:hover {
     background-color: var(--hashBg-color);
 }
 
-.notice_List thead th {
+.review_List thead th {
     padding:8px 0;
     border: 1px solid var(--text-color);
     border-left: none;
@@ -121,90 +119,18 @@ article {
     font-weight: var(--semiBold);
 }
 
-.notice_List tbody td {
+.review_List tbody td {
     padding:8px 0;
     font-size: 16px;
     font-weight: var(--medium);
     border-bottom: 1px solid var(--text-color);
     text-align: center;
 }
-
-/* ----------- 공지사항 상세페이지 ----------- */
-
-/* 공지사항 카테고리 title */
-.notice_category {
-    width: 80%;
-    margin: auto;
-    margin-top: 60px;
-    margin-bottom: 40px;
-    max-width: 1000px;
-}
-
-.notice_mainCategory {
-    font-size: 20px;
-    font-weight: var(--semiBold);
-    color: var(--inactive-text);
-    display: inline;
-}
-
-.category_line {
-    color: var(--inactive-text);
-    display: inline;
-}
-
-.notice_subCategory {
-    color: var(--inactive-text);
-    display: inline-block;
-}
-
-/* 공지사항 내용 */
-
-.notice_data {
-    width: 80%;
-    margin: auto;
-    max-width: 1000px;
-}
-
-.notice_detail_title {
-    color: var(--text-color);
-    font-size: 24px;
-    font-weight: var(--medium);
-    margin-bottom: 40px;
-}
-
-.notice_content_data {
-    display: flex;
-    justify-content: space-between;
-}
-
-.notice_nickname {
-    color: var(--text-color);
-    font-size: 16px;
-    font-weight: var(--bold);
-    display: inline;
-    margin-bottom: 24px;
-}
-
-.notice_Date {
-    color: var(--inactive-text);
-    display: inline-block;
-}
-
-.notice_content_line {
-    color: var(--inactive-input-bg);
-}
-
-.notice_content {
-    color: var(--text-color);
-    min-height: 600px;
-    margin: 12px 8px 12px 8px;
-}
-
-.notice_back_button {
+.regist_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin-top: 12px;
+    margin-top: 20px;
     margin-bottom: 60px;
     float: right;
 }

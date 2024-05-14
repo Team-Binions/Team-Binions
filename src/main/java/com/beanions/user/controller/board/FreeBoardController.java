@@ -118,20 +118,6 @@ public class FreeBoardController {
         return "user/board/freeModify";
     }
 
-//    @PostMapping("/yesinmodify")
-//    public String yesinModify(PostDTO postDTO, RedirectAttributes rttr){
-//
-//        freeBoardService.freeModify(postDTO);
-//
-//        rttr.addFlashAttribute("successMessage", "수정 성공");
-//
-//        // 예랑 게시판 생성 하면 주소 변경하기
-//        if (postDTO.getSubCategory().equals("예신")){
-//            return "redirect:/user/board/yesinList";
-//        } else {
-//            return "redirect:/user/board/yerangList";}
-//    }
-
     @PostMapping("/freeModify")
     public String freeModify(PostDTO postDTO, RedirectAttributes rttr){
 
@@ -162,8 +148,5 @@ public class FreeBoardController {
         } else {
             return "redirect:/board/yerangList";}
     }
-
-    
-
 }
 
