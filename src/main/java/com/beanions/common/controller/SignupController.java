@@ -27,7 +27,7 @@ public class SignupController {
     private final MailService mailService;
     private final SignupService signupService;
 
-    @GetMapping("/signup")
+    @GetMapping("/user/signup")
     public String signup(){
         return "user/signup";
     }
@@ -122,10 +122,12 @@ public class SignupController {
         LocalDateTime now = LocalDateTime.now();
         String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-EE HH:mm:ss"));
 
+        // 업로드 파일 없으면 바로 회원가입 처리
         if ( member.getWeddingFile() == null ) {
             System.out.println(member);
             signupService.regist(member);
         } else {
+            // 파일 저장 로직
             String fileName = member.getWeddingFile();
 
             String root = "src/main/resources/assets/images/upload";
@@ -156,6 +158,7 @@ public class SignupController {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
+
         System.out.println("===========================================");
         System.out.println("가입 날짜 : " + formatedNow);
         System.out.println(member.getMemberId()+"님 회원가입 완료!");

@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>로그인</h1>
+    <form th:action="@{/auth/login}" method="post">
+        ID : <input type="text" name="user"><br>
+        PWD : <input type="password" name="pass"><br>
+        <button>로그인</button>
+    </form>
+    <button onclick="location.href = '/user/signup'">회원가입</button>
 </body>
 </html>
