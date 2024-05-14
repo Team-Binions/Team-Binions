@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beanions.common.dao.user.UserMapper">
-    <resultMap id="memberTest" type="com.beanions.common.dto.LoginUserDTO">
+    <resultMap id="memberInfo" type="com.beanions.common.dto.LoginUserDTO">
         <id property="memberCode" column="MEMBER_CODE"/>
         <result property="memberId" column="MEMBER_ID"/>
         <result property="memberPw" column="MEMBER_PW"/>
@@ -18,7 +18,7 @@
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
 
-    <select id="findByMemberId" resultMap="memberTest">
+    <select id="findByMemberId" resultMap="memberInfo">
         SELECT
                 MEMBER_CODE,
                 MEMBER_ID,
