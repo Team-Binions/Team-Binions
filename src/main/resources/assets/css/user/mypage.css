@@ -2,7 +2,8 @@
 .eng {font-family: 'Poppins';}
 .wrapper {display: flex; flex-direction: column; align-items: center;}
 .mypage_cont {max-width: 1200px; min-width:1200px; width: 100%; min-height: calc(100vh - 200px); padding: 0 20px; font-family: 'Noto Sans KR';}
-.page_tit {padding: 60px 0; font-size: 24px; font-weight: var(--bold);}
+.page_tit {display: flex; justify-content: flex-start; align-items: center; padding: 60px 0; font-size: 24px; font-weight: var(--bold);}
+.page_tit img{width: 24px; height: 24px; transform: rotateZ(180deg);}
 .profile_box {display: flex; align-items: center; width: 100%; padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
 .profile_img {width: 11.03448275862069%; min-width: 72px; aspect-ratio: 1 / 1; background-color: var(--main-color); border-radius: 50%;}
 /* (128px / 1160px) * 100 = 11.03448275862069% */
@@ -79,18 +80,25 @@ input::-webkit-search-results-decoration {
 .register_schedule_btn {height: 40px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out; cursor: pointer;}
 .register_schedule_btn:hover {background-color: var(--point-color);}
 .today_date {font-size: 20px; font-weight: var(--medium);}
-.schedule_list {padding-top: 20px;}
-.schedule_list li {width: calc(100% / 3 - 40px);}
-.schedule_list li > a{display: block; width: 100%; padding: 20px; border-radius: 12px; font-size: 16px; font-weight: var(--medium); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;}
+.schedule_list {display: flex; align-items: center; flex-wrap: wrap; padding-top: 20px;}
+.schedule_list li {position: relative; width: calc((100% - 40px) / 3 ); margin-right: 20px;}
+.schedule_list li:nth-of-type(3n) {margin-right: 0;}
+.schedule_list li:nth-of-type(n + 4) {margin-top: 20px;}
+.schedule_list li > a{display: block; width: 100%; padding: 20px; border-radius: 12px; font-size: 16px; font-weight: var(--medium); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;
+    z-index: 1;}
 .schedule_list li > a:hover {color: #fff; background-color: var(--point-color);}
 .schedule_list li > a:hover p, .schedule_list li > a:hover span {color: #fff;}
 .schedule_list li > a > p:first-child {display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
 .schedule_list li > a > p:last-child {padding-top: 10px;}
-.manage_schedule_btn {display: block; width: 24px; height: 24px; background-color: var(--main-color);}
+.manage_schedule_btn {position: absolute; top: 20px; right:20px; display: block; width: 24px; height: 24px; background: center / contain no-repeat url("../../images/common/icon_edit.png");
+    z-index: 20; cursor: pointer;}
+.schedule_list li > a:hover + .manage_schedule_btn {background: center / contain no-repeat url("../../images/common/icon_edit_white.png");}
+.manage_schedule_btn:hover {background: center / contain no-repeat url("../../images/common/icon_edit_hover.png");
+    z-index: 20; cursor: pointer;}
 
 /* schedule-regist */
 .regist_top_sec {display: flex; justify-content: space-between; align-items: center;}
-.schedule_date_input {width: 120px; height: 48px; padding: 0 10px; font-size: 16px; font-weight: var(--medium); border: none; border-bottom: 1px solid var(--input-color); cursor: pointer;}
+.schedule_date_input {width: 120px; height: 48px; padding-left: 30px; font-size: 16px; font-weight: var(--medium); border: none; border-bottom: 1px solid var(--input-color); cursor: pointer; background: left / contain no-repeat url("../../images/common/icon_calendar.png"); background-size: 24px 24px;}
 .schedule_tit_box {position: relative; width: calc(100% - 140px); height: 48px;}
 .schedule_tit_box .tit_count {position: absolute; top: 50%; right: 20px; transform: translateY(-50%); font-size: 12px; color: var(--input-color);}
 .schedule_tit {width: 100%; height: 48px; padding-left: 10px; padding-right: 60px; border: none; border-bottom: 1px solid var(--inactive-input-bg); font-size: 16px; font-weight: var(--medium);}
@@ -103,7 +111,11 @@ input::-webkit-search-results-decoration {
 .txt_count {position: absolute; bottom: 40px; right: 20px; font-size: 12px; color: var(--input-color);}
 .txt_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
 .schedule_contxt_box:focus + .txt_count .txt_counted {color: var(--point-color);}
-.schedule_btn_list {display: flex; justify-content: flex-end; align-items: center;}
+.schedule_btn_list {display: flex; align-items: center;}
+.schedule_btn_list.right {justify-content: flex-end; margin-top: -50px;}
+.schedule_btn_list.noMargin {margin-top: 0;}
+.schedule_btn_list.left {justify-content: flex-start; margin-top: -50px;}
+.schedule_btn_list.between {justify-content: space-between;}
 .schedule_btn_list > button {height: 50px; padding: 0 20px; font-size: 16px; font-weight: var(--medium); cursor: pointer;}
 .schedule_btn_list > button.cancel_btn {margin-right: 20px;}
 .cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
@@ -154,3 +166,11 @@ input::-webkit-search-results-decoration {
 .pop_btn_list .cancel_btn a {color: var(--main-color);}
 .confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
 .confirm_btn:hover {background-color: var(--point-color);}
+
+/* schedule 상세 페이지 */
+.schedule_detail_date, .schedule_detail_tit {padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
+.schedule_detail_tit { width: calc(100% - 100px);}
+/*.calendar_box {width: 130px; display: flex; align-items: center;}*/
+/*.calendar_box > img {width: 24px; height: 24px;}*/
+
+
