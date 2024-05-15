@@ -19,6 +19,10 @@
 <div class="wrapper">
   <!-- HEADER -->
   <div th:replace="user/layout/header.html"></div>
+<!--  <th:block th:with="nick=${loginUserInfo}">-->
+<!--    <div th:replace="user/layout/header.html"></div>-->
+<!--  </th:block>-->
+
   <!-- //HEADER -->
 
   <!-- main contents -->
@@ -62,30 +66,24 @@
       <div class="board_inner_box">
         <div class="board_list_box">
           <ul>
-            <li><a href="#">예신수다</a></li>
-            <li class="more_btn right"><a href="#" class="">+ 더보기</a></li>
+            <li><a th:href="@{/user/board/yesinList}">예신수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yesinList}">+ 더보기</a></li>
           </ul>
           <ul>
-            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
-            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
-            <li><a href="#">결혼이 다 이런건가요? 정말 울고 싶어요 ㅠㅠㅠㅠㅠㅠ</a></li>
-            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
-            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
-            <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
+            <th:block th:each="yesin, i : ${freeBoardByBridge}">
+              <li><a th:href="@{/user/board/freeDetail(id=${yesin.postCode})}" th:text="${yesin.postTitle}"></a></li>
+            </th:block>
           </ul>
         </div>
         <div class="board_list_box">
           <ul>
-            <li><a href="#">예랑수다</a></li>
-            <li class="more_btn right"><a href="#" class="">+ 더보기</a></li>
+            <li><a th:href="@{/user/board/yerangList}">예랑수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yerangList}">+ 더보기</a></li>
           </ul>
           <ul>
-            <li><a href="#">여친이 갑자기 파혼하자고 합니다....</a></li>
-            <li><a href="#">답정너인 예신이 대처법</a></li>
-            <li><a href="#">결혼이 다 이런건가요? 정말 울고 싶어요 ㅠㅠㅠㅠㅠㅠ</a></li>
-            <li><a href="#">장모님이 저에게 자꾸 집에 대한 부담을 주십니다</a></li>
-            <li><a href="#">플래너가 이상합니다.</a></li>
-            <li><a href="#">프로포즈 다들 어떻게 하세요? 예산 궁금합니다.</a></li>
+            <th:block th:each="yerang, i : ${freeBoardByGroom}">
+              <li><a th:href="@{/user/board/freeDetail(id=${yerang.postCode})}" th:text="${yerang.postTitle}"></a></li>
+            </th:block>
           </ul>
         </div>
       </div>
@@ -100,13 +98,13 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide">
-            <a href="#" class="slide_box">
+          <div class="swiper-slide" th:each="review : ${reviewBoard}">
+            <a th:href="@{/user/board/reviewDetail(id=${review.postCode})}" class="slide_box">
               <div class="review_thumbnail">
                 <img th:src="@{/images/main/KakaoTalk_20230405_053202431_12.jpg}" alt="review image">
               </div>
               <div class="review_txt">
-                <p>꿈꾸던 야외 결혼식 했어요!</p>
+                <p th:text="${review.postTitle}">꿈꾸던 야외 결혼식 했어요!</p>
                 <ul>
                   <li>#Beanions웨딩홀</li>
                   <li>#야외웨딩홀</li>
@@ -174,17 +172,17 @@
     <!-- 예피셜&공지사항 -->
     <div class="magazine_notice_cont">
       <div class="magazine_cont">
-        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a href="#">+ 더보기</a></span></div>
+        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a th:href="@{/user/board/magazineList}">+ 더보기</a></span></div>
         <div class="magazine_box">
-          <a href="#" class="magazine_inner_box">
+          <a th:href="@{/user/board/magazinedetail(id=${magazineBoard.postCode})}" class="magazine_inner_box">
             <div class="magazine_img">
               <img th:src="@{/images/common/logo.svg}" alt="magazine image">
             </div>
             <div class="magazine_text">
-              <p class="magazine_no"><span class="eng">no 17</span> | 웨딩</p>
-              <p class="magazine_tit">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
+              <p class="magazine_no"><span class="eng">no <span class="eng" th:text="${magazineBoard.postCode}"></span></span> | <span th:text="${magazineBoard.subCategory}"></span></p>
+              <p class="magazine_tit" th:text="${magazineBoard.postTitle}">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
               <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
-              <p class="magazine_contxt">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이
+              <p class="magazine_contxt" th:text="${magazineBoard.postContext}">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이
                 있을까요?<br>
 
                 우리의 결혼식, 그 날은 우리의 사랑과 약속을 공식화하는 특별한 순간입니다. 이 특별한 여정을 함께 나누고, 더욱 특별하게 만들어줄 비밀들을 함께 살펴보도록 하죠.</p>
@@ -193,14 +191,25 @@
         </div>
       </div>
       <div class="notice_cont">
-        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a href="#">+ 더보기</a></span></div>
+        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a th:href="@{/user/board/noticeList.html}">+ 더보기</a></span></div>
         <div class="notice_box">
           <ul>
-            <li><a href="#"><span class="notice_tag red">긴급</span>서버점검 및 업데이트로 인한 서비스 이용 제한</a></li>
-            <li><a href="#"><span class="notice_tag event">이벤트</span>신규 회원 게시글 작성 포인트 더블 적립</a></li>
-            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 게시판 관련 이용 가이드</a></li>
-            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 포인트 관련 이용 가이드</a></li>
-            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 스케쥴 관련 이용 가이드</a></li>
+            <th:block th:each="notice : ${noticeBoard}">
+              <li>
+                <a th:href="@{/user/board/noticedetail(id=${notice.postCode})}">
+                  <span th:if="${notice.subCategory == '업데이트'}" class="notice_tag red">업데이트</span>
+                  <span th:if="${notice.subCategory == '공지'}" class="notice_tag">공지</span>
+                  <span th:if="${notice.subCategory == '이벤트'}" class="notice_tag event">이벤트</span>
+                  <span th:if="${notice.subCategory == '이용 안내'}" class="notice_tag">이용안내</span>
+                  <span th:text="${notice.postTitle}"></span>
+                </a>
+              </li>
+            </th:block>
+<!--            <li><a th:href="@{/user/board/yesinList}"><span class="notice_tag red">긴급</span>서버점검 및 업데이트로 인한 서비스 이용 제한</a></li>-->
+<!--            <li><a href="#"><span class="notice_tag event">이벤트</span>신규 회원 게시글 작성 포인트 더블 적립</a></li>-->
+<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 게시판 관련 이용 가이드</a></li>-->
+<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 포인트 관련 이용 가이드</a></li>-->
+<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 스케쥴 관련 이용 가이드</a></li>-->
           </ul>
         </div>
       </div>
