@@ -2,10 +2,15 @@
 .main_cont {max-width: 1200px; width: 100%; min-height: calc(100vh - 200px); padding: 0 20px; font-family: 'Noto Sans KR';}
 
 /* main banner */
-.banner_box {width: 100%; height: 400px; background-color: var(--hashBg-color); text-align: center;}
+.banner_box { width: 100%; overflow: hidden;}
+.mainSwiper > .swiper-wrapper {width: 100%; height: 440px;}
+.mainSwiper .swiper-slide {width: 100%; height: 400px;}
+.mainSwiper .swiper-slide > img {width: 100%; height: 100%; object-fit: cover;}
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction { bottom: 0;}
+.swiper-pagination-bullet-active {background-color: var(--main-color);}
 
 /* search_box 검색 영역*/
-.search_box {display: flex; flex-direction: column; align-items: center; padding: 100px 0; }
+.search_box {display: flex; flex-direction: column; align-items: center; padding: 60px 0; }
 .search_box p {padding:40px 0; font-size: 16px; font-weight: var(--semiBold); color: var(--main-color);}
 .search_bar {display: flex; justify-content: space-between; align-items: center; width: 100%;}
 .search_bar input {width: 88%; height: 48px; padding: 0 10px; background-color: #fff; border-radius: 12px;}
@@ -28,16 +33,43 @@
 .board_list_box ul:last-child li:last-child a { padding-bottom: 0;}
 .board_list_box ul:last-child li:first-child a { padding-top: 0;}
 .board_list_box ul:last-child li a:hover {color: var(--point-color); }
+.more_btn.right {margin-left: 0;}
 
 /* 예리뷰 슬라이드 */
-.swiper { width: 100%; height: 400px;}
+.review_cont {padding: 60px 0;}
+.reviewSwiper { padding: 20px 16px; }
+.reviewSwiper .swiper-slide {height: 380px; border-radius: 12px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff;}
+.reviewSwiper .slide_box {display: flex; flex-direction: column; width: 100%; overflow: hidden;}
+.review_thumbnail {width: 100%; height: 280px; border-radius: 12px 12px 0 0; overflow: hidden;}
+.review_thumbnail img {width: 100%; height: 100%; object-fit: cover; border-radius: 12px 12px 0 0; transition: transform 300ms ease-in-out;}
+.slide_box:hover .review_thumbnail img {transform: scale(1.5);}
+.review_txt {padding: 20px;}
+.review_txt p{font-size: 16px; font-weight: var(--semiBold);}
+.review_txt ul {display: flex; justify-content: space-between; align-items: center; padding-top: 16px;}
+.review_txt ul li {font-size: 14px; font-weight: var(--medium); color: var(--main-color);}
+.swiper-button-lock {display: block;}
+.swiper-button-prev::after, .swiper-button-next::after {display: none;}
+.swiper-button-prev, .swiper-button-next {display: flex; justify-content: center; align-items: center; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(102, 103, 171, 0.7); transition: background-color 200ms ease-in-out;}
+.swiper-button-prev {left: 0;}
+.swiper-button-next {right: 0;}
+.swiper-button-prev img {height:20px; padding-right: 5px;}
+.swiper-button-next img {height:20px; padding-left: 5px;}
+.swiper-button-prev:hover, .swiper-button-next:hover {background-color: rgba(80, 70, 191,0.7);}
+
 
 /* magazine_notice_cont 예피셜&공지사항 */
-.magazine_notice_cont {display: flex; justify-content: space-between; margin-bottom: 40px;}
+.magazine_notice_cont {display: flex; justify-content: space-between; padding-bottom: 60px;}
 .magazine_cont, .notice_cont {display: flex; flex-direction: column;width: calc(50% - 10px); align-self: stretch;}
-.magazine_box, .notice_box {display: flex; width: 100%;border-radius:12px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff;}
-.magazine_box img {width: 50%; object-fit: contain; border-radius:12px;}
-.magazine_text {padding: 20px;}
+.more_top_sec {display: flex; align-items: center;}
+.more_btn {margin-left: 20px;}
+.more_btn > a{font-size: 12px; font-weight: var(--medium); transition: color 200ms ease-in-out, font-weight 200ms ease-in-out;}
+.more_btn > a:hover{color: var(--point-color); font-weight: var(--medium);}
+.magazine_box, .notice_box {display: flex; width: 100%; height: 100%; border-radius:12px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff;}
+.notice_box {align-items: center;}
+.magazine_inner_box {display: flex; border-radius:12px;}
+.magazine_img {width: 50%;}
+.magazine_img img {display: block; width: 100%; object-fit: cover; border-radius:12px 0 0 12px;}
+.magazine_text {width: 50%; padding: 20px;}
 .eng  {font-family: 'Poppins';}
 .magazine_no {color: var(--main-color); font-size: 12px; font-weight: var(--medium);}
 .magazine_no span { color: var(--main-color); font-size: 14px; font-weight: var(--semiBold);}
@@ -49,7 +81,7 @@
 .notice_tag.event { background-color: var(--point-color);}
 .notice_box {padding: 20px; background-color: var(--hashBg-color);}
 .notice_box ul {width: 100%;}
-.notice_box ul li {width: 100%; margin-bottom: 10px; background-color: #fff; border-radius:12px; }
+.notice_box ul li {width: 100%; height: 40px; margin-bottom: 10px; background-color: #fff; border-radius:12px; }
 .notice_box ul li:last-child {margin-bottom: 0;}
 .notice_box li a {display: inline-block; height:40px; padding: 0 10px; line-height: 40px; font-size: 14px; font-weight: var(--regular); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 
@@ -59,10 +91,12 @@
 .contact_inner_box {display: flex; justify-content: space-between;}
 .contact_input, .contact_img {width: calc(50% - 10px);}
 .contact_input input {width: 100%; height: 48px; padding: 0 10px; margin-bottom: 20px; border-radius:12px; }
-.contact_input textarea {display: block; width: 100%; padding:10px; border:1px solid var(--input-color); border-radius:12px; transition: border-color 200ms ease-in-out;}
+.contact_input textarea {display: block; width: 100%; height: 200px; padding:10px; border:1px solid var(--input-color); border-radius:12px; transition: border-color 200ms ease-in-out;}
 .contact_input textarea:focus {outline: none; border-color: var(--point-color); transition: border-color 200ms ease-in-out;}
 .contact_input textarea::placeholder {color: var(--input-color);}
 .contact_input button {width: 100%; height: 50px; margin-top: 20px;}
 .contact_img {display: flex; flex-direction: column; justify-content: center; align-items: center;}
 .contact_img img {width: 200px;}
-.contact_img p {font-size: 14px; font-weight: var(--semiBold);}
+.contact_img p {display: flex; align-items: center; padding-top: 40px; font-size: 14px; font-weight: var(--semiBold);}
+.mail_icon {display: block; height: 36px; padding-right: 10px;}
+.mail_icon img {width: 36px;}

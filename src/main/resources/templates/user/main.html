@@ -24,7 +24,17 @@
   <!-- main contents -->
   <div class="main_cont">
     <div class="banner_box">
-      <img src="./images/common/logo.svg" alt="banner image">
+      <div class="mainSwiper swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img th:src="@{/images/main/banner01.jpg}" alt="banner image">
+          </div>
+          <div class="swiper-slide">
+            <img th:src="@{/images/main/banner02.jpg}" alt="banner image">
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
     </div>
     <!-- // banner -->
 
@@ -53,7 +63,7 @@
         <div class="board_list_box">
           <ul>
             <li><a href="#">예신수다</a></li>
-            <li><a href="#">더보기</a></li>
+            <li class="more_btn right"><a href="#" class="">+ 더보기</a></li>
           </ul>
           <ul>
             <li><a href="#">예랑이가 웨딩홀 바꾸재요 feat.결혼 한 달 남았어요</a></li>
@@ -67,7 +77,7 @@
         <div class="board_list_box">
           <ul>
             <li><a href="#">예랑수다</a></li>
-            <li><a href="#">더보기</a></li>
+            <li class="more_btn right"><a href="#" class="">+ 더보기</a></li>
           </ul>
           <ul>
             <li><a href="#">여친이 갑자기 파혼하자고 합니다....</a></li>
@@ -86,18 +96,77 @@
     <div class="review_cont">
       <p class="sec_tit">예리뷰</p>
       <!-- Slider main container -->
-      <div class="swiper">
+      <div class="reviewSwiper swiper">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide">Slide 1</div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">Slide 3</div>
+          <div class="swiper-slide">
+            <a href="#" class="slide_box">
+              <div class="review_thumbnail">
+                <img th:src="@{/images/main/KakaoTalk_20230405_053202431_12.jpg}" alt="review image">
+              </div>
+              <div class="review_txt">
+                <p>꿈꾸던 야외 결혼식 했어요!</p>
+                <ul>
+                  <li>#Beanions웨딩홀</li>
+                  <li>#야외웨딩홀</li>
+                  <li>#야외결혼식</li>
+                </ul>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="#" class="slide_box">
+              <div class="review_thumbnail">
+                <img th:src="@{/images/main/KakaoTalk_20230714_011813075_13.jpg}" alt="review image">
+              </div>
+              <div class="review_txt">
+                <p>꿈꾸던 야외 결혼식 했어요!</p>
+                <ul>
+                  <li>#Beanions웨딩홀</li>
+                  <li>#야외웨딩홀</li>
+                  <li>#야외결혼식</li>
+                </ul>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="#" class="slide_box">
+              <div class="review_thumbnail">
+                <img th:src="@{/images/main/P1034264.JPG}" alt="review image">
+              </div>
+              <div class="review_txt">
+                <p>꿈꾸던 야외 결혼식 했어요!</p>
+                <ul>
+                  <li>#Beanions웨딩홀</li>
+                  <li>#야외웨딩홀</li>
+                  <li>#야외결혼식</li>
+                </ul>
+              </div>
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="#" class="slide_box">
+              <div class="review_thumbnail">
+                <img src="./images/main/P1045088.JPG" alt="review image">
+              </div>
+              <div class="review_txt">
+                <p>꿈꾸던 야외 결혼식 했어요!</p>
+                <ul>
+                  <li>#Beanions웨딩홀</li>
+                  <li>#야외웨딩홀</li>
+                  <li>#야외결혼식</li>
+                </ul>
+              </div>
+            </a>
+          </div>
         </div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev">
+          <img src="./images/common/icon_arrow_left_white.svg" alt="prev icon">
+        </div>
+        <div class="swiper-button-next">
+          <img src="./images/common/icon_arrow_right_white.svg" alt="next icon">
+        </div>
       </div>
     </div>
     <!-- //review_cont -->
@@ -105,22 +174,26 @@
     <!-- 예피셜&공지사항 -->
     <div class="magazine_notice_cont">
       <div class="magazine_cont">
-        <p class="sec_tit">예피셜</p>
+        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a href="#">+ 더보기</a></span></div>
         <div class="magazine_box">
-          <img src="./images/common/logo.svg" alt="magazine image">
-          <div class="magazine_text">
-            <p class="magazine_no"><span class="eng">no 17</span> | 웨딩</p>
-            <p class="magazine_tit">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
-            <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
-            <p class="magazine_contxt">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이
-              있을까요?<br>
+          <a href="#" class="magazine_inner_box">
+            <div class="magazine_img">
+              <img th:src="@{/images/common/logo.svg}" alt="magazine image">
+            </div>
+            <div class="magazine_text">
+              <p class="magazine_no"><span class="eng">no 17</span> | 웨딩</p>
+              <p class="magazine_tit">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
+              <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
+              <p class="magazine_contxt">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이
+                있을까요?<br>
 
-              우리의 결혼식, 그 날은 우리의 사랑과 약속을 공식화하는 특별한 순간입니다. 이 특별한 여정을 함께 나누고, 더욱 특별하게 만들어줄 비밀들을 함께 살펴보도록 하죠.</p>
-          </div>
+                우리의 결혼식, 그 날은 우리의 사랑과 약속을 공식화하는 특별한 순간입니다. 이 특별한 여정을 함께 나누고, 더욱 특별하게 만들어줄 비밀들을 함께 살펴보도록 하죠.</p>
+            </div>
+          </a>
         </div>
       </div>
       <div class="notice_cont">
-        <p class="sec_tit">공지사항</p>
+        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a href="#">+ 더보기</a></span></div>
         <div class="notice_box">
           <ul>
             <li><a href="#"><span class="notice_tag red">긴급</span>서버점검 및 업데이트로 인한 서비스 이용 제한</a></li>
@@ -146,8 +219,8 @@
             <button>문의하기</button>
           </div>
           <div class="contact_img">
-            <img src="./images/common/logo.svg" alt="contact image">
-            <p><span><img src="" alt=""></span>beanions-cs@beanions.com</p>
+            <img th:src="@{/images/main/contactIllust.svg}" alt="contact image">
+            <p><span class="mail_icon"><img th:src="@{/images/common/icon_mail.svg}" alt="mail icon"></span>beanions-cs@beanions.com</p>
           </div>
         </div>
       </div>
@@ -159,48 +232,11 @@
   <!-- FOOTER -->
   <div th:replace="user/layout/footer.html"></div>
   <!-- //FOOTER -->
+
+  <!-- TOP BUTTON -->
+  <span class="top_btn eng">TOP</span>
 </div>
-<script>
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-        gnbmenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.nextElementSibling.classList.add("active");
-        })
-        gnbmenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.nextElementSibling.classList.remove("active");
-        })
-    });
-
-    subMenu.forEach(submenu => {
-        submenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add("active");
-        })
-        submenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.classList.remove("active");
-        })
-    })
-
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-</script>
-<!--    <script src="./js/common.js"></script>-->
-<!--    <script src="./js/main.js"></script>-->
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>
