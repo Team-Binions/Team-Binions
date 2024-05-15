@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -21,6 +22,9 @@ public class SignupService {
 
     @Autowired
     private final SignupMapper signupMapper;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Scheduled(fixedRate = 300000) // ms 기준 / 매번 약 5분마다 실행
     public void deleteFile() {
@@ -54,6 +58,9 @@ public class SignupService {
     }
 
     public void regist(MembersDTO member) {
+
+        member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
+        System.out.println(member);
         signupMapper.joinMember(member);
     }
 
