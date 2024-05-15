@@ -20,7 +20,7 @@
 
     <select id="membersAllList" resultMap="membersResultMap">
         SELECT
-            MEMBER_CODE
+        MEMBER_CODE
         ,   MEMBER_ID
         ,   MEMBER_PW
         ,   NICKNAME
@@ -33,9 +33,214 @@
         FROM MEMBERS
     </select>
 
-    <update id="modifyOneMember" parameterType="com.beanions.common.dto.MembersDTO">
+    <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
+        SELECT
+        MEMBER_CODE
+        ,   MEMBER_ID
+        ,   MEMBER_PW
+        ,   NICKNAME
+        ,   EMAIL
+        ,   PHONE
+        ,   GENDER
+        ,   MARRIED_STATUS
+        ,   MEMBER_ROLE
+        ,   WEDD_VEF
+        ,   SIGNUP_DATE
+        FROM MEMBERS
+        WHERE MEMBER_CODE = #{ codes }
+    </select>
+
+    <update id="memberModify" parameterType="com.beanions.common.dto.MembersDTO">
         UPDATE MEMBERS
-        SET   NICKNAME = #{ nickname }
+        SET NICKNAME = #{ nickname }
+        WHERE MEMBER_CODE = #{ memberCode }
     </update>
 
+    <delete id="memberDelete" parameterType="_int">
+        DELETE
+        FROM MEMBERS
+        WHERE MEMBER_CODE = #{ id }
+    </delete>
+
+    <resultMap id="adminPostResultMap" type="com.beanions.common.dto.AdminPostDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContext" column="post_context"/>
+        <result property="postDate" column="post_date"/>
+        <result property="mainCategory" column="main_category"/>
+        <result property="subCategory" column="sub_category"/>
+        <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="viewCount" column="view_count"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="member_code"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAllPost" resultMap="adminPostResultMap">
+        SELECT
+        A.POST_CODE
+        , A.MEMBER_CODE
+        , A.POST_TITLE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE MAIN_CATEGORY = '자유' OR  MAIN_CATEGORY = '리뷰'
+        ORDER BY A.POST_DATE DESC
+    </select>
+
+    <select id="selectPost" parameterType="_int" resultMap="adminPostResultMap">
+        SELECT
+        A.POST_CODE
+        , A.MEMBER_CODE
+        , A.POST_TITLE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE A.POST_CODE = #{ id }
+    </select>
+
+    <update id="postUpdate" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE
+        POST
+        SET
+        VEF_STATUS = #{ verifiedStatus }
+        WHERE POST_CODE = #{ postCode }
+    </update>
+
+    <update id="postReview" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE
+        POST
+        SET
+        REVIEW_STATUS = #{ reviewStatus }
+        WHERE POST_CODE = #{ postCode }
+    </update>
+
+    <delete id="postDelete" parameterType="_int">
+        DELETE
+        FROM POST
+        WHERE POST_CODE = #{ id }
+    </delete>
+
+    <select id="selectAllNotice" resultMap="adminPostResultMap">
+        SELECT
+        A.POST_CODE
+        , A.MEMBER_CODE
+        , A.POST_TITLE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE MAIN_CATEGORY = '공지사항'
+        ORDER BY A.POST_DATE DESC
+    </select>
+
+    <insert id="noticeRegist" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , REVIEW_STATUS
+        , VIEW_COUNT
+        , VEF_STATUS
+        )
+        VALUES
+        (
+        1
+        , #{ postTitle }
+        , #{ postContext }
+        , '공지사항'
+        , #{ subCategory }
+        , DATE_FORMAT(now(), '%y/%m/%d')
+        , NULL
+        , 0
+        , NULL
+        )
+    </insert>
+
+    <update id="noticeUpdate" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE
+        POST
+        SET
+        POST_TITLE = #{ postTitle }
+        , POST_CONTEXT = #{ postContext}
+        , SUB_CATEGORY = #{ subCategory }
+        WHERE POST_CODE = #{ postCode }
+    </update>
+
+    <select id="selectAllMagazine" resultMap="adminPostResultMap">
+        SELECT
+        A.POST_CODE
+        , A.MEMBER_CODE
+        , A.POST_TITLE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VEF_STATUS
+        , A.REVIEW_STATUS
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE MAIN_CATEGORY = '매거진'
+        ORDER BY A.POST_DATE DESC
+    </select>
+
+    <insert id="magazineRegist" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , VEF_STATUS
+        , REVIEW_STATUS
+        , VIEW_COUNT
+        )
+        VALUES
+        (
+        1
+        , #{ postTitle }
+        , #{ postContext }
+        , '매거진'
+        , #{ subCategory }
+        , DATE_FORMAT(now(), '%y/%m/%d')
+        , NULL
+        , NULL
+        , 0
+        )
+    </insert>
 </mapper>

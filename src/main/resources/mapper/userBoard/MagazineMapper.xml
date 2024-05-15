@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beanions.common.dao.user.board.MagazineMapper">
+
+    <resultMap id="PostAndMemberResultMap" type="com.beanions.common.dto.PostAndMemberDTO">
+        <id property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContext" column="POST_CONTEXT"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="mainCategory" column="MAIN_CATEGORY"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
+        <result property="verifiedStatus" column="VEF_STATUS"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="MEMBER_CODE"/>
+            <result property="nickname" column="NICKNAME"/>
+        </association>
+    </resultMap>
+
+    <select id="allMagazineList" parameterType="com.beanions.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE MAIN_CATEGORY = '매거진'
+        ORDER BY POST_DATE desc
+    </select>
+
+    <select id="magazineSelectOneDetail" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE POST_CODE = #{ id }
+    </select>
+</mapper>

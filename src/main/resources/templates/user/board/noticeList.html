@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/main.css}">
+  <link rel="stylesheet" th:href="@{/css/user/board/notice.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <title>공지사항</title>
+</head>
+<body>
+
+  <div th:replace="user/layout/header.html"></div>
+
+  <p class="notice_title">공지사항</p>
+  <div class="search">
+    <input type="search" class="search_input_box" placeholder="검색어를 입력하세요">
+    <span class="clear_button"></span>
+  </div>
+
+  <table class="notice_List">
+    <thead>
+    <tr>
+      <th class="eng">no</th>
+      <th>제목</th>
+      <th>글쓴이</th>
+      <th>작성시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each=" notice, i : ${ noticeList }">
+      <td class="eng" th:text="${(i.size + 1)-(i.count)}"></td>
+      <td><a th:text="${notice.postTitle}" th:href="@{/user/board/noticedetail(id=${notice.postCode})}"></a></td>
+      <td th:text="${notice.member.nickname}"></td>
+      <td class="eng" th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div th:replace="user/layout/footer.html"></div>
+
+  <script>
+    //header sub menu 활성화
+    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+    const subMenu = document.querySelectorAll('.sub_menu');
+    gnbMenu.forEach(gnbmenu => {
+      gnbmenu.addEventListener('mouseover', (e) => {
+        e.currentTarget.nextElementSibling.classList.add("active");
+      })
+      gnbmenu.addEventListener('mouseout', (e) => {
+        e.currentTarget.nextElementSibling.classList.remove("active");
+      })
+    });
+
+    subMenu.forEach(submenu => {
+      submenu.addEventListener('mouseover', (e) => {
+        e.currentTarget.classList.add("active");
+      })
+      submenu.addEventListener('mouseout', (e) => {
+        e.currentTarget.classList.remove("active");
+      })
+    })
+
+    // 예리뷰 슬라이드
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+</body>
+</html>

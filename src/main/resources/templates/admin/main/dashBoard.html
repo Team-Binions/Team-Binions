@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{css/default.css}"/>
+    <link rel="stylesheet" th:href="@{css/admin/common.css}">
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+<!--    <div th:replace="admin/sidebar :: admin-sidebar"></div>-->
+<article>
+<!--    <h1 align="center">관리자 메인</h1>-->
+    <p>회원</p>
+    <div class="member_box">
+        <div class="member_item">
+            <div class="main_content_box">
+                <p class="member_text">방문자 수</p>
+                <p class="member_text">전체</p>
+                <p class="member_text">1,000</p>
+                <p class="member_text">오늘</p>
+                <p class="member_text">21</p>
+            </div>
+        </div>
+        <div class="member_item">
+            <div class="main_content_box">
+                <p class="member_text">가입 회원 수</p>
+                <p class="member_text">전체</p>
+                <p class="member_text">200</p>
+                <p class="member_text">오늘</p>
+                <p class="member_text">2</p>
+            </div>
+        </div>
+        <div class="member_item">
+            <div class="main_content_box"></div>
+        </div>
+    </div>
+    <div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div>
+        <div>
+            <table></table>
+        </div>
+        <div>
+            <table></table>
+        </div>
+    </div>
+</article>
+</div>
+</body>
+</html>

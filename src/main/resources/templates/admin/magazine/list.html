@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../css/admin/common.css}">
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
+<article>
+<h1>매거진 전체조회</h1>
+    <div class="regist_search_box">
+        <button onclick="location.href='/admin/magazine/regist'">등록</button>
+    </div>
+    <form class="search_form">
+        <div class="search_box">
+            <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+            <span class="clear_btn"></span>
+            <span class="search_btn"></span>
+        </div>
+    </form>
+    <div class="table_box">
+<table>
+    <tr>
+        <th class="index_th">번호</th>
+        <th class="manage_th">시리즈</th>
+        <th class="nickname_th">작성자</th>
+        <th>제목</th>
+        <th class="date_th">작성일</th>
+        <th class="manage_th">조회수</th>
+        <th class="manage_th">관리</th>
+    </tr>
+    <tr th:each="magazine, i : ${ magazineList }">
+        <td class="number" th:text="${ i.index + 1 }"></td>
+        <td th:text="${ magazine.subCategory }"></td>
+        <td th:text="${ magazine.member.nickname }"></td>
+        <td>
+            <a th:text="${ magazine.postTitle }" th:href="@{ /admin/magazine/detail(id=${ magazine.postCode })}"></a>
+        </td>
+        <td class="number" th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }"></td>
+        <td th:text="${ magazine.viewCount }"></td>
+        <td>
+            <button type="button" th:onclick="|location.href='@{/admin/magazine/detail(id=${magazine.postCode})}'|">상세</button>
+        </td>
+    </tr>
+</table>
+    </div>
+<div th:replace="admin/footer.html"></div>
+</article>
+</div>
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
+</script>
+</body>
+</html>

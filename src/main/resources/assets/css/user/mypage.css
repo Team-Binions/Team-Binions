@@ -1,0 +1,176 @@
+/* mypage 마이페이지 */
+.eng {font-family: 'Poppins';}
+.wrapper {display: flex; flex-direction: column; align-items: center;}
+.mypage_cont {max-width: 1200px; min-width:1200px; width: 100%; min-height: calc(100vh - 200px); padding: 0 20px; font-family: 'Noto Sans KR';}
+.page_tit {display: flex; justify-content: flex-start; align-items: center; padding: 60px 0; font-size: 24px; font-weight: var(--bold);}
+.page_tit img{width: 24px; height: 24px; transform: rotateZ(180deg);}
+.profile_box {display: flex; align-items: center; width: 100%; padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
+.profile_img {width: 11.03448275862069%; min-width: 72px; aspect-ratio: 1 / 1; background-color: var(--main-color); border-radius: 50%;}
+/* (128px / 1160px) * 100 = 11.03448275862069% */
+.profile_txt {padding-left: 20px;}
+.profile_name {padding-bottom: 10px; font-size: 20px; font-weight: var(--bold);}
+.total_posts_count {font-size: 16px; font-weight: var(--medium);}
+
+/* 마이페이지 메뉴 & 컨텐츠 영역 */
+.contents_cont {display: flex; justify-content: space-between; padding-top: 20px; padding-bottom: 60px;}
+.sidebar.mypage {align-self: flex-start; padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
+.sidebar.mypage ul li.active a{color: var(--main-color);}
+.sidebar.mypage ul li a {display: block; padding: 8px 0; transition: color 200ms ease-in-out; white-space: nowrap;}
+.sidebar.mypage ul li:first-child a {padding-top: 0;}
+.sidebar.mypage ul li:last-child a {padding-bottom: 0;}
+.sidebar.mypage ul li a:hover {color: var(--main-color); }
+.sidebar.mypage ul li:nth-child(1) a, .sidebar.mypage ul li:nth-child(5) a, .sidebar.mypage ul li:nth-child(6) a {font-size: 20px; font-weight: var(--medium);}
+.sidebar.mypage ul li:nth-child(2) a, .sidebar.mypage ul li:nth-child(3) a, .sidebar.mypage ul li:nth-child(4) a {font-size: 16px; font-weight: var(--regular);}
+.mypage_contents {width: 100%; padding: 20px; margin-left: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
+.null_txt{width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
+.null_txt p {font-size: 16px; font-weight: var(--regular);}
+.null_txt p:first-child {padding-bottom: 20px; font-size: 18px;}
+
+/* search */
+.top_sec {display: flex; justify-content: space-between; align-items: center;}
+.table_tit {display: flex; align-items: center; font-size: 18px; font-weight: var(--medium);}
+.posts_count {display: inline-block; width: 20px; height: 20px; margin-left: 5px; margin-top:3px; color: #fff; font-weight: var(--medium); font-size: 14px; background-color: var(--main-color); border-radius: 50%;text-align: center; line-height: 20px;}
+.search_box {display: flex; align-items: center; position: relative; width: 240px;}
+.search_input {position: absolute; height: 36px; padding: 0 46px 0 10px; border-radius: 12px; border: none; background-color: var(--hashBg-color);}
+.search_input::placeholder {color: var(--main-color);}
+.clear_btn {position: absolute; width: 24px; height: 24px; right:40px; background:center / contain no-repeat url("../../images/common/icons_delete.svg"); cursor: pointer; opacity: 0; z-index: -1; transition: opacity 200ms ease-in-out, z-index 200ms ease-in-out;}
+.clear_btn.active {opacity: 1; z-index: 1;}
+.search_btn {position: absolute; display: block; width: 24px; height: 24px; right: 10px; background:center / contain no-repeat url("../../images/common/icon_search.svg"); cursor: pointer;}
+
+/* table */
+.review_table {width: 100%; margin-top: 20px; border-collapse: collapse;}
+.review_table thead th {padding:8px 0; border: 1px solid var(--text-color); border-left: none; border-right: none; background-color: var(--main-color); color: #fff; font-size: 14px; font-weight: var(--regular);}
+.review_table tbody tr {transition: background-color 200ms ease-in-out; cursor: pointer;}
+.review_table tbody td {padding:8px 0; border-bottom: 1px solid var(--text-color); text-align: center; font-size: 16px; font-weight: var(--regular);font-size: 14px; font-weight: var(--medium);}
+.review_table tbody tr:hover {background-color: var(--hashBg-color);}
+.review_table tbody td:nth-child(3) td {white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+
+/* summary */
+.summary_mypage {display: flex; justify-content: space-between; align-items: center;}
+.summary_mypage > li {width: calc((100% - 40px) / 3);}
+.summary_mypage > li > a {display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 20px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; border-radius:12px; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out, color 200ms ease-in-out;border: 1px solid var(--inactive-input-bg);}
+.summary_mypage > li > a:hover {color: #fff; background-color: var(--point-color);}
+.summary_mypage > li > a > span{transition: color 200ms ease-in-out;}
+.summary_mypage > li > a:hover > span{color: #fff;}
+
+/* search input */
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
+/* comment */
+.comment_contxt_box {display: flex;}
+.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
+.check_mark {display: block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}
+.check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
+.comment_info {width: 100%; text-align: left;}
+.comment_text {font-size: 14px;}
+.comment_date {font-size: 12px;}
+.comment_post_tit {font-size: 14px; color: var(--inactive-input-bg);}
+
+/* schedule */
+.register_schedule_btn {height: 40px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out; cursor: pointer;}
+.register_schedule_btn:hover {background-color: var(--point-color);}
+.today_date {font-size: 20px; font-weight: var(--medium);}
+.schedule_list {display: flex; align-items: center; flex-wrap: wrap; padding-top: 20px;}
+.schedule_list li {position: relative; width: calc((100% - 40px) / 3 ); margin-right: 20px;}
+.schedule_list li:nth-of-type(3n) {margin-right: 0;}
+.schedule_list li:nth-of-type(n + 4) {margin-top: 20px;}
+.schedule_list li > a{display: block; width: 100%; padding: 20px; border-radius: 12px; font-size: 16px; font-weight: var(--medium); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; transition: color 200ms ease-in-out, background-color 200ms ease-in-out;
+    z-index: 1;}
+.schedule_list li > a:hover {color: #fff; background-color: var(--point-color);}
+.schedule_list li > a:hover p, .schedule_list li > a:hover span {color: #fff;}
+.schedule_list li > a > p:first-child {display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
+.schedule_list li > a > p:last-child {padding-top: 10px;}
+.manage_schedule_btn {position: absolute; top: 20px; right:20px; display: block; width: 24px; height: 24px; background: center / contain no-repeat url("../../images/common/icon_edit.png");
+    z-index: 20; cursor: pointer;}
+.schedule_list li > a:hover + .manage_schedule_btn {background: center / contain no-repeat url("../../images/common/icon_edit_white.png");}
+.manage_schedule_btn:hover {background: center / contain no-repeat url("../../images/common/icon_edit_hover.png");
+    z-index: 20; cursor: pointer;}
+
+/* schedule-regist */
+.regist_top_sec {display: flex; justify-content: space-between; align-items: center;}
+.schedule_date_input {width: 120px; height: 48px; padding-left: 30px; font-size: 16px; font-weight: var(--medium); border: none; border-bottom: 1px solid var(--input-color); cursor: pointer; background: left / contain no-repeat url("../../images/common/icon_calendar.png"); background-size: 24px 24px;}
+.schedule_tit_box {position: relative; width: calc(100% - 140px); height: 48px;}
+.schedule_tit_box .tit_count {position: absolute; top: 50%; right: 20px; transform: translateY(-50%); font-size: 12px; color: var(--input-color);}
+.schedule_tit {width: 100%; height: 48px; padding-left: 10px; padding-right: 60px; border: none; border-bottom: 1px solid var(--inactive-input-bg); font-size: 16px; font-weight: var(--medium);}
+.schedule_tit_box .tit_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_tit:focus + .tit_count > .tit_counted {color: var(--point-color);}
+.schedule_tit::placeholder, .schedule_contxt_box::placeholder  {font-size: 14px; font-weight: var(--regular); color: var(--inactive-input-bg);}
+.schedule_txt_box {position: relative; width: 100%; height: 200px; padding: 20px 0;}
+.schedule_contxt_box {position: absolute; width: 100%; height: 160px; padding:10px; border:1px solid var(--inactive-input-bg); border-radius: 12px; font-size: 14px; transition : border-color 200ms ease-in-out; resize: none; outline: none;}
+.schedule_contxt_box:focus {border-color: var(--point-color);}
+.txt_count {position: absolute; bottom: 40px; right: 20px; font-size: 12px; color: var(--input-color);}
+.txt_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_contxt_box:focus + .txt_count .txt_counted {color: var(--point-color);}
+.schedule_btn_list {display: flex; align-items: center;}
+.schedule_btn_list.right {justify-content: flex-end; margin-top: -50px;}
+.schedule_btn_list.noMargin {margin-top: 0;}
+.schedule_btn_list.left {justify-content: flex-start; margin-top: -50px;}
+.schedule_btn_list.between {justify-content: space-between;}
+.schedule_btn_list > button {height: 50px; padding: 0 20px; font-size: 16px; font-weight: var(--medium); cursor: pointer;}
+.schedule_btn_list > button.cancel_btn {margin-right: 20px;}
+.cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
+.cancel_btn:hover {background-color: var(--hashBg-color);}
+
+/* myinfo 회원 정보 수정 */
+.myinfo_form { display: flex; flex-direction: column;padding-bottom: 60px; border-bottom: 1px solid var(--input-color);}
+.myinfo_list {padding-top: 60px;}
+.myinfo_list li {display: flex; align-items: center; padding-bottom: 20px;}
+.myinfo_list li input {width: calc(100% - 120px); height: 48px; padding: 0 10px; border-radius: 12px;}
+.myinfo_list li input.duplicate_input { height: 48px; padding: 0 10px; border-radius: 12px;}
+.duplicate_box {display: flex; justify-content: space-between; align-items: center; width: calc(100% - 120px);}
+.id_input {background-color: var(--inactive-input-bg); border: none; cursor:not-allowed;}
+.list_item_tit {width: 120px; font-size: 16px; font-weight: var(--medium);}
+.password_box {position: relative; width:calc(100% - 120px); height: 48px;}
+.myinfo_list .password_box > input {width: 100%; height: 48px; border-radius: 12px;}
+.password_box .show_pw_btn {position: absolute; width: 24px; height: 24px; right:20px; top: 50%; transform: translateY(-50%); cursor: pointer;}
+.password_box .show_pw_btn img {width: 24px; height: 24px;}
+.password_box .show_pw_btn.active{}
+
+.upload_cont {width: calc(100% - 120px);}
+.upload_box {display: flex; justify-content: space-between; align-items: center; width: 100%;}
+.file_upload_box {display: flex; justify-content: center; align-items: center;}
+.file_upload_box .file_upload_input {width: 0; padding:0; visibility: hidden;}
+.upload_name_box {display: block; width: calc(100% - 120px); height: 48px; border: 1px solid var(--input-color); border-radius: 12px;}
+.upload_btn {width: 100px; height: 48px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+.upload_btn:hover {background-color: var(--point-color);}
+.upload_txt {padding-left: 5px; padding-top: 5px; font-size: 8px; font-weight: var(--regular);}
+.modify_btn {width: 180px; height: 50px; padding: 0 30px;align-self: center; font-size: 16px; font-weight: var(--medium); cursor: pointer;}
+
+.leave_btn { height: 50px; padding: 0 20px;margin-top: 60px; border: 1px solid var(--inactive-input-bg); color: var(--inactive-input-bg); font-size: 16px; font-weight: var(--regular); background-color: #fff; cursor: pointer;}
+.leave_btn:hover {background-color: var(--inactive-input-bg); color: #fff; cursor: pointer;}
+
+.check_duplicate_btn {height: 48px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+.check_duplicate_btn:hover {background-color: var(--point-color);}
+.pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
+.pop_cont {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_bg.active {z-index: 200; opacity: 1;}
+.pop_cont.active {z-index: 500; opacity: 1;}
+.pop_icon {display: inline-block; margin-bottom: 20px;}
+.pop_icon img { width: 36px; height: 36px; }
+.pop_cont.selective p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
+.pop_cont.selective p:last-of-type {font-weight: var(--semiBold);}
+
+.pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
+.pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
+.pop_btn_list li > a {display: block; width: 100%; height: 100%; line-height: 50px;}
+.pop_btn_list .cancel_btn a {color: var(--main-color);}
+.confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
+.confirm_btn:hover {background-color: var(--point-color);}
+
+/* schedule 상세 페이지 */
+.schedule_detail_date, .schedule_detail_tit {padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
+.schedule_detail_tit { width: calc(100% - 100px);}
+/*.calendar_box {width: 130px; display: flex; align-items: center;}*/
+/*.calendar_box > img {width: 24px; height: 24px;}*/
+
+

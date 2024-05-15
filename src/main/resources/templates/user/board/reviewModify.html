@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/user/main.css}">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="user/layout/header.html"></div>
+
+<h1>게시물 수정</h1>
+
+<form action="/user/board/reviewModify" method="post">
+    <div th:each="post : ${ modify }">
+        <input type="hidden" th:value="${post.subCategory}" name="subCategory">
+        <input type="hidden" th:value="${post.postCode}" name="postCode">
+        <input th:value="${post.postTitle}" name="postTitle"><br>
+        <input th:value="${post.postContext}" name="postContext">
+        <button type="submit">수정하기</button>
+        <button type="button" th:onclick="history.back()">이전으로</button>
+    </div>
+</form>
+
+<div th:replace="user/layout/footer.html"></div>
+
+<script>
+    //header sub menu 활성화
+    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
+    const subMenu = document.querySelectorAll('.sub_menu');
+    gnbMenu.forEach(gnbmenu => {
+        gnbmenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.nextElementSibling.classList.add("active");
+        })
+        gnbmenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.nextElementSibling.classList.remove("active");
+        })
+    });
+
+    subMenu.forEach(submenu => {
+        submenu.addEventListener('mouseover', (e) => {
+            e.currentTarget.classList.add("active");
+        })
+        submenu.addEventListener('mouseout', (e) => {
+            e.currentTarget.classList.remove("active");
+        })
+    })
+
+    // 예리뷰 슬라이드
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+</body>
+</html>

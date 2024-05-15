@@ -1,0 +1,94 @@
+
+.terms_body {
+    width: 800px;
+    height: 360px;
+    padding-top: 20px;
+    margin: auto;
+}
+
+.terms_box {
+    width: 800px;
+    height: 224px;
+    padding: 20px;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 6px;
+    border-color: #A7A8C9;
+    outline: none;
+    resize: none;
+}
+
+.signup_body {
+    width: 800px;
+    padding-top: 46px;
+    padding-bottom: 80px;
+    margin: auto;
+}
+
+.signup_item {
+    padding-right: 85px;
+    display: inline-block;
+}
+
+.input_item {
+    width: 497px;
+    height: 48px;
+    border-radius: 12px;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+.file_box {
+    padding-left: 17px;
+    display: inline-block;
+}
+
+.file_box label {
+    display: inline-block;
+    padding: 12px 43px;
+    height: 48px;
+    background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+        background-color: var(--point-color); transition: background-color 200ms ease-in-out;
+    }
+}
+
+.file_box input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.btn_item {
+    width: 130px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.item_box {
+    padding-bottom: 40px
+}
+
+.message_box {
+    width: 800px;
+    height: 10px;
+    padding-left : 145px;
+    visibility: visible;
+}
+
+.check_box {display: inline-flex; justify-content: flex-start; align-items: center; cursor: pointer; font-size: 16px; -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
+.check_mark {display: inline-block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}
+.check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
+
+/*.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}*/
+/*.check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}*/
+/*.check_mark {display: block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}*/
+/*.check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}*/

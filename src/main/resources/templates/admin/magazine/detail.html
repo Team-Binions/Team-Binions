@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beanions</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
+<article class="all-content">
+<p class="contents_head">매거진 상세 정보</p>
+<div th:each="magazine : ${ magazineDetail }">
+    <div class="post_main_sub_category">
+        <p class="post_main_text">예피셜</p>
+        <div class="main_sub_category">
+            <p class="main_text" th:text="${ magazine.mainCategory }"></p>
+            <p class="main_sub">|</p>
+            <p class="sub_text" th:text="${ magazine.subCategory }"></p>
+        </div>
+    </div>
+    <p class="title_text" th:text="${ magazine.postTitle }"></p>
+    <p class="member_text" th:text="${ magazine.member.nickname }"></p>
+    <p th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }" class="number"></p>
+    <hr class="up_line_context">
+    <pre class="context_text"  th:text="${ magazine.postContext }"></pre>
+    <hr class="down_line_context">
+    <!-- 삭제, 목록, 수정 버튼 div -->
+    <div class="button_box">
+        <!-- 삭제 버튼 -->
+        <div id="root">
+            <button type="button" id="deleteModal_open_btn">삭제</button>
+        </div>
+        <!-- 목록 버튼 -->
+        <button id="back_post_btn" onclick="location.href='/admin/magazine'">목록</button>
+        <!-- 수정 버튼 -->
+        <button class="modify_btn" type="button" th:onclick="|location.href='@{/admin/magazine/update(id=${magazine.postCode})}'|">수정</button>
+    </div>
+
+    <!-- 삭제 모달창 -->
+    <div id="deleteModal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <p>매거진을 삭제하시겠습니까?</p>
+            <form th:action="@{/admin/magazine/delete(id=${magazine.postCode})}" method="post">
+                <div class="deleteModal_button_box">
+                    <button type="submit" id="deleteModal_check_btn">확인</button>
+                    <button type="button" id="deleteModal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+</div>
+        <div th:replace="admin/footer.html"></div>
+</article>
+</div>
+
+<script>
+    document.getElementById("deleteModal_open_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "block";
+    }
+
+    document.getElementById("deleteModal_close_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+
+    document.getElementById("deleteModal_check_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+</script>
+</body>
+</html>

@@ -1,27 +1,48 @@
 .membersDisplay {
-    width: 1200px;
-    margin-left: 20px;
-    margin-right: 20px;
-
-
+    text-color : #2A2A2A;
+    max-width: 1600px;
+    min-height: calc(100vh - 200px);
+    padding: 60px 0 0 20px;: 40px 0;
 }
-.searchBox {
-
+.title_text_font {
+    font-size: 24px;
 }
-
-.memberModifyBox {
+.memberBox {
     background-color: white;
     width: 400px;
     height: 50px;
-    border: #C4C4C4 0.5px solid;
-    text-justify: center;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border: #C4C4C4 1px solid;
+    border-radius: 12px;
+    align-content: center;
+    display: table-cell;
 }
 .hr {
     color: #D4CFEB;
 }
+.memberDBox {
+    background-color: #C4C4C4;
+    width: 400px;
+    height: 50px;
+    font-size: 14px;
+    border: #C4C4C4 1px solid;
+    border-radius: 12px;
+    display: inline-flex;
+}
+.memberDeBox {
+    background-color: #C4C4C4;
+    width: 400px;
+    height: 50px;
+    font-size: 14px;
+    border: #C4C4C4 1px solid;
+    border-radius: 12px;
+    display: inline-flex;
+}
+.memberD {
+    display: contents;
+}
+.input:focus {
+
+}
+
 
 

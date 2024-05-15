@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{../../css/admin/membersCss.css}">
+
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+    <article class="all-content">
+
+        <div>
+        <p class="title_text_font">회원 정보</p>
+
+        <div>
+            <p class="memberBox">게시글 수</p>
+            <p class="memberBox">댓글 수</p>
+            <p class="memberBox">보유 포인트</p>
+        </div>
+
+        <p>회원 상세 정보</p>
+        <div>
+        <div th:each="members: ${ memberDetail }">
+            <div class="memberD">
+                <div>아이디
+                    <input type="text" class="memberDBox" name="memberId" th:value="${ members.memberId }" readonly="readonly">
+                </div>
+                <div>
+                    <label th:for="nickname">닉네임</label>
+                    <input type="text" class="memberDBox" name="nickname" th:value="${ members.nickname }" readonly="readonly">
+                </div>
+            </div>
+                <div >성별
+                    <p class="memberD" th:text="${ members.gender }" >
+                </div>
+                <div>이메일
+                    <input type="text" class="memberDBox" name="email" th:value="${ members.email }" readonly="readonly">
+                </div>
+                <div>전화번호
+                    <input type="text"class="memberDBox" name="phone" th:value="${ members.phone }" readonly="readonly">
+                </div>
+                <div>기혼 여부
+                    <p class="memberD" th:text="${ members.marriedStatus }"></p>
+                </div>
+            <div>웨딩홀 인증
+                    <input type="text" class="memberDBox" name="weddingVerified" th:value="${ members.weddingVerified }" readonly="readonly">
+            </div>
+        </div>
+
+
+
+        <!-- 수정 버튼 -->
+        <button onclick="location.href='/admin/member'">목록</button>
+        <div th:each="members: ${ memberDetail }">
+            <button type="button" th:onclick="|location.href='@{/admin/member/membersModify(id=${members.memberCode})}'|">수정</button>
+        </div>
+
+        <div th:replace="admin/footer.html"></div>
+        </div>
+    </article>
+</div>
+</body>
+</html>
