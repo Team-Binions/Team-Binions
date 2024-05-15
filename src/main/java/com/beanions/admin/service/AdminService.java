@@ -1,6 +1,7 @@
 package com.beanions.admin.service;
 
 import com.beanions.common.dao.admin.AdminMapper;
+import com.beanions.common.dto.AdminMainDTO;
 import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
@@ -77,8 +78,18 @@ public class AdminService {
         adminMapper.magazineRegist(newMagazine);
     }
 
-    public List<AdminPostDTO> selectCurrentBoard() {
+    public List<PostDTO> selectCurrentBoard() {
 
         return adminMapper.selectCurrentBoard();
+    }
+
+    public List<PostDTO> selectCurrentMagazine() {
+
+        return adminMapper.selectCurrentMagazine();
+    }
+
+    public List<AdminMainDTO> selectAdminMainData() {
+
+        return adminMapper.selectAdminMainData();
     }
 }

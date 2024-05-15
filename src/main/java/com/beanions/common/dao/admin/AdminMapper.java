@@ -1,5 +1,6 @@
 package com.beanions.common.dao.admin;
 
+import com.beanions.common.dto.AdminMainDTO;
 import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
@@ -36,5 +37,9 @@ public interface AdminMapper {
 
     void magazineRegist(PostDTO newMagazine);
 
-    List<AdminPostDTO> selectCurrentBoard();
+    List<PostDTO> selectCurrentBoard();
+
+    List<PostDTO> selectCurrentMagazine();
+
+    List<AdminMainDTO> selectAdminMainData();
 }
