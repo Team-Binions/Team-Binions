@@ -12,4 +12,5 @@ public interface SignupMapper {
     void joinMember(MembersDTO member);
 
     int checkDupEmail(String email);
+
 }

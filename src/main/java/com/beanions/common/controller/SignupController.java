@@ -59,12 +59,13 @@ public class SignupController {
 
     @PostMapping(value = "/request-verify-mail")
     @ResponseBody
-    public String requestSignUp(@RequestBody String email) throws Exception{
+    public String requestDupCheckEmail(@RequestBody String email) throws Exception{
 
         email = email.replaceAll("^\"|\"$", "");
 
         int dupEmail = signupService.checkDupEmail(email);
         System.out.println("이메일 중복 개수 : " + dupEmail);
+
         if(dupEmail > 0) {
             return new ObjectMapper().writeValueAsString(dupEmail);
         }

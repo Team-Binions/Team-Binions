@@ -5,41 +5,57 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <a href="#" class="logo">
-        <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
-    </a>
-    <th:block th:if="${ param.id == 1 }">
-        <h2>아이디 찾기</h2>
-    </th:block>
-    <th:block th:if="${ param.id == 2 }">
-        <h2>비밀번호 찾기</h2>
-        <div>
-            <input class="input_item" type="text" name="memberId" id="memberId" placeholder="아이디를 입력해주세요">
+    <div class="wrapper">
+        <div class="login_box">
+            <div style="justify-content: center" id="logo">
+                <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
+            </div>
+            <div id="title">
+                <th:block th:if="${ no == 1 }">
+                    <p class="box_tit">아이디 찾기</p>
+                </th:block>
+                <th:block th:if="${ no == 2 }">
+                    <p class="box_tit">비밀번호 찾기</p>
+                </th:block>
+            </div>
+            <div id="email_div">
+                <th:block th:if="${ no == 1 }">
+                    <div>
+                        <h4 style="font-weight:bold; font-size: 10px; color: #6667AB">
+                            가입 시 입력하신 이메일 주소를 입력해주세요.<br>
+                            해당 이메일로 인증코드를 전송해 드릴게요!
+                        </h4>
+                    </div>
+                </th:block>
+                <th:block th:if="${ no == 2 }">
+                    <div>
+                        <h4 style="font-weight:bold; font-size: 10px; color: #6667AB">
+                            아이디와 이메일 주소를 입력해 주세요.<br>
+                            해당 이메일로 임시 비밀번호를 전송해 드릴게요!
+                        </h4>
+                    </div>
+                    <div class="id_box">
+                        <input class="login_input id" type="text" name="memberId" id="memberId" placeholder="아이디를 입력해 주세요">
+                    </div>
+                </th:block>
+                <div class="email_box">
+                    <input class="login_input email" type="email" name="memail" id="memail" placeholder="이메일을 입력해 주세요">
+                </div>
+                <th:block th:if="${ no == 1 }">
+                    <button class="login_btn" type="button" id="checkEmail">인증코드 받기</button>
+                </th:block>
+                <th:block th:if="${ no == 2 }">
+                    <button class="login_btn" type="button" id="tempPwd">임시 비밀번호 발급받기</button>
+                </th:block>
+            </div>
+            <span class="divide_line"></span>
+            <p class="signup_txt">예신예랑 회원이신가요?</p>
+            <button type="button" class="login_btn go_signup" onclick="location.href='/login'">로그인</button>
         </div>
-    </th:block>
-    <div id="email_div">
-        <div>
-            <h5 style="font-weight:bold; font-size: 10px; color: #6667AB">
-                가입 시 입력하신 이메일 주소를 입력해주세요.<br>
-                해당 이메일로 인증코드를 전송해 드릴게요!
-            </h5>
-        </div>
-        <div>
-            <input class="input_item" type="email" name="memail" id="memail" placeholder="이메일을 입력해 주세요">
-        </div>
-        <div style="padding-left: 20px; display: inline-block">
-            <button class="btn_item" type="button" id="checkEmail">인증코드 받기</button>
-        </div>
-    </div>
-    <hr>
-    <div>
-        <h6>예신예랑 회원이신가요?</h6>
-    </div>
-    <div style="padding-left: 20px; display: inline-block">
-        <button onclick="location.href='/login'">로그인</button>
     </div>
 
     <script src="/js/forgetInfo.js"></script>
