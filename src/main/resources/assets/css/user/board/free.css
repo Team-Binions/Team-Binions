@@ -26,7 +26,7 @@ article {
     margin-top: 60px;
     width: 100%;
     padding: 0 20px;
-    max-width: 1200px;
+    max-width: 1000px;
 }
 
 .content {
@@ -150,6 +150,10 @@ article {
     justify-content: center;
 }
 
+.category_data{
+    margin-bottom: 40px;
+}
+
 .mainCategory{
     font-size: 20px;
     font-weight: var(--semiBold);
@@ -166,10 +170,18 @@ article {
     color: var(--inactive-text);
     display: inline-block;
 }
+
 .free_detail_title {
     color: var(--text-color);
     font-size: 24px;
     font-weight: var(--medium);
+    margin-bottom: 40px;
+}
+
+.free_nickname_date {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
 }
 
 .free_nickname{
@@ -200,8 +212,70 @@ article {
     color: var(--text-color);
     font-size: 20px;
     font-weight: var(--semiBold);
+    margin-bottom: 50px;
 }
 
 .form-control{
     width: 1000px;
+}
+
+.detail_buttons {
+    display: flex;
+    float: right;
+}
+
+.detail_button {
+    width: 100px;
+    height: 50px;
+    background-color: var(--inactive-input-bg);
+    margin: 12px 8px 40px;
+}
+
+.detail_delete_button {
+    width: 100px;
+    height: 50px;
+    background-color: var(--inactive-input-bg);
+    margin-top: 12px;
+    margin-bottom: 60px;
+}
+
+.detail_button:hover{
+    background-color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+/* --------------- 자유게시판 수정페이지 ---------------*/
+
+.free_modify {
+    font-size: 24px;
+    font-weight: var(--bold);
+    color: var(--text-color);
+    margin-bottom: 50px;
+}
+
+.modify_title {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    font-weight: var(--semiBold);
+    border-radius: 12px;
+    padding-left: 17px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: none;
+    border: 1px solid var(--input-color);
+    border-radius: 12px;
+    transition: border-color 200ms ease-in-out;
+}
+
+.modify_content {
+    width: 100%;
+    height: 500px;
+    font-size: 12px;
+    font-weight: var(--medium);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 17px 17px 17px 17px;
 }

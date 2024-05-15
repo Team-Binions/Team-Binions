@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -12,19 +13,27 @@
 <body>
 <div th:replace="user/layout/header.html"></div>
 
-<h1>게시물 수정</h1>
+<div class="content">
+    <article>
+        <p class="modify">게시글 수정</p>
 
-<form action="/board/reviewModify" method="post">
-    <div th:each="post : ${ modify }">
-        <input type="hidden" th:value="${post.subCategory}" name="subCategory">
-        <input type="hidden" th:value="${post.postCode}" name="postCode">
-        <input th:value="${post.postTitle}" name="postTitle"><br>
-        <input th:value="${post.postContext}" name="postContext">
-        <button type="submit">수정하기</button>
-        <button type="button" th:onclick="history.back()">이전으로</button>
-    </div>
-</form>
+        <form action="/board/reviewModify" method="post">
+            <div th:each="post : ${ modify }">
+                <input type="hidden" th:value="${post.subCategory}" name="subCategory">
+                <input type="hidden" th:value="${post.postCode}" name="postCode">
 
+                <input class="modify_title" th:value="${post.postTitle}" name="postTitle">
+                <hr class="content_line">
+                <textarea class="modify_context" th:text="${ post.postContext }" name="postContext"></textarea>
+
+                <div class="detail_buttons">
+                    <button class="detail_button" type="submit">수정하기</button>
+                    <button class="detail_button" type="button" th:onclick="history.back()">이전으로</button>
+                </div>
+            </div>
+        </form>
+    </article>
+</div>
 <div th:replace="user/layout/footer.html"></div>
 
 <script>

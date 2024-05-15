@@ -19,13 +19,16 @@
     <div class="free_list_content">
         <article>
         <div th:each="free: ${ PostAndMemberDTO }" >
-            <p class="mainCategory" th:text="${free.mainCategory}"></p>
-            <p class="category_line">|</p>
-            <p class="subCategory" th:text=" ${free.subCategory}"></p>
-
+            <div class="category_data">
+                <p class="mainCategory" th:text="${free.mainCategory}"></p>
+                <p class="category_line">|</p>
+                <p class="subCategory" th:text=" ${free.subCategory}"></p>
+            </div>
             <p class="free_detail_title" th:text="${free.postTitle}"></p>
-            <p class="free_nickname" th:text="${free.member.nickname}"></p>
-            <p class="free_date" th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></p>
+            <div class="free_nickname_date">
+                <p class="free_nickname" th:text="${free.member.nickname}"></p>
+                <p class="free_date" th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></p>
+            </div>
             <hr class="content_line">
             <p class="free_content" th:text="${free.postContext}"></p>
             <hr class="content_line">
@@ -45,14 +48,15 @@
                 <button type="button">등록</button>
             </form>
         </table>
-
-            <button type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
-            <button type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>
+        <div class="detail_buttons">
+            <button class="detail_button" type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
+            <button class="detail_button" type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>
             <form th:action="@{/board/freedelete(id=${free.postCode})}" method="post">
                 <input type="hidden" th:value="${free.subCategory}" name="subCategory">
                 <input type="hidden" th:value="${free.postCode}" name="postCode">
-                <button type="submit">삭제하기</button>
+                <button class="detail_delete_button" type="submit">삭제하기</button>
             </form>
+        </div>
         </div>
         </article>
     </div>

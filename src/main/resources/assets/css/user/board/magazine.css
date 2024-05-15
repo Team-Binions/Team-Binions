@@ -1,0 +1,82 @@
+/* ----------- 매거진 상세페이지 ----------- */
+
+.magazine_category{
+    margin-top: 60px;
+    margin-bottom: 40px;
+    max-width: 1000px;
+}
+
+.magazine_mainCategory {
+    font-size: 20px;
+    font-weight: var(--semiBold);
+    color: var(--inactive-text);
+    display: inline;
+}
+
+.category_line {
+    color: var(--inactive-text);
+    display: inline;
+}
+
+.magazine_subCategory {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+/* 공지사항 내용 */
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    width: 100%;
+    margin: auto;
+    max-width: 1000px;
+}
+
+.magazine_detail_title{
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: var(--medium);
+    margin-bottom: 40px;
+}
+
+.magazine_nickname {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: var(--bold);
+    display: inline;
+    margin-bottom: 24px;
+}
+
+.magazine_date {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+.content_data{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content_line{
+    color: var(--inactive-input-bg);
+    margin-bottom: 10px;
+}
+
+.context {
+    color: var(--text-color);
+    min-height: 600px;
+    margin: 12px 8px 12px 8px;
+}
+
+.back_button {
+     width: 100px;
+     height: 50px;
+     background-color: var(--inactive-input-bg);
+     margin-top: 12px;
+     margin-bottom: 60px;
+     float: right;
+ }
