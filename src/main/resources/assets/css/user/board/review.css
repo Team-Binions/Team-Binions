@@ -196,7 +196,14 @@ article {
 .review_content {
     color: var(--text-color);
     min-height: 600px;
-    margin: 12px 8px 12px 8px;
+    padding: 12px 8px 12px 8px;
+}
+
+.viewCount_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
 }
 
 .detail_buttons {
@@ -204,19 +211,21 @@ article {
     float: right;
 }
 
+.viewCount{
+    color: var(--text-color);
+}
+
 .detail_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin: 12px 8px 40px;
+    margin-right: 8px
 }
 
 .detail_delete_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin-top: 12px;
-    margin-bottom: 60px;
 }
 
 .detail_button:hover{
