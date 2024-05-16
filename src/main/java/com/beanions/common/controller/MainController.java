@@ -48,10 +48,4 @@ public class MainController{
         return "user/login";
     }
 
-    // feature/adminPost
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin/main/dashBoard";
-    }
-
 }
