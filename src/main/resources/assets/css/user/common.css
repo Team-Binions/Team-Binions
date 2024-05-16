@@ -1,6 +1,6 @@
 /* header&footer */
-.header_box, .footer_box {display: flex; justify-content: center; width: 100%; min-width:1200px; background-color: #fff; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2);}
-.header_box {position: sticky; top: 0; left: 0; z-index: 100;}
+.header_box, .footer_box {display: flex; justify-content: center; width: 100%; min-width:1200px; background-color: #fff; }
+.header_box {position: sticky; top: 0; left: 0; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2); z-index: 100;}
 .header_box header, .footer_box footer {display: flex; justify-content: space-between; align-items: center; max-width: 1200px; min-width:1200px; width: 100%; height: 100px; padding: 0 20px;}
 .logo {display: flex; justify-self: center; align-items: center;}
 .logo img {width: 72px;}
@@ -9,13 +9,15 @@ header nav {display: flex; align-items: center;}
 .header_gnb, .right_menu {display: flex; align-items: center; }
 .header_gnb li, .right_menu li {position: relative; margin-right: 10px;}
 .header_gnb li a{display: flex; justify-content: center; align-items: center; padding: 0 10px; font-size: 16px; font-weight: var(--semiBold); color: var(--text-color); transition: color 200ms ease-in-out;}
-.header_gnb li a:hover {color: var(--main-color); transition: color 200ms ease-in-out;}
+.header_gnb li a.active {color: var(--point-color);}
 .right_menu li a {padding: 4px 12px;}
 .right_menu li:first-child a{border-radius:8px; background-color: var(--main-color); color: #ffffff; transition: background-color 200ms ease-in-out;}
 .right_menu li:last-child a{padding: 3px 12px; color: var(--main-color); border-radius: 8px; border: 1px solid var(--main-color); transition: background-color 200ms ease-in-out;}
 .right_menu li:first-child a:hover {background-color: var(--point-color); transition: background-color 200ms ease-in-out;}
 .right_menu li:last-child {margin-right: 0;}
 .right_menu li:last-child a:hover {background-color: var(--point-color); color: #ffffff; border-color: var(--point-color); transition: background-color 200ms ease-in-out;}
+.right_menu li.logout_btn a {width: 28px; height:28px; border: none; background: center / contain no-repeat url("../../images/common/icon_Logout.svg"); background-color: transparent; transition: background-image 200ms ease-in-out;}
+.right_menu li.logout_btn a:hover {background-color: transparent; border: none; background: center / contain no-repeat url("../../images/common/icon_Logout_active.svg");}
 
 /* sub menu */
 .sub_menu {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: fit-content; padding: 10px; background-color: #fff; border-radius:12px; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2); opacity: 0; z-index: -1; transition:top 200ms ease-in-out, opacity 200ms ease-in-out, z-index 200ms ease-in-out;}
@@ -39,3 +41,8 @@ footer .left_side {display: flex; align-items: flex-end;font-size: 12px;}
 .sns_list li a {display: flex; justify-content: center; align-items: center; }
 .sns_list li a img {width: 24px; height: 24px;}
 .sns_list li:last-child a img {width: 20px; height: 20px;}
+
+/* top button */
+.top_btn {position:fixed; right:20px; bottom: 20px; display: block; width: 40px; height: 40px; line-height: 40px; text-align: center; border-radius: 50%; color: #fff; font-size: 16px; font-weight: var(--semiBold); background-color: var(--main-color); transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out, z-index 200ms ease-in-out; z-index: -1; opacity: 0; cursor: pointer; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2);}
+.top_btn.active {z-index: 100; opacity: 1;}
+.top_btn:hover {background-color: var(--point-color);}
