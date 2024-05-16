@@ -36,4 +36,28 @@
         WHERE   MEMBER_ID = #{memberId}
     </select>
 
+    <select id="findByEmail">
+        SELECT
+                MEMBER_ID
+        FROM    MEMBERS
+        WHERE   EMAIL = #{email}
+    </select>
+    
+    <select id="findByMemberIdAndEmail">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   MEMBER_ID = #{id}
+        AND     EMAIL = #{email}
+    </select>
+
+    <update id="modifyMemberPwd">
+        UPDATE
+                MEMBERS
+        SET
+                MEMBER_PW = #{tempPwd}
+        WHERE   MEMBER_ID = #{id}
+    </update>
+
 </mapper>

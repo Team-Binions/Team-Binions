@@ -294,7 +294,7 @@ $(document).ready(function () {
                     // 성공적인 응답을 처리한다.
                     // console.log(data);
                     // console.log(typeof data);
-                    if(data > 0 & typeof data === "number") {
+                    if(data > 0) {
                         return alert("이미 존재하는 이메일입니다.");
                     }
                     alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
