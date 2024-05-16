@@ -23,7 +23,7 @@ public class AdminMemberService {
         return adminMapper.membersAllList();
     }
 
-    public List<MembersDTO> selectMembers(int code) {
+    public MembersDTO selectMembers(int code) {
 
         return adminMapper.selectMembers(code);
     }

@@ -19,39 +19,39 @@
         </div>
         <p class="title_text_font2">회원 정보</p>
         <div>
-            <div th:each="members: ${ memberDetail }">
+            <div>
                 <div class="text_font">
                     <div class="member_line">
                         <label>아이디
-                            <input type="text" class="member_Box" name="memberId" th:value="${ members.memberId }"
+                            <input type="text" class="member_Box" name="memberId" th:value="${ memberDetail.memberId }"
                                    readonly="readonly">
                         </label>
                         <label>닉네임
-                            <input type="text" class="member_Box" name="nickname" th:value="${ members.nickname }"
+                            <input type="text" class="member_Box" name="nickname" th:value="${ memberDetail.nickname }"
                                    readonly="readonly">
                         </label>
                     </div>
                     <div class="member_line">
                         <label>성별</label>
-                        <p class="gender_line2" th:text="${ members.gender }"></p>
+                        <p class="gender_line2" th:text="${ memberDetail.gender }"></p>
                     </div>
                     <div class="member_line">
                         <label>이메일
-                            <input type="text" class="member_Box" name="email" th:value="${ members.email }"
+                            <input type="text" class="member_Box" name="email" th:value="${ memberDetail.email }"
                                    readonly="readonly">
                         </label>
                         <label>전화번호
-                            <input type="text" class="member_Box" name="phone" th:value="${ members.phone }"
+                            <input type="text" class="member_Box" name="phone" th:value="${ memberDetail.phone }"
                                    readonly="readonly">
                         </label>
                     </div>
                     <div class="member_line">
                         <label>기혼 여부</label>
-                            <p class="gender_line2" th:text="${ members.marriedStatus }"></p>
+                            <p class="gender_line2" th:text="${ memberDetail.marriedStatus }"></p>
                     </div>
                     <div class="member_line">웨딩홀 인증
                         <input class="member_nickname_box" type="text" name="weddingVerified"
-                            th:value="${ members.weddingVerified }" readonly="readonly">
+                            th:value="${ memberDetail.weddingVerified }" readonly="readonly">
                     </div>
                 </div>
             </div>
@@ -75,16 +75,16 @@
                 <td>
                     <a th:text="${memberOne.postTitle}"></a>
                 </td>
-                <td th:text="${ memberOne.nickname }"></td>
+<!--                <td th:text="${ memberOne.nickname }"></td>-->
                 <td class="number" th:text="${#dates.format(memberOne.postDate, 'yyyy-MM-dd') }" ></td>
                 <td th:text="${ memberOne.viewCount }"></td>
             </tr>
         </table>
     </div>
         <div class="button_box" align="center">
-            <div th:each="members: ${ memberDetail }">
+            <div>
                 <button type="button" class="back_post_btn" onclick="location.href='/admin/member'">목록</button>
-                <button type="button" th:onclick="|location.href='@{/admin/member/membersModify(id=${members.memberCode})}'|">수정하기
+<!--                <button type="button" th:onclick="|location.href='@{/admin/member/membersModify(id=${memberDetail.memberCode})}'|">수정하기-->
                 </button>
             </div>
         </div>

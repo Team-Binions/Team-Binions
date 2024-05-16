@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminMapper {
     List<MembersDTO> membersAllList();
 
-    List<MembersDTO> selectMembers(int code);
+    MembersDTO selectMembers(int code);
 
     void memberModify(MembersDTO modify);
 

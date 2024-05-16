@@ -45,7 +45,7 @@ public class AdminController {
 
         int codes = Integer.parseInt(id);
 
-        List<MembersDTO> memberDetail = adminMemberService.selectMembers(codes);
+        MembersDTO memberDetail = adminMemberService.selectMembers(codes);
         List<PostDTO> memberOnePosts = adminMemberService.selectMemberPost(codes);
 
         for (PostDTO memberOne : memberOnePosts) {
@@ -58,7 +58,7 @@ public class AdminController {
         model.addAttribute("memberDetail", memberDetail);
         model.addAttribute("memberOnePosts", memberOnePosts);
 
-        return "/admin/member/membersDetail";
+        return "admin/member/membersDetail";
     }
 
 
