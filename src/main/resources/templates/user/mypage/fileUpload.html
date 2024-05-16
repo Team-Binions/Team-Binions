@@ -40,8 +40,8 @@
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
-        <p class="profile_name"><span th:text="${userMypageMainData.nickname}"></span>님</p>
-        <p class="total_posts_count">총 게시글 <span class="eng"  th:text="${userMypageMainData.totalCount}"></span></p>
+        <p class="profile_name"><span></span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng" ></span></p>
       </div>
     </div>
 
@@ -69,10 +69,6 @@
           <div class="preview_box">
             <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
             <ul class="preview_list">
-              <li class="preview_img">
-                <img src="./images/main/KakaoTalk_20230405_053202431_12.jpg" alt="preview image">
-                <span class="remove_preview_btn">×</span>
-              </li>
               <li class="upload_img_btn">
                 <label class="file_upload_box preview" name="upload">
                   <span class="upload_btn">＋</span>
@@ -110,22 +106,7 @@
 </div>
 <!-- <script src="./js/common.js"></script> -->
 <script>
-    // 검색시 x버튼
-    const clearBtn = document.querySelector('.clear_btn');
-    clearBtn.addEventListener('click', (e) => {
-        e.currentTarget.parentNode.querySelector('.search_input').value = null;
-        clearBtn.classList.remove("active");
-    })
 
-    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
-    const searchInput = document.querySelector('.search_input');
-    searchInput.addEventListener('input', (e) => {
-        if (e.currentTarget.value.length > 0) {
-            clearBtn.classList.add("active");
-        } else if (e.currentTarget.value.length <= 0) {
-            clearBtn.classList.remove("active");
-        }
-    })
 
     // 파일 업로드 시 미리보기 추가
     const previewTag = (imgSrc) => `<li class="preview_img">
