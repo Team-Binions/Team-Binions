@@ -139,4 +139,10 @@ public class MyPageController {
   public String mypageMyinfo(Model model){
     return "user/mypage/mypageMyinfo";
   }
+
+  // 마이페이지 > 파일 업로드
+  @GetMapping("/mypage/fileupload")
+  public String fileUpload(Model model){
+    return "user/mypage/fileUpload";
+  }
 }
