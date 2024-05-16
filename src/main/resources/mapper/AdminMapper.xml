@@ -18,6 +18,7 @@
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
 
+
     <select id="membersAllList" resultMap="membersResultMap">
         SELECT
         MEMBER_CODE
@@ -49,6 +50,26 @@
         FROM MEMBERS
         WHERE MEMBER_CODE = #{ codes }
     </select>
+
+<!--    <select id="oneMemberPost" parameterType="_int" resultMap="adminPostResultMap">-->
+<!--        SELECT-->
+<!--        POST_CODE-->
+<!--        , A.MEMBER_CODE-->
+<!--        , A.POST_TITLE-->
+<!--        , A.POST_CONTEXT-->
+<!--        , A.POST_DATE-->
+<!--        , A.MAIN_CATEGORY-->
+<!--        , A.SUB_CATEGORY-->
+<!--        , A.VEF_STATUS-->
+<!--        , A.REVIEW_STATUS-->
+<!--        , A.VIEW_COUNT-->
+<!--        , B.MEMBER_CODE-->
+<!--        , B.NICKNAME-->
+<!--        FROM POST A-->
+<!--        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)-->
+<!--        WHERE A.POST_CODE = #{ id }-->
+<!--    </select>-->
+
 
     <update id="memberModify" parameterType="com.beanions.common.dto.MembersDTO">
         UPDATE MEMBERS
