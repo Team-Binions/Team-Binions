@@ -61,7 +61,7 @@ $(document).ready(function () {
 
                         // 시간을 "mm:ss" 형식으로 표시
                         var formattedTime = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-                        timerElement.text('남은 시간 : ' + formattedTime);
+                        timerElement.text('남은 시간 ' + formattedTime);
                         timerElement.css({
                             "color" : "#6667AB",
                             "font-weight" : "bold",
@@ -97,8 +97,6 @@ $(document).ready(function () {
     function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
         $memailconfirmTxt.click(function(){
             if (data !== $memailconfirm.val()) {
-                console.log(data);
-                console.log($memailconfirm.val());
                 alert("인증번호가 잘못되었습니다.");
             } else {
                 fetch("/auth/request-checkValid-mail", {
