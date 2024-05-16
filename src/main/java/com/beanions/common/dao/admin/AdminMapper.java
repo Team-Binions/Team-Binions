@@ -17,6 +17,9 @@ public interface AdminMapper {
 
     void memberDelete(int memberCode);
 
+//    List<AdminPostDTO> oneMemberPost(int codes);
+
+
     List<AdminPostDTO> selectAllPost();
 
     List<AdminPostDTO> selectPost(int code);
@@ -36,10 +39,11 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllMagazine();
 
     void magazineRegist(PostDTO newMagazine);
-
+  
     List<PostDTO> selectCurrentBoard();
 
     List<PostDTO> selectCurrentMagazine();
 
     List<AdminMainDTO> selectAdminMainData();
+
 }
