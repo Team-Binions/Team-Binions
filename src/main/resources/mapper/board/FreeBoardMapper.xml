@@ -30,11 +30,12 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VIEW_COUNT
+        , A.VEF_STATUS
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id }
+        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
         ORDER BY POST_DATE desc
 <!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
     </select>

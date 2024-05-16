@@ -14,6 +14,7 @@
         <result property="mainCategory" column="main_category"/>
         <result property="subCategory" column="sub_category"/>
         <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
         <result property="viewCount" column="view_count"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="member_code"/>
@@ -31,11 +32,12 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VIEW_COUNT
+        , A.VEF_STATUS
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '리뷰'
+        WHERE MAIN_CATEGORY = '리뷰' AND VEF_STATUS = '활성'
         ORDER BY POST_DATE desc
         <!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
     </select>
@@ -49,6 +51,7 @@
         , A.POST_DATE
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
+        , A.REVIEW_STATUS
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A

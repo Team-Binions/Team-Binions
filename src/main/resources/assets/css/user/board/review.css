@@ -161,13 +161,24 @@ article {
     color: var(--text-color);
     font-size: 24px;
     font-weight: var(--medium);
+}
+
+.status {
+    color: var(--text-color);
+    font-size: 12px;
+}
+
+.title_status {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 .nickname_date {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
 }
 
 .review_nickname{

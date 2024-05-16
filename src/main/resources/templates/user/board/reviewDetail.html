@@ -23,7 +23,11 @@
                     <p class="category_line">|</p>
                     <p class="subCategory" th:text=" ${yesin.subCategory}"></p>
                 </div>
-                <p class="detail_title" th:text="${yesin.postTitle}"></p>
+                <div class="title_status">
+                    <p class="detail_title" th:text="${yesin.postTitle}"></p>
+                    <p class="status" th:if="${yesin.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
+                    <p class="status" th:if="${yesin.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
+                </div>
                 <div class="nickname_date">
                     <p class="review_nickname" th:text="${yesin.member.nickname}"></p>
                     <p class="review_date" th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
