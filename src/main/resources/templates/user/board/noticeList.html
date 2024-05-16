@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/default.css}">
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
-  <link rel="stylesheet" th:href="@{/css/user/main.css}">
   <link rel="stylesheet" th:href="@{/css/user/board/notice.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -15,32 +14,39 @@
 
   <div th:replace="user/layout/header.html"></div>
 
-  <p class="notice_title">공지사항</p>
-  <div class="search">
-    <input type="search" class="search_input_box" placeholder="검색어를 입력하세요">
-    <span class="clear_button"></span>
-  </div>
+  <div class="content">
+    <article>
+      <p class="notice_title">공지사항</p>
 
-  <table class="notice_List">
-    <thead>
-    <tr>
-      <th class="eng">no</th>
-      <th>제목</th>
-      <th>글쓴이</th>
-      <th>작성시간</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each=" notice, i : ${ noticeList }">
-      <td class="eng" th:text="${(i.size + 1)-(i.count)}"></td>
-      <td><a th:text="${notice.postTitle}" th:href="@{/user/board/noticedetail(id=${notice.postCode})}"></a></td>
-      <td th:text="${notice.member.nickname}"></td>
-      <td class="eng" th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
-    </tr>
-    </tbody>
-  </table>
+    <form class="search_form">
+      <div class="search_box">
+        <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+        <span class="clear_btn"></span>
+        <span class="search_btn"></span>
+      </div>
+    </form>
 
+    <table class="notice_List">
+      <thead>
+      <tr>
+        <th class="eng">no</th>
+        <th>제목</th>
+        <th>글쓴이</th>
+        <th>작성시간</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each=" notice, i : ${ noticeList }">
+        <td class="eng" th:text="${(i.size + 1)-(i.count)}"></td>
+        <td><a th:text="${notice.postTitle}" th:href="@{/board/noticedetail(id=${notice.postCode})}"></a></td>
+        <td th:text="${notice.member.nickname}"></td>
+        <td class="eng" th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></td>
+      </tr>
+      </tbody>
+    </table>
   <div th:replace="user/layout/footer.html"></div>
+  </article>
+  </div>
 
   <script>
     //header sub menu 활성화
@@ -80,6 +86,23 @@
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+    });
+
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+      e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+      clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+      if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+        clearBtn.classList.add("active"); // x버튼 활성화
+      } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+        clearBtn.classList.remove("active");// x버튼 비활성화
+      }
     });
   </script>
 </body>

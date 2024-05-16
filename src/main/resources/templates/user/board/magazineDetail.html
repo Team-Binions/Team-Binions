@@ -4,27 +4,36 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/magazine.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" th:href="@{/css/user/main.css}">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <title>Title</title>
+    <div th:each="magazine : ${ magazine }">
+        <title th:text="${magazine.postTitle}"></title>
+    </div>
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
-<div th:each=" magazine: ${ magazine }">
-    <p th:text="${magazine.mainCategory}"></p>
-    <p th:text="${magazine.subCategory}"></p>
-    <h1 th:text="${magazine.postTitle}"></h1>
+<div class="content">
+    <article>
+    <div th:each=" magazine: ${ magazine }">
+        <div class="magazine_category">
+            <p class="magazine_mainCategory" th:text="${magazine.mainCategory}"></p>
+            <p class="category_line">|</p>
+            <p class="magazine_subCategory" th:text="${magazine.subCategory}"></p>
+        </div>
+        <p class="magazine_detail_title" th:text="${magazine.postTitle}"></p>
+        <div class="content_data">
+            <p class="magazine_nickname" th:text="${magazine.member.nickname}"></p>
+            <p class="magazine_date" th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></p>
+        </div>
+        <hr class="content_line">
+        <p class="context" th:text="${magazine.postContext}"></p>
+        <hr class="content_line">
+    </div>
 
-    <h4 th:text="${magazine.member.nickname}"></h4>
-    <h4 th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></h4>
-    <p th:text="${magazine.postContext}"></p>
-
-    <!--  <button th:if="${previousNotice.postCode != null}" th:href="@{/board/detail(id=${previousNotice.postCode})}">이전글</button>-->
-    <!--  <button>다음글</button>-->
-
-    <button onclick="location.href='/user/board/notice'">목록</button>
+        <button class="back_button" onclick="location.href='/board/notice'">목록</button>
+    </article>
 </div>
 <div th:replace="user/layout/footer.html"></div>
 <script th:inline="javascript">

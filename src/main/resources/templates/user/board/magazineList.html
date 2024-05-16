@@ -5,7 +5,6 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/user/common.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" th:href="@{/css/user/main.css}">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <title>Title</title>
@@ -23,7 +22,7 @@
     </tr>
     <tr th:each=" magazine, i : ${ magazineList }">
         <td th:text="${(i.size + 1)-(i.count)}"></td>
-        <td><a th:text="${magazine.postTitle}" th:href="@{/user/board/magazinedetail(id=${magazine.postCode})}"></a></td>
+        <td><a th:text="${magazine.postTitle}" th:href="@{/board/magazinedetail(id=${magazine.postCode})}"></a></td>
         <td th:text="${magazine.member.nickname}"></td>
         <td th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></td>
     </tr>
