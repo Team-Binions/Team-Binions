@@ -13,43 +13,155 @@
 <!--    <div th:replace="admin/sidebar :: admin-sidebar"></div>-->
 <article>
 <!--    <h1 align="center">관리자 메인</h1>-->
-    <p>회원</p>
-    <div class="member_box">
-        <div class="member_item">
+    <p class="dashBoard_member_text">회원</p>
+    <div class="dashBoard_box_first" th:each="data : ${ aminMainData }">
+        <div class="dashBoard_item_first">
             <div class="main_content_box">
-                <p class="member_text">방문자 수</p>
-                <p class="member_text">전체</p>
-                <p class="member_text">1,000</p>
-                <p class="member_text">오늘</p>
-                <p class="member_text">21</p>
+                <p class="content_header">방문자 수</p>
+                <div class="content_text_box">
+                    <div class="content_count_box">
+                        <p>전체</p>
+                        <p class="number">1,000</p>
+                    </div>
+                    <div class="content_count_box">
+                        <p>오늘</p>
+                        <p class="number">21</p>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
-        <div class="member_item">
+        <div class="dashBoard_item_first">
             <div class="main_content_box">
-                <p class="member_text">가입 회원 수</p>
-                <p class="member_text">전체</p>
-                <p class="member_text">200</p>
-                <p class="member_text">오늘</p>
-                <p class="member_text">2</p>
+                <p class="content_header">가입 회원 수</p>
+                <div class="content_text_box">
+                    <div class="content_count_box">
+                        <p>전체</p>
+                        <p class="number" th:text="${data.memberAll}"></p>
+                    </div>
+                    <div class="content_count_box">
+                        <p>오늘</p>
+                        <p class="number" th:text="${data.memberDay}"></p>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
-        <div class="member_item">
-            <div class="main_content_box"></div>
+        <div class="dashBoard_item_first">
+            <div class="main_content_box">
+                <p class="content_header">게시물 수</p>
+                <div class="content_text_box">
+                    <div class="content_count_box">
+                        <p>전체</p>
+                        <p class="number" th:text="${ data.postAll }"></p>
+                    </div>
+                    <div class="content_count_box">
+                        <p>오늘</p>
+                        <p class="number" th:text="${ data.postDay }"></p>
+                    </div>
+                </div>
+                <hr>
+            </div>
         </div>
     </div>
-    <div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div>
-        <div>
-            <table></table>
+    <div class="dashBoard_box_second" th:each="data : ${ aminMainData }">
+        <div class="dashBoard_board_box">
+            <p class="dashBoard_board_text">예리뷰</p>
+            <div class="dashBoard_item_second">
+                <div class="second_main_content_box">
+                    <p class="content_header">리뷰게시판</p>
+                    <div class="content_text_box">
+                        <div class="content_count_box">
+                            <p>전체</p>
+                            <p class="number" th:text="${ data.reviewAll }"></p>
+                        </div>
+                        <div class="content_count_box">
+                            <p>오늘</p>
+                            <p class="number" th:text="${ data.reviewDay}"></p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <div>
-            <table></table>
+        <div class="dashBoard_board_box">
+            <p class="dashBoard_board_text">예수다</p>
+            <div class="dashBoard_item_second">
+                <div class="second_main_content_box">
+                    <p class="content_header">자유게시판</p>
+                    <div class="content_text_box">
+                        <div class="free_count_box" id="yesin_count_box">
+                            <div class="free_content_count_box">
+                                <p>예신</p>
+                                <p class="number" th:text="${ data.yesinAll }"></p>
+                            </div>
+                            <div class="free_content_count_box" id="yesin_margin">
+                                <p>신규</p>
+                                <p class="number" th:text="${ data.yesinDay }"></p>
+                            </div>
+                        </div>
+                        <div  class="free_count_box">
+                            <div class="free_content_count_box" id="yerang_margin">
+                                <p>예랑</p>
+                                <p class="number" th:text="${ data.yerangAll }"></p>
+                            </div>
+                            <div class="free_content_count_box">
+                                <p>신규</p>
+                                <p class="number" th:text="${ data.yerangDay }"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr id="free_line">
+                </div>
+            </div>
+        </div>
+        <div class="dashBoard_board_box"></div>
+    </div>
+    <div class="dashBoard_box_third">
+        <div class="dashBoard_table_area">
+            <p class="dashBoard_board_text">최신 공지사항</p>
+            <div class="dashBoard_table_box">
+                <table class="dashBoard_table">
+                    <tr class="dashBoard_tr">
+                        <th class="dashBoard_th">no</th>
+                        <th class="dashBoard_th">제목</th>
+                        <th class="dashBoard_th">작성일</th>
+                        <th class="dashBoard_th">조회수</th>
+                    </tr>
+                    <tr class="dashBoard_tr" th:each="notice : ${ postList }">
+                        <td class="dashBoard_td" th:text="${ notice.postCode}"></td>
+                        <td class="dashBoard_td">
+                            <a th:text="${notice.postTitle}" th:href="@{/admin/notice/detail(id=${notice.postCode})}"></a>
+                        </td>
+                        <td class="dashBoard_td" th:text="${ #dates.format(notice.postDate, 'yyyy-MM-dd') }"></td>
+                        <td class="dashBoard_td" th:text="${ notice.viewCount }"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="dashBoard_table_area">
+            <p class="dashBoard_board_text">최신 매거진</p>
+            <div class="dashBoard_table_box">
+                <table class="dashBoard_table">
+                    <tr class="dashBoard_tr">
+                        <th class="dashBoard_th">no</th>
+                        <th class="dashBoard_th">매거진</th>
+                        <th class="dashBoard_th">작성일</th>
+                        <th class="dashBoard_th">조회수</th>
+                    </tr>
+                    <tr class="dashBoard_tr" th:each="magazine : ${ magazineList }">
+                        <td class="dashBoard_td" th:text="${ magazine.postCode }"></td>
+                        <td class="dashBoard_td">
+                            <a th:text="${magazine.postTitle}" th:href="@{/admin/magazine/detail(id=${magazine.postCode})}"></a>
+                        </td>
+                        <td class="dashBoard_td" th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd')}"></td>
+                        <td class="dashBoard_td" th:text="${ magazine.viewCount }"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
+    <div th:replace="admin/footer.html"></div>
 </article>
 </div>
 </body>

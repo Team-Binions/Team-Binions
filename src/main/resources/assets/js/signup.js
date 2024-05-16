@@ -471,7 +471,7 @@ $(document).ready(function () {
                         throw new Error("Network response was not ok");
                     }
                     alert("회원가입이 완료되었습니다!\n로그인창으로 이동합니다..");
-                    return window.location.href="/";
+                    return window.location.href="/auth/login";
                 })
                 .catch(error => {
                     // 오류가 발생했을 때 처리한다.

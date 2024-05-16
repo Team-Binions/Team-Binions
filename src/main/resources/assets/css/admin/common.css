@@ -28,33 +28,209 @@ input::-webkit-search-results-decoration {
 
 .menu-item.active {
     background-color: #D4CFEB;
+    font-weight: var(--bold);
 }
 
-/* 관리자 메인페이지 */
+/* ========== 관리자 메인페이지 ========== */
+/* dashBoard 첫 번째 줄 */
 /* 회원 관련 정보 box */
-.member_box {
+.dashBoard_member_text {
+    font-weight: var(--regular);
+    font-size: 20px;
+    padding-top: 20px;
+}
+.dashBoard_box_first {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
-.member_item {
+.dashBoard_item_first {
     background-color: #6667AB;
     color: #ffffff;
-    width: 32%;
+    width: 33%;
+    margin: 10px;
+    /*padding: 10px;*/
     /*width: 500px;*/
     height: 150px;
     border-radius: 12px;
 }
 
 .main_content_box {
-    padding: 10px;
+    padding: 20px;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
 }
 
-.member_text {
+.main_content_box p {
     color: #ffffff;
 }
 
+.content_header {
+    width: 100%;
+    font-size: 18px;
+    font-weight: var(--regular);
+}
+
+.content_text_box {
+    margin-top: -6px;
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.content_count_box {
+    width: 50%;
+}
+
+.content_count_box p {
+    font-size: 16px;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.content_count_box .number {
+    font-weight: var(--semiBold);
+}
+
+
+.main_content_box hr {
+    margin-top: -40px;
+    width: 88%;
+    background-color: #ffffff;
+    height: 1px;
+    border: 0;
+}
+
+
+/* dashBoard 두번째 줄 */
+.dashBoard_box_second {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 67px;
+}
+.dashBoard_board_box {
+    width: 34%;
+    padding: 10px;
+}
+
+.dashBoard_board_text {
+    font-weight: var(--regular);
+    font-size: 20px;
+}
+
+.dashBoard_item_second {
+    color: var(--text-color);
+    height: 150px;
+    border-radius: 12px;
+    border: 1px solid var(--text-color);
+    margin-top: 20px;
+}
+
+.second_main_content_box {
+    padding: 20px;
+}
+
+
+.second_main_content_box hr {
+    margin-top: -40px;
+    width: 88%;
+    background-color: #EDEDFF;
+    height: 2px;
+    border: 0;
+}
+
+.free_count_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.free_content_count_box p {
+    font-size: 16px;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.free_content_count_box .number {
+    font-weight: var(--semiBold);
+}
+
+#yesin_count_box {
+    border-right: 2px solid #EDEDFF;
+}
+
+#yesin_margin {
+    margin-right: 10px;
+}
+
+#yerang_margin {
+    margin-left: 10px;
+}
+
+.second_main_content_box #free_line {
+    width: 100%;
+}
+
+/* dashBoard 세번째 줄 */
+.dashBoard_box_third {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 67px;
+}
+
+.dashBoard_table_area {
+    width: 50%;
+    padding: 10px;
+}
+
+.dashBoard_table_box {
+    width: 100%;
+    margin-top: 20px;
+    display: inline-block;      /* 내부 테이블 크기에 맞춤 */
+    border: 1px solid var(--text-color);    /* border 표시 */
+    border-radius: 12px;    /* radius 적용 */
+    overflow: hidden;       /* 넘치는 내용 감춤 */
+}
+
+.dashBoard_table{
+    width: 100%;
+    text-align: center;
+    border-style: hidden;   /* 두께 맞추기 위해 border-style 숨김 */
+    /*border: 2px groove var(--text-color);*/
+    /*border-radius: 12px;*/
+    border-collapse: collapse;
+}
+
+.dashBoard_th {
+    background-color: #ffffff;
+    color: var(--text-color);
+    border: none;
+    font-weight: var(--medium);
+    font-size: 16px;
+}
+
+.dashBoard_tr { border: 1px groove var(--text-color)}
+.dashBoard_td { border: none; height: 38px}
+
+.dashBoard_table th, td {
+    height: 40px;
+    font-size: 14px;
+}
+
+
+.dashBoard_table th {
+    /*background-color: #6667AB;*/
+    /*color: #ffffff;*/
+    font-weight: var(--medium);
+    font-size: 16px;
+    height: 45px;
+}
+
+
+/* ======= content 영역 설정 ==========*/
 /* 사이드바의 세로 길이를 화면 높이에 맞추기 위한 설정 */
 html, body {
     height: 100%;

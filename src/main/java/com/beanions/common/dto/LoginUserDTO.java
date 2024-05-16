@@ -3,14 +3,16 @@ package com.beanions.common.dto;
 import com.beanions.common.MemberRole;
 import lombok.*;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class MembersDTO {
+public class LoginUserDTO {
 
     private Integer memberCode;
     private String memberId;
@@ -20,10 +22,15 @@ public class MembersDTO {
     private String phone;
     private String gender;
     private String marriedStatus;
-//    private MemberRole memberRole;
-    private String memberRole;
+    private MemberRole memberRole;
     private String weddingFile;
     private String weddingVerified;
     private Date signupDate;
 
+    public List<String> getRole(){
+        if(!this.memberRole.getRole().isEmpty()) {
+            return Arrays.asList(this.memberRole.getRole().split(","));
+        }
+        return null;
+    }
 }

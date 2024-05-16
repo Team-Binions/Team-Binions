@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div class="header_box">
   <header>
     <a href="#" class="logo">
@@ -23,7 +25,8 @@
       </ul>
       <ul class="right_menu">
         <li><a href="/board/freeRegist">글쓰기</a></li>
-        <li><a href="#">로그인</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
+        <li sec:authorize="hasAnyAuthority('USER')"><a th:href="@{/auth/logout}">로그아웃</a></li>
       </ul>
     </nav>
   </header>
