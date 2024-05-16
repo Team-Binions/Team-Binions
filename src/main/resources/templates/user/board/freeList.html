@@ -7,9 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <div th:each="yesin: ${ PostAndMemberDTOList }">
-        <title th:text="|${yesin.subCategory}수다방|"></title>
-    </div>
     <script>
         const successMessage = `[[${ successMessage }]]`
         if (successMessage){
@@ -18,6 +15,9 @@
     </script>
 </head>
 <body>
+    <div th:each="yesin: ${ PostAndMemberDTOList.list }">
+        <title th:text="|${yesin.subCategory}수다방|"></title>
+    </div>
 <div th:replace="user/layout/header.html"></div>
 
     <div class="content">
@@ -43,7 +43,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="free, i : ${ PostAndMemberDTOList }" >
+                <tr th:each="free, i : ${ PostAndMemberDTOList.list }" >
                     <td class="eng" th:text="${ (i.size + 1)-(i.count) }"></td>
                     <td>
                     <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
@@ -54,6 +54,9 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="list">
+
+            </div>
 <!--            페이지네이션 렌더링-->
             <div class="paging">
 
@@ -76,8 +79,9 @@
         // 게시글 리스트 조회
         function findAllPost() {
 
+
             // 1. PagingResponse의 멤버인 List<T> 타입의 list를 의미
-            const list = [[ ${response.list} ]];
+            const list = [[ ${PostAndMemberDTOList.list} ]];
 
             // 2. 리스트가 비어있는 경우, 행에 "검색 결과가 없다"는 메시지를 출력하고, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직을 종료
             if ( !list.length ) {
@@ -86,7 +90,7 @@
             }
 
             // 3. PagingResponse의 멤버인 pagination을 의미
-            const pagination = [[ ${response.pagination} ]];
+            const pagination = [[ ${PostAndMemberDTOList.pagination} ]];
 
             // 4. @ModelAttribute를 이용해서 뷰(HTML)로 전달한 SearchDto 타입의 객체인 params를 의미
             const params = [[ ${params} ]];
