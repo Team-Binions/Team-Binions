@@ -1,6 +1,5 @@
 package com.beanions.common.dto;
 
-import com.beanions.common.MemberRole;
 import lombok.*;
 
 import java.util.Date;

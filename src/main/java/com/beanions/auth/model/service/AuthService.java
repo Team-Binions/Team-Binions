@@ -1,7 +1,6 @@
 package com.beanions.auth.model.service;
 
 import com.beanions.auth.model.AuthDetails;
-import com.beanions.common.service.LoginService;
 import com.beanions.common.dto.LoginUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

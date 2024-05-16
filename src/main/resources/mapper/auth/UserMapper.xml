@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.auth.dao.UserMapper">
+    <resultMap id="memberInfo" type="com.beanions.common.dto.LoginUserDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="memberPw" column="MEMBER_PW"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="marriedStatus" column="MARRIED_STATUS"/>
+        <result property="memberRole" column="MEMBER_ROLE"/>
+        <result property="weddingFile" column="WEDD_FILE"/>
+        <result property="weddingVerified" column="WEDD_VEF"/>
+        <result property="signupDate" column="SIGNUP_DATE"/>
+    </resultMap>
+
+    <select id="findByMemberId" resultMap="memberInfo">
+        SELECT
+                MEMBER_CODE,
+                MEMBER_ID,
+                MEMBER_PW,
+                NICKNAME,
+                EMAIL,
+                PHONE,
+                GENDER,
+                MARRIED_STATUS,
+                MEMBER_ROLE,
+                WEDD_FILE,
+                WEDD_VEF,
+                SIGNUP_DATE
+        FROM    MEMBERS
+        WHERE   MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="findByEmail">
+        SELECT
+                MEMBER_ID
+        FROM    MEMBERS
+        WHERE   EMAIL = #{email}
+    </select>
+    
+    <select id="findByMemberIdAndEmail">
+        SELECT
+                COUNT(*)
+        FROM
+                MEMBERS
+        WHERE   MEMBER_ID = #{id}
+        AND     EMAIL = #{email}
+    </select>
+
+    <update id="modifyMemberPwd">
+        UPDATE
+                MEMBERS
+        SET
+                MEMBER_PW = #{tempPwd}
+        WHERE   MEMBER_ID = #{id}
+    </update>
+
+</mapper>

@@ -1,6 +1,6 @@
 package com.beanions.common.dto;
 
-import com.beanions.common.MemberRole;
+import com.beanions.auth.dto.MemberRole;
 import lombok.*;
 
 import java.util.Arrays;

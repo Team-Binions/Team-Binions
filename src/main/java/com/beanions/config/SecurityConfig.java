@@ -1,7 +1,7 @@
 package com.beanions.config;
 
 
-import com.beanions.common.MemberRole;
+import com.beanions.auth.dto.MemberRole;
 import com.beanions.config.handler.AuthSuccessHandler;
 import com.beanions.config.handler.AuthFailHandler;
 import org.springframework.beans.factory.annotation.Autowired;

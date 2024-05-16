@@ -1,8 +1,8 @@
 package com.beanions.admin.service;
 
-import com.beanions.common.dao.admin.AdminMapper;
-import com.beanions.common.dto.AdminMainDTO;
-import com.beanions.common.dto.AdminPostDTO;
+import com.beanions.admin.dao.AdminMapper;
+import com.beanions.admin.dto.AdminMainDTO;
+import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

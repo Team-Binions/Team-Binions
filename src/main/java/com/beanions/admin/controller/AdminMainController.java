@@ -1,9 +1,8 @@
 package com.beanions.admin.controller;
 
-import com.beanions.admin.service.AdminService;
-import com.beanions.common.dto.AdminMainDTO;
-import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.admin.service.AdminService;
+import com.beanions.admin.dto.AdminMainDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

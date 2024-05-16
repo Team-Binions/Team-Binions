@@ -1,9 +1,8 @@
 package com.beanions.admin.controller;
 
 
-import com.beanions.admin.service.MemberService;
-import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
+import com.beanions.admin.service.AdminMemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +17,16 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final MemberService memberService;
+    private final AdminMemberService adminMemberService;
 
-    public AdminController(MemberService memberService) {
-        this.memberService = memberService;
+    public AdminController(AdminMemberService adminMemberService) {
+        this.adminMemberService = adminMemberService;
     }
 
     @GetMapping("/member")
     public String findMembersList(Model model) {
 
-        List<MembersDTO> membersList = memberService.membersAllList();
+        List<MembersDTO> membersList = adminMemberService.membersAllList();
 
         for (MembersDTO members : membersList) {
             System.out.println("members = " + members);
@@ -44,7 +43,7 @@ public class AdminController {
 
         int codes = Integer.parseInt(id);
 
-        List<MembersDTO> memberDetail = memberService.selectMembers(codes);
+        List<MembersDTO> memberDetail = adminMemberService.selectMembers(codes);
 
         System.out.println("memberDetail = " + memberDetail);
 
@@ -59,7 +58,7 @@ public class AdminController {
 
         int code = Integer.parseInt(id);
 
-        List<MembersDTO> memberModify = memberService.selectMembers(code);
+        List<MembersDTO> memberModify = adminMemberService.selectMembers(code);
 
         System.out.println("memberModify = " + memberModify);
 
@@ -74,7 +73,7 @@ public class AdminController {
 
         System.out.println("modify = " + modify);
 
-        memberService.memberModify(modify);
+        adminMemberService.memberModify(modify);
 
 
         rttr.addFlashAttribute("successMessage", "해당 회원의 정보가 수정 되었습니다.");
@@ -87,7 +86,7 @@ public class AdminController {
 
         int memberCode = Integer.parseInt(id);
 
-        memberService.memberDelete(memberCode);
+        adminMemberService.memberDelete(memberCode);
 
         rttr.addFlashAttribute("successMessage", memberCode + "번 회원을 삭제하셨습니다.");
 

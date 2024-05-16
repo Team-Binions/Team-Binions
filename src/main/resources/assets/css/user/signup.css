@@ -5,17 +5,11 @@
     margin: auto;
 }
 
-.terms_box {
-    width: 800px;
-    height: 224px;
-    padding: 20px;
-    border-style: solid;
-    border-width: thin;
-    border-radius: 6px;
-    border-color: #A7A8C9;
-    outline: none;
-    resize: none;
-}
+.terms_box { width: 800px; height: 224px; padding: 20px; border: 1px solid var(--input-color); border-radius: 12px;}
+.terms_inner_box {width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; font-size: 14px; font-weight: var(--regular);}
+.terms_inner_box p {padding-bottom: 8px;}
+.terms_inner_box::-webkit-scrollbar {width: 5px; height: 8px; border-radius: 5px; background-color: rgba(167, 168, 201, 0.7);}
+.terms_inner_box::-webkit-scrollbar-thumb {border-radius: 5px; background-color: var(--main-color);}
 
 .signup_body {
     width: 800px;

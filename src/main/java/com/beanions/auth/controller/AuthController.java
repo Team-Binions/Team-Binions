@@ -1,25 +1,17 @@
 package com.beanions.auth.controller;
 
-import com.beanions.auth.model.AuthDetails;
-import com.beanions.common.dto.MembersDTO;
-import com.beanions.common.service.LoginService;
-import com.beanions.common.service.MailService;
-import com.beanions.common.service.SignupService;
+import com.beanions.common.dto.LoginUserDTO;
+import com.beanions.auth.model.service.LoginService;
+import com.beanions.user.service.MailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 @Controller
 @AllArgsConstructor
@@ -88,7 +80,7 @@ public class AuthController {
 
     @PostMapping(value = "/request-checkValid-id-and-email")
     @ResponseBody
-    public String checkValidIdAndEmail(@RequestBody MembersDTO member) throws Exception{
+    public String checkValidIdAndEmail(@RequestBody LoginUserDTO member) throws Exception{
         String id = member.getMemberId();
         System.out.println(id);
         String email = member.getEmail();
