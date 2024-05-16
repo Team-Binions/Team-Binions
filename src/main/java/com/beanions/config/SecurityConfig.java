@@ -60,15 +60,15 @@ public class SecurityConfig {
                     "/",
                     "/main",
                     "/signup",
-                    "/user/board/reviewList",
-                    "/user/board/reviewDetail",
-                    "/user/board/notice",
-                    "/user/board/noticedetail",
-                    "/user/board/magazine",
-                    "/user/board/magazinedetail",
-                    "/user/board/yerangList",
-                    "/user/board/yesinList",
-                    "/user/board/freeDetail").permitAll();
+                    "/board/reviewList",
+                    "/board/reviewDetail",
+                    "/board/notice",
+                    "/board/noticedetail",
+                    "/board/magazine",
+                    "/board/magazinedetail",
+                    "/board/yerangList",
+                    "/board/yesinList",
+                    "/board/freeDetail").permitAll();
             
             // UserRole에 설정해준 상수 값과 비교해 접근 권한 부여
             auth.requestMatchers("/user/*").hasAnyAuthority(MemberRole.USER.getRole());
