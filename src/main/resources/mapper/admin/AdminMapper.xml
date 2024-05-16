@@ -55,26 +55,6 @@
         WHERE MEMBER_CODE = #{ code }
     </select>
 
-<!--    <select id="oneMemberPost" parameterType="_int" resultMap="adminPostResultMap">-->
-<!--        SELECT-->
-<!--        POST_CODE-->
-<!--        , A.MEMBER_CODE-->
-<!--        , A.POST_TITLE-->
-<!--        , A.POST_CONTEXT-->
-<!--        , A.POST_DATE-->
-<!--        , A.MAIN_CATEGORY-->
-<!--        , A.SUB_CATEGORY-->
-<!--        , A.VEF_STATUS-->
-<!--        , A.REVIEW_STATUS-->
-<!--        , A.VIEW_COUNT-->
-<!--        , B.MEMBER_CODE-->
-<!--        , B.NICKNAME-->
-<!--        FROM POST A-->
-<!--        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)-->
-<!--        WHERE A.POST_CODE = #{ id }-->
-<!--    </select>-->
-
-
     <update id="memberModify" parameterType="com.beanions.common.dto.MembersDTO">
         UPDATE MEMBERS
         SET NICKNAME = #{ nickname }
@@ -86,6 +66,22 @@
         FROM MEMBERS
         WHERE MEMBER_CODE = #{ id }
     </delete>
+
+    <select id="selectMemberPost" resultMap="selectCurrenBoardResultMap">
+    SELECT
+    POST_CODE
+    , MEMBER_CODE
+    , POST_TITLE
+    , POST_CONTEXT
+    , POST_DATE
+    , MAIN_CATEGORY
+    , SUB_CATEGORY
+    , REVIEW_STATUS
+    , VIEW_COUNT
+    FROM POST
+    WHERE MEMBER_CODE = #{ codes }
+    LIMIT 5
+    </select>
 
     <resultMap id="adminPostResultMap" type="com.beanions.admin.dto.AdminPostDTO">
         <id property="postCode" column="post_code"/>

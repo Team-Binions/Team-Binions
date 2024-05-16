@@ -17,10 +17,11 @@ public interface AdminMapper {
 
     void memberDelete(int memberCode);
 
-//    List<AdminPostDTO> oneMemberPost(int codes);
 
+    List<PostDTO> selectMemberPost(int codes);
 
     List<AdminPostDTO> selectAllPost();
+
 
     List<AdminPostDTO> selectPost(int code);
 

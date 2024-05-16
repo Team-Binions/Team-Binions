@@ -1,8 +1,10 @@
 package com.beanions.admin.controller;
 
 
+import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.admin.service.AdminMemberService;
+import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,28 +46,21 @@ public class AdminController {
         int codes = Integer.parseInt(id);
 
         List<MembersDTO> memberDetail = adminMemberService.selectMembers(codes);
+        List<PostDTO> memberOnePosts = adminMemberService.selectMemberPost(codes);
+
+        for (PostDTO memberOne : memberOnePosts) {
+            System.out.println("memberOne = " + memberOne);
+        }
 
         System.out.println("memberDetail = " + memberDetail);
+        System.out.println("memberOnePosts = " + memberOnePosts);
 
         model.addAttribute("memberDetail", memberDetail);
+        model.addAttribute("memberOnePosts", memberOnePosts);
 
         return "/admin/member/membersDetail";
     }
-    @GetMapping("/member/membersModify")
-    public String memberModify(@RequestParam("id") String id, Model model) {
 
-        System.out.println("id = " + id);
-
-        int code = Integer.parseInt(id);
-
-        List<MembersDTO> memberModify = adminMemberService.selectMembers(code);
-
-        System.out.println("memberModify = " + memberModify);
-
-        model.addAttribute("memberModify", memberModify);
-
-        return "/admin/member/membersModify";
-    }
 
     //    @PostMapping("member/membersModify/{id}")
     @PostMapping("/member/update")
@@ -92,22 +87,4 @@ public class AdminController {
 
         return "redirect:/admin/member";
     }
-
-//    @GetMapping("/member/membersDetail")
-//    public String memberPostDetail(@RequestParam("id") String id, Model model) {
-//        System.out.println("id = " + id);
-//
-//        int codes = Integer.parseInt(id);
-//
-//        List<AdminPostDTO> adminMemberOnePost = memberService.oneMemberPost(codes);
-//
-//        for (AdminPostDTO memberPost : adminMemberOnePost) {
-//            System.out.println("memberPost = " + memberPost);
-//        }
-//
-//        model.addAttribute("adminMemberOnePost", adminMemberOnePost);
-//
-//        return "/admin/member/membersDetail";
-//    }
-
 }
