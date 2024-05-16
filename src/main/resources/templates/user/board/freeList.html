@@ -7,11 +7,17 @@
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const successMessage = `[[${ successMessage }]]`
         if (successMessage){
             alert(successMessage)
         }
+        $(document).ready(function() {
+            // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
+            console.log('findAllPost 실행...');
+            findAllPost();
+        });
     </script>
 </head>
 <body>
@@ -19,7 +25,6 @@
         <title th:text="|${yesin.subCategory}수다방|"></title>
     </div>
 <div th:replace="user/layout/header.html"></div>
-
     <div class="content">
         <article>
             <p class="free_title" th:text="|${name}수다방|"></p>
@@ -43,7 +48,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="free, i : ${ PostAndMemberDTOList.list }" >
+                <tr class="list" th:each="free, i : ${ PostAndMemberDTOList.list }" >
                     <td class="eng" th:text="${ (i.size + 1)-(i.count) }"></td>
                     <td>
                     <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
@@ -54,10 +59,8 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="list">
 
-            </div>
-<!--            페이지네이션 렌더링-->
+        <!--페이지네이션 렌더링-->
             <div class="paging">
 
             </div>
@@ -66,23 +69,19 @@
     </div>
 <div th:replace="user/layout/footer.html"></div>
 
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-
-        window.onload = () => {
+    <script>
+        $(document).ready(function() {
             // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
+            console.log('findAllPost 실행...');
             findAllPost();
-        }
+        });
 
 
         // 게시글 리스트 조회
         function findAllPost() {
-
-
             // 1. PagingResponse의 멤버인 List<T> 타입의 list를 의미
             const list = [[ ${PostAndMemberDTOList.list} ]];
-
+            console.log('list...');
             // 2. 리스트가 비어있는 경우, 행에 "검색 결과가 없다"는 메시지를 출력하고, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직을 종료
             if ( !list.length ) {
                 document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
@@ -201,7 +200,6 @@
 
         /*]]>*/
     </script>
-</th:block>
 
         <script th:inline="javascript">
                 //header sub menu 활성화
@@ -260,5 +258,6 @@
                     }
                 });
         </script>
+</th:block>
 </body>
 </html>
