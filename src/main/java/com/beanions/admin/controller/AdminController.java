@@ -2,6 +2,7 @@ package com.beanions.admin.controller;
 
 
 import com.beanions.admin.service.MemberService;
+import com.beanions.common.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,7 @@ public class AdminController {
 
         model.addAttribute("memberDetail", memberDetail);
 
-        return "/admin/member/membersDetail"; // 수정된 부분
+        return "/admin/member/membersDetail";
     }
     @GetMapping("/member/membersModify")
     public String memberModify(@RequestParam("id") String id, Model model) {
@@ -92,5 +93,22 @@ public class AdminController {
 
         return "redirect:/admin/member";
     }
+
+//    @GetMapping("/member/membersDetail")
+//    public String memberPostDetail(@RequestParam("id") String id, Model model) {
+//        System.out.println("id = " + id);
+//
+//        int codes = Integer.parseInt(id);
+//
+//        List<AdminPostDTO> adminMemberOnePost = memberService.oneMemberPost(codes);
+//
+//        for (AdminPostDTO memberPost : adminMemberOnePost) {
+//            System.out.println("memberPost = " + memberPost);
+//        }
+//
+//        model.addAttribute("adminMemberOnePost", adminMemberOnePost);
+//
+//        return "/admin/member/membersDetail";
+//    }
 
 }
