@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <title>MYPAGE</title>
+  <style>
+      /* 이미지 미리보기 */
+      .preview_box {width: 100%; padding: 20px; border-radius: 12px; background-color: #F4F4F9;}
+      .preview_list {padding-top: 20px; display: flex; }
+      .preview_list li {width: calc(20% - 18px); aspect-ratio: 1 / 1; margin-right: 20px; }
+      .preview_list li:nth-child(5) {margin-right: 0; }
+      .preview_img {position: relative; width: 100%; height: 100%;}
+      .preview_img > img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1 / 1; border-radius: 12px; }
+      .remove_preview_btn {position: absolute; top: 6px; right:6px; display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--main-color); color: #fff; font-size: 18px; font-weight: var(--semiBold); text-align: center; line-height: 24px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+      .remove_preview_btn:hover {background-color: var(--point-color);}
+      .attached_file_count {padding: 16px; background-color: var(--inactive-btn); border-radius: 12px; font-size: 16px; font-weight: var(--medium);}
+      .count_preview {color: var(--point-color); font-weight: var(--bold);}
+      .upload_img_btn.inactive {display: none;}
+      .file_upload_box.preview {display: flex; justify-content: center; padding:20px; align-items: center; height: 100%; border-radius:12px; background-color: #fff; cursor: pointer;}
+      .file_upload_box.preview .upload_btn {display: flex; justify-content: center; align-items: center; width: 100%;  height: 100%; border-radius: 12px; background-color: #fff; border: 1px dashed var(--main-color); font-size: 24px; font-weight: var(--bold); color: var(--main-color);}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+  <!-- //HEADER -->
+
+  <div class="mypage_cont">
+    <p class="page_tit">마이 페이지</p>
+
+    <!-- profile -->
+    <div class="profile_box">
+      <div class="profile_img">
+        <!-- <img src="" alt=""> -->
+        <!-- <input type="file" class="profile_img_upload"> -->
+      </div>
+      <div class="profile_txt">
+        <p class="profile_name"><span th:text="${userMypageMainData.nickname}"></span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng"  th:text="${userMypageMainData.totalCount}"></span></p>
+      </div>
+    </div>
+
+    <!-- sidebar & contents -->
+    <div class="contents_cont">
+      <div class="sidebar mypage">
+        <ul>
+          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">예리뷰</a></li>
+          <li><a href="/mypage/free">예수다</a></li>
+          <li><a href="/mypage/comment">댓글</a></li>
+          <li><a href="/mypage/schedule">스케쥴</a></li>
+          <!-- <li><a href="#">포인트</a></li> -->
+          <li><a href="mypage/myinfo">회원 정보 수정</a></li>
+        </ul>
+      </div>
+
+      <div class="mypage_contents">
+        <div class="top_sec">
+          <p class="table_tit">회원 정보 수정</p>
+        </div>
+
+        <form class="myinfo_form">
+
+          <div class="preview_box">
+            <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
+            <ul class="preview_list">
+              <li class="preview_img">
+                <img src="./images/main/KakaoTalk_20230405_053202431_12.jpg" alt="preview image">
+                <span class="remove_preview_btn">×</span>
+              </li>
+              <li class="upload_img_btn">
+                <label class="file_upload_box preview" name="upload">
+                  <span class="upload_btn">＋</span>
+                  <input type="file" name="upload" class="file_upload_input">
+                </label>
+              </li>
+            </ul>
+          </div>
+          <ul class="myinfo_list">
+            <li>
+              <span class="list_item_tit">웨딩홀 인증</span>
+              <div class="upload_cont">
+                <div class="upload_box">
+                  <span class="upload_name_box"></span>
+                  <label class="file_upload_box">
+                    <span class="upload_btn">업로드</span>
+                    <input type="file" class="file_upload_input">
+                  </label>
+                </div>
+                <p class="upload_txt">업로드 최대 용량은 10MB</p>
+              </div>
+            </li>
+          </ul>
+          <button class="modify_btn">수정하기</button>
+        </form>
+        <button class="leave_btn">회원탈퇴</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+</div>
+<!-- <script src="./js/common.js"></script> -->
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector('.clear_btn');
+    clearBtn.addEventListener('click', (e) => {
+        e.currentTarget.parentNode.querySelector('.search_input').value = null;
+        clearBtn.classList.remove("active");
+    })
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector('.search_input');
+    searchInput.addEventListener('input', (e) => {
+        if (e.currentTarget.value.length > 0) {
+            clearBtn.classList.add("active");
+        } else if (e.currentTarget.value.length <= 0) {
+            clearBtn.classList.remove("active");
+        }
+    })
+
+    // 파일 업로드 시 미리보기 추가
+    const previewTag = (imgSrc) => `<li class="preview_img">
+                  <img src="${imgSrc}" alt="preview image">
+                  <span class="remove_preview_btn">×</span>
+                </li>`;
+
+    // 선택 파일 삭제
+    $(".remove_preview_btn").click((e) => {
+        console.log("removebutton clicked");
+        if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
+            $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
+        }
+        $(e.target).closest("li").remove();
+    })
+
+    // 업로드 파일 경로 읽어오기
+    function readURL(input, index) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(index == 0){
+                    $(`.preview_list`).prepend(previewTag(e.target.result));
+                    $(".count_preview").text('1');
+                } else {
+                    $(".preview_list").find("li").eq((index - 1)).after(previewTag(e.target.result));
+                    $(".count_preview").text(index + 1);
+
+                    if(index == 4){
+                        $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
+                    }
+                }
+
+                // 선택 파일 삭제
+                $(".remove_preview_btn").click((e) => {
+                    console.log("removebutton clicked");
+                    console.log($(".preview_list > li").length);
+                    const index = $(".upload_img_btn").index();
+                    if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
+                        $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
+                        $(".count_preview").text(4);
+                    }else{
+                        $(".count_preview").text($(".preview_list > li").length - 1);
+                    }
+                    $(e.target).closest("li").remove();
+                })
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".file_upload_input").change(function() {
+        const index = $(".upload_img_btn").index();
+        console.log('파일업로드시 index : ' + index);
+        readURL(this, index);
+    });
+</script>
+</body>
+</html>
