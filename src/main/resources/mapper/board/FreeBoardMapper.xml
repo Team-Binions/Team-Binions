@@ -20,7 +20,7 @@
         </association>
     </resultMap>
 
-    <select id="freeList" parameterType="com.beanions.board.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+    <select id="freeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -36,7 +36,15 @@
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id }
         ORDER BY POST_DATE desc
-<!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            POST
     </select>
 
     <select id="freeDetail" resultMap="PostAndMemberResultMap">
