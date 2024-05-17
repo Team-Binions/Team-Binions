@@ -11,8 +11,8 @@ import java.util.Date;
 @ToString
 public class SchedulesDTO {
 
-    private int scheduleCode;
-    private int memberCode;
+    private Integer scheduleCode;
+    private Integer memberCode;
     private String scheduleTitle;
     private Date scheduleDate;
     private String scheduleContext;
