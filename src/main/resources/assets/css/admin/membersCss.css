@@ -16,15 +16,29 @@
     font-size: 14px;
     font-weight: 400;
     margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    padding-right: 660px;
+    display: inline-block;
+
 }
+
+
 /* 상단 게시글 및 댓글 수 박스 */
 .memberBox {
     background-color: white;
     width: 500px;
-    height: 50px;
+    height: 56px;
+    font-size: 14px;
+    border: #C4C4C4 1px solid;
+    border-radius: 12px;
+    display: inline-flex;
+    padding-left: 20px;
+    align-items: center;
+    margin-right: 20px;
+
+}
+.memberBox2 {
+    background-color: white;
+    width: 500px;
+    height: 56px;
     font-size: 14px;
     border: #C4C4C4 1px solid;
     border-radius: 12px;
@@ -32,23 +46,16 @@
     padding-left: 20px;
     align-items: center;
 }
-.memberBox2 {
-    background-color: white;
-    width: 500px;
-    height: 50px;
-    font-size: 14px;
-    border: #C4C4C4 1px solid;
-    border-radius: 12px;
-    display: inline-flex;
-    padding-left: 20px;
-    align-items: center;
+.roro {
+    display: inline-block;
+    width: 450px;
 }
 /* 회원 상세 조회 수정 부분 폰트 */
 .text_font {
     font-size: 14px;
     font-weight: 400;
 }
-
+/* 상세 조회 및 수정 인풋박스 */
 .member_Box {
     background-color: #C4C4C4;
     width: 500px;
@@ -58,8 +65,9 @@
     border-radius: 12px;
     display: inline-flex;
     padding-left: 20px;
+    margin-right: 20px;
 }
-
+/* 수정 닉네임 인풋박스 */
 .member_nickname_box {
     width: 500px;
     height: 50px;
@@ -68,10 +76,22 @@
     border-radius: 12px;
     display: inline-flex;
     padding-left: 20px;
+
+}
+
+.label_interval_line {
+    width: 100px;
+    display: inline-block;
+}
+.label_no_interval_line {
+    width: 120px;
+    display: inline-block;
+
 }
 .member_line {
     padding-bottom: 20px;
 }
+
 .gender_line2 {
     display: inline;
     /* margin-left: 20px; */
@@ -112,12 +132,12 @@
 }
 
 /* 목록 버튼 */
-.button_box #back_post_btn {
+.button_box #back_member_btn {
     background-color: #F4F4F9;
     color: var(--main-color);
     font-weight: var(--semiBold);
 }
-#back_post_btn:hover {
+#back_member_btn:hover {
     background-color: #F4F4F9;
     border: solid thin var(--point-color);
     color: var(--point-color);
@@ -135,6 +155,13 @@
     position: absolute;
     right: 206px;
 }
+/* 버튼 정렬 */
+.button_interval {
+    margin-top: 30px;
+    text-align: center;
+    flex: auto;
+}
+
 
 /* 모달 전체 영역 */
 #deleteModal {

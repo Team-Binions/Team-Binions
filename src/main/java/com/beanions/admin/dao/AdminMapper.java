@@ -1,9 +1,11 @@
 package com.beanions.admin.dao;
 
 import com.beanions.admin.dto.AdminMainDTO;
+import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.mypage.dto.MyPageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,8 +19,9 @@ public interface AdminMapper {
 
     void memberDelete(int memberCode);
 
-
     List<PostDTO> selectMemberPost(int codes);
+
+    AdminMemberPostDTO selectAdminReviewData(int codes);
 
     List<AdminPostDTO> selectAllPost();
 
