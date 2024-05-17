@@ -25,12 +25,13 @@ input::-webkit-search-results-decoration {
 article {
     width: 100%;
     padding: 60px 20px 60px;
-    max-width: 1000px;
+    max-width: 1200px;
 }
 
 .content {
     display: flex;
     justify-content: center;
+    min-height: calc(100vh - 202px);
 }
 
 .notice_title {
@@ -150,6 +151,8 @@ article {
 
 .category_data{
     margin-bottom: 40px;
+    display: flex;
+    align-items: center;
 }
 
 .mainCategory{
@@ -162,6 +165,7 @@ article {
 .category_line {
     color: var(--inactive-text);
     display: inline;
+    margin: 0 10px;
 }
 
 .subCategory {
