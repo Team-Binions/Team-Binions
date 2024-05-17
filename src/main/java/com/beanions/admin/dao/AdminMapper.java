@@ -11,16 +11,17 @@ import java.util.List;
 public interface AdminMapper {
     List<MembersDTO> membersAllList();
 
-    List<MembersDTO> selectMembers(int code);
+    MembersDTO selectMembers(int code);
 
     void memberModify(MembersDTO modify);
 
     void memberDelete(int memberCode);
 
-//    List<AdminPostDTO> oneMemberPost(int codes);
 
+    List<PostDTO> selectMemberPost(int codes);
 
     List<AdminPostDTO> selectAllPost();
+
 
     List<AdminPostDTO> selectPost(int code);
 

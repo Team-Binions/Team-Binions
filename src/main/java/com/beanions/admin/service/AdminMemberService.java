@@ -1,7 +1,9 @@
 package com.beanions.admin.service;
 
 import com.beanions.admin.dao.AdminMapper;
+import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
+import com.beanions.common.dto.PostDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +23,7 @@ public class AdminMemberService {
         return adminMapper.membersAllList();
     }
 
-    public List<MembersDTO> selectMembers(int code) {
+    public MembersDTO selectMembers(int code) {
 
         return adminMapper.selectMembers(code);
     }
@@ -40,9 +42,11 @@ public class AdminMemberService {
         adminMapper.memberDelete(memberCode);
     }
 
-//    public List<AdminPostDTO> oneMemberPost(int codes) {
-//
-//        return adminMapper.oneMemberPost(codes);
-//    }
+
+    public List<PostDTO> selectMemberPost(int codes) {
+
+        return adminMapper.selectMemberPost(codes);
+    }
+
 }
 
