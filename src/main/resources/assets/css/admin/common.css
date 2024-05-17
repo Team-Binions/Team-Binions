@@ -9,7 +9,7 @@ input::-webkit-search-results-decoration {
     display: none;
 }
 .container {
-    position: fixed; margin-top: 102px;
+    position: fixed; margin-top: 113px;
     width: 150px;
     border-right-style: solid;
     border-right-color: #6667AB;

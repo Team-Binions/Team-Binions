@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<div style="position: fixed; margin-left: 18px; margin-bottom: 18px; width: 100%; background-color: #ffffff; z-index: 2;">
-    <img th:src="@{/images/common/logo.svg}" alt="logo" height="60px" width="60px" style="margin-top: 18px; margin-bottom: 18px;">
-    <p sec:authorize="hasAnyAuthority('ADMIN')" sec:authentication="principal.loginUserDTO.nickname"></p>
-<hr style="background-color: #EDEDFF; height: 1px; border: 0">
+<div style="position: fixed; width: 100%; background-color: #ffffff; z-index: 2;">
+    <div style="display: flex; justify-content: space-between; padding: 20px">
+        <!-- 로고 이미지 -->
+        <img th:src="@{/images/common/logo.svg}" alt="logo" width="72px">
+        <!-- 관리자 닉네임 -->
+        <div style="display: flex; align-items: end; justify-content: space-evenly; width: 180px; font-size: 18px">
+            <img th:src="@{/images/common/icon_user_profile.svg}" style="width: 32px; height: 32px">
+            <div style="display: flex; justify-content: space-evenly; width: 140px; padding-bottom: 3px">
+                <p style="font-weight: var(--regular)">관리자</p>
+                <p sec:authorize="hasAnyAuthority('ADMIN')" sec:authentication="principal.loginUserDTO.nickname" style="font-weight: var(--semiBold)"></p>
+            </div>
+        </div>
+    </div>
+    <hr style="background-color: #EDEDFF; height: 1px; border: 0">
 </div>
