@@ -111,11 +111,41 @@
                             </div>
                         </div>
                     </div>
-                    <hr id="free_line">
+                    <hr class="free_line">
                 </div>
             </div>
         </div>
-        <div class="dashBoard_board_box"></div>
+        <div class="dashBoard_board_box">
+            <p class="dashBoard_board_text">예피셜</p>
+            <div class="dashBoard_item_second">
+                <div class="second_main_content_box">
+                    <p class="content_header">&nbsp;</p>
+                    <div class="content_text_box">
+                        <div class="free_count_box" id="notice_count_box">
+                            <div class="free_content_count_box">
+                                <p>공지사항</p>
+                                <p class="number" th:text="${ data.noticeAll }"></p>
+                            </div>
+                            <div class="free_content_count_box" id="notice_margin">
+                                <p>신규</p>
+                                <p class="number" th:text="${ data.noticeDay }"></p>
+                            </div>
+                        </div>
+                        <div  class="free_count_box">
+                            <div class="free_content_count_box" id="magazine_margin">
+                                <p>매거진</p>
+                                <p class="number" th:text="${ data.magazineAll }"></p>
+                            </div>
+                            <div class="free_content_count_box">
+                                <p>신규</p>
+                                <p class="number" th:text="${ data.magazineDay }"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="free_line">
+                </div>
+            </div>
+        </div>
     </div>
     <div class="dashBoard_box_third">
         <div class="dashBoard_table_area">

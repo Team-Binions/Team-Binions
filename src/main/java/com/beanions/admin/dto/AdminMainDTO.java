@@ -18,4 +18,8 @@ public class AdminMainDTO {
     private int yesinDay;
     private int yerangAll;
     private int yerangDay;
+    private int noticeAll;
+    private int noticeDay;
+    private int magazineAll;
+    private int magazineDay;
 }

@@ -9,7 +9,7 @@ input::-webkit-search-results-decoration {
     display: none;
 }
 .container {
-    position: fixed; margin-top: 102px;
+    position: fixed; margin-top: 113px;
     width: 150px;
     border-right-style: solid;
     border-right-color: #6667AB;
@@ -161,7 +161,15 @@ input::-webkit-search-results-decoration {
     border-right: 2px solid #EDEDFF;
 }
 
+#notice_count_box {
+    border-right: 2px solid #EDEDFF;
+}
+
 #yesin_margin {
+    margin-right: 10px;
+}
+
+#notice_margin {
     margin-right: 10px;
 }
 
@@ -169,7 +177,11 @@ input::-webkit-search-results-decoration {
     margin-left: 10px;
 }
 
-.second_main_content_box #free_line {
+#magazine_margin {
+    margin-left: 10px;
+}
+
+.second_main_content_box .free_line {
     width: 100%;
 }
 
