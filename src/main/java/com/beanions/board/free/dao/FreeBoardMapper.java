@@ -2,6 +2,7 @@ package com.beanions.board.free.dao;
 
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -10,7 +11,9 @@ import java.util.List;
 
 @Mapper
 public interface FreeBoardMapper {
-    List<PostAndMemberDTO> freeList(String id);
+    List<PostAndMemberDTO> freeList(String id, SearchDTO params);
+
+    int count(SearchDTO params);
 
     List<PostAndMemberDTO> freeDetail(int id);
 

@@ -44,12 +44,10 @@ public class ReviewController {
         return "user/board/reviewDetail";
     }
 
-
     @GetMapping("/reviewRegist")
     public void reviewRegistPage(){}
 
     @PostMapping("/reviewRegist")
-
     public String reviewRegist(PostDTO postDTO, RedirectAttributes rttr, HttpSession session){
 
 //        Integer memberCode = (Integer) session.getAttribute("memberCode");

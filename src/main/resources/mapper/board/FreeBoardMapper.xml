@@ -19,8 +19,17 @@
             <result property="nickname" column="nickname"/>
         </association>
     </resultMap>
+    
+    <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
+        <id property="page" column="page"/>
+        <result property="recordSize" column="recordSize"/>
+        <result property="pageSize" column="pageSize"/>
+        <association property="pagination" javaType="com.beanions.common.paging.Pagination">
+            <id property="pagination" column="pagination"/>
+        </association>
+    </resultMap>
 
-    <select id="freeList" parameterType="com.beanions.board.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+    <select id="freeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -30,13 +39,22 @@
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
         , A.VIEW_COUNT
+        , A.VEF_STATUS
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id }
+        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
         ORDER BY POST_DATE desc
-<!--        LIMIT #{pagination.limitStart}, #{recordSize}-->
+        LIMIT #{params.pagination.limitStart}, #{params.recordSize}
+    </select>
+
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            POST
     </select>
 
     <select id="freeDetail" resultMap="PostAndMemberResultMap">

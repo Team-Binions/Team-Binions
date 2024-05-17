@@ -3,6 +3,8 @@ package com.beanions.board.free.controller;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.free.service.FreeBoardService;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +27,9 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yesinList")
-    public String yesinList(@RequestParam("id") String id , Model model) {
+    public String yesinList(@RequestParam("id") String id , Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id);
+        PagingResponse<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id, params);
 
         model.addAttribute("name", id);
 
@@ -37,9 +39,9 @@ public class FreeBoardController {
     }
 
     @GetMapping("/yerangList")
-    public String yerangList(@RequestParam("id") String id , Model model) {
+    public String yerangList(@RequestParam("id") String id , Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id);
+        PagingResponse<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id, params);
 
         model.addAttribute("name", id);
 
