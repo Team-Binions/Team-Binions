@@ -61,40 +61,36 @@ public class FreeBoardController {
     }
 
     @GetMapping("/freeRegist")
-    public String postRegistPage(@PathVariable Integer memberCode, RedirectAttributes rttr) {
+    public String postRegistPage(HttpSession session, RedirectAttributes rttr, Model model) {
+
+        Integer memberCode = (Integer) session.getAttribute("memberCode");
+
+        model.addAttribute("memberCode", memberCode);
 
         if (memberCode != null) {
             // 회원 아이디를 글쓰기 페이지로 리다이렉트하면서 전달
-            return "redirect:/board/freeRegist?memberCode=" + memberCode;
+            return "/user/board/freeRegist";
         } else {
             // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+            rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
             return "redirect:/login";
         }
     }
 
     @PostMapping("/freeRegist")
-    public String postRegist(PostDTO postDTO, RedirectAttributes rttr, HttpSession session){
-
-        Integer memberCode = (Integer) session.getAttribute("memberCode");
-
-        if (memberCode != null) {
-            postDTO.setMemberCode(memberCode);
-            freeBoardService.freeRegist(postDTO);
-            rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
-        } else {
-            rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
-        }
+    public String postRegist(PostDTO postDTO, RedirectAttributes rttr){
 
         freeBoardService.freeRegist(postDTO);
 
         rttr.addAttribute("id", postDTO.getSubCategory());
         rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
 
-        // 예랑 게시판 생성 하면 주소 변경하기
         if (postDTO.getSubCategory().equals("예신")){
             return "redirect:/board/yesinList";
+
         } else if (postDTO.getSubCategory().equals("예랑")){
             return "redirect:/board/yerangList";
+
         } else { return "redirect:/board/reviewList"; }
 
 

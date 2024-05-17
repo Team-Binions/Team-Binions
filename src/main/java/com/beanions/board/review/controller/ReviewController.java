@@ -44,30 +44,6 @@ public class ReviewController {
         return "user/board/reviewDetail";
     }
 
-    @GetMapping("/reviewRegist")
-    public void reviewRegistPage(){}
-
-    @PostMapping("/reviewRegist")
-    public String reviewRegist(PostDTO postDTO, RedirectAttributes rttr, HttpSession session){
-
-//        Integer memberCode = (Integer) session.getAttribute("memberCode");
-//
-//        if (memberCode != null) {
-//            postDTO.setMemberCode(memberCode);
-//            reviewService.reviewRegist(postDTO);
-//            rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
-//        } else {
-//            rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
-//        }
-
-        reviewService.reviewRegist(postDTO);
-
-        rttr.addFlashAttribute("successMessage", "게시글을 등록하였습니다.");
-
-            return "redirect:/board/reviewList";
-
-    }
-
     @GetMapping("/reviewModify")
     public String modifyPost(@RequestParam("id") String id, Model model){
 

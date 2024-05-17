@@ -12,7 +12,8 @@
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
-
+<div class="content">
+  <article>
   <div class="notice_category" th:each=" notice: ${ notice }">
     <p class="notice_mainCategory" th:text="${notice.mainCategory}"></p>
     <p class="category_line">|</p>
@@ -31,8 +32,9 @@
 
   <button class="notice_back_button" onclick="location.href='/board/notice'">목록</button>
   </div>
+  </article>
+</div>
 <div th:replace="user/layout/footer.html"></div>
-
 <script>
   //header sub menu 활성화
   const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
