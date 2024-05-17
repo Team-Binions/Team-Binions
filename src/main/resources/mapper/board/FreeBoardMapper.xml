@@ -13,6 +13,7 @@
         <result property="mainCategory" column="main_category"/>
         <result property="subCategory" column="sub_category"/>
         <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
         <result property="viewCount" column="view_count"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="member_code"/>
@@ -45,7 +46,7 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
-        ORDER BY POST_DATE desc
+        ORDER BY POST_DATE desc, POST_CODE desc
         LIMIT #{params.pagination.limitStart}, #{params.recordSize}
     </select>
 
@@ -84,6 +85,7 @@
         , SUB_CATEGORY
         , POST_DATE
         , VEF_STATUS
+        , REVIEW_STATUS
         , VIEW_COUNT
         )
         VALUES
@@ -93,8 +95,12 @@
         , #{postContext}
         , #{mainCategory}
         , #{subCategory}
-        , DATE_FORMAT(now(), '%y/%m/%d')
-        , NULL
+        , now()
+        , "활성"
+        , <choose>
+            <when test="#{mainCategory} == '예리뷰'">'승인'</when>
+            <otherwise>NULL</otherwise>
+            </choose>
         , 0
         )
     </insert>
