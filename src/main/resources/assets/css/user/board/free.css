@@ -23,9 +23,8 @@ input::-webkit-search-results-decoration {
 }
 
 article {
-    margin-top: 60px;
     width: 100%;
-    padding: 0 20px;
+    padding: 60px 20px 60px;
     max-width: 1000px;
 }
 
@@ -138,8 +137,7 @@ article {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin-top: 12px;
-    margin-bottom: 60px;
+    margin-top: 24px;
     float: right;
 }
 
@@ -175,7 +173,18 @@ article {
     color: var(--text-color);
     font-size: 24px;
     font-weight: var(--medium);
+}
+
+.viewCount {
+    color: var(--text-color);
+    font-size: 12px;
+}
+
+.title_viewCount {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 .free_nickname_date {
@@ -222,21 +231,20 @@ article {
 .detail_buttons {
     display: flex;
     float: right;
+    padding: 20px 0px;
 }
 
 .detail_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin: 12px 8px 40px;
+    margin-right: 8px;
 }
 
 .detail_delete_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
-    margin-top: 12px;
-    margin-bottom: 60px;
 }
 
 .detail_button:hover{

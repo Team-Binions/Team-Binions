@@ -24,7 +24,10 @@
                 <p class="category_line">|</p>
                 <p class="subCategory" th:text=" ${free.subCategory}"></p>
             </div>
-            <p class="free_detail_title" th:text="${free.postTitle}"></p>
+            <div class="title_viewCount">
+                <p class="free_detail_title" th:text="${free.postTitle}"></p>
+                <p class="viewCount" th:text="|조회수 ${free.viewCount}|"></p>
+            </div>
             <div class="free_nickname_date">
                 <p class="free_nickname" th:text="${free.member.nickname}"></p>
                 <p class="free_date" th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></p>
@@ -48,6 +51,7 @@
                 <button type="button">등록</button>
             </form>
         </table>
+        <hr class="content_line">
         <div class="detail_buttons">
             <button class="detail_button" type="button" th:if="${free.subCategory.equals('예신')}" th:onclick="|location.href='@{/board/yesinmodify(id=${free.postCode})}'|">수정하기</button>
             <button class="detail_button" type="button" th:if="${free.subCategory.equals('예랑')}" th:onclick="|location.href='@{/board/yerangmodify(id=${free.postCode})}'|">수정하기</button>

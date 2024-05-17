@@ -37,9 +37,9 @@
                 <tr>
                     <th class="eng">no</th>
                     <th>제목</th>
-                    <th>조회수</th>
                     <th>글쓴이</th>
                     <th>작성시간</th>
+                    <th>조회수</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,9 +48,9 @@
                     <td>
                     <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
                     </td>
-                    <td th:text="${ free.viewCount }"></td>
                     <td th:text="${ free.member.nickname }"></td>
                     <td class="eng" th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></td>
+                    <td th:text="${ free.viewCount }"></td>
                 </tr>
                 </tbody>
             </table>

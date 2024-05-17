@@ -19,6 +19,7 @@ public class PostAndMemberDTO {
     private String mainCategory;
     private String subCategory;
     private String verifiedStatus;
+    private String reviewStatus;
     private int viewCount;
     private MembersDTO member;
 
