@@ -25,9 +25,9 @@
       </div>
       <div class="profile_txt">
         <!--         th:text="${userMypageMainData.nickname}"-->
-        <p class="profile_name"><span th:text="nickname"></span>님</p>
+        <p class="profile_name"><span th:text="${nickname}"></span>님</p>
         <!--          th:text="${userMypageMainData.totalCount}"-->
-        <p class="total_posts_count">총 게시글 <span class="eng" th:text="totalCount"></span></p>
+        <p class="total_posts_count">총 게시글 <span class="eng" th:text="${totalCount}"></span></p>
       </div>
     </div>
 
