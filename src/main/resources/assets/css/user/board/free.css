@@ -177,6 +177,7 @@ article {
 
 .viewCount {
     color: var(--text-color);
+    font-size: 12px;
 }
 
 .title_viewCount {

@@ -212,7 +212,8 @@ article {
 }
 
 .viewCount{
-    color: var(--text-color);
+    color: var(--inactive-text);
+    font-size: 12px;
 }
 
 .detail_button {
