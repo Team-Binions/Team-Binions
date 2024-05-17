@@ -228,7 +228,6 @@ $(document).ready(function () {
     })
 
     $("#checkNkname").click(function() {
-        // 닉네임 값을 가져온다.
         var nickname = $("#nickname").val();
         var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
@@ -241,7 +240,6 @@ $(document).ready(function () {
         else if(pattern.test(nickname)){}
         else if(spe > 0){}
         else {
-            // Fetch를 이용하여 요청을 보낸다.
             fetch("/request-dupCheck-nickname", {
                 method: "POST",
                 headers: {
@@ -256,26 +254,21 @@ $(document).ready(function () {
                     return response.json();
                 })
                 .then(data => {
-                    // 성공적인 응답을 처리한다.
-                    // console.log(data);
                     chkDupNknConfirm(data, $("#nicknameTxt"));
                 })
                 .catch(error => {
-                    // 오류가 발생했을 때 처리한다.
                     console.error("Error:", error);
                 });
         }
     });
 
     $("#checkEmail").click(function() {
-        // 이메일 값을 가져온다.
         var email = $("#memail").val();
 
         if( email === '') {
             alert("이메일을 입력해주세요.");
             $("#memail").focus();
         } else {
-            // Fetch를 이용하여 요청을 보낸다.
             fetch("/request-verify-mail", {
                 method: "POST",
                 headers: {
@@ -291,25 +284,22 @@ $(document).ready(function () {
                     return response.json();
                 })
                 .then(data => {
-                    // 성공적인 응답을 처리한다.
-                    // console.log(data);
-                    // console.log(typeof data);
                     if(data > 0) {
                         return alert("이미 존재하는 이메일입니다.");
                     }
                     alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
                     totalConfirm.emchk = true;
-                    $('#memail').prop('disabled',true);
-                    $("#memail").css({
-                        "cursor" : "not-allowed",
-                    })
+
                     chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
                 })
                 .catch(error => {
-                    // 오류가 발생했을 때 처리한다.
                     console.error("Error:", error);
                 });
         }
+    })
+
+    $("#memail").keyup(function () {
+        totalConfirm.emchk = false;
     })
 
     $('#phone').keyup(function () {

@@ -59,7 +59,7 @@ public class SignupController {
 
     @PostMapping(value = "/request-verify-mail")
     @ResponseBody
-    public String requestDupCheckEmail(@RequestBody String email) throws Exception{
+    public Object requestDupCheckEmail(@RequestBody String email) throws Exception{
 
         email = email.replaceAll("^\"|\"$", "");
 
@@ -70,13 +70,16 @@ public class SignupController {
             return new ObjectMapper().writeValueAsString(dupEmail);
         }
 
-        String code = mailService.sendMail(email);
-        System.out.println("인증코드 : " + code);
-
+        try {
+            String code = mailService.sendMail(email);
+            System.out.println("인증코드 : " + code);
+            return new ObjectMapper().writeValueAsString(code);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
 //        //response객체에 json 형태로 인증코드를 저장하는 방법
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        String jsonResponse = objectMapper.writeValueAsString(code);
-        return new ObjectMapper().writeValueAsString(code);
     }
 
 

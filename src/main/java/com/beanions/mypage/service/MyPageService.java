@@ -1,5 +1,6 @@
 package com.beanions.mypage.service;
 
+import com.beanions.common.dto.MembersDTO;
 import com.beanions.mypage.dao.MyPageMapper;
 import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
@@ -21,30 +22,30 @@ public class MyPageService {
     return myPageMapper.selectAllMyPageData();
   }
 
-  public List<MyPageDTO> selectMyPageMainData() {
-    return myPageMapper.selectMyPageMainData();
+  public List<MyPageDTO> selectMyPageMainData(int memberCode) {
+    return myPageMapper.selectMyPageMainData(memberCode);
   }
 
-  public List<MyPageDTO> selectMyPageReviewData() { return myPageMapper.selectMyPageReviewData();}
+  public List<MyPageDTO> selectMyPageReviewData(int memberCode) { return myPageMapper.selectMyPageReviewData(memberCode);}
 
-  public List<MyPageDTO> selectMyPageFreeData() { return myPageMapper.selectMyPageFreeData();}
+  public List<MyPageDTO> selectMyPageFreeData(int memberCode) { return myPageMapper.selectMyPageFreeData(memberCode);}
 
-  public List<MyPageDTO> selectMyPageCommentData() {return myPageMapper.selectMyPageCommentData();}
+  public List<MyPageDTO> selectMyPageCommentData(int memberCode) {return myPageMapper.selectMyPageCommentData(memberCode);}
 
-  public List<MyPageDTO> selectMyPageCommentPostCategory() {return myPageMapper.selectMyPageCommentPostCategory();}
+  public List<MyPageDTO> selectMyPageCommentPostCategory(int memberCode) {return myPageMapper.selectMyPageCommentPostCategory();}
 
   @Transactional
   public void registNewSchedule(SchedulesDTO newSchedule) {
     myPageMapper.insertNewSchedule(newSchedule);
   }
 
-  public List<MyPageDTO> selectMyPageScheduleInfo() {
-    return myPageMapper.selectMyPageScheduleInfo();
+  public List<MyPageDTO> selectMyPageScheduleInfo(int memberCode) {
+    return myPageMapper.selectMyPageScheduleInfo(memberCode);
   }
 
-  public List<MyPageDTO> selectScheduleDetail(String id) {
+  public List<MyPageDTO> selectScheduleDetail(int memberCode,String id) {
     int code = Integer.parseInt(id);
-    return myPageMapper.selectScheduleDetail(code);
+    return myPageMapper.selectScheduleDetail(memberCode,code);
   }
 
   @Transactional
@@ -53,4 +54,8 @@ public class MyPageService {
 
   @Transactional
   public void deleteSchedule(int code) {myPageMapper.deleteSchedule(code);}
+
+  public MyPageDTO selectMyPostInfo(int memberCode) {
+    return myPageMapper.selectMyPostInfo(memberCode);
+  }
 }

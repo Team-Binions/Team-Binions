@@ -91,14 +91,14 @@
 		f.Total,
 		g.SCHEDULE_COUNT
 		FROM
-		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 5) a
-		,   ( select count(*) POST_COUNT from POST      where MEMBER_CODE   = 5 ) b
-		,   ( select count(*) REVIEW_COUNT from POST      where MEMBER_CODE   = 5 AND MAIN_CATEGORY = "리뷰" ) c
-		,   ( select count(*) FREE_COUNT from POST      where MEMBER_CODE   = 5 AND MAIN_CATEGORY = "자유" ) d
-		,  ( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = 5 ) e
-		,  ( select (( select count(*) POST_COUNT from POST      where MEMBER_CODE   = 5 ) +
-		( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = 5 ) ) Total) f
-		,  (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = 5 ) g;
+		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) a
+		,   ( select count(*) POST_COUNT from POST      where MEMBER_CODE   = #{memberCode} ) b
+		,   ( select count(*) REVIEW_COUNT from POST      where MEMBER_CODE   = #{memberCode} AND MAIN_CATEGORY = "리뷰" ) c
+		,   ( select count(*) FREE_COUNT from POST      where MEMBER_CODE   = #{memberCode} AND MAIN_CATEGORY = "자유" ) d
+		,  ( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = #{memberCode} ) e
+		,  ( select (( select count(*) POST_COUNT from POST      where MEMBER_CODE   = #{memberCode} ) +
+		( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = #{memberCode} ) ) Total) f
+		,  (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = #{memberCode} ) g;
 	</select>
 
 	<!-- 게시글수 / 댓글수	-->
@@ -132,11 +132,11 @@
 				C.REVIEW_COUNT,
 				D.Total
 		FROM
-				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
-			,   ( select * from POST where MEMBER_CODE = 15 AND MAIN_CATEGORY = "리뷰" ) B
-			,   ( select count(*) REVIEW_COUNT from POST where MEMBER_CODE = 15 AND MAIN_CATEGORY = "리뷰" ) C
-			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
-				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) D
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) A
+			,   ( select * from POST where MEMBER_CODE = #{memberCode} AND MAIN_CATEGORY = "리뷰" ) B
+			,   ( select count(*) REVIEW_COUNT from POST where MEMBER_CODE = #{memberCode} AND MAIN_CATEGORY = "리뷰" ) C
+			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) D
 		ORDER BY B.POST_DATE DESC
 	</select>
 	<select id="selectMyPageFreeData" resultMap="selectMyPagePostsResultMap">
@@ -152,11 +152,11 @@
 				C.FREE_COUNT,
 				D.Total
 		FROM
-				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 8) A
-			,   ( select * from POST where MEMBER_CODE = 8 AND MAIN_CATEGORY = "자유" ) B
-			,   ( select count(*) FREE_COUNT from POST where MEMBER_CODE = 8 AND MAIN_CATEGORY = "자유" ) C
-			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 8 ) +
-				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 8 ) ) Total) D
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) A
+			,   ( select * from POST where MEMBER_CODE = #{memberCode} AND MAIN_CATEGORY = "자유" ) B
+			,   ( select count(*) FREE_COUNT from POST where MEMBER_CODE = #{memberCode} AND MAIN_CATEGORY = "자유" ) C
+			,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) D
 		ORDER BY B.POST_DATE DESC
 	</select>
 
@@ -193,11 +193,11 @@
 		C.COMMENT_COUNT,
 		D.Total
 		FROM
-		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
-		,   ( select * from COMMENTS where MEMBER_CODE = 15) B
-		,   ( select count(*) COMMENT_COUNT from COMMENTS where MEMBER_CODE = 15 ) C
-		,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
-		( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) D
+		(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) A
+		,   ( select * from COMMENTS where MEMBER_CODE = #{memberCode}) B
+		,   ( select count(*) COMMENT_COUNT from COMMENTS where MEMBER_CODE = #{memberCode} ) C
+		,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
+		( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) D
 		ORDER BY B.COMMENT_DATE DESC
 	</select>
 	<select id="selectMyPageCommentPostCategory" resultMap="selectMyPageCommentsResultMap">
@@ -208,7 +208,7 @@
 					B.MAIN_CATEGORY
 		FROM COMMENTS A
 		LEFT JOIN POST B ON A.POST_CODE = B.POST_CODE
-		WHERE A.MEMBER_CODE = 15
+		WHERE A.MEMBER_CODE = #{memberCode}
 		ORDER BY A.COMMENT_DATE DESC
 	</select>
 
@@ -237,11 +237,11 @@
 					C.SCHEDULE_DATE,
 					C.SCHEDULE_CONTEXT
 		FROM
-				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
-				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
-				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) B
-				, (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = 15 ) D
-				, (select * from SCHEDULES WHERE MEMBER_CODE = 15) C
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) A
+				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) B
+				, (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = #{memberCode} ) D
+				, (select * from SCHEDULES WHERE MEMBER_CODE = #{memberCode}) C
 	</select>
 	<!-- 스케쥴 상세 조회 -->
 	<select id="selectScheduleDetail" resultMap="selectMyPageScheduleInfoResultMap">
@@ -254,10 +254,10 @@
 					C.SCHEDULE_DATE,
 					C.SCHEDULE_CONTEXT
 		FROM
-				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = 15) A
-				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = 15 ) +
-				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = 15 ) ) Total) B
-				, (select * from SCHEDULES WHERE MEMBER_CODE = 15 AND SCHEDULE_CODE = #{code}) C
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) A
+				,  ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
+				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) B
+				, (select * from SCHEDULES WHERE MEMBER_CODE = #{memberCode} AND SCHEDULE_CODE = #{code}) C
 	</select>
 
 	<!-- 신규 스케쥴 등록-->
@@ -295,4 +295,26 @@
 		DELETE FROM SCHEDULES
 		WHERE SCHEDULE_CODE = #{code}
 	</delete>
+
+<!--	&lt;!&ndash; 회원 정보 수정 총 게시물 데이터 &ndash;&gt;-->
+
+	<select id="selectMyPostInfo" resultMap="selectMyPageMainDataResultMap">
+		SELECT
+				a.NICKNAME,
+				b.POST_COUNT,
+				c.REVIEW_COUNT,
+				d.FREE_COUNT,
+				e.COMMENT_COUNT,
+				f.Total,
+				g.SCHEDULE_COUNT
+		FROM
+				(select NICKNAME NICKNAME from MEMBERS WHERE MEMBER_CODE = #{memberCode}) a
+				,   ( select count(*) POST_COUNT from POST      where MEMBER_CODE   = #{memberCode} ) b
+				,   ( select count(*) REVIEW_COUNT from POST      where MEMBER_CODE   = #{memberCode} AND MAIN_CATEGORY = "리뷰" ) c
+				,   ( select count(*) FREE_COUNT from POST      where MEMBER_CODE   = #{memberCode} AND MAIN_CATEGORY = "자유" ) d
+				,  ( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = #{memberCode} ) e
+				,  ( select (( select count(*) POST_COUNT from POST      where MEMBER_CODE   = #{memberCode} ) +
+				( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = #{memberCode} ) ) Total) f
+				,  (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = #{memberCode} ) g;
+	</select>
 </mapper>
