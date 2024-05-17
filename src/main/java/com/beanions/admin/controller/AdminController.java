@@ -61,6 +61,25 @@ public class AdminController {
         return "admin/member/membersDetail";
     }
 
+    @GetMapping("/member/membersModify")
+    public String memberModify(@RequestParam("id") String id, Model model) {
+
+        System.out.println("id = " + id);
+
+        int code = Integer.parseInt(id);
+
+        MembersDTO memberModify = adminMemberService.selectMembers(code);
+
+        System.out.println("memberModify = " + memberModify);
+
+        model.addAttribute("memberModify", memberModify);
+
+        return "/admin/member/membersModify";
+    }
+
+
+
+
 
     //    @PostMapping("member/membersModify/{id}")
     @PostMapping("/member/update")

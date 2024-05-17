@@ -92,6 +92,7 @@
 
 .button_box {
     display: flex;
+    align-content: center;
 
 }
 
