@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YESINYERANG</title>
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/search.css}">
+    <script>
+        const message = `[[${ message }]]`;
+        if(message) {
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- HEADER -->
+    <div th:replace="user/layout/header.html"></div>
+    <!-- //HEADER -->
+
+    <!-- contents -->
+    <div class="search_cont">
+        <!-- "키워드" 검색결과 (갯수) -->
+        <div></div>
+        <!-- 제목, 내용 버튼 & 검색창 -->
+        <div></div>
+        <!--  -->
+        <div></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="user/layout/footer.html"></div>
+    <!-- //FOOTER -->
+</div>
+</body>
+</html>

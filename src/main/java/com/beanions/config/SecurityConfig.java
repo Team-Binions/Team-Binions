@@ -60,6 +60,7 @@ public class SecurityConfig {
                     "/",
                     "/main",
                     "/signup",
+                    "/search",
                     "/board/reviewList",
                     "/board/reviewDetail",
                     "/board/notice",
