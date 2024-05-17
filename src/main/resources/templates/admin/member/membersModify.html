@@ -24,32 +24,28 @@
                 <input type="hidden" th:value="${ members.memberCode}" name="memberCode">
                 <div class="text_font">
                     <div  class="member_line">
-                        <label>아이디</label>
+                        <label class="label_interval_line">아이디</label>
                             <input class="member_Box" type="text" name="memberId" th:value="${ members.memberId }"
                                    readonly="readonly">
-                        <label>닉네임</label>
-                            <input class="member_nickname_box" type="text" id="nickname" name="nickname"
-                                   th:value="${ members.nickname }">
+                        <label class="label_interval_line">닉네임</label>
+                            <input class="member_nickname_box" type="text" id="nickname" name="nickname" th:value="${ members.nickname }">
                     </div>
                     <div class="member_line">
-                        <label>성별</label>
+                        <label class="label_no_interval_line">성별</label>
                         <p class="gender_line2" th:text="${ members.gender }">
                     </div>
                     <div class="member_line">
-                        <label>이메일
-                            <input class="member_Box" type="text" name="email" th:value="${ members.email }"
-                                   readonly="readonly">
-                        </label>
-                        <label>전화번호
-                            <input class="member_Box" type="text" name="phone" th:value="${ members.phone }"
-                                   readonly="readonly">
-                        </label>
+                        <label class="label_interval_line">이메일</label>
+                            <input class="member_Box" type="text" name="email" th:value="${ members.email }" readonly="readonly">
+                        <label class="label_interval_line">전화번호 </label>
+                            <input class="member_Box" type="text" name="phone" th:value="${ members.phone }" readonly="readonly">
                     </div>
                     <div class="member_line">
-                        <label>기혼 여부</label>
+                        <label class="label_no_interval_line">기혼 여부</label>
                         <p class="gender_line2" th:text="${ members.marriedStatus }"></p>
                     </div>
-                    <div>웨딩홀 인증
+                    <div>
+                        <label class="label_interval_line">웨딩홀 인증</label>
                         <input class="member_nickname_box" type="text" name="weddingVerified"
                                th:value="${ members.weddingVerified }" readonly="readonly">
                     </div>

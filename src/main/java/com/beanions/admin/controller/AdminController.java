@@ -1,7 +1,6 @@
 package com.beanions.admin.controller;
 
-
-import com.beanions.admin.dto.AdminPostDTO;
+import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.admin.service.AdminMemberService;
 import com.beanions.common.dto.PostDTO;
@@ -47,16 +46,13 @@ public class AdminController {
 
         MembersDTO memberDetail = adminMemberService.selectMembers(codes);
         List<PostDTO> memberOnePosts = adminMemberService.selectMemberPost(codes);
+        AdminMemberPostDTO usersReviewDataList = adminMemberService.selectAdminReviewData(codes);
 
-        for (PostDTO memberOne : memberOnePosts) {
-            System.out.println("memberOne = " + memberOne);
-        }
-
-        System.out.println("memberDetail = " + memberDetail);
-        System.out.println("memberOnePosts = " + memberOnePosts);
+        System.out.println("codes = " + codes);
 
         model.addAttribute("memberDetail", memberDetail);
         model.addAttribute("memberOnePosts", memberOnePosts);
+        model.addAttribute("usersReviewDataList", usersReviewDataList);
 
         return "admin/member/membersDetail";
     }
@@ -76,10 +72,6 @@ public class AdminController {
 
         return "/admin/member/membersModify";
     }
-
-
-
-
 
     //    @PostMapping("member/membersModify/{id}")
     @PostMapping("/member/update")

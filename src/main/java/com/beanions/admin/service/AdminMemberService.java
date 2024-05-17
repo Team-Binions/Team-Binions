@@ -1,9 +1,11 @@
 package com.beanions.admin.service;
 
 import com.beanions.admin.dao.AdminMapper;
+import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.mypage.dto.MyPageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,5 +50,10 @@ public class AdminMemberService {
         return adminMapper.selectMemberPost(codes);
     }
 
+
+    public AdminMemberPostDTO selectAdminReviewData(int codes) {
+
+        return adminMapper.selectAdminReviewData(codes);
+    }
 }
 

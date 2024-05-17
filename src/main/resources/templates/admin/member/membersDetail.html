@@ -14,42 +14,43 @@
 <article class="all-content">
         <p class="title_text_font">회원 상세 정보</p>
         <div class="font_div">
-            <p class="memberBox">게시글 수</p>
-            <p class="memberBox2">댓글 수</p>
+            <div class="memberBox">
+                <label class="roro">게시글 수</label>
+                <div th:text="${ usersReviewDataList.board }"></div>
+            </div>
+            <div class="memberBox2">
+                <label class="roro">댓글 수</label>
+                <div th:text="${ usersReviewDataList.comment }"></div>
+            </div>
         </div>
         <p class="title_text_font2">회원 정보</p>
         <div>
             <div>
                 <div class="text_font">
                     <div class="member_line">
-                        <label>아이디
-                            <input type="text" class="member_Box" name="memberId" th:value="${ memberDetail.memberId }"
-                                   readonly="readonly">
-                        </label>
-                        <label>닉네임
-                            <input type="text" class="member_Box" name="nickname" th:value="${ memberDetail.nickname }"
-                                   readonly="readonly">
-                        </label>
+                        <label class="label_interval_line">아이디</label>
+                            <input type="text" class="member_Box" name="memberId" th:value="${ memberDetail.memberId }" readonly="readonly">
+                        <label class="label_interval_line">닉네임</label>
+                            <input type="text" class="member_Box" name="nickname" th:value="${ memberDetail.nickname }" readonly="readonly">
                     </div>
                     <div class="member_line">
-                        <label>성별</label>
+                        <label class="label_no_interval_line">성별</label>
                         <p class="gender_line2" th:text="${ memberDetail.gender }"></p>
                     </div>
                     <div class="member_line">
-                        <label>이메일
+                        <label class="label_interval_line">이메일</label>
                             <input type="text" class="member_Box" name="email" th:value="${ memberDetail.email }"
                                    readonly="readonly">
-                        </label>
-                        <label>전화번호
+                        <label class="label_interval_line">전화번호</label>
                             <input type="text" class="member_Box" name="phone" th:value="${ memberDetail.phone }"
                                    readonly="readonly">
-                        </label>
                     </div>
                     <div class="member_line">
-                        <label>기혼 여부</label>
+                        <label class="label_no_interval_line">기혼 여부</label>
                             <p class="gender_line2" th:text="${ memberDetail.marriedStatus }"></p>
                     </div>
-                    <div class="member_line">웨딩홀 인증
+                    <div class="member_line">
+                        <label class="label_interval_line">웨딩홀 인증</label>
                         <input class="member_nickname_box" type="text" name="weddingVerified"
                             th:value="${ memberDetail.weddingVerified }" readonly="readonly">
                     </div>
@@ -75,15 +76,14 @@
                 <td>
                     <a th:text="${memberOne.postTitle}"></a>
                 </td>
-<!--                <td th:text="${ memberOne.nickname }"></td>-->
                 <td class="number" th:text="${#dates.format(memberOne.postDate, 'yyyy-MM-dd') }" ></td>
                 <td th:text="${ memberOne.viewCount }"></td>
             </tr>
         </table>
     </div>
-        <div class="button_box" align="center">
-            <div>
-                <button type="button" class="back_post_btn" onclick="location.href='/admin/member'">목록</button>
+        <div class="button_box">
+            <div class="button_interval">
+                <button type="button" class="back_member_btn" onclick="location.href='/admin/member'">목록</button>
                 <button type="button" th:onclick="|location.href='@{/admin/member/membersModify(id=${memberDetail.memberCode})}'|">수정하기
                 </button>
             </div>

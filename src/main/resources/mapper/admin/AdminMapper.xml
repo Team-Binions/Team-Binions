@@ -19,6 +19,12 @@
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
 
+    <resultMap id="memberPostResultMap" type="com.beanions.admin.dto.AdminMemberPostDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <result property="board" column="POST_COUNT"/>
+        <result property="comment" column="COMMENT_COUNT"/>
+
+    </resultMap>
 
     <select id="membersAllList" resultMap="membersResultMap">
         SELECT
@@ -35,6 +41,8 @@
         ,   WEDD_VEF
         ,   SIGNUP_DATE
         FROM MEMBERS
+        ORDER BY SIGNUP_DATE DESC
+        LIMIT 18
     </select>
 
     <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
@@ -83,6 +91,15 @@
     LIMIT 5
     </select>
 
+
+    <select id="selectAdminReviewData" parameterType="_int" resultMap="memberPostResultMap">
+        SELECT
+            A.POST_COUNT
+        ,   B.COMMENT_COUNT
+        FROM ( select count(*) POST_COUNT from POST      where MEMBER_CODE   = #{ codes } ) AS A
+        ,  ( select count(*) COMMENT_COUNT from COMMENTS   where MEMBER_CODE = #{ codes } ) AS B
+    </select>
+
     <resultMap id="adminPostResultMap" type="com.beanions.admin.dto.AdminPostDTO">
         <id property="postCode" column="post_code"/>
         <result property="memberCode" column="member_code"/>
@@ -90,10 +107,10 @@
         <result property="postContext" column="post_context"/>
         <result property="postDate" column="post_date"/>
         <result property="mainCategory" column="main_category"/>
-        <result property="subCategory" column="sub_category"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="vef_status"/>
         <result property="reviewStatus" column="review_status"/>
-        <result property="viewCount" column="view_count"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="member_code"/>
             <result property="nickname" column="nickname"/>
