@@ -26,6 +26,7 @@
       <ul class="right_menu">
         <li><a href="/board/freeRegist">글쓰기</a></li>
         <li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
+        <li sec:authorize="hasAnyAuthority('USER')" class="mypage_btn"><a th:href="@{/mypage}"></a></li>
         <li sec:authorize="hasAnyAuthority('USER')" class="logout_btn"><a th:href="@{/auth/logout}"></a></li>
       </ul>
     </nav>
