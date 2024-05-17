@@ -14,6 +14,7 @@
         <result property="mainCategory" column="MAIN_CATEGORY"/>
         <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="VEF_STATUS"/>
+        <result property="viewCount" column="view_count"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="MEMBER_CODE"/>
             <result property="nickname" column="NICKNAME"/>
@@ -29,6 +30,7 @@
         , A.POST_DATE
         , A.MAIN_CATEGORY
         , A.SUB_CATEGORY
+        , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
         FROM POST A

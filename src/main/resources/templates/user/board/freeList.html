@@ -13,11 +13,6 @@
         if (successMessage){
             alert(successMessage)
         }
-        $(document).ready(function() {
-            // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
-            console.log('findAllPost 실행...');
-            findAllPost();
-        });
     </script>
 </head>
 <body>
@@ -47,8 +42,8 @@
                     <th>조회수</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="list" th:each="free, i : ${ PostAndMemberDTOList.list }" >
+                <tbody id="list">
+                <tr th:each="free, i : ${ PostAndMemberDTOList.list }" >
                     <td class="eng" th:text="${ (i.size + 1)-(i.count) }"></td>
                     <td>
                     <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
@@ -70,33 +65,32 @@
 <div th:replace="user/layout/footer.html"></div>
 
     <script>
-        $(document).ready(function() {
+        window.onload = () => {
             // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
-            console.log('findAllPost 실행...');
             findAllPost();
-        });
-
+            console.log('페이지시작시 로드...')
+        }
 
         // 게시글 리스트 조회
+       var list;
         function findAllPost() {
+            list = '[[${ PostAndMemberDTOList.list }]]';
+            console.log('function 시작시 로드...')
             // 1. PagingResponse의 멤버인 List<T> 타입의 list를 의미
-            const list = [[ ${PostAndMemberDTOList.list} ]];
-            console.log('list...');
             // 2. 리스트가 비어있는 경우, 행에 "검색 결과가 없다"는 메시지를 출력하고, 페이지 번호(페이지네이션) HTML을 제거(초기화)한 후 로직을 종료
-            if ( !list.length ) {
-                document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
+            if ( !list || list.length === 0) {
+                console.log('if 시작시 로드...')
+                document.getElementById('list').innerHTML = '<td colspan="4"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
                 drawPage();
             }
-
             // 3. PagingResponse의 멤버인 pagination을 의미
-            const pagination = [[ ${PostAndMemberDTOList.pagination} ]];
-
+            const pagination = '[[ ${PostAndMemberDTOList.pagination} ]]';
             // 4. @ModelAttribute를 이용해서 뷰(HTML)로 전달한 SearchDto 타입의 객체인 params를 의미
-            const params = [[ ${params} ]];
+            const params = '[[ ${params} ]]';
 
             // 5. 리스트에 출력되는 게시글 번호를 처리하기 위해 사용되는 변수 (리스트에서 번호는 페이지 정보를 이용해서 계산해야 함)
             let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
-
+            console.log('num'+num);
             // 6. 리스트 데이터 렌더링
             drawList(list, num);
 
@@ -106,29 +100,37 @@
 
 
         // 리스트 HTML draw
-        function drawList(list, num) {
+        function drawList(list) {
 
             // 1. 렌더링 할 HTML을 저장할 변수
             let html = '';
 
+            const listArray = Array.from(list);
+            // console.log('listArray...' + list);
             /*
              * 2. 기존에 타임리프(Thymeleaf)를 이용해서 리스트 데이터를 그리던 것과 유사한 로직
              *    기존에는 게시글 번호를 (전체 데이터 수 - loop의 인덱스 번호)로 처리했으나, 현재는 (전체 데이터 수 - ((현재 페이지 번호 - 1) * 페이지당 출력할 데이터 개수))로 정밀히 계산
              */
-            list.forEach(free => {
+            listArray.forEach((free, i)=> {
+                console.log(i.size);
+                console.log(i.count);
                 html += `
-                     <tr free, i : ${ PostAndMemberDTOList } >
-                         <td ${ (i.size + 1)-(i.count) }></td>
-                        <td>
-                        <a ${ free.postTitle } href="@{/board/freeDetail(id=${free.postCode})}"></a>
-                         </td>
-                         <td ${ free.viewCount }></td>
-                         <td ${ free.member.nickname }></td>
-                         <td ${ #dates.format(free.postDate, 'yyyy.MM.dd') }></td>
-                     </tr>
+                     <tr th:each="free, i : ${ PostAndMemberDTOList.list }" >
+                    <td class="eng" th:text="${ (i.size + 1)-(i.count) }"></td>
+                    <td>
+                    <a th:text="${ free.postTitle }" th:href="@{/board/freeDetail(id=${free.postCode})}"></a>
+                    </td>
+                    <td th:text="${ free.member.nickname }"></td>
+                    <td class="eng" th:text="${ #dates.format(free.postDate, 'yyyy.MM.dd') }"></td>
+                    <td th:text="${ free.viewCount }"></td>
+                </tr>
                     `;
             })
-
+                         // <td ${free.viewCount}></td>
+                         // <td ${(i.size + 1) - (i.count)}></td>
+                         // <td ${free.viewCount}></td>
+                         // <td ${free.member.nickname}></td>
+            // < td ${ #dates.format(free.postDate, 'yyyy.MM.dd') } > < /td>
             // 3. id가 "list"인 요소를 찾아 HTML을 렌더링
             document.getElementById('list').innerHTML = html;
         }
@@ -185,8 +187,8 @@
             // 1. drawPage( )의 각 버튼에 선언된 onclick 이벤트를 통해 전달받는 page(페이지 번호)를 기준으로 객체 생성
             const queryParams = {
                 page: (page) ? page : 1,
-                recordSize: 10,
-                pageSize: 10
+                recordSize: 3,
+                pageSize: 5
             }
 
             /*
@@ -242,21 +244,21 @@
             });
 
                 // 검색시 x버튼
-                const clearBtn = document.querySelector(".clear_btn");
-                clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
-                    e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
-                    clearBtn.classList.remove("active"); // x버튼 비활성화
-                });
-
-                // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
-                const searchInput = document.querySelector(".search_input");
-                searchInput.addEventListener("input", (e) => {
-                    if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
-                        clearBtn.classList.add("active"); // x버튼 활성화
-                    } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
-                        clearBtn.classList.remove("active");// x버튼 비활성화
-                    }
-                });
+                // const clearBtn = document.querySelector(".clear_btn");
+                // clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+                //     e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+                //     clearBtn.classList.remove("active"); // x버튼 비활성화
+                // });
+                //
+                // // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+                // const searchInput = document.querySelector(".search_input");
+                // searchInput.addEventListener("input", (e) => {
+                //     if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+                //         clearBtn.classList.add("active"); // x버튼 활성화
+                //     } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+                //         clearBtn.classList.remove("active");// x버튼 비활성화
+                //     }
+                // });
         </script>
 </th:block>
 </body>
