@@ -150,5 +150,16 @@ public class FreeBoardController {
         } else {
             return "redirect:/board/yerangList";}
     }
+
+    //240517 by NJH - 댓글 작업용 도메인
+    @GetMapping("/freedetail")
+    public String freeDetailComment(@RequestParam("id") String id, Model model){
+
+        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
+
+        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
+
+        return "/user/board/freeDetail";
+    }
 }
 
