@@ -35,8 +35,37 @@
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
-        WHERE POST_TITLE LIKE CONCAT('%', #{ keyword }, '%')
-         AND MAIN_CATEGORY IN ('매거진', '자유', '리뷰')
+        WHERE MAIN_CATEGORY IN ('매거진', '자유', '리뷰')
+        <include refid="search" />
+<!--         AND POST_TITLE LIKE CONCAT('%', #{ keyword }, '%')-->
         ORDER BY POST_DATE DESC, POST_CODE DESC;
     </select>
+
+    <!-- 게시글 검색 -->
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                    <choose>
+                        <when test="'title'.equals( searchType )">
+                            AND POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'context'.equals( searchType )">
+                            AND POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </when>
+
+                <!-- 전체 검색일 때 -->
+                <otherwise>
+                    AND (
+                    POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+                    OR POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
 </mapper>

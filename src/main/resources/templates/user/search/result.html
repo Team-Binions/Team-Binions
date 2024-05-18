@@ -25,8 +25,20 @@
         <div></div>
         <!-- 제목, 내용 버튼 & 검색창 -->
         <div></div>
-        <!--  -->
-        <div></div>
+        <!-- 게시글 리스트 -->
+        <div>
+            <ul>
+                <li th:each="post : ${postList}">
+                    <!-- 이미지 영역 -->
+                    <div></div>
+                    <p th:text="${post.mainCategory}"></p>
+                    <p th:text="${post.postTitle}"></p>
+                    <p th:text="${post.postContext}"></p>
+                    <p th:text="${post.member.nickname}"></p>
+                    <p class="eng"><span th:text="${#dates.format(post.postDate, 'yyyy-MM-dd')}"></span></p>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!-- FOOTER -->
