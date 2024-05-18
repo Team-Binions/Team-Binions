@@ -24,9 +24,10 @@ public class VisitorService {
 
     public void incrementVisitorCount(HttpServletRequest request) {
         String userIp = getClientIp(request);
+        System.out.println("=======================================================");
         System.out.println("접근한 ClientIP : " + userIp);
         String userKey = USER_KEY_PREFIX + userIp;
-        System.out.println(redisTemplate);
+//        System.out.println(redisTemplate);
 
         // Check if the user has already incremented the counter
         if (Boolean.TRUE.equals(redisTemplate.hasKey(userKey))) {

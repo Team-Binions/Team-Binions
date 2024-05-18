@@ -49,14 +49,12 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         while (sessionNames.hasMoreElements()) {
             System.out.println("remain : " + sessionNames.nextElement());
         }
-        System.out.println("=================================================");
 
-        System.out.println("========로그인 성공시 권한을 조회해 리다이렉트 url 매핑=======");
+        System.out.println("=============로그인 성공시 권한을 조회해 리다이렉트 url 매핑============");
         System.out.println("인증 된 권한 =>" + dto);
         //권한리스트를 추출
         Collection<GrantedAuthority> authlist = dto.getAuthorities();
         Iterator<GrantedAuthority> authlist_it= authlist.iterator();
-        System.out.println("=======================================================");
 
         String url="/";
 
