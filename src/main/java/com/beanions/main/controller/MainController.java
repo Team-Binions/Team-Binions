@@ -46,6 +46,7 @@ public class MainController{
         visitorService.incrementVisitorCount(request);
         System.out.println("===============================================");
         System.out.println("방문자 수 : " + visitorService.getVisitorCount());
+        System.out.println("===============================================");
 
         //예수다
         List<PostDTO> freeBoardByBride = mainService.selectFreeBoardByBride();
