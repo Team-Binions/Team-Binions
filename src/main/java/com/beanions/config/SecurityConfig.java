@@ -11,13 +11,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
 @EnableWebSecurity
+@EnableRedisHttpSession
 public class SecurityConfig {
 
     @Autowired
@@ -36,6 +41,15 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 
     @Bean
@@ -93,9 +107,11 @@ public class SecurityConfig {
             logout.invalidateHttpSession(true);
             logout.logoutSuccessUrl("/"); // 로그아웃 성공한 뒤 이동할 페이지 설정
 
-        }).sessionManagement( session -> {
-            session.maximumSessions(1); // 세션 저장 범위 설정
-            session.invalidSessionUrl("/"); // 세션을 전부 만료 한 뒤 이동할 페이지 설정
+        }).sessionManagement( session -> { session
+            .maximumSessions(1)
+            .maxSessionsPreventsLogin(false)
+            .expiredUrl("/")
+            .sessionRegistry(sessionRegistry());
 
             //CSRF 보안 공격 방어. 403에러 원인 범인1
         }).csrf( csrf -> csrf.disable());
