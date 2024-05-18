@@ -1,11 +1,14 @@
 package com.beanions.board.free.controller;
 
+import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.free.service.FreeBoardService;
+import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.common.paging.PagingResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +60,16 @@ public class FreeBoardController {
     @GetMapping("/freeDetail")
     public String freeDetail(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
+        int code = Integer.parseInt(id);
+        System.out.println("code : " + code);
+        List<PostAndCommentDTO> postAndCommentDTOList = freeBoardService.selectAllComments(code);
+        System.out.println(postAndCommentDTOList);
+//        PostAndCommentDTO postAndCommentDTO = freeBoardService.selectAllComments(code);
+//        System.out.println(postAndCommentDTO);
 
-        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
+//        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
+        model.addAttribute("PostAndCommentDTO", postAndCommentDTOList);
+
 
         return "/user/board/freeDetail";
     }

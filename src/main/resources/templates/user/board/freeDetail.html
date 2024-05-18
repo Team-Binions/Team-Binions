@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
-    <div th:each="free: ${ PostAndMemberDTO }">
+    <div th:each="free: ${ PostAndCommentDTO }">
         <title th:text="${free.postTitle}"></title>
     </div>
 </head>
@@ -18,7 +18,7 @@
 
     <div class="free_list_content" style="flex-direction: column; align-items: center;">
         <article>
-        <div th:each="free: ${ PostAndMemberDTO }" >
+        <div th:each="free: ${ PostAndCommentDTO }" >
             <div class="category_data">
                 <p class="mainCategory" th:text="${free.mainCategory}"></p>
                 <p class="category_line">|</p>
@@ -35,12 +35,12 @@
             <hr class="content_line">
             <p class="free_content" th:text="${free.postContext}"></p>
             <hr class="content_line">
+
         <!--댓글 영역-->
-<!--            <p class="comment">댓글ASDFASDFASD</p>-->
         <table>
-            <tr th:each="cmt : ${comments}">
-                <td th:text="${cmt.comment}"></td>
-                <td th:text="${cmt.nickname}"></td>
+            <tr th:each="cmt : ${free.comment}">
+                <td th:text="${cmt.getCommentContext()}"></td>
+                <td th:text="${}"></td>
                 <td th:text="${#temporals.format(cmt.modifiedAt, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
 <!--            <form>-->
@@ -160,18 +160,17 @@
             </ul>
 
             <!-- 댓글 입력 영역 -->
-            <div class="comment_input_box">
-            <span class="comment_profile_img">
-              <img th:src="@{/images/common/icon_user_profile.svg}" alt="user profile icon">
-            </span>
-
-                <!-- 댓글 입력 input -->
-                <form class="comment_input_area">
-                    <div class="schedule_tit_box"><input type="text" class="schedule_tit" maxlength="100" placeholder="내용을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/100</span></div>
-                    <span class="register_btn register_comment_btn">등록</span>
-                </form>
-
-
+            <div sec:authorize="hasAnyAuthority('USER','ADMIN')">
+                <div class="comment_input_box">
+                    <span class="comment_profile_img">
+                      <img th:src="@{/images/common/icon_user_profile.svg}" alt="user profile icon">
+                    </span>
+                    <!-- 댓글 입력 input -->
+                    <form class="comment_input_area">
+                        <div class="schedule_tit_box"><input type="text" class="schedule_tit" maxlength="100" placeholder="내용을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/100</span></div>
+                        <span class="register_btn register_comment_btn">등록</span>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

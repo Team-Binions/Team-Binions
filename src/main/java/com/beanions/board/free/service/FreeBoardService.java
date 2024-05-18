@@ -1,5 +1,6 @@
 package com.beanions.board.free.service;
 
+import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.free.dao.FreeBoardMapper;
 //import com.beanions.common.dto.Page;
 import com.beanions.board.common.dto.PostAndMemberDTO;
@@ -48,10 +49,10 @@ public class FreeBoardService {
 
         int code = Integer.parseInt(id);
 
-        List<PostAndMemberDTO> postAndMemberDTOS = freeBoardMapper.freeDetail(code);
+        List<PostAndMemberDTO> postAndMemberDTO = freeBoardMapper.freeDetail(code);
 
-        if(postAndMemberDTOS != null && !postAndMemberDTOS.isEmpty()){
-            PostAndMemberDTO post = postAndMemberDTOS.get(0);
+        if(postAndMemberDTO != null && !postAndMemberDTO.isEmpty()){
+            PostAndMemberDTO post = postAndMemberDTO.get(0);
 
             int updateViewCount = post.getViewCount() + 1;
 
@@ -79,4 +80,7 @@ public class FreeBoardService {
         freeBoardMapper.freeDelete(postDTO);
     }
 
+    public List<PostAndCommentDTO> selectAllComments(int code) {
+        return freeBoardMapper.selectAllComments(code);
+    }
 }

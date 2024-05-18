@@ -1,5 +1,6 @@
 package com.beanions.board.free.dao;
 
+import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
@@ -25,4 +26,6 @@ public interface FreeBoardMapper {
 
     @Update("UPDATE Post SET view_count = #{viewCount} WHERE Post_Code = #{id}")
     void updateViewCount(@Param("id") int id, @Param("viewCount") int viewCount);
+
+    List<PostAndCommentDTO> selectAllComments(int code);
 }

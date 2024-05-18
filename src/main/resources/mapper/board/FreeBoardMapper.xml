@@ -20,6 +20,31 @@
             <result property="nickname" column="nickname"/>
         </association>
     </resultMap>
+    <resultMap id="PostAndCommentResultMap" type="com.beanions.board.common.dto.PostAndCommentDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContext" column="post_context"/>
+        <result property="postDate" column="post_date"/>
+        <result property="mainCategory" column="main_category"/>
+        <result property="subCategory" column="sub_category"/>
+        <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="viewCount" column="view_count"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="member_code"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+        <collection property="comment" javaType="com.beanions.board.common.dto.CommentAndMemberDTO">
+            <result property="memberCode" column="MEMBER_CODE"/>
+            <result property="postCode" column="POST_CODE"/>
+            <result property="commentContext" column="COMMENT_CONTEXT"/>
+            <result property="commentDate" column="COMMENT_DATE"/>
+            <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+                <result property="nickname" column="nickname"/>
+            </association>
+        </collection>
+    </resultMap>
     
     <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
         <id property="page" column="page"/>
@@ -74,6 +99,31 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE POST_CODE = #{ id }
+    </select>
+
+    <!-- 댓글 조회 -->
+    <select id="selectAllComments" resultMap="PostAndCommentResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        , C.MEMBER_CODE
+        , C.POST_CODE
+        , C.COMMENT_CONTEXT
+        , C.COMMENT_DATE
+        , D.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        LEFT JOIN COMMENTS C ON A.POST_CODE = C.POST_CODE
+        LEFT JOIN MEMBERS D ON C.MEMBER_CODE = D.MEMBER_CODE
+        WHERE A.POST_CODE = #{ code }
     </select>
 
     <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">
