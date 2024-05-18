@@ -18,6 +18,64 @@
         <result property="signupDate" column="SIGNUP_DATE"/>
     </resultMap>
 
+    <!-- 회원가입 -->
+    <select id="checkDupId">
+        SELECT
+        COUNT(*)
+        FROM
+        MEMBERS
+        WHERE   MEMBER_ID = #{id}
+    </select>
+    <select id="checkDupNkname">
+        SELECT
+        COUNT(*)
+        FROM
+        MEMBERS
+        WHERE   NICKNAME = #{nkname}
+    </select>
+    <select id="checkDupEmail">
+        SELECT
+        COUNT(*)
+        FROM
+        MEMBERS
+        WHERE   EMAIL = #{email}
+    </select>
+    <insert id="joinMember" parameterType="com.beanions.common.dto.MembersDTO">
+        INSERT INTO
+        MEMBERS
+        (
+        MEMBER_CODE,
+        MEMBER_ID,
+        MEMBER_PW,
+        NICKNAME,
+        EMAIL,
+        PHONE,
+        GENDER,
+        MARRIED_STATUS,
+        MEMBER_ROLE,
+        WEDD_FILE,
+        WEDD_VEF,
+        SIGNUP_DATE
+        )
+        VALUES
+        (
+        NULL,
+        #{memberId},
+        #{memberPw},
+        #{nickname},
+        #{email},
+        #{phone},
+        #{gender},
+        #{marriedStatus},
+        'USER',
+        #{weddingFile},
+        'N',
+        CURDATE()
+        )
+    </insert>
+    <!-- 회원가입 -->
+
+    <!-- 계정 정보 조회 -->
     <select id="findByMemberId" resultMap="memberInfo">
         SELECT
                 MEMBER_CODE,
@@ -35,14 +93,12 @@
         FROM    MEMBERS
         WHERE   MEMBER_ID = #{memberId}
     </select>
-
     <select id="findByEmail">
         SELECT
                 MEMBER_ID
         FROM    MEMBERS
         WHERE   EMAIL = #{email}
     </select>
-    
     <select id="findByMemberIdAndEmail">
         SELECT
                 COUNT(*)
@@ -51,7 +107,6 @@
         WHERE   MEMBER_ID = #{id}
         AND     EMAIL = #{email}
     </select>
-
     <update id="modifyMemberPwd">
         UPDATE
                 MEMBERS
@@ -59,5 +114,20 @@
                 MEMBER_PW = #{tempPwd}
         WHERE   MEMBER_ID = #{id}
     </update>
+    <!-- 계정 정보 조회 -->
+
+    <!-- 방문자 수 -->
+    <insert id="insertVisitorCount">
+        INSERT INTO VISITOR_COUNT
+        (
+        COUNT,
+        TIMESTAMP
+        )
+        VALUES
+        (
+        #{count},
+        NOW()
+        )
+    </insert>
 
 </mapper>

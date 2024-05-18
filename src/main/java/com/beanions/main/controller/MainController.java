@@ -3,6 +3,8 @@ package com.beanions.main.controller;
 import com.beanions.auth.model.AuthDetails;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.main.service.MainService;
+import com.beanions.user.service.VisitorService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,9 +20,10 @@ import java.util.List;
 @AllArgsConstructor
 public class MainController{
     private final MainService mainService;
+    private final VisitorService visitorService;
 
     @GetMapping(value = {"/","/main"})
-    public String main(Authentication authentication, Model model){
+    public String main(Authentication authentication, Model model, HttpServletRequest request){
 
         if( authentication != null ) {
             AuthDetails dto = (AuthDetails) authentication.getPrincipal();
@@ -39,6 +42,11 @@ public class MainController{
                 }
             }
         }
+
+        visitorService.incrementVisitorCount(request);
+        System.out.println("===============================================");
+        System.out.println("방문자 수 : " + visitorService.getVisitorCount());
+        System.out.println("===============================================");
 
         //예수다
         List<PostDTO> freeBoardByBride = mainService.selectFreeBoardByBride();
