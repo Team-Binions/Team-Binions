@@ -70,13 +70,21 @@
             <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
             <ul class="preview_list">
               <li class="upload_img_btn">
-                <label class="file_upload_box preview" name="upload">
+                <label class="file_upload_box preview" name="uploadFiles">
                   <span class="upload_btn">＋</span>
-                  <input type="file" name="upload" class="file_upload_input">
+                  <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">
                 </label>
               </li>
             </ul>
           </div>
+
+
+          <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
+          <button class="uploadBtn">Upload</button>
+
+          <div class="uploadResult"></div>
+
+
           <ul class="myinfo_list">
             <li>
               <span class="list_item_tit">웨딩홀 인증</span>
@@ -107,6 +115,23 @@
 <!-- <script src="./js/common.js"></script> -->
 <script>
 
+    // 파일 선택 이벤트
+    $('input[name=uploadFiles]').on('change', function(e) {
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+
+        // 업로드 된 파일 유효성 체크
+        if (filesArr.length > 5) {
+            alert("이미지는 최대 5개까지 업로드 가능합니다.");
+            $('input[name=uploadFiles]').val();
+            return;
+        }
+
+        // filesArr.forEach(function(f) {
+        //     inputFileList.push(f);    // 이미지 파일을 배열에 담는다.
+        // });
+    });
+
 
     // 파일 업로드 시 미리보기 추가
     const previewTag = (imgSrc) => `<li class="preview_img">
@@ -115,7 +140,7 @@
                 </li>`;
 
     // 선택 파일 삭제
-    $(".remove_preview_btn").click((e) => {
+    $(document).on('click',".remove_preview_btn", (e) => {
         console.log("removebutton clicked");
         if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
             $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
@@ -124,45 +149,99 @@
     })
 
     // 업로드 파일 경로 읽어오기
-    function readURL(input, index) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if(index == 0){
-                    $(`.preview_list`).prepend(previewTag(e.target.result));
-                    $(".count_preview").text('1');
-                } else {
-                    $(".preview_list").find("li").eq((index - 1)).after(previewTag(e.target.result));
-                    $(".count_preview").text(index + 1);
-
-                    if(index == 4){
-                        $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
-                    }
-                }
-
-                // 선택 파일 삭제
-                $(".remove_preview_btn").click((e) => {
-                    console.log("removebutton clicked");
-                    console.log($(".preview_list > li").length);
-                    const index = $(".upload_img_btn").index();
-                    if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
-                        $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
-                        $(".count_preview").text(4);
-                    }else{
-                        $(".count_preview").text($(".preview_list > li").length - 1);
-                    }
-                    $(e.target).closest("li").remove();
-                })
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    // function readURL(input, index) {
+    //     if (input.files && input.files[0]) {
+    //         const reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             if(index == 0){
+    //                 $(`.preview_list`).prepend(previewTag(e.target.result));
+    //                 $(".count_preview").text('1');
+    //             } else {
+    //                 $(".preview_list").find("li").eq((index - 1)).after(previewTag(e.target.result));
+    //                 $(".count_preview").text(index + 1);
+    //
+    //                 if(index == 4){
+    //                     $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
+    //                 }
+    //             }
+    //
+    //             // 선택 파일 삭제
+    //             $(".remove_preview_btn").click((e) => {
+    //                 console.log("removebutton clicked");
+    //                 console.log($(".preview_list > li").length);
+    //                 const index = $(".upload_img_btn").index();
+    //                 if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
+    //                     $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
+    //                     $(".count_preview").text(4);
+    //                 }else{
+    //                     $(".count_preview").text($(".preview_list > li").length - 1);
+    //                 }
+    //                 $(e.target).closest("li").remove();
+    //             })
+    //         }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 
     $(".file_upload_input").change(function() {
         const index = $(".upload_img_btn").index();
         console.log('파일업로드시 index : ' + index);
-        readURL(this, index);
+        // readURL(this, index);
     });
+
+    //uploadBtn
+
+    $('input[name=uploadFiles]').click(() => {
+
+        const formData = new FormData();
+
+        const inputFile = $("input[type='file']");
+
+        const files = inputFile[0].files;
+
+        if(files.length > 5){
+            for(let i = 0; i < 5; i++) {
+                console.log(files[i]);
+                formData.append("uploadFiles", files[i]);
+            }
+        } else {
+            for(let i = 0; i < files.length; i++) {
+                console.log(files[i]);
+                formData.append("uploadFiles", files[i]);
+            }
+        }
+
+        const showUploadedImages = arr => {
+            console.log(arr);
+
+            const divArea = $(".uploadResult");
+
+            for(let i = 0; i<arr.length; i++){
+                const imgUrl = "/display?fileName="+arr[i].imageURL;
+                //divArea.append("<img src='/display?fileName="+arr[i].imageURL+"' alt='..null'>");
+                $('.preview_list').prepend(previewTag(imgUrl));
+            }
+        }
+
+        /*실제 업로드 부분*/
+        /*upload ajax*/
+        $.ajax({
+            url: '/uploadAjax',
+            processData: false,
+            contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
+            data: formData,
+            type: 'POST',
+            dataType: 'json',
+            success: result => {
+                console.log(result);
+                showUploadedImages(result);
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                console.log(textStatus)
+            }
+        })
+
+    })
 </script>
 </body>
 </html>

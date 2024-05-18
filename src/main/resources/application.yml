@@ -32,6 +32,9 @@ spring:
     web:
         resources:
             static-locations: classpath:/assets/
+    file:
+        upload:
+            path: src/main/resources/assets/images/upload
 
 servlet:
     multipart:

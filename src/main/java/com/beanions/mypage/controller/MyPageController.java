@@ -242,7 +242,7 @@ public class MyPageController {
   }
 
   // 마이페이지 > 파일 업로드
-  @GetMapping("/mypage/fileupload")
+  @GetMapping("/fileupload")
   public String fileUpload(Model model){
     return "user/mypage/fileUpload";
   }
