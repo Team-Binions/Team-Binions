@@ -42,7 +42,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         // 이 세션은 3시간 동안만 유지
         // @Scheduled로 서버가 재시작되어도 redis에서 관리되도록 securityconfig에서 관리되고있다.
-        request.getSession().setMaxInactiveInterval((int) TimeUnit.HOURS.toSeconds(3));
+        request.getSession().setMaxInactiveInterval((int) TimeUnit.HOURS.toSeconds(24));
 
         System.out.println("==============인증 후 등록 된 유저정보 세션==============");
         Enumeration<String> sessionNames = session.getAttributeNames();
