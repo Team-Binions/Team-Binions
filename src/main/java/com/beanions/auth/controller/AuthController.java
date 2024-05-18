@@ -41,6 +41,7 @@ public class AuthController {
 
     @GetMapping("/forgetInfo")
     public ModelAndView forgetInfo(ModelAndView mv,@RequestParam int no){
+
         mv.addObject("no",no);
         return mv;
     }
