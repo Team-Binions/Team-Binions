@@ -54,14 +54,12 @@ public class VisitorService {
         return remoteAddr;
     }
 
-    int count;
     @Scheduled(fixedRate = 1800000) // 30분마다 실행
     public void updateVisitorCountInDatabase() {
-        count++;
         Integer visitorCount = redisTemplate.opsForValue().get(VISITOR_COUNT_KEY);
         if (visitorCount != null && visitorCount > 0) {
             userMapper.insertVisitorCount(visitorCount);
-            System.out.println(count + "번째 AddVisitorCount : " + visitorCount);
+            System.out.println("AddVisitorCount : " + visitorCount);
             redisTemplate.delete(VISITOR_COUNT_KEY);
             System.out.println("캐시 삭제 완료!");
         }
