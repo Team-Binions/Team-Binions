@@ -68,4 +68,14 @@
             </choose>
         </if>
     </sql>
+
+    <!-- 게시글 수 카운팅 -->
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST
+        WHERE MAIN_CATEGORY IN ('매거진', '자유', '리뷰')
+        <include refid="search" />
+    </select>
 </mapper>

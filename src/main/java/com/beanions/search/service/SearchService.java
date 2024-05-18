@@ -23,4 +23,9 @@ public class SearchService {
 
         return searchMapper.searchResult(params);
     }
+
+    public int count(SearchDTO params) {
+
+        return searchMapper.count(params);
+    }
 }
