@@ -1,17 +1,28 @@
 package com.beanions.board.free.controller;
 
+import com.beanions.auth.model.AuthDetails;
+import com.beanions.board.common.dto.CommentAndAuthDetailsDto;
+import com.beanions.board.common.dto.CommentAndMemberDTO;
+import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.free.service.FreeBoardService;
+import com.beanions.common.dto.CommentsDTO;
+import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.common.paging.PagingResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/board")
@@ -51,13 +62,79 @@ public class FreeBoardController {
     }
 
     @GetMapping("/freeDetail")
-    public String freeDetail(@RequestParam("id") String id, Model model){
+    public String freeDetail(@RequestParam("id") String code, Model model){
 
-        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
+        System.out.println("code : " + code);
+        List<PostAndMemberDTO> postAndMemberDTO = freeBoardService.freeDetail(code);
+        System.out.println(postAndMemberDTO);
+//        PostAndCommentDTO postAndCommentDTO = freeBoardService.selectAllComments(code);
+//        System.out.println(postAndCommentDTO);
 
-        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
+//        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
+        model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
+
 
         return "/user/board/freeDetail";
+    }
+
+    @GetMapping(value = "/comments", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public Map<String, Object> selectAllComments(@RequestParam int code,int align, Authentication authentication){
+
+        Map<String, Object> response = new HashMap<>();
+
+        if(align == 1) {
+            List<CommentAndMemberDTO> comments = freeBoardService.selectAllCommentsDesc(code);
+            freeBoardService.selectAllCommentsDesc(code).forEach(System.out::println);
+            response.put("comments", comments);
+        } else {
+            List<CommentAndMemberDTO> comments = freeBoardService.selectAllCommentsAsc(code);
+            freeBoardService.selectAllCommentsAsc(code).forEach(System.out::println);
+            response.put("comments", comments);
+        }
+
+
+        if( authentication != null ) {
+            AuthDetails loginUser = (AuthDetails) authentication.getPrincipal();
+            String nickname = loginUser.getLoginUserDTO().getNickname();
+            response.put("curNickname", nickname);
+        }
+        return response;
+    }
+
+    @PostMapping(value = "/comment-regist")
+    @ResponseBody
+    public String registComment(@RequestBody CommentsDTO comment,Authentication authentication) throws JsonProcessingException {
+        AuthDetails loginUser = (AuthDetails) authentication.getPrincipal();
+        comment.setMemberCode(loginUser.getLoginUserDTO().getMemberCode());
+        System.out.println(comment);
+
+        int result = freeBoardService.registComment(comment);
+        System.out.println(result);
+
+        return new ObjectMapper().writeValueAsString(result);
+    }
+
+    @PostMapping(value = "/comment-modify")
+    @ResponseBody
+    public String modifyComment(@RequestBody CommentsDTO comment) throws JsonProcessingException {
+
+        System.out.println(comment);
+
+        int result = freeBoardService.modifyComment(comment);
+        System.out.println(result);
+
+        return new ObjectMapper().writeValueAsString(result);
+    }
+
+    @PostMapping(value = "/comment-delete")
+    @ResponseBody
+    public String deleteComment(@RequestBody int commentCode) throws JsonProcessingException {
+
+        int result = freeBoardService.deleteComment(commentCode);
+        System.out.println(result);
+
+        return new ObjectMapper().writeValueAsString(result);
     }
 
     @GetMapping("/freeRegist")

@@ -1,8 +1,11 @@
 package com.beanions.board.free.service;
 
+import com.beanions.board.common.dto.CommentAndMemberDTO;
+import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.free.dao.FreeBoardMapper;
 //import com.beanions.common.dto.Page;
 import com.beanions.board.common.dto.PostAndMemberDTO;
+import com.beanions.common.dto.CommentsDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.common.paging.Pagination;
@@ -48,10 +51,10 @@ public class FreeBoardService {
 
         int code = Integer.parseInt(id);
 
-        List<PostAndMemberDTO> postAndMemberDTOS = freeBoardMapper.freeDetail(code);
+        List<PostAndMemberDTO> postAndMemberDTO = freeBoardMapper.freeDetail(code);
 
-        if(postAndMemberDTOS != null && !postAndMemberDTOS.isEmpty()){
-            PostAndMemberDTO post = postAndMemberDTOS.get(0);
+        if(postAndMemberDTO != null && !postAndMemberDTO.isEmpty()){
+            PostAndMemberDTO post = postAndMemberDTO.get(0);
 
             int updateViewCount = post.getViewCount() + 1;
 
@@ -79,4 +82,44 @@ public class FreeBoardService {
         freeBoardMapper.freeDelete(postDTO);
     }
 
+    public List<CommentAndMemberDTO> selectAllCommentsDesc(int code) {
+        return freeBoardMapper.selectAllCommentsDesc(code);
+    }
+    public List<CommentAndMemberDTO> selectAllCommentsAsc(int code) {
+        return freeBoardMapper.selectAllCommentsAsc(code);
+    }
+
+    public int registComment(CommentsDTO comment) {
+
+        int result = 0;
+        result = freeBoardMapper.registComment(comment);
+        if(result > 0){
+            System.out.println("댓글 등록 성공!");
+        } else {
+            System.out.println("댓글 등록 실패!");
+        }
+        return result;
+    }
+
+    public int deleteComment(int commentCode) {
+        int result = 0;
+        result = freeBoardMapper.deleteComment(commentCode);
+        if(result > 0){
+            System.out.println("댓글 삭제 성공!");
+        } else {
+            System.out.println("댓글 삭제 실패!");
+        }
+        return result;
+    }
+
+    public int modifyComment(CommentsDTO comment) {
+        int result = 0;
+        result = freeBoardMapper.modifyComment(comment);
+        if(result > 0){
+            System.out.println("댓글 수정 성공!");
+        } else {
+            System.out.println("댓글 수정 실패!");
+        }
+        return result;
+    }
 }

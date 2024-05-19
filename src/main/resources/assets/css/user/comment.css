@@ -1,6 +1,6 @@
 /* 댓글 */
 .registered_comment_box {width: 100%; max-width: 1200px; min-width: 1200px; padding: 20px 20px 60px; margin: 0 auto;}
-.comment_top_sec {display: flex; align-items: center;}
+.comment_top_sec {display: flex; align-items: center; padding-bottom: 60px;}
 .comment_sec_tit { margin-top: -2px; font-size: 20px; font-weight: var(--semiBold); line-height: 18px;}
 
 /* filter 댓글 정렬버튼 */
@@ -15,7 +15,7 @@
 .filter_list li:hover { background-color: var(--point-color); color:#fff; font-weight: var(--semiBold); }
 
 /* 등록 댓글 */
-.comment_list {padding: 40px 0;}
+.comment_list {padding-bottom: 40px;}
 .comment_list li{padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--inactive-input-bg);}
 .comment_inner_box {display: flex;}
 .comment_profile_img {display: flex; justify-content: center; align-items: center; width: 40px; height: 40px;}
@@ -60,14 +60,16 @@
 .cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
 .cancel_btn:hover {background-color: var(--hashBg-color);}
 
-/* 댓글 삭제시 재확인 팝업창 */
+/* 댓글관련 팝업창 */
 .pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
 .pop_cont {position: absolute; bottom: -70%; left: 50%; transform: translateX(-50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
 .pop_bg.active {z-index: 200; opacity: 1;}
 .pop_cont.active {z-index: 500; opacity: 1;}
 .pop_icon {display: inline-block; width: 36px; height: 36px; margin-bottom: 20px; background-color: var(--main-color); border-radius: 50%;}
 .pop_icon img {width:100%; height:100%;}
-.pop_cont.selective p{padding-top:20px; padding-bottom: 40px; font-size: 14px; font-weight: var(--regular);}
+
+/* 댓글 삭제시 재확인 팝업창 */
+.pop_cont p{padding-top:20px; padding-bottom: 40px; font-size: 14px; font-weight: var(--regular);}
 .pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
 .pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
 .pop_btn_list li > span {display: block; width: 100%; height: 100%; line-height: 50px;}
@@ -75,3 +77,4 @@
 .confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
 .confirm_btn:hover {background-color: var(--point-color);}
 .fixed { overflow:hidden;}
+span.confirm_btn { display: block; height: 50px; line-height: 50px; border-radius: 12px; cursor: pointer;}
