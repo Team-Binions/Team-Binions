@@ -84,6 +84,10 @@
 
           <div class="uploadResult"></div>
 
+          <div class="resultDiv">
+            <p th:text="${log}"></p>
+          </div>
+
 
           <ul class="myinfo_list">
             <li>
@@ -141,31 +145,54 @@
 
     // 선택 파일 삭제
     $(document).on('click',".remove_preview_btn", (e) => {
-        console.log("removebutton clicked");
-        if($(e.target).closest("li").index() == 4){ //마지막 미리보기 이미지 삭제시
+        const input = $('input[name=uploadFiles]');
+        console.log(input);
+        const files = input[0].files;
+        const index = $(e.target).closest("li").index();
+        console.log(files);
+        console.log("current delete index : " + index);
+        console.log(files[index]);
+        //files.delete(index);
+
+        const dataTransfer = new DataTransfer();
+        let fileArray = Array.from(files)
+        fileArray.splice(index, 1);
+        fileArray.forEach(file => { dataTransfer.items.add(file); });//남은 배열을 dataTransfer로 처리(Array -> FileList)
+        input[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+
+        //const newFileList = Array.prototype.slice.call(files, index);
+        console.log("new fileList : " + input[0].files);
+        console.log("미리 보기 상태 : " + $('.preview_list .preview_img').length);
+        if($('.preview_list .preview_img').length == 5){ //마지막 미리보기 이미지 삭제시
             $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
         }
         $(e.target).closest("li").remove();
+        $(".count_preview").text($('.preview_list .preview_img').length);
     })
 
     // 업로드 파일 경로 읽어오기
     function readURL(input, index) {
         if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if(index == 0){
-                    $(`.preview_list`).prepend(previewTag(e.target.result));
-                    $(".count_preview").text('1');
-                } else {
-                    $(".preview_list").find("li").eq((index - 1)).after(previewTag(e.target.result));
-                    $(".count_preview").text(index + 1);
+            //const inputFile = $("input[name='uploadFiles']");
+            const files = input.files;
+            console.log("files : " + files);
+            console.log("열기한 파일 개수 : " + files.length);
+            $(".count_preview").text(files.length > 5 ? 5 : files.length);
 
-                    if(index == 4){
+            for(let i = 0; i < (files.length > 5 ? 5 : files.length); i++) {
+                const reader = new FileReader();
+                console.log(files[i]);
+                reader.readAsDataURL(files[i]);
+                reader.onload = function(e) {
+                    console.log( "files["+i+"] e.target : "+ e.target);
+                    $('.preview_list').prepend(previewTag(e.target.result));
+                    if(i == 4){ // 업로드 마지막 순서가 5번째 이미지라면
                         $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
                     }
                 }
+
             }
-            reader.readAsDataURL(input.files[0]);
+
         }
     }
 
@@ -175,28 +202,16 @@
         readURL(this, index);
     });
 
-    //uploadBtn
-    //upload_img_btn
-    //uploadBtn
-    //file_upload_box
-    $('.file_upload_box').click(() => {
+    $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
 
-        const formData = new FormData();
-
-        const inputFile = $("input[type='file']");
+        // const inputFile = $("input[type='file']");
+        const inputFile = $("input[name='uploadFiles']");
 
         const files = inputFile[0].files;
 
-        if(files.length > 5){
-            for(let i = 0; i < 5; i++) {
-                console.log(files[i]);
-                formData.append("uploadFiles", files[i]);
-            }
-        } else {
-            for(let i = 0; i < files.length; i++) {
-                console.log(files[i]);
-                formData.append("uploadFiles", files[i]);
-            }
+        for(let i = 0; i < files.length; i++) {
+            console.log(files[i]);
+            formData.append("uploadFiles", files[i]);
         }
 
         const showUploadedImages = arr => {
@@ -205,9 +220,9 @@
             const divArea = $(".uploadResult");
 
             for(let i = 0; i<arr.length; i++){
-                const imgUrl = "/display?fileName="+arr[i].imageURL;
-                //divArea.append("<img src='/display?fileName="+arr[i].imageURL+"' alt='..null'>");
-                $('.preview_list').prepend(previewTag(imgUrl));
+                // const imgUrl = "/display?fileName="+arr[i].imageURL;
+                divArea.append("<img src='/display?fileName="+arr[i].imageURL+"' alt='..null'>");
+                // $('.preview_list').prepend(previewTag(imgUrl));
             }
         }
 
@@ -228,7 +243,6 @@
                 console.log(textStatus)
             }
         })
-
     })
 </script>
 </body>

@@ -246,4 +246,10 @@ public class MyPageController {
   public String fileUpload(Model model){
     return "user/mypage/fileUpload";
   }
+
+  // 마이페이지 > 글쓰기
+  @GetMapping("/write")
+  public String writeBoard(Model model){
+    return "user/mypage/writeBoard";
+  }
 }

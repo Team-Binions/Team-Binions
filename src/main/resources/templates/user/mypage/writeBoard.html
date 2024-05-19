@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}"/>
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/summernote/summernote-lite.css}">
+  <link rel="stylesheet" th:href="@{/css/user/writeBoard.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script th:src="@{/js/summernote/lang/summernote-ko-KR.js}"></script>
+  <script th:src="@{/js/summernote/summernote-lite.js}"></script>
+  <title>예신예랑</title>
+  <style>
+      select option[value=""][disabled] {
+          display: none;
+      }
+  </style>
+</head>
+<body>
+<div th:replace="user/layout/header.html"></div>
+<div class="wrapper">
+  <div class="board_cont">
+    <p class="regist">글쓰기</p>
+    <form action="/board/freeRegist" method="post">
+      <select id="mainCategory" name="mainCategory" th:value="mainCategory">
+        <option value="" disabled selected>게시판을 선택해 주세요.</option>
+        <option value="자유">예수다</option>
+        <option value="리뷰">예리뷰</option>
+      </select>
+      <select id="subCategory" name="subCategory" th:value="subCategory">
+        <option value="" disabled selected>카테고리를 선택해주세요.</option>
+        <option value="예신">예신</option>
+        <option value="예랑">예랑</option>
+        <option value="웨딩">웨딩</option>
+        <option value="스드메">스드메</option>
+        <option value="기타-리뷰">기타</option>
+      </select>
+      <br>
+      <input type="text" name="postTitle" placeholder="제목을 입력하세요.">
+      <br>
+      <hr>
+      <input type="hidden" th:value="${memberCode}" name="memberCode">
+      <div>
+<!--            <textarea -->
+<!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->
+        <textarea id="summernote" type="text" th:class="form-control"
+                  name="postContext" placeholder="내용을 입력하세요." rows="10"></textarea>
+      </div>
+      <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>
+      <button type="button" onclick="history.back()">취소</button>
+      <button type="submit">등록</button>
+
+    </form>
+  </div>
+</div>
+<div th:replace="user/layout/footer.html"></div>
+<script th:src="@{/js/common.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        const mainCategorySelect = $('#mainCategory');
+        const subCategorySelect = $('#subCategory');
+
+        subCategorySelect.prop('disabled', true);
+
+        mainCategorySelect.change(function () {
+
+            subCategorySelect.empty();
+
+            if (mainCategorySelect.val() === "") {
+                subCategorySelect.prop('disabled', true);
+            } else {
+                subCategorySelect.prop('disabled', false)
+            }
+
+
+            switch (mainCategorySelect.val()) {
+                case '자유':
+                    addSubCategoryOptions(['예신', '예랑']);
+                    break;
+                case '리뷰':
+                    addSubCategoryOptions(['웨딩', '스드메', '기타']);
+                    break;
+                default :
+                    addSubCategoryOptions(['']);
+                    break;
+            }
+        })
+
+        function addSubCategoryOptions(options) {
+            $.each(options, function (index, option) {
+                subCategorySelect.append($('<option>', {
+                    value: option,
+                    text: option
+                }));
+            });
+        }
+    });
+
+    $('#summernote').summernote({
+        // 에디터 높이
+        height: 150,
+        // 에디터 한글 설정
+        lang: "ko-KR",
+        // 에디터에 커서 이동 (input창의 autofocus라고 생각)
+        focus : true,
+        toolbar: [
+            // 글꼴 설정
+            ['fontname', ['fontname']],
+            // 글자 크기 설정
+            ['fontsize', ['fontsize']],
+            // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            // 글자색
+            ['color', ['forecolor','color']],
+            // 표만들기
+            ['table', ['table']],
+            // 글머리 기호, 번호매기기, 문단정렬
+            ['para', ['ul', 'ol', 'paragraph']],
+            // 줄간격
+            ['height', ['height']],
+            // 코드보기, 확대해서보기, 도움말
+            ['view', ['codeview','fullscreen', 'help']]
+        ],
+        // 추가한 글꼴
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+        // 추가한 폰트사이즈
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+
+    });
+
+</script>
+</body>
+</html>
