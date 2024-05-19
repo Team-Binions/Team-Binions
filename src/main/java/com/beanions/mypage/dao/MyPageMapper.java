@@ -32,4 +32,6 @@ public interface MyPageMapper {
   void deleteSchedule(int code);
 
   MyPageDTO selectMyPostInfo(int memberCode);
+
+  void registWriting();
 }

@@ -25,7 +25,8 @@
 <div class="wrapper">
   <div class="board_cont">
     <p class="regist">글쓰기</p>
-    <form action="/registBoard" method="post" enctype="multipart/form-data">
+    <form action="/registBoard" method="post">
+<!--       enctype="multipart/form-data"-->
       <!-- 수정 페이지에서 원시 코드 보존을 위한 temp 부분 -->
       <div id="temp" style="display: none">${board.contents}</div>
 
@@ -50,7 +51,7 @@
         </div>
       </div>
 <!--      <input type="hidden" th:value="${memberCode}" name="memberCode">-->
-      <input type="hidden" value="27" name="memberCode">
+      <input type="hidden" th:value="${memberCode}" name="memberCode">
       <div>
 <!--            <textarea -->
 <!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->

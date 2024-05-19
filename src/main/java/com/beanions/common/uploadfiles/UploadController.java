@@ -68,27 +68,7 @@ public class UploadController {
 ////    }
 //  }
 
-  @PostMapping("/registBoard")
-  public String registWriteBoard(RedirectAttributes rttr, Model model){
 
-    uploadService.registWriting();
-
-    return "redirect:/user/board/reviewList";
-//    if (session.getAttribute("true") != null) {
-//      // 기존 temp폴더에 저장된 이미지 표시를 위해 에디터에는 /temp로 경로가 지정되어 있다
-//      // 이를 마지막 게시글 다음 번호로 설정한다.
-//      content = content.replaceAll("/temp", "/" + board_num);
-//
-//      // temp 폴더 안의 이미지를 게시글 저장소로 이동
-//      String path_folder1 = realPath + "/upload/image/fileupload/temp /";
-//      String path_folder2 = realPath + "/upload/image/fileupload/" + board_num + "/";
-//
-//      // 폴더 복사 함수
-//      fileUpload(path_folder1, path_folder2);
-//
-//      // ...
-//    }
-  }
 
 
 

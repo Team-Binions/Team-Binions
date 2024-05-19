@@ -127,7 +127,7 @@
         // 업로드 된 파일 유효성 체크
         if (filesArr.length > 5) {
             alert("이미지는 최대 5개까지 업로드 가능합니다.");
-            $('input[name=uploadFiles]').val();
+            // $('input[name=uploadFiles]').val();
             return;
         }
 
@@ -159,10 +159,6 @@
         fileArray.splice(index, 1);
         fileArray.forEach(file => { dataTransfer.items.add(file); });//남은 배열을 dataTransfer로 처리(Array -> FileList)
         input[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
-
-        //const newFileList = Array.prototype.slice.call(files, index);
-        console.log("new fileList : " + input[0].files);
-        console.log("미리 보기 상태 : " + $('.preview_list .preview_img').length);
         if($('.preview_list .preview_img').length == 5){ //마지막 미리보기 이미지 삭제시
             $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
         }
@@ -186,7 +182,7 @@
                 reader.onload = function(e) {
                     console.log( "files["+i+"] e.target : "+ e.target);
                     $('.preview_list').prepend(previewTag(e.target.result));
-                    if(i == 4){ // 업로드 마지막 순서가 5번째 이미지라면
+                    if(i == 4){
                         $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
                     }
                 }
@@ -203,7 +199,7 @@
     });
 
     $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
-
+        const formData = new FormData();
         // const inputFile = $("input[type='file']");
         const inputFile = $("input[name='uploadFiles']");
 
