@@ -16,6 +16,8 @@ public interface MagazineMapper {
 
     List<PostAndMemberDTO> magazineSelectOneDetail(int id);
 
-    PagingResponse<PostAndMemberDTO> allMagazineList(final SearchDTO params);
+    int count(SearchDTO params);
+
+    List<PostAndMemberDTO> allMagazineList(final SearchDTO params);
 
 }

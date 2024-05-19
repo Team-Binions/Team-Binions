@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <div th:each="review: ${ PostAndMemberDTOList }">
-        <title th:text="|${review.subCategory}수다방|"></title>
-    </div>
     <script>
         const successMessage = `[[${ successMessage }]]`
         if (successMessage){
@@ -19,7 +16,6 @@
     </script>
 </head>
 <body>
-
     <div th:replace="user/layout/header.html"></div>
     <div class="content">
     <article>
@@ -43,34 +39,114 @@
                 <th>조회수</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="review, i : ${ PostAndMemberDTOList }" >
-                <td class="eng" th:text="${ (i.size + 1)-(i.count) }"></td>
-                <td>
-                    <a th:text="${ review.postTitle }" th:href="@{/board/reviewDetail(id=${review.postCode})}"></a>
-                </td>
-                <td th:text="${ review.member.nickname }"></td>
-                <td class="eng" th:text="${ #dates.format(review.postDate, 'yyyy.MM.dd') }"></td>
-                <td class="eng" th:text="${ review.viewCount }"></td>
-            </tr>
+            <tbody id="list">
+
             </tbody>
         </table>
+
+        <div class="paging" align="center">
+
+        </div>
             <button class="regist_button" type="button" th:onclick="|location.href='@{/board/freeRegist}'|">글쓰기</button>
     </article>
     </div>
-<div class="paging">
-    <script th:inline="javascript">
-        window.onload = () => {
-            reviewAllList();
-        }
-
-
-
-    </script>
-</div>
 
 <div th:replace="user/layout/footer.html"></div>
 
+    <script th:inline="javascript">
+        var list = /*[[${ PostAndMemberDTOList.list }]]*/ [];
+        var pagination = /*[[${ PostAndMemberDTOList.pagination }]]*/ {};
+        var params = /*[[${ params }]]*/ {};
+    </script>
+
+    <script>
+        window.onload = () => {
+            findAllPost();
+            console.log('페이지 시작 시 로드...');
+        };
+
+        function findAllPost() {
+            console.log('function 시작 시 로드...', list);
+
+            if (!list || list.length === 0) {
+                console.log('if 시작 시 로드...');
+                document.getElementById('list').innerHTML = '<td colspan="4"><div class="no_data_msg">검색된 결과가 없습니다.</div></td>';
+                drawPage(pagination, params);
+                return;
+            }
+
+            let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+            console.log('num', num);
+
+            drawList(list, num);
+            drawPage(pagination, params);
+        }
+
+        function drawList(list, num) {
+            let html = '';
+            list.forEach(row => {
+                html += `
+                    <tr>
+                        <td>${num--}</td>
+                        <td><a href="/board/reviewDetail?id=${row.postCode}">${row.postTitle}</a></td>
+                        <td>${row.member.nickname}</td>
+                        <td>${row.viewCount}</td>
+                        <td>${formatDate(row.postDate)}</td>
+                    </tr>
+                `;
+            });
+
+            function formatDate(dateString) {
+                let date = new Date(dateString);
+                let year = date.getFullYear();
+                let month = (date.getMonth() + 1).toString().padStart(2, '0');
+                let day = date.getDate().toString().padStart(2, '0');
+                return `${year}.${month}.${day}`;
+            }
+
+            document.getElementById('list').innerHTML = html;
+        }
+
+        function drawPage(pagination, params) {
+            if (!pagination || !params) {
+                document.querySelector('.paging').innerHTML = '';
+                throw new Error('Missing required parameters...');
+            }
+
+            let html = '';
+            if (pagination.existPrevPage) {
+                html += `
+                    <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first"><<</a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev"><</a>
+                `;
+            }
+
+            for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+                html += (i !== params.page)
+                    ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+                    : `<span class="on">${i}</span>`
+            }
+
+
+            if (pagination.existNextPage) {
+                html += `
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">></a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">>></a>
+                `;
+            }
+
+            document.querySelector('.paging').innerHTML = html;
+        }
+
+        function movePage(page) {
+            const queryParams = {
+                page: (page) ? page : 1,
+                recordSize: 3,
+                pageSize: 5
+            };
+                location.href = '/board/reviewList' + '?' + new URLSearchParams(queryParams).toString();
+        }
+    </script>
 <script>
     //header sub menu 활성화
     const gnbMenu = document.querySelectorAll('.header_gnb > li > a');

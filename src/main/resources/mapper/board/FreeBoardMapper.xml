@@ -20,15 +20,6 @@
             <result property="nickname" column="nickname"/>
         </association>
     </resultMap>
-    
-    <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
-        <id property="page" column="page"/>
-        <result property="recordSize" column="recordSize"/>
-        <result property="pageSize" column="pageSize"/>
-        <association property="pagination" javaType="com.beanions.common.paging.Pagination">
-            <id property="pagination" column="pagination"/>
-        </association>
-    </resultMap>
 
     <select id="freeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT

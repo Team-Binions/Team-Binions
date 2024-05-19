@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const successMessage = `[[${ successMessage }]]`
         if (successMessage){
@@ -193,7 +192,7 @@
         },
     });
 
-    검색시 x버튼
+    // 검색시 x버튼
     const clearBtn = document.querySelector(".clear_btn");
     clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
         e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경

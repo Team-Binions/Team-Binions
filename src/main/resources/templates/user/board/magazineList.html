@@ -4,30 +4,146 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/magazine.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <title>Title</title>
+    <title>매거진</title>
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
-<h1>매거진</h1>
+<div class="content">
+    <article>
+        <p class="magazine_tit">매거진</p>
 
-<table align="center" border="1">
-    <tr>
-        <th>no</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>작성시간</th>
-    </tr>
-    <tr th:each=" magazine, i : ${ magazineList }">
-        <td th:text="${(i.size + 1)-(i.count)}"></td>
-        <td><a th:text="${magazine.postTitle}" th:href="@{/board/magazinedetail(id=${magazine.postCode})}"></a></td>
-        <td th:text="${magazine.member.nickname}"></td>
-        <td th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></td>
-    </tr>
-</table>
+        <form class="search_form">
+            <div class="search_box">
+                <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+                <span class="clear_btn"></span>
+                <span class="search_btn"></span>
+            </div>
+        </form>
+
+        <table class="magazine_cont">
+            <thead>
+            <tr>
+                <th class="eng">no</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>조회수</th>
+                <th>작성시간</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+
+            </tbody>
+        </table>
+
+        <!--페이지네이션 렌더링-->
+        <div class="paging" align="center">
+
+        </div>
+    </article>
+</div>
 <div th:replace="user/layout/footer.html"></div>
+
+<script th:inline="javascript">
+    var list = /*[[${ magazineList.list }]]*/ [];
+    var pagination = /*[[${ magazineList.pagination }]]*/ {};
+    var params = /*[[${ params }]]*/ {};
+</script>
+
+<script>
+    window.onload = () => {
+        findAllPost();
+        console.log('페이지 시작 시 로드...');
+    };
+
+    function findAllPost() {
+        console.log('function 시작 시 로드...', list);
+
+        if (!list || list.length === 0) {
+            console.log('if 시작 시 로드...');
+            document.getElementById('list').innerHTML = '<td colspan="4"><div class="no_data_msg">검색된 결과가 없습니다.</div></td>';
+            drawPage(pagination, params);
+            return;
+        }
+
+        let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+        console.log('num', num);
+
+        drawList(list, num);
+        drawPage(pagination, params);
+    }
+
+    function drawList(list, num) {
+        let html = '';
+        list.forEach(row => {
+            html += `
+                    <tr>
+                        <td>${num--}</td>
+                        <td><a href="/board/magazinedetail?id=${row.postCode}">${row.postTitle}</a></td>
+                        <td>${row.member.nickname}</td>
+                        <td>${row.viewCount}</td>
+                        <td>${formatDate(row.postDate)}</td>
+                    </tr>
+                `;
+        });
+
+        function formatDate(dateString) {
+            let date = new Date(dateString);
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            return `${year}.${month}.${day}`;
+        }
+
+        document.getElementById('list').innerHTML = html;
+    }
+
+    function drawPage(pagination, params) {
+        if (!pagination || !params) {
+            document.querySelector('.paging').innerHTML = '';
+            throw new Error('Missing required parameters...');
+        }
+
+        let html = '';
+        if (pagination.existPrevPage) {
+            html += `
+                    <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first"><<</a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev"><</a>
+                `;
+        }
+
+        for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+            html += (i !== params.page)
+                ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+                : `<span class="on">${i}</span>`
+        }
+
+
+        if (pagination.existNextPage) {
+            html += `
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">></a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">>></a>
+                `;
+        }
+
+        document.querySelector('.paging').innerHTML = html;
+    }
+
+    function movePage(page) {
+        const queryParams = {
+            page: (page) ? page : 1,
+            recordSize: 3,
+            pageSize: 5
+        };
+
+        location.href = '/board/magazine' + '?' + new URLSearchParams(queryParams).toString();
+
+    }
+</script>
+
 <script th:inline="javascript">
     //header sub menu 활성화
     const gnbMenu = document.querySelectorAll('.header_gnb > li > a');

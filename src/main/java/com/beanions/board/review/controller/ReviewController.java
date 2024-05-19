@@ -3,6 +3,8 @@ package com.beanions.board.review.controller;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.review.service.ReviewService;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +27,9 @@ public class ReviewController {
     }
 
     @GetMapping("/reviewList")
-    public String reviewAllList(Model model) {
+    public String reviewAllList(Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        List<PostAndMemberDTO> PostAndMemberDTOList = reviewService.reviewAllList();
+        PagingResponse<PostAndMemberDTO> PostAndMemberDTOList = reviewService.reviewAllList(params);
 
         model.addAttribute("PostAndMemberDTOList", PostAndMemberDTOList);
 
