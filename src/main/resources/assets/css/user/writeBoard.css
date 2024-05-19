@@ -1,0 +1,20 @@
+.eng {font-family: 'Poppins';}
+.wrapper {display: flex; flex-direction: column; align-items: center;}
+.board_cont {max-width: 1200px; min-width:1200px; width: 100%; min-height: calc(100vh - 200px); padding: 0 20px; padding-top:40px; font-family: 'Noto Sans KR';}
+p.regist {padding-bottom: 60px; font-size: 24px; font-weight: var(--bold);}
+.regist_top_sec {display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0;}
+.schedule_tit_box {position: relative; width: 100%; height: 48px;}
+.schedule_tit_box .tit_count {position: absolute; top: 50%; right: 20px; transform: translateY(-50%); font-size: 12px; color: var(--input-color);}
+.schedule_tit {width: 100%; height: 48px; padding-left: 10px; padding-right: 60px; border: none; border: 1px solid var(--inactive-input-bg); border-radius:12px; font-size: 16px; font-weight: var(--medium);}
+.schedule_tit_box .tit_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_tit:focus + .tit_count > .tit_counted {color: var(--point-color);}
+.schedule_tit::placeholder, .schedule_contxt_box::placeholder  {font-size: 14px; font-weight: var(--regular); color: var(--inactive-input-bg);}
+select { height: 48px; padding: 0 20px; border: 1px solid var(--input-color); border-radius: 12px; margin-right: 20px; outline: none;}
+select > option {}
+select:focus {border: 1px solid var(--point-color);}
+.button_list {display: flex; justify-content: flex-end; align-items: center; padding: 40px 0 60px;}
+.button_list button { height: 50px; width: 100px; border-radius:12px; cursor: pointer; font-size: 16px; font-weight: var(--semiBold);}
+.button_list button.cancel_btn {margin-right: 20px;}
+.cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
+.cancel_btn:hover {background-color: var(--hashBg-color);}

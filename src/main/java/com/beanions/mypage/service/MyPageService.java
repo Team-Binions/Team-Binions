@@ -58,4 +58,7 @@ public class MyPageService {
   public MyPageDTO selectMyPostInfo(int memberCode) {
     return myPageMapper.selectMyPostInfo(memberCode);
   }
+
+  @Transactional
+  public void registWriting() {myPageMapper.registWriting();}
 }
