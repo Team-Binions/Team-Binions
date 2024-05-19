@@ -1,2 +1,53 @@
 .wrapper {display: flex; flex-direction: column; align-items: center;}
 .search_cont {max-width: 1200px; width: 100%; min-height: calc(100vh - 200px); padding: 0 20px; font-family: 'Noto Sans KR';}
+
+/* ===== "키워드" 검색결과(개수) ===== */
+.keyword_result {
+    padding-top: 60px;
+    display: flex;
+    align-items: center;
+    font-weight: var(--bold);
+}
+.keyword_result p {
+    font-size: 24px;
+    padding-right: 10px;
+    color: var(--text-color);
+}
+.keyword_result span {
+    padding: 0 5px 0 5px;
+    border-radius: 12px;
+    /*width: 50px;*/
+    height: 30px;
+    text-align: center;
+    background-color: var(--main-color);
+    font-size: 20px;
+    font-family: 'Poppins';
+    color: #ffffff;
+}
+
+/* ===== 검색 유형 버튼 & 검색창 ===== */
+.searchType_searchBox {
+    display: flex;
+    padding-top: 60px;
+}
+.button_box {
+    padding-right: 10px;
+}
+.search-btn {
+    width: 88px;
+    height: 34px;
+    font-weight: var(--semiBold);
+    font-size: 16px;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    background-color: #ffffff;
+}
+.search-btn:hover {
+    color: #ffffff;
+}
+
+.search-btn.active {
+    background-color: var(--main-color);
+    color: #ffffff;
+    font-weight: var(--bold);
+}
