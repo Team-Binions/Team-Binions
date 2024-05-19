@@ -55,15 +55,18 @@
         <!-- 게시글 리스트 -->
         <div style="padding-top: 20px; padding-bottom: 60px">
             <div th:each="post : ${postList}">
-                <div  style="border: 1px solid #D9DAF1; border-radius: 12px; margin-bottom: 24px; padding: 10px;">
-                    <!-- 이미지 -->
-                    <div></div>
-                    <!-- 내용 -->
-                    <p th:text="${post.mainCategory}"></p>
-                    <p th:text="${post.postTitle}"></p>
-                    <p th:text="${#strings.length(post.postContext) &gt; 100} ? ${#strings.substring(post.postContext, 0, 99) + '...'} : ${post.postContext}"></p>
-                    <p th:text="${post.member.nickname}"></p>
-                    <p class="eng"><span th:text="${#dates.format(post.postDate, 'yyyy-MM-dd')}"></span></p>
+                <div  style="border: 1px solid #D9DAF1; border-radius: 12px; margin-bottom: 24px; padding: 10px; cursor: pointer">
+                    <div th:attr="onclick='redirectToDetailPage(\'' + ${post.mainCategory} + '\', \'' + ${post.postCode} + '\')'">
+
+                        <!-- 이미지 -->
+                        <div></div>
+                        <!-- 내용 -->
+                        <p th:text="${post.mainCategory}"></p>
+                        <p th:text="${post.postTitle}"></p>
+                        <p th:text="${#strings.length(post.postContext) &gt; 100} ? ${#strings.substring(post.postContext, 0, 99) + '...'} : ${post.postContext}"></p>
+                        <p th:text="${post.member.nickname}"></p>
+                        <p class="eng"><span th:text="${#dates.format(post.postDate, 'yyyy-MM-dd')}"></span></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +77,26 @@
     <!-- //FOOTER -->
 </div>
 <script th:src="@{/js/common.js}"></script>
+<script th:inline="javascript">
+    function redirectToDetailPage(mainCategory, postCode) {
+        var url;
+        switch (mainCategory) {
+            case '리뷰':
+                url = '/board/reviewDetail?id=' + postCode;
+                break;
+            case '자유':
+                url = '/board/freeDetail?id=' + postCode;
+                break;
+            case '매거진':
+                url = '/board/magazinedetail?id=' + postCode;
+                break;
+        }
+        if (url) {
+            location.href = url;
+        }
+    }
+</script>
+
 
 </body>
 </html>
