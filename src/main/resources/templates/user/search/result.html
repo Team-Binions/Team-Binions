@@ -6,12 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/search.css}">
-    <script>
-        const message = `[[${ message }]]`;
-        if(message) {
-            alert(message);
-        }
-    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -22,48 +16,67 @@
     <!-- contents -->
     <div class="search_cont">
         <!-- "키워드" 검색결과 (갯수) -->
-        <div style="padding-top: 60px; display: flex">
+        <div class="keyword_result">
             <p th:text="'&quot;' + ${keyword} + '&quot; 검색 결과'"></p>
             <!-- 검색 결과 게시글 수 -->
-            <span th:text="${count}" style="padding: 0 5px 0 5px; border-radius: 12px; background-color: var(--main-color); color: #ffffff"></span>
+            <div class="post_count">
+                <span th:text="${count}"></span>
+            </div>
         </div>
         <!-- 제목, 내용 버튼 & 검색창 -->
-        <div style="display: flex">
-            <div>
-                <form class="search_bar" th:action="@{/search}" method="get">
-                    <input type="hidden" name="searchType" value="">
-                    <input type="hidden" name="keyword" th:value="${keyword}">
-                    <button type="submit">제목+내용</button>
-                </form>
+        <div class="searchType_searchBox">
+            <div class="buttons_outline">
+                <div class="button_box">
+                    <form class="search_bar" th:action="@{/search}" method="get">
+                        <input type="hidden" name="searchType" value="">
+                        <input type="hidden" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="search-btn" id="allBtn" th:classappend="${searchType == '' ? 'active' : ''}">제목+내용</button>
+                    </form>
+                </div>
+                <div class="button_box">
+                    <form class="search_bar" th:action="@{/search}" method="get">
+                        <input type="hidden" name="searchType" value="title">
+                        <input type="hidden" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="search-btn" id="titleBtn" th:classappend="${searchType == 'title' ? 'active' : ''}">제목</button>
+                    </form>
+                </div>
+                <div class="button_box">
+                    <form class="search_bar" th:action="@{/search}" method="get">
+                        <input type="hidden" name="searchType" value="context">
+                        <input type="hidden" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="search-btn" id="contentBtn" th:classappend="${searchType == 'context' ? 'active' : ''}">내용</button>
+                    </form>
+                </div>
             </div>
             <div>
-                <form class="search_bar" th:action="@{/search}" method="get">
-                    <input type="hidden" name="searchType" value="title">
-                    <input type="hidden" name="keyword" th:value="${keyword}">
-                    <button type="submit">제목</button>
+                <form class="search_form" th:action="@{/search}" method="get">
+                    <div class="search_box">
+                        <input type="search" class="search_input" th:value="${keyword}" name="keyword">
+                        <input type="hidden" name="searchType" value="">
+                        <span class="clear_btn"></span>
+                        <span class="search_btn"></span>
+                    </div>
                 </form>
             </div>
-            <div>
-                <form class="search_bar" th:action="@{/search}" method="get">
-                    <input type="hidden" name="searchType" value="context">
-                    <input type="hidden" name="keyword" th:value="${keyword}">
-                    <button type="submit">내용</button>
-                </form>
-            </div>
-            <div></div>
         </div>
         <!-- 게시글 리스트 -->
-        <div style="padding-top: 20px; padding-bottom: 60px">
+        <div class="result_box">
             <div th:each="post : ${postList}">
-                <div  style="border: 1px solid #D9DAF1; border-radius: 12px; margin-bottom: 24px; padding: 10px;">
-                    <!-- 이미지 -->
-                    <div></div>
-                    <!-- 내용 -->
-                    <p th:text="${post.mainCategory}"></p>
-                    <p th:text="${post.postTitle}"></p>
-                    <p th:text="${#strings.length(post.postContext) &gt; 100} ? ${#strings.substring(post.postContext, 0, 99) + '...'} : ${post.postContext}"></p>
-                    <p th:text="${post.member.nickname}"></p>
-                    <p class="eng"><span th:text="${#dates.format(post.postDate, 'yyyy-MM-dd')}"></span></p>
+                <div class="post_box">
+                    <div th:attr="onclick='redirectToDetailPage(\'' + ${post.mainCategory} + '\', \'' + ${post.postCode} + '\')'">
+
+                        <!-- 이미지 -->
+                        <div></div>
+                        <!-- 내용 -->
+<!--                        <p th:text="${post.mainCategory}"></p>-->
+                        <p class="post_title" th:text="${post.postTitle}"></p>
+                        <p class="post_context" th:text="${#strings.length(post.postContext) &gt; 100} ? ${#strings.substring(post.postContext, 0, 99) + '...'} : ${post.postContext}"></p>
+                        <div class="nickname_count_date">
+                            <p th:text="${post.member.nickname}"></p>
+                            <p class="eng"><span th:text="${#dates.format(post.postDate, 'yyyy-MM-dd')}"></span></p>
+                            <p>조회<span class="eng" id="post_viewCount" th:text="${post.viewCount}"></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +87,72 @@
     <!-- //FOOTER -->
 </div>
 <script th:src="@{/js/common.js}"></script>
+<script th:inline="javascript">
+    // 페이지 로드 시 활성화 버튼에 스타일 적용
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var searchType = document.getElementById('searchType').value;
+        setActiveButton(searchType);
+    });
+
+    // 클릭된 버튼에 스타일 적용
+    function setActiveButton(buttonId) {
+        var buttons = document.querySelectorAll('.search-btn');
+        buttons.forEach(function(button) {
+            button.classList.remove('active');
+        });
+
+        var activeButton = document.getElementById(buttonId);
+        if (activeButton) {
+            activeButton.classList.add('active');
+        }
+    }
+
+    // 클릭된 버튼의 스타일 초기화 및 활성 버튼 설정
+    document.querySelectorAll('.search-bar').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            var buttonId = event.submitter.id;
+            setActiveButton(buttonId);
+        });
+    });
+
+
+
+    function redirectToDetailPage(mainCategory, postCode) {
+        var url;
+        switch (mainCategory) {
+            case '리뷰':
+                url = '/board/reviewDetail?id=' + postCode;
+                break;
+            case '자유':
+                url = '/board/freeDetail?id=' + postCode;
+                break;
+            case '매거진':
+                url = '/board/magazinedetail?id=' + postCode;
+                break;
+        }
+        if (url) {
+            location.href = url;
+        }
+    }
+</script>
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
+</script>
 
 </body>
 </html>

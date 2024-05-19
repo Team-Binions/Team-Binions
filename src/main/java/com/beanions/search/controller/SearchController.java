@@ -41,6 +41,7 @@ public class SearchController {
 
         model.addAttribute("count", count);
         model.addAttribute("keyword", Keyword);
+        model.addAttribute("searchType", params.getSearchType());
         model.addAttribute("postList", postList);
 
         return "/user/search/result";
