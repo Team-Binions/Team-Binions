@@ -1,6 +1,9 @@
 ## server port config
 server:
     port: 8081
+    error:
+        path: /error
+
 
 ## driver config
 
