@@ -29,10 +29,6 @@ public class FreeBoardController {
     @GetMapping("/yesinList")
     public String yesinList(@RequestParam("id") String id , Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        System.out.println("recordSize " + params.getRecordSize());
-        System.out.println("pageSize " + params.getPageSize());
-        System.out.println("page " + params.getPage());
-
         PagingResponse<PostAndMemberDTO> PostAndMemberDTOList = freeBoardService.freeList(id, params);
 
         model.addAttribute("name", id);

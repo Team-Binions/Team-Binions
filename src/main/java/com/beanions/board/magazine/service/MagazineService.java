@@ -2,6 +2,8 @@ package com.beanions.board.magazine.service;
 
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.magazine.dao.MagazineMapper;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +16,10 @@ public class MagazineService {
         this.magazineMapper = magazineMapper;
     }
 
-    public List<PostAndMemberDTO> allMagazineList() {
+    public PagingResponse<PostAndMemberDTO> allMagazineList(SearchDTO params) {
 
 
-        return magazineMapper.allMagazineList();
+        return magazineMapper.allMagazineList(params);
     }
 
 

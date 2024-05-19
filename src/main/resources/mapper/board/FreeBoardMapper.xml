@@ -56,7 +56,7 @@
             COUNT(*)
         FROM
             POST
-        WHERE MAIN_CATEGORY='자유' AND SUB_CATEGORY = '예신' AND VEF_STATUS = '활성'
+        WHERE MAIN_CATEGORY='자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
     </select>
 
     <select id="freeDetail" resultMap="PostAndMemberResultMap">

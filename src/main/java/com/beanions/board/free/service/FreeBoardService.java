@@ -25,7 +25,7 @@ public class FreeBoardService {
     public PagingResponse<PostAndMemberDTO> freeList(String id, final SearchDTO params) {
 
         // 조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와 null을 담아 반환
-        int count = freeBoardMapper.count(params);
+        int count = freeBoardMapper.count(id, params);
         System.out.println("params = " + params);
         System.out.println("count = " + count);
         if (count < 1) {
