@@ -2,9 +2,12 @@ package com.beanions.board.magazine.controller;
 
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.magazine.service.MagazineService;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,9 +23,9 @@ public class MagazineController {
     }
 
     @GetMapping("/magazine")
-    public String magazineList(Model model) {
+    public String magazineList(Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        List<PostAndMemberDTO> magazineList = magazineService.allMagazineList();
+        PagingResponse<PostAndMemberDTO> magazineList = magazineService.allMagazineList(params);
 
         model.addAttribute("magazineList", magazineList);
 

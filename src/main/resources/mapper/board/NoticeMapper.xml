@@ -20,8 +20,18 @@
         </association>
     </resultMap>
 
+
+    <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
+        <id property="page" column="page"/>
+        <result property="recordSize" column="recordSize"/>
+        <result property="pageSize" column="pageSize"/>
+        <association property="pagination" javaType="com.beanions.common.paging.Pagination">
+            <id property="pagination" column="pagination"/>
+        </association>
+    </resultMap>
+
     <!-- 공지사항 전체 조회 -->
-    <select id="allNoticeList" parameterType="com.beanions.board.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+    <select id="allNoticeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -35,7 +45,16 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '공지사항'
-        ORDER BY POST_DATE desc
+        ORDER BY POST_DATE desc, POST_CODE desc
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST
+        WHERE MAIN_CATEGORY='공지사항'
     </select>
 
     <!-- 공지사항 상세 조회 -->

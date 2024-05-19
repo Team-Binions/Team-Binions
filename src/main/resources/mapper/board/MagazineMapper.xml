@@ -21,7 +21,8 @@
         </association>
     </resultMap>
 
-    <select id="allMagazineList" parameterType="com.beanions.board.common.dto.PostAndMemberDTO" resultMap="PostAndMemberResultMap">
+
+    <select id="allMagazineList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -36,7 +37,15 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE MAIN_CATEGORY = '매거진'
-        ORDER BY POST_DATE desc
+        ORDER BY POST_DATE desc, POST_CODE desc
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+         COUNT(*)
+        FROM
+         POST
+        WHERE MAIN_CATEGORY='매거진'
     </select>
 
     <select id="magazineSelectOneDetail" resultMap="PostAndMemberResultMap">
@@ -55,4 +64,6 @@
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE POST_CODE = #{ id }
     </select>
+
+
 </mapper>

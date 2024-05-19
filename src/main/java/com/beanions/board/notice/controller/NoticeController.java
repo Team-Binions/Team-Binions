@@ -2,6 +2,8 @@ package com.beanions.board.notice.controller;
 
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.notice.service.NoticeService;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,9 @@ public class NoticeController {
     }
 
     @GetMapping("/notice")
-    public String noticeList(Model model) {
+    public String noticeList(Model model, @ModelAttribute("params") final SearchDTO params) {
 
-        List<PostAndMemberDTO> noticeList = noticeService.allNoticeList();
+        PagingResponse<PostAndMemberDTO> noticeList = noticeService.allNoticeList(params);
 
         model.addAttribute("noticeList", noticeList);
 

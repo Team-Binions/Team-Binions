@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const successMessage = `[[${ successMessage }]]`
         if (successMessage){
@@ -45,19 +44,13 @@
         </table>
 
         <!--페이지네이션 렌더링-->
-        <div class="paging">
+        <div class="paging" align="center">
 
         </div>
         <button class="regist_button" type="button" th:onclick="|location.href='@{/board/freeRegist}'|">글쓰기</button>
     </article>
 </div>
 <div th:replace="user/layout/footer.html"></div>
-<script th:inline="javascript">
-    // JSON 형식으로 데이터를 전달
-    var list = /*[[${ PostAndMemberDTOList.list }]]*/ [];
-    var pagination = /*[[${ PostAndMemberDTOList.pagination }]]*/ {};
-    var params = /*[[${ params }]]*/ {};
-</script>
 
 <script th:inline="javascript">
     var list = /*[[${ PostAndMemberDTOList.list }]]*/ [];
@@ -122,23 +115,22 @@
         let html = '';
         if (pagination.existPrevPage) {
             html += `
-                    <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
-                    <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev">이전 페이지</a>
+                    <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first"><<</a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev"><</a>
                 `;
         }
 
-        html += '<p>';
         for (let i = pagination.startPage; i <= pagination.endPage; i++) {
             html += (i !== params.page)
                 ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
                 : `<span class="on">${i}</span>`
         }
-        html += '</p>';
+
 
         if (pagination.existNextPage) {
             html += `
-                    <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">다음 페이지</a>
-                    <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">마지막 페이지</a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">></a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">>></a>
                 `;
         }
 
@@ -152,7 +144,11 @@
             pageSize: 5
         };
 
+        if(name === '예신'){
         location.href = '/board/yesinList?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        } else {
+        location.href = '/board/yerangList?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        }
     }
 </script>
 
@@ -197,21 +193,21 @@
     });
 
     // 검색시 x버튼
-    // const clearBtn = document.querySelector(".clear_btn");
-    // clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
-    //     e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
-    //     clearBtn.classList.remove("active"); // x버튼 비활성화
-    // });
-    //
-    // // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
-    // const searchInput = document.querySelector(".search_input");
-    // searchInput.addEventListener("input", (e) => {
-    //     if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
-    //         clearBtn.classList.add("active"); // x버튼 활성화
-    //     } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
-    //         clearBtn.classList.remove("active");// x버튼 비활성화
-    //     }
-    // });
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
 </script>
 </th:block>
 </body>

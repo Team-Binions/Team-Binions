@@ -1,6 +1,8 @@
 package com.beanions.board.magazine.dao;
 
 import com.beanions.board.common.dto.PostAndMemberDTO;
+import com.beanions.common.dto.SearchDTO;
+import com.beanions.common.paging.PagingResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -14,6 +16,8 @@ public interface MagazineMapper {
 
     List<PostAndMemberDTO> magazineSelectOneDetail(int id);
 
-    List<PostAndMemberDTO> allMagazineList();
+    int count(SearchDTO params);
+
+    List<PostAndMemberDTO> allMagazineList(final SearchDTO params);
 
 }
