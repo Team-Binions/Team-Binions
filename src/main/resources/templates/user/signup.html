@@ -580,40 +580,6 @@
     <!--/FOOTER-->
 
     <script src="/js/signup.js"></script>
-    <script>
-        //header sub menu 활성화
-        const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-        const subMenu = document.querySelectorAll('.sub_menu');
-        gnbMenu.forEach(gnbmenu => {
-            gnbmenu.addEventListener('mouseover', (e) => {
-                e.currentTarget.nextElementSibling.classList.add("active");
-            })
-            gnbmenu.addEventListener('mouseout', (e) => {
-                e.currentTarget.nextElementSibling.classList.remove("active");
-            })
-        });
-
-        subMenu.forEach(submenu => {
-            submenu.addEventListener('mouseover', (e) => {
-                e.currentTarget.classList.add("active");
-            })
-            submenu.addEventListener('mouseout', (e) => {
-                e.currentTarget.classList.remove("active");
-            })
-        });
-
-        $(".show_pw_btn").click((e) => {
-            console.log("target : " + e.target);
-            if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
-                $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
-                $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
-                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
-            }else{ // 비활성화된 상태라면
-                $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
-                $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
-                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
-            }
-        })
-    </script>
+    <script src="/js/common.js"></script>
 </body>
 </html>
