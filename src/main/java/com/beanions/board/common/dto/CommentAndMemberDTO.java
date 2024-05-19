@@ -3,6 +3,7 @@ package com.beanions.board.common.dto;
 import com.beanions.common.dto.MembersDTO;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class CommentAndMemberDTO {
     private Integer postCode;
     private Integer memberCode;
     private String commentContext;
-    private Date commentDate;
+    private Timestamp commentDate;
     private MembersDTO member;
 
 }
