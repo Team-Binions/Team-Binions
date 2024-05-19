@@ -8,7 +8,7 @@
 header nav {display: flex; align-items: center;}
 .header_gnb, .right_menu {display: flex; align-items: center; }
 .header_gnb li, .right_menu li {position: relative; margin-right: 10px;}
-.header_gnb li a{display: flex; justify-content: center; align-items: center; padding: 0 10px; font-size: 16px; font-weight: var(--semiBold); color: var(--text-color); transition: color 200ms ease-in-out;}
+.header_gnb li a{display: flex; justify-content: center; align-items: center; padding: 4px 10px; font-size: 16px; font-weight: var(--semiBold); color: var(--text-color); transition: color 200ms ease-in-out;}
 .header_gnb li a.active {color: var(--point-color);}
 .right_menu li a {padding: 4px 12px;}
 .right_menu li:first-child a{border-radius:8px; background-color: var(--main-color); color: #ffffff; transition: background-color 200ms ease-in-out;}
@@ -23,12 +23,12 @@ header nav {display: flex; align-items: center;}
 
 
 /* sub menu */
-.sub_menu {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: fit-content; padding: 10px; background-color: #fff; border-radius:12px; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2); opacity: 0; z-index: -1; transition:top 200ms ease-in-out, opacity 200ms ease-in-out, z-index 200ms ease-in-out;}
+.sub_menu {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: fit-content; padding: 10px; background-color: #fff; border-radius:12px; box-shadow: 0 1px 2px rgba(102, 103, 171, 0.2); opacity: 0; z-index: -1; visibility: hidden; transition:top 200ms ease-in-out, opacity 200ms ease-in-out, z-index 200ms ease-in-out;}
 .sub_menu li {margin-bottom: 8px; margin-right: 0;}
 .sub_menu li:last-child {margin-bottom: 0;}
 .sub_menu li a {display: block; padding:4px 12px; font-size: 14px; font-weight: var(--semiBold); border-radius:8px; white-space: nowrap; text-align: center; transition: background-color 200ms ease-in-out;}
 .sub_menu li a:hover {background-color: var(--point-color); color: #fff;}
-.sub_menu.active {top: 26px; opacity: 1; z-index: 100;}
+.sub_menu.active {top: 26px; opacity: 1; z-index: 100; visibility: visible;}
 
 /* footer */
 .footer_box {box-shadow: none; border-top: 1px solid var(--main-color);}

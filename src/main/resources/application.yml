@@ -1,9 +1,19 @@
 ## server port config
 server:
     port: 8081
+    error:
+        path: /error
+
 
 ## driver config
+
 spring:
+    session:
+        store-type: redis
+    data:
+        redis:
+            host: localhost
+            port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/beanionsdb
@@ -25,6 +35,10 @@ spring:
     web:
         resources:
             static-locations: classpath:/assets/
+    file:
+        upload:
+            path: src/main/resources/assets/images/upload
+
 servlet:
     multipart:
     location: C:\Lecture\Team-Beanions

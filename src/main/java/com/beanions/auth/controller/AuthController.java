@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/auth")
 public class AuthController {
 
     private final LoginService loginService;
@@ -24,9 +23,9 @@ public class AuthController {
     @GetMapping("/login")
     public String login(Authentication authentication, Model model){
 
-        if( authentication != null ) {
-            return "redirect:/auth/logout";
-        }
+//        if( authentication != null ) {
+//            return "redirect:/auth/logout";
+//        }
         return "/auth/login";
     }
 
@@ -43,6 +42,7 @@ public class AuthController {
     public ModelAndView forgetInfo(ModelAndView mv,@RequestParam int no){
 
         mv.addObject("no",no);
+        mv.setViewName("/auth/forgetInfo");
         return mv;
     }
 

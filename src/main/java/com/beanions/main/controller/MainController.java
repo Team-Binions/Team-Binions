@@ -3,7 +3,12 @@ package com.beanions.main.controller;
 import com.beanions.auth.model.AuthDetails;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.main.service.MainService;
+import com.beanions.user.dto.EmailDTO;
+import com.beanions.user.service.MailService;
+import com.beanions.user.service.VisitorService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -18,9 +23,11 @@ import java.util.List;
 @AllArgsConstructor
 public class MainController{
     private final MainService mainService;
+    private final MailService mailService;
+    private final VisitorService visitorService;
 
     @GetMapping(value = {"/","/main"})
-    public String main(Authentication authentication, Model model){
+    public String main(Authentication authentication, Model model, HttpServletRequest request){
 
         if( authentication != null ) {
             AuthDetails dto = (AuthDetails) authentication.getPrincipal();
@@ -39,6 +46,11 @@ public class MainController{
                 }
             }
         }
+
+        visitorService.incrementVisitorCount(request);
+        System.out.println("===============================================");
+        System.out.println("방문자 수 : " + visitorService.getVisitorCount());
+        System.out.println("===============================================");
 
         //예수다
         List<PostDTO> freeBoardByBride = mainService.selectFreeBoardByBride();
@@ -63,9 +75,14 @@ public class MainController{
         return "user/main";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "user/login";
+    @PostMapping(value = "/inquiry")
+    @ResponseBody
+    public ResponseEntity<String> sendInquiry(@RequestBody EmailDTO email){
+        System.out.println(email);
+        System.out.println(email.getEmail());
+        System.out.println(email.getContext());
+        mailService.sendMail(email);
+        return ResponseEntity.ok().build();
     }
 
 }

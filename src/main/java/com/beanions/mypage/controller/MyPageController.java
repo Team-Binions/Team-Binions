@@ -1,6 +1,7 @@
 package com.beanions.mypage.controller;
 
 import com.beanions.common.dto.MembersDTO;
+import com.beanions.common.uploadfiles.UploadService;
 import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
 import com.beanions.mypage.service.MyPageService;
@@ -242,8 +243,43 @@ public class MyPageController {
   }
 
   // 마이페이지 > 파일 업로드
-  @GetMapping("/mypage/fileupload")
+  @GetMapping("/fileupload")
   public String fileUpload(Model model){
     return "user/mypage/fileUpload";
+  }
+
+  // 마이페이지 > 글쓰기
+  @GetMapping("/write")
+  public String writeBoard(HttpSession session, RedirectAttributes rttr, Model model){
+    Integer memberCode = (Integer) session.getAttribute("memberCode");
+    System.out.println("memberCode = " + memberCode);
+
+    model.addAttribute("memberCode", memberCode);
+    return "user/mypage/writeBoard";
+  }
+
+
+
+
+  @PostMapping("/registBoard")
+  public String registWriteBoard(RedirectAttributes rttr, Model model){
+
+    myPageService.registWriting();
+
+    return "redirect:/user/board/reviewList";
+//    if (session.getAttribute("true") != null) {
+//      // 기존 temp폴더에 저장된 이미지 표시를 위해 에디터에는 /temp로 경로가 지정되어 있다
+//      // 이를 마지막 게시글 다음 번호로 설정한다.
+//      content = content.replaceAll("/temp", "/" + board_num);
+//
+//      // temp 폴더 안의 이미지를 게시글 저장소로 이동
+//      String path_folder1 = realPath + "/upload/image/fileupload/temp /";
+//      String path_folder2 = realPath + "/upload/image/fileupload/" + board_num + "/";
+//
+//      // 폴더 복사 함수
+//      fileUpload(path_folder1, path_folder2);
+//
+//      // ...
+//    }
   }
 }

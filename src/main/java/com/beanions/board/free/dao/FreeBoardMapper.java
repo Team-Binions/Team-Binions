@@ -16,7 +16,7 @@ import java.util.List;
 public interface FreeBoardMapper {
     List<PostAndMemberDTO> freeList(String id, SearchDTO params);
 
-    int count(SearchDTO params);
+    int count(String id, SearchDTO params);
 
     List<PostAndMemberDTO> freeDetail(int id);
 

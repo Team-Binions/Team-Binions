@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" th:href="@{/css/user/main.css}">
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>YESINYERANG</title>
   <script>
     const message = `[[${ message }]]`;
@@ -45,10 +46,13 @@
     <!-- 검색 -->
     <div class="search_box">
       <p>어떤 글을 찾고 계세요?</p>
-      <div class="search_bar">
-        <input type="search" placeholder="검색어를 입력하세요">
-        <button>검색</button>
-      </div>
+<!--      <div class="search_bar">-->
+        <form class="search_bar" th:action="@{/search}" method="get">
+          <input type="hidden" name="searchType" value="">
+          <input type="text" placeholder="검색어를 입력하세요" name="keyword">
+          <button type="submit">검색</button>
+        </form>
+<!--      </div>-->
       <ul>
         <li><a href="#">#웨딩홀</a></li>
         <li><a href="#">#스드메</a></li>
@@ -223,9 +227,9 @@
         <div class="contact_inner_box">
           <div class="contact_input">
             <p>문의사항 있으세요?</p>
-            <input type="text" placeholder="이메일 주소를 입력해주세요">
-            <textarea name="" placeholder="문의 내용을 입력해주세요"></textarea>
-            <button>문의하기</button>
+            <input type="text" id="inquiryEmail" placeholder="이메일 주소를 입력해주세요">
+            <textarea id="inquiryContext" placeholder="문의 내용을 입력해주세요"></textarea>
+            <button id="inquiry">문의하기</button>
           </div>
           <div class="contact_img">
             <img th:src="@{/images/main/contactIllust.svg}" alt="contact image">

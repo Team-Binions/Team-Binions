@@ -1,7 +1,7 @@
 package com.beanions.user.service;
 
+import com.beanions.auth.dao.UserMapper;
 import com.beanions.common.dto.MembersDTO;
-import com.beanions.user.dao.SignupMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,10 +21,30 @@ import java.time.format.DateTimeFormatter;
 public class SignupService {
 
     @Autowired
-    private final SignupMapper signupMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
+
+
+    public int checkDupId(String id) {
+        return userMapper.checkDupId(id);
+    }
+
+    public int checkDupNkname(String nkname) {
+        return userMapper.checkDupNkname(nkname);
+    }
+
+    public void regist(MembersDTO member) {
+
+        member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
+        System.out.println(member);
+        userMapper.joinMember(member);
+    }
+
+    public int checkDupEmail(String email) {
+        return userMapper.checkDupEmail(email);
+    }
 
     @Scheduled(fixedRate = 300000) // ms 기준 / 매번 약 5분마다 실행
     public void deleteFile() {
@@ -47,25 +67,6 @@ public class SignupService {
         } else {
             System.out.println("Directory not found.");
         }
-    }
-
-    public int checkDupId(String id) {
-        return signupMapper.checkDupId(id);
-    }
-
-    public int checkDupNkname(String nkname) {
-        return signupMapper.checkDupNkname(nkname);
-    }
-
-    public void regist(MembersDTO member) {
-
-        member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
-        System.out.println(member);
-        signupMapper.joinMember(member);
-    }
-
-    public int checkDupEmail(String email) {
-        return signupMapper.checkDupEmail(email);
     }
 
 }

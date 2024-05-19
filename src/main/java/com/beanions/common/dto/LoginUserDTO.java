@@ -3,6 +3,7 @@ package com.beanions.common.dto;
 import com.beanions.auth.dto.MemberRole;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class LoginUserDTO {
+public class LoginUserDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Integer memberCode;
     private String memberId;
     private String memberPw;

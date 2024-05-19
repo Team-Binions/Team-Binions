@@ -19,7 +19,7 @@
 
             <!-- 로그인 박스 영역 -->
             <div class="login_box">
-                <form th:action="@{/auth/login}" method="post">
+                <form th:action="@{/login}" method="post">
                     <p class="box_tit">로그인</p>
                     <input type="text" class="login_input id" name="user" placeholder="아이디를 입력하세요">
                     <div class="password_box">
@@ -27,9 +27,9 @@
                         <span class="show_pw_btn"><img th:src="@{/images/common/icons_show.png}" alt="popup icon image"></span>
                     </div>
                     <ul class="find_id_pw">
-                        <li><a href="/auth/forgetInfo?no=1">아이디 찾기</a></li>
+                        <li><a href="/forgetInfo?no=1">아이디 찾기</a></li>
                         <li>|</li>
-                        <li><a href="/auth/forgetInfo?no=2">비밀번호 찾기</a></li>
+                        <li><a href="/forgetInfo?no=2">비밀번호 찾기</a></li>
                     </ul>
                     <button class="login_btn" type="submit">로그인</button>
                 </form>

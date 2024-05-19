@@ -4,11 +4,13 @@ import com.beanions.common.dto.LoginUserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class AuthDetails implements UserDetails {
+public class AuthDetails implements UserDetails, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private LoginUserDTO loginUserDTO;
 
     public AuthDetails(){}
