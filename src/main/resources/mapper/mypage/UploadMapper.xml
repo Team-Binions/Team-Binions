@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.mypage.dao.UploadMapper">
+    <resultMap id="postResultMap" type="com.beanions.common.dto.PostDTO">
+        <id property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContext" column="POST_CONTEXT"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="mainCategory" column="MAIN_CATEGORY"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
+        <result property="verifiedStatus" column="VEF_STATUS"/>
+    </resultMap>
+    <insert id="registWriting" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , VEF_STATUS
+        , REVIEW_STATUS
+        , VIEW_COUNT
+        )
+        VALUES
+        (
+        #{memberCode}
+        , #{postTitle}
+        , #{postContext}
+        , #{mainCategory}
+        , #{subCategory}
+        , now()
+        , "활성"
+        , <choose>
+                <when test="#{mainCategory} == '예리뷰'">'미승인'</when>
+                <otherwise>NULL</otherwise>
+            </choose>
+        , 0
+        )
+    </insert>
+</mapper>

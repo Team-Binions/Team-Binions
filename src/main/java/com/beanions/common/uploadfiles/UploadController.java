@@ -1,7 +1,11 @@
 package com.beanions.common.uploadfiles;
 
 import com.beanions.common.dto.FilesDTO;
+import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.UploadFilesDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -9,9 +13,11 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +46,55 @@ public class UploadController {
   public UploadController(UploadService uploadService) {
     this.uploadService = uploadService;
   }
+
+
+//  @GetMapping("/write")
+//  public String postWriteBoard(HttpSession session, RedirectAttributes rttr, Model model) {
+//
+//    Integer memberCode = (Integer) session.getAttribute("memberCode");
+//
+//    model.addAttribute("memberCode", memberCode);
+//
+//    //return "/mypage/writeBoard";
+//    return "user/mypage/writeBoard";
+////    if (memberCode != null) {
+////      // 회원 아이디를 글쓰기 페이지로 리다이렉트하면서 전달
+////      return "/writeboard";
+//////      return "/user/board/freeRegist";
+////    } else {
+////      // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+////      rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
+////      return "redirect:/login";
+////    }
+//  }
+
+  @PostMapping("/registBoard")
+  public String registWriteBoard(RedirectAttributes rttr, Model model){
+
+    uploadService.registWriting();
+
+    return "redirect:/user/board/reviewList";
+//    if (session.getAttribute("true") != null) {
+//      // 기존 temp폴더에 저장된 이미지 표시를 위해 에디터에는 /temp로 경로가 지정되어 있다
+//      // 이를 마지막 게시글 다음 번호로 설정한다.
+//      content = content.replaceAll("/temp", "/" + board_num);
+//
+//      // temp 폴더 안의 이미지를 게시글 저장소로 이동
+//      String path_folder1 = realPath + "/upload/image/fileupload/temp /";
+//      String path_folder2 = realPath + "/upload/image/fileupload/" + board_num + "/";
+//
+//      // 폴더 복사 함수
+//      fileUpload(path_folder1, path_folder2);
+//
+//      // ...
+//    }
+  }
+
+
+
+
+
+
 
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/uploadAjax")
@@ -132,4 +187,7 @@ public class UploadController {
       throw new RuntimeException("이미지를 불러오는데 실패하였습니다!");
     }
   }
+
+
+
 }

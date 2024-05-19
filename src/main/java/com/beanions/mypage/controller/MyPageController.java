@@ -249,7 +249,11 @@ public class MyPageController {
 
   // 마이페이지 > 글쓰기
   @GetMapping("/write")
-  public String writeBoard(Model model){
+  public String writeBoard(HttpSession session, RedirectAttributes rttr, Model model){
+    Integer memberCode = (Integer) session.getAttribute("memberCode");
+    System.out.println("memberCode = " + memberCode);
+
+    model.addAttribute("memberCode", memberCode);
     return "user/mypage/writeBoard";
   }
 }
