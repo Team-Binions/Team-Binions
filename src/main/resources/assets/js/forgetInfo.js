@@ -17,7 +17,7 @@ $(document).ready(function () {
             $("#memail").focus();
         } else {
             // Fetch를 이용하여 요청을 보낸다.
-            fetch("/auth/request-forget-verify-mail", {
+            fetch("/request-forget-verify-mail", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -99,7 +99,7 @@ $(document).ready(function () {
             if (data !== $memailconfirm.val()) {
                 alert("인증번호가 잘못되었습니다.");
             } else {
-                fetch("/auth/request-checkValid-mail", {
+                fetch("/request-checkValid-mail", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -174,7 +174,7 @@ $(document).ready(function () {
             };
             console.log(data)
 
-            fetch("/auth/request-checkValid-id-and-email",{
+            fetch("/request-checkValid-id-and-email",{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
