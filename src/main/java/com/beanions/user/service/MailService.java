@@ -1,5 +1,6 @@
 package com.beanions.user.service;
 
+import com.beanions.user.dto.EmailDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
@@ -106,27 +107,7 @@ public class MailService {
         return mimeMessage;
     }
 
-    public String sendMail(String email) {
-        MimeMessage mimeMessage = createMessage(email);
-        log.info("[Mail 전송 시작]");
-        javaMailSender.send(mimeMessage);
-        log.info("[Mail 전송 완료]");
-        return number;
-    }
 
-    public void sendMail(String email,String userId) {
-        MimeMessage mimeMessage = createMessage(email,userId);
-        log.info("[Mail 전송 시작]");
-        javaMailSender.send(mimeMessage);
-        log.info("[Mail 전송 완료]");
-    }
-
-    public void sendPwdMail(String email, String tempPwd) {
-        MimeMessage mimeMessage = createPwdMessage(email,tempPwd);
-        log.info("[Mail 전송 시작]");
-        javaMailSender.send(mimeMessage);
-        log.info("[Mail 전송 완료]");
-    }
 
     private MimeMessage createPwdMessage(String email, String tempPwd) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -155,5 +136,59 @@ public class MailService {
             e.printStackTrace();
         }
         return mimeMessage;
+    }
+
+    public MimeMessage createMessage(EmailDTO email){
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try{
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true); // Helper 사용
+            messageHelper.setFrom(FROM_ADDRESS);
+            messageHelper.setTo(FROM_ADDRESS);
+            messageHelper.setSubject("[예랑예신] 고객 문의 메일");
+
+            String body = "<html><body><div style='width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: center;'>";
+            body += "<div style='width: 45%; max-width: 444px; padding: 40px; background-color: #fff; border: solid 2px; border-color: #6667AB; border-radius:20px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2);'>";
+            body += "<h1 style='padding-top: 20px; font-size: 30px;'>고객 문의 메일</h1>";
+            body += "<p style='padding-top: 20px; padding-left: 20px; font-size: 18px; opacity: 0.6; line-height: 30px; font-weight: 400;'>";
+            body += "<b>" + email.getEmail() + "<b> 로부터 온 메일입니다.<br/><hr/>";
+            body += email.getContext() + "</p>";
+            body += "<div style='text-align: center; padding-top: 20px;'><img class='logo' src='cid:image' alt='예랑예신메인로고'><div>";
+            body += "</div></div></body></html>";
+            messageHelper.setText(body, true);
+            ClassPathResource image = new ClassPathResource("assets/images/common/logo_jpg.jpg");
+            messageHelper.addInline("image", image);
+        }catch (MessagingException e){
+            e.printStackTrace();
+        }
+        return mimeMessage;
+    }
+
+    public String sendMail(String email) {
+        MimeMessage mimeMessage = createMessage(email);
+        log.info("[Mail 전송 시작]");
+        javaMailSender.send(mimeMessage);
+        log.info("[Mail 전송 완료]");
+        return number;
+    }
+
+    public void sendMail(String email,String userId) {
+        MimeMessage mimeMessage = createMessage(email,userId);
+        log.info("[Mail 전송 시작]");
+        javaMailSender.send(mimeMessage);
+        log.info("[Mail 전송 완료]");
+    }
+
+    public void sendPwdMail(String email, String tempPwd) {
+        MimeMessage mimeMessage = createPwdMessage(email,tempPwd);
+        log.info("[Mail 전송 시작]");
+        javaMailSender.send(mimeMessage);
+        log.info("[Mail 전송 완료]");
+    }
+
+    public void sendMail(EmailDTO email) {
+        MimeMessage mimeMessage = createMessage(email);
+        log.info("[Mail 전송 시작]");
+        javaMailSender.send(mimeMessage);
+        log.info("[Mail 전송 완료]");
     }
 }

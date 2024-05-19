@@ -65,15 +65,16 @@ public class SecurityConfig {
                     "/request-verify-mail",
                     "/request-verify-wedd",
                     "/request-join-member",
-                    "/auth/login",
-                    "/auth/fail",
-                    "/auth/forgetInfo",
-                    "/auth/request-forget-verify-mail",
-                    "/auth/request-checkValid-mail",
-                    "/auth/request-checkValid-id-and-email",
+                    "/login",
+                    "/fail",
+                    "/forgetInfo",
+                    "/request-forget-verify-mail",
+                    "/request-checkValid-mail",
+                    "/request-checkValid-id-and-email",
                     "/",
                     "/main",
                     "/signup",
+                    "/inquiry",
                     "/search",
                     "/board/reviewList",
                     "/board/reviewDetail",
@@ -94,7 +95,7 @@ public class SecurityConfig {
 
             // 해당 URL 요청과 그 값에 맞으면 로그인 시켜줌
         }).formLogin( login -> {
-            login.loginPage("/auth/login");
+            login.loginPage("/login");
             login.usernameParameter("user");
             login.passwordParameter("pass");
             login.successHandler(authSuccessHandler);

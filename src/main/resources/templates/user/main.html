@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <link rel="stylesheet" th:href="@{/css/user/main.css}">
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>YESINYERANG</title>
   <script>
     const message = `[[${ message }]]`;
@@ -226,9 +227,9 @@
         <div class="contact_inner_box">
           <div class="contact_input">
             <p>문의사항 있으세요?</p>
-            <input type="text" placeholder="이메일 주소를 입력해주세요">
-            <textarea name="" placeholder="문의 내용을 입력해주세요"></textarea>
-            <button>문의하기</button>
+            <input type="text" id="inquiryEmail" placeholder="이메일 주소를 입력해주세요">
+            <textarea id="inquiryContext" placeholder="문의 내용을 입력해주세요"></textarea>
+            <button id="inquiry">문의하기</button>
           </div>
           <div class="contact_img">
             <img th:src="@{/images/main/contactIllust.svg}" alt="contact image">
