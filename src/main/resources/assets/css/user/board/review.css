@@ -136,6 +136,7 @@ article {
     margin-top: 20px;
     margin-bottom: 60px;
     /*float: right;*/
+    cursor: pointer;
 }
 
 /* --------------- 리뷰게시판 상세페이지 ---------------*/
