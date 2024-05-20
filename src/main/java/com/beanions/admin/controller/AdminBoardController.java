@@ -3,13 +3,11 @@ package com.beanions.admin.controller;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.admin.service.AdminService;
 import com.beanions.admin.dto.AdminPostDTO;
+import com.beanions.common.dto.SearchDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -25,14 +23,23 @@ public class AdminBoardController {
     }
 
     @GetMapping("/post")
-    public String selectAllPost(Model model) {
+    public String selectAllPost(@ModelAttribute("params") final SearchDTO params, Model model) {
 
-        List<AdminPostDTO> postList = adminService.selectAllPost();
+        String Keyword = params.getKeyword();
+        System.out.println("keyword = " + params.getKeyword());
+
+        List<AdminPostDTO> postList = adminService.selectAllPost(params);
+
+        int count = adminService.count(params);
+        System.out.println("count = " + count);
 
         for (AdminPostDTO post : postList) {
             System.out.println("post = " + post);
         }
 
+
+        model.addAttribute("count", count);
+        model.addAttribute("keyword", Keyword);
         model.addAttribute("postList", postList);
 
         return "/admin/post/list";

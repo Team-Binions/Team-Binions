@@ -17,10 +17,13 @@
 <div class="sidebar_content">
 <div th:replace="admin/sidebar.html"></div>
 <article>
-<h1>게시판 전체조회</h1>
-    <form class="search_form">
+    <div>
+
+    </div>
+<p style="font-size: 24px; font-weight: var(--bold)">게시판 전체조회</p>
+    <form class="search_form" th:action="@{/admin/post}" method="get">
         <div class="search_box">
-            <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+            <input type="search" class="search_input" th:value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <span class="clear_btn"></span>
             <span class="search_btn"></span>
         </div>
@@ -64,42 +67,24 @@
 </article>
 </div>
 
-<!--<th:block layout:fragment="script">-->
-    <script>
-        // 검색시 x버튼
-        const clearBtn = document.querySelector(".clear_btn");
-        clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
-            e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
-            clearBtn.classList.remove("active"); // x버튼 비활성화
-        });
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
 
-        // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
-        const searchInput = document.querySelector(".search_input");
-        searchInput.addEventListener("input", (e) => {
-            if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
-                clearBtn.classList.add("active"); // x버튼 활성화
-            } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
-                clearBtn.classList.remove("active");// x버튼 비활성화
-            }
-        });
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
 
-
-
-        // const nonClick = document.querySelectorAll(".non-click");
-
-        // function handleClick(event) {
-        //     // div에서 모든 "click" 클래스 제거
-        //     nonClick.forEach((e) => {
-        //         e.classList.remove("click");
-        //     });
-        //     // 클릭한 div만 "click"클래스 추가
-        //     event.target.classList.add("click");
-        // }
-        //
-        // nonClick.forEach((e) => {
-        //     e.addEventListener("click", handleClick);
-        // });
-    </script>
-<!--</th:block>-->
+</script>
 </body>
 </html>

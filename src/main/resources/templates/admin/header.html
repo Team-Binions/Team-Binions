@@ -3,7 +3,9 @@
 <div style="position: fixed; width: 100%; background-color: #ffffff; z-index: 2;">
     <div style="display: flex; justify-content: space-between; padding: 20px">
         <!-- 로고 이미지 -->
-        <img th:src="@{/images/common/logo.svg}" alt="logo" width="72px">
+        <a th:href="@{/main}">
+            <img th:src="@{/images/common/logo.svg}" alt="logo" width="72px">
+        </a>
         <!-- 관리자 닉네임 -->
         <div style="display: flex; align-items: end; justify-content: space-evenly; width: 180px; font-size: 18px">
             <img th:src="@{/images/common/icon_user_profile.svg}" style="width: 32px; height: 32px">
@@ -13,5 +15,5 @@
             </div>
         </div>
     </div>
-    <hr style="background-color: #EDEDFF; height: 1px; border: 0">
+    <hr style="background-color: #6667AB; height: 1px; border: 0">
 </div>
