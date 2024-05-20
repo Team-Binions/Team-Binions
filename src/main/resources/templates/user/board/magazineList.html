@@ -39,14 +39,15 @@
 <!--            </tbody>-->
 <!--        </table>-->
 
-        <p id="list"></p>
+            <div id="list"></div>
+
         <!--페이지네이션 렌더링-->
         <div class="paging" align="center">
 
         </div>
     </article>
 </div>
-<div th:replace="user/layout/footer.html"></div>
+<script src="../js/common.js"></script>
 
 <script th:inline="javascript">
     var list = /*[[${ magazineList.list }]]*/ [];
@@ -79,15 +80,20 @@
 
     function drawList(list, num) {
         let html = '';
+
         list.forEach(row => {
             html += `
                     <div class="magazine_box">
-                        <span class="eng">${num--}</span>
-                        <span class="content_line">|</span>
-                        <span>${row.subCategory}</span>
-                        <p><a href="/board/magazinedetail?id=${row.postCode}">${row.postTitle}</a></p>
-                        <br>
-                        <p class="magazine_list_context">${row.postContext}</p>
+                        <img class="magazine_list_file" src="../images/common/magazine_test.jpg">
+                        <div class="magazine_list_content">
+                            <span class="magazine_num">no.${num--}</span>
+                            <span class="content_line">|</span>
+                            <span class="magazine_list_category">${row.subCategory}</span>
+
+                            <p class="magazine_list_title"><a href="/board/magazinedetail?id=${row.postCode}">${row.postTitle}</a></p>
+                            <p class="magazine_list_tag">#태그 #태그 #태그</p>
+                            <p class="magazine_list_context">${row.postContext}</p>
+                        </div>
                     </div>
                 `;
         });
@@ -137,7 +143,7 @@
     function movePage(page) {
         const queryParams = {
             page: (page) ? page : 1,
-            recordSize: 3,
+            recordSize: 9,
             pageSize: 5
         };
 
@@ -147,44 +153,6 @@
 </script>
 
 <script th:inline="javascript">
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-        gnbmenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.nextElementSibling.classList.add("active");
-        })
-        gnbmenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.nextElementSibling.classList.remove("active");
-        })
-    });
-
-    subMenu.forEach(submenu => {
-        submenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add("active");
-        })
-        submenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.classList.remove("active");
-        })
-    })
-
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
 
     // 검색시 x버튼
     const clearBtn = document.querySelector(".clear_btn");
@@ -203,5 +171,6 @@
         }
     });
 </script>
+<div th:replace="user/layout/footer.html"></div>
 </body>
 </html>

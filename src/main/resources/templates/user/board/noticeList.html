@@ -47,7 +47,7 @@
     </article>
   </div>
   <div th:replace="user/layout/footer.html"></div>
-
+  <script src="../js/common.js"></script>
   <script th:inline="javascript">
     var list = /*[[${ noticeList.list }]]*/ [];
     var pagination = /*[[${ noticeList.pagination }]]*/ {};
@@ -144,44 +144,6 @@
     }
   </script>
   <script>
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-      gnbmenu.addEventListener('mouseover', (e) => {
-        e.currentTarget.nextElementSibling.classList.add("active");
-      })
-      gnbmenu.addEventListener('mouseout', (e) => {
-        e.currentTarget.nextElementSibling.classList.remove("active");
-      })
-    });
-
-    subMenu.forEach(submenu => {
-      submenu.addEventListener('mouseover', (e) => {
-        e.currentTarget.classList.add("active");
-      })
-      submenu.addEventListener('mouseout', (e) => {
-        e.currentTarget.classList.remove("active");
-      })
-    })
-
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
 
     // 검색시 x버튼
     const clearBtn = document.querySelector(".clear_btn");
