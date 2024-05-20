@@ -52,11 +52,14 @@ public class UploadController {
   @PostMapping(value = "/user/registPost")
   @ResponseBody
   public String registPost(@RequestBody PostDTO post) throws JsonProcessingException {
+    System.out.println(post);
 
     int result = uploadService.registPost(post);
+    System.out.println("result : " + result);
 
     if(result > 0) {
       PostDTO postDTO = uploadService.selectPost(post.getMemberCode());
+      System.out.println(postDTO);
       return new ObjectMapper().writeValueAsString(postDTO);
     }
     return new ObjectMapper().writeValueAsString(null);
@@ -65,46 +68,6 @@ public class UploadController {
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/user/uploadAjax")
   public String uploadFile(@RequestParam(value="file",required = false) MultipartFile file) throws JsonProcessingException {
-
-//    List<UploadFilesDTO> resultDTOList = new ArrayList<>();
-//      List<FilesDTO> uploadFileList = new ArrayList<>();
-
-      // 이미지 파일만 업로드
-//      if (!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
-//        log.warn("this file is not image type");
-//        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-//      }
-
-
-//      // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로 => 바뀐 듯 ..
-//      String orginalName = uploadFile.getOriginalFilename();
-////      assert orginalName != null;
-//      String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
-//
-//      log.info("fileName: " + fileName);
-//
-//      // 날짜 폴더 생성
-//      //String folderPath = makeFolder();
-//
-//      // UUID
-//      String uuid = UUID.randomUUID().toString();
-//
-//      // 저장할 파일 이름 중간에 "_"를 이용해서 구현
-//      String saveName = uploadPath + File.separator + uuid + "_" + fileName;
-//
-//      Path savePath = Paths.get(saveName);
-//
-//      try {
-//        uploadFile.transferTo(savePath); // 실제 이미지 저장
-////        resultDTOList.add(new UploadFilesDTO(fileName, uuid, uploadPath)); //UploadFilesDTO에 추가
-//        uploadFileList.add(new FilesDTO(5, saveName, 5));
-//        System.out.println("uploadFileList from AJAX = " + uploadFileList);
-//        uploadService.registWriting(); // Files내용 DB 저장
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//
-//    return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
 
     String root = "src/main/resources/assets/images/upload";
     String filePath = root + "/user/uploadTemp";
@@ -164,9 +127,9 @@ public class UploadController {
   }
 
   @PostMapping("/user/registerFiles")
-  public Object multiFileUpload(@RequestParam List<FilesDTO> uploadFiles, Model model) {
+  public Object multiFileUpload(@RequestBody List<FilesDTO> imgTemp) {
 
-    if(uploadFiles == null) {
+    if(imgTemp == null || imgTemp.isEmpty()) {
       return ResponseEntity.ok().build();
     }
 
@@ -181,7 +144,7 @@ public class UploadController {
     }
 
     try {
-      for (FilesDTO fileInfo : uploadFiles) {
+      for (FilesDTO fileInfo : imgTemp) {
 
         fileName = fileInfo.getFileName();
         filePath = filePath + fileName;
@@ -201,17 +164,16 @@ public class UploadController {
         System.out.println("복사된 폴더 경로 : " + destinationPath);
 
         uploadService.insertFile(fileInfo);
-//        uploadService.registWriting(); // Files내용 DB 저장
+        filePath = root + "/user/uploadTemp/";
       }
     } catch (IOException e) {
       //throw new RuntimeException(e);
       /* 파일 저장 중간에 실패 시 이전에 저장된 파일 삭제*/
-      for (FilesDTO file : uploadFiles) {
+      for (FilesDTO file : imgTemp) {
         new File(filePath + "/" + file.getFileName()).delete();
       }
       System.out.println("다중 파일 업로드 실패🤬");
     }
-
-    return "redirect:/";
+    return ResponseEntity.ok().build();
   }
 }

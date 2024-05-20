@@ -47,7 +47,7 @@ public class SignupService {
     }
 
     @Scheduled(fixedRate = 300000) // ms 기준 / 매번 약 5분마다 실행
-    public void deleteFile() {
+    public void deleteSignupFile() {
         Path directory = Path.of("src/main/resources/assets/images/upload/user/signupTemp");
 
         if (directory != null && Files.isDirectory(directory)) {

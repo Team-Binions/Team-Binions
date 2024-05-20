@@ -12,6 +12,8 @@
         <result property="mainCategory" column="MAIN_CATEGORY"/>
         <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="VEF_STATUS"/>
+        <result property="reviewStatus" column="REVIEW_STATUS"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
     </resultMap>
     <resultMap id="uploadFilesResultMap" type="com.beanions.common.dto.FilesDTO">
         <id property="fileCode" column="FILE_CODE"/>
@@ -27,8 +29,8 @@
             POST_TITLE,
             POST_CONTEXT,
             POST_DATE,
-            MAINCATEGORY,
-            SUBCATEGORY,
+            MAIN_CATEGORY,
+            SUB_CATEGORY,
             VEF_STATUS,
             REVIEW_STATUS,
             VIEW_COUNT
@@ -42,8 +44,8 @@
             NOW(),
             #{mainCategory},
             #{subCategory},
-            'N'
-            'N',
+            '활성',
+            '미승인',
             0
         )
     </insert>

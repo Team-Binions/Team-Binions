@@ -248,10 +248,10 @@ public class MyPageController {
   }
 
   // 마이페이지 > 파일 업로드
-  @GetMapping("/fileUpload")
+  @GetMapping("/board/fileUpload")
   public String fileUpload(Model model, HttpSession session){
 
-    String memberCode = (String) session.getAttribute("memberCode");
+    int memberCode = (int) session.getAttribute("memberCode");
 
     model.addAttribute("memberCode",memberCode);
 

@@ -26,6 +26,10 @@
   </style>
 </head>
 <body>
+
+<!-- HEADER -->
+<div th:replace="user/layout/header.html"></div>
+
 <div class="wrapper">
   <div class="board_cont">
     <p class="regist">글쓰기</p>
@@ -72,7 +76,7 @@
         </ul>
       </div>
       <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
-      <button type="button" class="uploadBtn">Upload</button>
+<!--      <button type="button" class="uploadBtn">Upload</button>-->
 
       <div class="uploadResult"></div>
       <div class="button_list">
@@ -83,8 +87,12 @@
   </div>
 </div>
 
+<!-- FOOTER -->
+<div th:replace="user/layout/footer.html"></div>
+<!-- //FOOTER -->
 
-<script src="./js/common.js"></script>
+
+<script th:src="@{/js/common.js}"></script>
 <script>
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
     $(window).on('load', () => {
@@ -186,8 +194,6 @@
             $(".count_preview").text($('.preview_list .preview_img').length);
         })
 
-        let imgTemp = [];
-        const imgTmp = {};
 
         // 업로드 파일 경로 읽어오기
         function readURL(input, index) {
@@ -203,13 +209,13 @@
                     console.log(files[i]);
                     reader.readAsDataURL(files[i]);
 
-                    imgTmp.fileName = reader.readAsDataURL(files[i].name);
-                    imgTemp[i].add(imgTmp);
+                    // imgTmp.fileName = reader.readAsDataURL(files[i].name);
+                    // imgTemp[i].add(imgTmp);
 
                     reader.onload = function (e) {
                         console.log("files[" + i + "] e.target : " + e.target);
                         $('.preview_list').prepend(previewTag(e.target.result));
-                        if (i == 4) {
+                        if (i === 4) {
                             $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
                         }
                     }
@@ -219,11 +225,12 @@
             }
         }
 
+        let imgTemp = [];
         $(".file_upload_input").change(function () {
 
-            const index = $(".upload_img_btn").index();
-            console.log('파일업로드시 index : ' + index);
-            readURL(this, index);
+          const index = $(".file_upload_input").index(this); // index를 올바르게 가져오기 위해 'this' 사용
+          console.log('파일업로드시 index : ' + index);
+          readURL(this, index);
 
           // 파일을 가져온다.
           var file = event.target.files[0];
@@ -236,7 +243,7 @@
           // console.log(formData.get("file"));
 
           // Fetch를 이용하여 요청을 보낸다.
-          fetch("/request-verify-wedd", {
+          fetch("/user/uploadAjax", {
             method: "POST",
             body: formData
           })
@@ -244,14 +251,20 @@
                     if (!response.ok) {
                       throw new Error("Network response was not ok");
                     }
-                    // return response.json();
+                    return response.json();
                   })
-                  // .then(data => {
-                  //   // 성공적인 응답을 처리한다.
-                  //   $("#fileName").val(data);
-                  //   weddingFile = data;
-                  //   console.log(data);
-                  // })
+                  .then(data => {
+
+                    if(data == null) {
+                      return alert("실패");
+                    }
+                    const imgTmp = {};
+                    imgTmp["fileName"] = data; // "fileName"을 키로 사용하여 data를 객체에 추가
+                    imgTemp.push(imgTmp); // imgTmp 객체를 imgTemp 배열에 추가
+
+                    console.log("imgTmp:", imgTmp);
+                    console.log("imgTemp:", imgTemp);
+                  })
                   .catch(error => {
                     // 오류가 발생했을 때 처리한다.
                     console.error("Error:", error);
@@ -259,124 +272,74 @@
 
         });
 
-        $("#registPost").click(function (){
+      $("#registPost").click(function () {
+        const memberCodeString = $("#memberCode").val();
+        const memberCode = parseInt(memberCodeString, 10);
+        if (isNaN(memberCode)) {
+          console.error("memberCode is not a valid integer.");
+          return; // 유효하지 않은 경우 작업 중단
+        }
+        const postTitle = $("#postTitle").val();
+        const postContext = $("#postContext").val();
+        const mainCategory = $("#mainCategory").val();
+        const subCategory = $("#subCategory").val();
 
-          const memberCode = $("#memberCode").val();
-          const postTitle = $("#postTitle").val();
-          const postContext = $("#postContext").val();
+        const postInfo = {
+          memberCode: memberCode,
+          postTitle: postTitle,
+          postContext: postContext,
+          mainCategory: mainCategory,
+          subCategory: subCategory
+        };
 
-          const postInfo = {
-            memberCode : memberCode,
-            postTitle : postTitle,
-            postContext : postContext,
-            mainCategory : mainCategorySelect,
-            subCategory : subCategorySelect
-          }
+        fetch("/user/registPost", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(postInfo)
+        })
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return res.json();
+                })
+                .then(data => {
+                  if (data == null) {
+                    alert("글 쓰기 등록 실패");
+                    return window.location.href = "/";
+                  }
 
-          fetch("/user/registPost",{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(postInfo)
-          })
-                  .then(res =>{
-                    if (!res.ok) {
-                      throw new Error("Network response was not ok");
-                    }
-                    return res.json();
-                  })
-                  .then(data=>{
-
-                    if(data == null) {
-                      alert("글 쓰기 등록 실패")
-                      return window.location.href="/";
-                    }
-
-                    for( i= 0;  i < imgTemp.length; i++ ) {
-                      imgTemp[i].postCode = data.postCode;
-                    }
-
-                    fetch("/user/registerFiles",{
-                      method:"POST",
-                      headers: {
-                        "Content-Type": "application/json"
-                      },
-                      body: JSON.stringify(imgTemp)
-                    })
-                            .then(res=>{
-                              if(!res.ok){
-                                throw new Error("Network response was not ok");
-                              }
-                            })
-                            .catch(error => {
-                              console.error("Error:", error);
-                            });
-                  })
-                  .catch(error => {
-                    console.error("Error:", error);
+                  // imgTemp 배열의 각 객체에 postCode 추가
+                  imgTemp = imgTemp.map(img => {
+                    return {
+                      ...img,
+                      postCode: data.postCode
+                    };
                   });
 
-        })
+                  console.log("imgTemp:", imgTemp);
 
-        // $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
-        //     const formData = new FormData();
-        //     // const inputFile = $("input[type='file']");
-        //     const inputFile = $("input[name='uploadFiles']");
-        //
-        //     const files = inputFile[0].files;
-        //
-        //     for (let i = 0; i < files.length; i++) {
-        //         console.log(files[i]);
-        //         formData.append("uploadFiles", files[i].name);
-        //     }
-        //
-        //     const showUploadedImages = arr => {
-        //         console.log(arr);
-        //
-        //         const divArea = $(".uploadResult");
-        //
-        //         for (let i = 0; i < arr.length; i++) {
-        //             // const imgUrl = "/display?fileName="+arr[i].imageURL;
-        //             divArea.append("<img src='/display?fileName=" + arr[i].imageURL + "' alt='..null'>");
-        //             // $('.preview_list').prepend(previewTag(imgUrl));
-        //         }
-        //     }
-        //
-        //     /*실제 업로드 부분*/
-        //     /*upload ajax*/
-        //     $.ajax({
-        //         url: '/uploadAjax',
-        //         processData: false,
-        //         contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
-        //         data: formData,
-        //         type: 'POST',
-        //         dataType: 'json',
-        //         success: result => {
-        //             console.log(result);
-        //             showUploadedImages(result);
-        //         },
-        //         error: (jqXHR, textStatus, errorThrown) => {
-        //             console.log(textStatus)
-        //         }
-        //     })
-        //
-        //     // $.ajax({
-        //     //     url: '/registerFiles',
-        //     //     processData: false,
-        //     //     contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
-        //     //     data: formData,
-        //     //     type: 'POST',
-        //     //     dataType: 'json',
-        //     //     success: result => {
-        //     //         console.log(result);
-        //     //         showUploadedImages(result);
-        //     //     },
-        //     //     error: (jqXHR, textStatus, errorThrown) => {
-        //     //         console.log(textStatus)
-        //     //     }
-        //     // })
-        // })
+                  return fetch("/user/registerFiles", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(imgTemp)
+                  });
+                })
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  alert("게시글 등록 성공!")
+                  return window.location.href="/main";
+                })
+                .catch(error => {
+                  return console.error("Error:", error);
+                });
+      });
     })
 </script>
 </body>
