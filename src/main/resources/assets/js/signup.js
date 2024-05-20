@@ -27,7 +27,7 @@ $(document).ready(function () {
         var id = $(event.target).val();
         var num = id.search(/[0-9]/g);
         var eng = id.search(/[a-z]/ig);
-        var spe = id.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        var spe = id.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
         var pattern = /\s/;
 
         if ( id.length !== 0 && (id.length < 5 || id.length > 15) ) {
@@ -67,7 +67,7 @@ $(document).ready(function () {
         var id = $("#memberId").val();
         var num = id.search(/[0-9]/g);
         var eng = id.search(/[a-z]/ig);
-        var spe = id.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        var spe = id.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
         var pattern = /\s/;
 
         if( id === '' ) {
@@ -110,7 +110,7 @@ $(document).ready(function () {
 
         var num = value.search(/[0-9]/g);
         var eng = value.search(/[a-z]/ig);
-        var spe = value.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        var spe = value.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
         var pattern = /\s/;
 
         if(value.length !== 0 && (value.length < 8 || value.length > 20) ) {
@@ -192,7 +192,7 @@ $(document).ready(function () {
     $('#nickname').keyup(function (){
 
         var nickname = $(event.target).val();
-        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
         var pattern = /\s/;
 
         if ( nickname !== 0 && (nickname.length < 5 || nickname.length > 15) ) {
@@ -229,7 +229,7 @@ $(document).ready(function () {
 
     $("#checkNkname").click(function() {
         var nickname = $("#nickname").val();
-        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
         var pattern = /\s/;
 
         if( nickname === '' ) {
