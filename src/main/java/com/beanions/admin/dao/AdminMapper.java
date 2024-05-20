@@ -5,6 +5,7 @@ import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
 import com.beanions.mypage.dto.MyPageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,10 +24,10 @@ public interface AdminMapper {
 
     AdminMemberPostDTO selectAdminReviewData(int codes);
 
-    List<AdminPostDTO> selectAllPost();
+    List<AdminPostDTO> selectAllPost(SearchDTO params);
 
 
-    List<AdminPostDTO> selectPost(int code);
+    AdminPostDTO selectPost(int code);
 
     void postUpdate(PostDTO post);
 
@@ -34,7 +35,7 @@ public interface AdminMapper {
 
     void postDelete(int postCode);
 
-    List<AdminPostDTO> selectAllNotice();
+    List<AdminPostDTO> selectAllNotice(SearchDTO params);
 
     void noticeRegist(PostDTO newNotice);
 
@@ -50,4 +51,7 @@ public interface AdminMapper {
 
     List<AdminMainDTO> selectAdminMainData();
 
+    int count(SearchDTO params);
+
+    int countNotice(SearchDTO params);
 }

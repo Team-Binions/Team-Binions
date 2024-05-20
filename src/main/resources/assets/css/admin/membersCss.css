@@ -67,6 +67,7 @@
     padding-left: 20px;
     margin-right: 20px;
 }
+
 /* 수정 닉네임 인풋박스 */
 .member_nickname_box {
     width: 500px;
@@ -90,6 +91,27 @@
 }
 .member_line {
     padding-bottom: 20px;
+}
+
+.member_line input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.member_line label[for="verifyFile"] {
+    display: inline-block;
+    padding: 12px 43px;
+    height: 48px;
+    background-color: var(--main-color); color: #ffffff; border-radius:12px; border: none;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+        background-color: var(--point-color); transition: background-color 200ms ease-in-out;
+    }
 }
 
 .gender_line2 {
@@ -250,5 +272,7 @@
     color: var(--point-color);
     transition: background-color 200ms ease-in-out;
 }
+
+
 
 

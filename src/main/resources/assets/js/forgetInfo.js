@@ -5,6 +5,23 @@ var forgetPwdConfirm = {
 
 $(document).ready(function () {
 
+    $(".confirm_btn").click((e) => { // 확인버튼 클릭시
+        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+        $("html, body").removeClass("fixed");
+    })
+
+    const no_email = () => {
+        $(".pop_cont").find("p").text("존재하는 이메일이 없습니다.\n이메일을 다시 한 번 확인해주세요.");
+        $(".pop_bg, .pop_cont").addClass("active");
+        $("html, body").addClass("fixed");
+    }
+
+    const no_user = () => {
+        $(".pop_cont").find("p").text("해당하는 유저 정보가 없습니다.");
+        $(".pop_bg, .pop_cont").addClass("active");
+        $("html, body").addClass("fixed");
+    }
+
     var email;
 
     $("#checkEmail").click(function() {
@@ -13,7 +30,10 @@ $(document).ready(function () {
 
         // 이메일 값을 가져온다.
         if( email === '') {
-            alert("이메일을 입력해주세요.");
+            //alert("이메일을 입력해주세요.");
+            $(".pop_cont").find("p").text("이메일을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
             $("#memail").focus();
         } else {
             // Fetch를 이용하여 요청을 보낸다.
@@ -26,19 +46,24 @@ $(document).ready(function () {
             })
                 .then(response => {
                     if (!response.ok) {
-                        alert("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.")
+                        alert("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.");
+                        // $(".pop_cont").find("p").text("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.");
+                        // $(".pop_bg, .pop_cont").addClass("active");
+                        // $("html, body").addClass("fixed");
+
                         throw new Error("Network response was not ok");
                     }
                     return response.json();
                 })
                 .then(data => {
                     if(data === null) {
-                        return alert("존재하는 이메일이 없습니다.\n이메일을 다시 한 번 확인해주세요.")
+                        //return alert("존재하는 이메일이 없습니다.\n이메일을 다시 한 번 확인해주세요.")
+                        return no_email();
                     }
 
                     var afterChkEmail =
                         "<div>"
-                        +   "<h4 style=\"font-weight:bold; font-size: 10px; color: #6667AB\">"
+                        +   "<h4 style=\"font-weight:var(--regular); font-size: 14px; color: #6667AB\">"
                         +   "이메일로 전송 받은 인증 코드를 입력해주세요.<br>"
                         +   "제한 시간 초과 시 재전송 받아야해요."
                         +   "</h4>"
@@ -51,7 +76,7 @@ $(document).ready(function () {
 
                     $("#email_div").html(afterChkEmail);
 
-                    var timeLimit = 300; // 제한 시간 (초)
+                    var timeLimit = 60; // 제한 시간 (초)
                     var timerElement = $('#timer');
                     var inputElement = $('#memailconfirm');
 
@@ -61,29 +86,36 @@ $(document).ready(function () {
 
                         // 시간을 "mm:ss" 형식으로 표시
                         var formattedTime = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-                        timerElement.text('남은 시간 ' + formattedTime);
+                        timerElement.text(formattedTime);
+                        // timerElement.text('남은 시간 ' + formattedTime);
                         timerElement.css({
                             "color" : "#6667AB",
                             "font-weight" : "bold",
-                            "font-size" : "10px",
+                            "font-size" : "14px",
                             "text-align" : "end"
                         })
 
                         if (timeLimit <= 0) {
                             clearInterval(timer);
                             inputElement.prop('disabled', true);
-                            timerElement.text('시간 종료');
+                            timerElement.text('시간 초과');
                             timerElement.css({
                                 "color" : "#FA3E3E",
                                 "font-weight" : "bold",
-                                "font-size" : "10px",
+                                "font-size" : "14px",
                                 "text-align" : "end"
                             })
+                            $(".pop_cont").find("p").text("인증시간을 초과했습니다.\n이메일 인증을 다시 해주세요.");
+                            $(".pop_bg, .pop_cont").addClass("active");
+                            $("html, body").addClass("fixed");
                         }
                         timeLimit--; // 1초 감소
                     }, 1000);
 
-                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
+                    // alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
+                    $(".pop_cont").find("p").text("해당 이메일로 인증번호 발송이 완료되었습니다.\n확인해주세요.");
+                    $(".pop_bg, .pop_cont").addClass("active");
+                    $("html, body").addClass("fixed");
 
                     chkEmailConfirm(data,$("#memailconfirm"),$("#memailconfirmTxt"));
                 })
@@ -95,9 +127,21 @@ $(document).ready(function () {
     })
 
     function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
+                    var timerElement = $('#timer');
         $memailconfirmTxt.click(function(){
             if (data !== $memailconfirm.val()) {
-                alert("인증번호가 잘못되었습니다.");
+                if($memailconfirm.val() == null || $memailconfirm.val() ==''){
+                    if(timerElement.text() == '시간 초과'){
+                        $(".pop_cont").find("p").text("인증시간을 초과했습니다.\n이메일 인증을 다시 해주세요.");
+                    }
+                    //alert("인증번호가 잘못되었습니다.");
+                    $(".pop_cont").find("p").text("인증번호가 미입력상태입니다.\n인증번호를 입력해주세요.");
+                }else{
+                    $(".pop_cont").find("p").text("인증번호가 잘못되었습니다.");
+                }
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+
             } else {
                 fetch("/request-checkValid-mail", {
                     method: "POST",
@@ -158,10 +202,16 @@ $(document).ready(function () {
 
     $("#tempPwd").click(function (){
         if(!forgetPwdConfirm.idconfirmchk) {
-            alert("아이디를 입력해주세요.");
+            //alert("아이디를 입력해주세요.");
+            $(".pop_cont").find("p").text("아이디를 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
             $("#memberId").focus();
         } else if(!forgetPwdConfirm.emconfirmchk){
-            alert("이메일을 입력해주세요.")
+            //alert("이메일을 입력해주세요.")
+            $(".pop_cont").find("p").text("이메일을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
             $("#memail").focus();
         } else {
             var memberId = $("#memberId").val(); // 아이디 값 가져오기
@@ -183,14 +233,18 @@ $(document).ready(function () {
             })
                 .then(response =>{
                     if(!response.ok) {
-                        alert("유효한 요청이 아닙니다.\n입력한 내용을 다시 한번 확인해주세요.");
+                        //alert("유효한 요청이 아닙니다.\n입력한 내용을 다시 한번 확인해주세요.");
+                        $(".pop_cont").find("p").text("유효한 요청이 아닙니다.\n입력한 내용을 다시 한번 확인해주세요.");
+                        $(".pop_bg, .pop_cont").addClass("active");
+                        $("html, body").addClass("fixed");
                         throw new Error("Network response was not ok");
                     }
                     return response.json();
                 })
                 .then(data => {
                     if( data === 0 ) {
-                        return alert("해당하는 유저 정보가 없습니다.")
+                        //return alert("해당하는 유저 정보가 없습니다.")
+                        return no_user();
                     } else {
                         var logo =
                             "<div style=\"text-align: center\">"
@@ -198,11 +252,12 @@ $(document).ready(function () {
                             + "</div>"
                         var title =
                             "<div>"
-                            + "<p class='box_tit'>임시 비밀번호 전송 완료</p>"
+                            + "<p class='box_tit' style='text-align: center;'>임시 비밀번호 전송 완료</p>"
                             + "</div>"
                         var afterChkCode =
-                            "<p>임시 비밀번호를 <span><b>" + email + "</b></span>(으)로 발송하였습니다.</p><br />"
-                            + "<p>이메일을 확인하신 후 로그인해주세요!</p><br />"
+                            "<p style='text-align: center;'>임시 비밀번호를 <span><b><br>" + email + "</b></span>(으)로<br>발송하였습니다.</p><br />"
+                            + "<p style='text-align: center;'" +
+                            ">이메일을 확인하신 후 로그인해주세요!</p><br />"
                             + "<button class=\"login_btn\" type=\"button\" onclick=\"location.href='/main'\">메인으로 이동</button>"
 
                         $("#logo").html(logo);

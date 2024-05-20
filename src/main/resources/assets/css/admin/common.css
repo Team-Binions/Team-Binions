@@ -250,12 +250,21 @@ html, body {
 
 /* 컨텐츠 전체 영역 */
 article {
+
     margin-top: 126px;
     margin-left: 176px;
     margin-right: 26px;
     width: 100%;
 }
 
+.div_content {
+    min-height: 64vh;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: var(--bold);
+}
 
 .search_form{
     position: absolute;
@@ -368,9 +377,9 @@ th {
 }
 
 .table_box button:hover {
-    background-color: #F4F4F9;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+    background-color: var(--point-color);
+    color: #ffffff;
+    font-weight: var(--medium);
     transition: background-color 200ms ease-in-out;
 }
 

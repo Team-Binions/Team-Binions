@@ -26,7 +26,7 @@
     <p class="member_text" th:text="${ notice.member.nickname }"></p>
     <p th:text="${ #dates.format(notice.postDate, 'yyyy-MM-dd') }" class="number"></p>
     <hr class="up_line_context">
-    <pre class="context_text"  th:text="${ notice.postContext }"></pre>
+    <p class="context_text"  th:utext="${ notice.postContext }"></p>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 수정 버튼 div -->
     <div class="button_box">
@@ -41,7 +41,7 @@
     </div>
 
     <!-- 삭제 모달창 -->
-    <div id="deleteModal">
+    <div id="deleteModal" class="modal">
         <div class="deleteModal_content">
             <div class="deleteModal_icon_box">
                 <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
@@ -50,7 +50,7 @@
             <form th:action="@{/admin/notice/delete(id=${notice.postCode})}" method="post">
                 <div class="deleteModal_button_box">
                     <button type="submit" id="deleteModal_check_btn">확인</button>
-                    <button type="button" id="deleteModal_close_btn">취소</button>
+                    <button type="button" id="deleteModal_close_btn" class="modal_close_btn">취소</button>
                 </div>
             </form>
         </div>

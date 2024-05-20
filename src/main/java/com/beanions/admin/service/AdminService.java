@@ -4,6 +4,7 @@ import com.beanions.admin.dao.AdminMapper;
 import com.beanions.admin.dto.AdminMainDTO;
 import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +18,12 @@ public class AdminService {
         this.adminMapper = adminMapper;
     }
 
-    public List<AdminPostDTO> selectAllPost() {
+    public List<AdminPostDTO> selectAllPost(final SearchDTO params) {
 
-        return adminMapper.selectAllPost();
+        return adminMapper.selectAllPost(params);
     }
 
-    public List<AdminPostDTO> selectPost(int code) {
+    public AdminPostDTO selectPost(int code) {
 
         return adminMapper.selectPost(code);
     }
@@ -50,9 +51,9 @@ public class AdminService {
         adminMapper.postDelete(postCode);
     }
 
-    public List<AdminPostDTO> selectAllNotice() {
+    public List<AdminPostDTO> selectAllNotice(final SearchDTO params) {
 
-        return adminMapper.selectAllNotice();
+        return adminMapper.selectAllNotice(params);
     }
 
     @Transactional
@@ -91,5 +92,15 @@ public class AdminService {
     public List<AdminMainDTO> selectAdminMainData() {
 
         return adminMapper.selectAdminMainData();
+    }
+
+    public int count(SearchDTO params) {
+
+        return adminMapper.count(params);
+    }
+
+    public int countNotice(SearchDTO params) {
+
+        return adminMapper.countNotice(params);
     }
 }

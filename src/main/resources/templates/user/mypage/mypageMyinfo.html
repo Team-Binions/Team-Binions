@@ -20,7 +20,7 @@
     <!-- profile -->
     <div class="profile_box">
       <div class="profile_img">
-        <!-- <img src="" alt=""> -->
+        <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
@@ -35,7 +35,7 @@
     <div class="contents_cont">
       <div class="sidebar mypage">
         <ul>
-          <li><a href="/mypage/review">나의 글</a></li>
+          <li><a href="/mypage">나의 글</a></li>
           <li><a href="/mypage/review">예리뷰</a></li>
           <li><a href="/mypage/free">예수다</a></li>
           <li><a href="/mypage/comment">댓글</a></li>
@@ -58,9 +58,22 @@
             </li>
             <li>
               <span class="list_item_tit">비밀번호</span>
-              <div class="password_box">
-                <input type="password" th:value="${memberPw}">
-                <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="popup icon image"></span>
+              <span class="change_pw_btn">비밀번호 변경</span>
+<!--                <input type="password" th:value="${memberPw}">-->
+              <div class="change_password_box">
+                <div class="password_box">
+                  <input type="password" placeholder="새로운 비밀번호를 입력해주세요.">
+                  <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
+                </div>
+              </div>
+            </li>
+            <li class="change_password_check">
+              <span class="list_item_tit">비밀번호 확인</span>
+              <div class="change_password_box">
+                <div class="password_box check_again">
+                  <input type="password" placeholder="비밀번호를 다시 입력해주세요.">
+                  <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
+                </div>
               </div>
             </li>
             <li>
@@ -126,7 +139,7 @@
     <li class="confirm_btn">취소</li>
   </ul>
 </div>
-<!-- <script src="./js/common.js"></script> -->
+ <script th:src="@{/js/common.js}"></script>
 <script>
     //비밀번호 보기 아이콘 버튼 클릭시, 비밀번호 노출/비노출
     $(".show_pw_btn").click((e) => {
@@ -156,6 +169,13 @@
         }
 
         $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+    })
+
+    //비밀번호 변경 버튼 클릭
+    $(document).on('click','.change_pw_btn', () => {
+        $(".change_password_box").addClass("active");
+        $(".change_pw_btn").addClass('inactive');
+        $(".change_password_check").addClass('active');
     })
 </script>
 </body>

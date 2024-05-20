@@ -76,14 +76,18 @@ public class MyPageController {
   public String mypageComment(Model model,HttpSession session){
 
     List<MyPageDTO> userMypageCommentDataList = myPageService.selectMyPageCommentData((int)session.getAttribute("memberCode"));
-    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory((Integer)session.getAttribute("memberCode"));
+//    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory((Integer)session.getAttribute("memberCode"));
+    List<MyPageDTO> userMypageCommentPostCategoryList = myPageService.selectMyPageCommentPostCategory((int)session.getAttribute("memberCode"));
 
     System.out.println("category : " + userMypageCommentPostCategoryList);
 
     if (userMypageCommentDataList != null && !userMypageCommentDataList.isEmpty()){
       model.addAttribute("userMypageCommentData", userMypageCommentDataList.get(0));
       if (userMypageCommentPostCategoryList != null && !userMypageCommentPostCategoryList.isEmpty()){
-        model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
+        model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList);
+        System.out.println("userMypageCommentPostCategoryList = " + userMypageCommentPostCategoryList);
+        System.out.println("userMypageCommentPostCategoryList.get(0) = " + userMypageCommentPostCategoryList.get(0));
+//        model.addAttribute("userMypageCommentCategory", userMypageCommentPostCategoryList.get(0));
       } else {
         MyPageDTO myPageDTO = new MyPageDTO((String)session.getAttribute("nickname"),0,0,0,0,0,0,null,null,null,null);
         model.addAttribute("userMypageCommentCategory", myPageDTO);

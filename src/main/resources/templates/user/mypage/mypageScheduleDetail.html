@@ -23,7 +23,7 @@
     <!-- profile -->
     <div class="profile_box">
       <div class="profile_img">
-        <!-- <img src="" alt=""> -->
+        <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
@@ -36,12 +36,11 @@
     <div class="contents_cont">
       <div class="sidebar mypage">
         <ul>
-          <li><a href="/user/mypage/review">나의 글</a></li>
-          <li><a href="/user/mypage/review">예리뷰</a></li>
-          <li><a href="/user/mypage/free">예수다</a></li>
-          <li><a href="/user/mypage/comment">댓글</a></li>
+          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">예리뷰</a></li>
+          <li><a href="/mypage/free">예수다</a></li>
+          <li><a href="/mypage/comment">댓글</a></li>
           <li class="active"><a href="/mypage/schedule">스케쥴</a></li>
-          <!-- <li><a href="#">포인트</a></li> -->
           <li><a href="/mypage/myinfo">회원 정보 수정</a></li>
         </ul>
       </div>
@@ -73,7 +72,7 @@
   <div th:replace="user/layout/footer.html"></div>
   <!-- //FOOTER -->
 </div>
-<!-- <script src="./js/common.js"></script> -->
+ <script th:src="@{/js/common.js}"></script>
 <script>
 
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영

@@ -37,6 +37,7 @@ subMenu.forEach(submenu => {
 // TOP BUTTON
 // 윈도우 스크롤 최상단으로 이동
 const topBtn = document.querySelector('.top_btn');
+
 const scrollTop = () => {
     window.scrollTo({
         top : 0,
@@ -45,15 +46,22 @@ const scrollTop = () => {
     topBtn.classList.remove('active');
 }
 
-topBtn.addEventListener('click', () => {
-    scrollTop();
-})
+if(topBtn){
+
+    topBtn.addEventListener('click', () => {
+        scrollTop();
+    })
+}
 
 window.addEventListener('scroll', () => {
     console.log(window.scrollY);
     if(window.scrollY > 500){ //스크롤 위치 y값이 500 초과이면
-        topBtn.classList.add('active'); // top 버튼 활성화
+        if(topBtn){
+            topBtn.classList.add('active'); // top 버튼 활성화
+        }
     } else { // 스크롤 위치 y값이 500 미만이면
-        topBtn.classList.remove('active'); // top 버튼 비활성화
+        if(topBtn){
+            topBtn.classList.remove('active'); // top 버튼 비활성화
+        }
     }
 })

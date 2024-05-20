@@ -19,7 +19,7 @@
     <!-- profile -->
     <div class="profile_box">
       <div class="profile_img">
-        <!-- <img src="" alt=""> -->
+         <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
@@ -52,9 +52,9 @@
 
         <!-- 등록한 게시물이 있는 경우 -->
         <ul class="summary_mypage" th:unless="${userMypageMainData.totalCount} == 0">
-          <li><a th:href="@{/mypage/review}"><span>예리뷰</span><span class="eng" th:text="${userMypageMainData.reviewCount}"></span></a></li>
-          <li><a href="/mypage/free"><span>예수다</span><span class="eng" th:text="${userMypageMainData.freeCount}"></span></a></li>
-          <li><a href="/mypage/comment"><span>댓글</span><span class="eng" th:text="${userMypageMainData.commentCount}"></span></a></li>
+          <li><a th:href="@{/mypage/review}"><span class="summary_menu">예리뷰</span><span class="eng" th:text="${userMypageMainData.reviewCount}"></span></a></li>
+          <li><a href="/mypage/free"><span class="summary_menu">예수다</span><span class="eng" th:text="${userMypageMainData.freeCount}"></span></a></li>
+          <li><a href="/mypage/comment"><span class="summary_menu comment">댓글</span><span class="eng" th:text="${userMypageMainData.commentCount}"></span></a></li>
         </ul>
       </div>
     </div>
@@ -65,26 +65,6 @@
   <div th:replace="user/layout/footer.html"></div>
   <!-- //FOOTER -->
 </div>
- <script src="./js/common.js"></script>
-<script>
-    // 검색시 x버튼
-    const clearBtn = document.querySelector('.clear_btn');
-    clearBtn.addEventListener('click', (e) => {
-        e.currentTarget.parentNode.querySelector('.search_input').value = null;
-        clearBtn.classList.remove("active");
-    })
-
-    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
-    const searchInput = document.querySelector('.search_input');
-    searchInput.addEventListener('input', (e) => {
-        if (e.currentTarget.value.length > 0) {
-            clearBtn.classList.add("active");
-        } else if (e.currentTarget.value.length <= 0) {
-            clearBtn.classList.remove("active");
-        }
-    })
-
-
-</script>
+ <script th:src="@{/js/common.js}"></script>
 </body>
 </html>
