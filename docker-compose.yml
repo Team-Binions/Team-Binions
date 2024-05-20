@@ -11,15 +11,6 @@ services:
     restart: always					# 컨테이너가 종료됐을 때 재시작 여부
     command: redis-server /usr/local/conf/redis.conf # 실행할 명령
 
-  spring_application:
-    image: test_spring
-    container_name: application
-    ports:
-      - 8080:8080		# 서버 port
-      - 443:443	 		# https 인증 port
-    depends_on:			# 의존관계 설정 <- redis 서비스를 먼저 시작하도록 지정
-      - redis
-
   mydb:
     image: mysql:8.0
     container_name: mydb
