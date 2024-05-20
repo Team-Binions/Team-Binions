@@ -13,33 +13,30 @@
         <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="VEF_STATUS"/>
     </resultMap>
-    <insert id="registWriting" parameterType="com.beanions.common.dto.PostDTO">
-        INSERT INTO POST
+    <resultMap id="uploadFilesResultMap" type="com.beanions.common.dto.FilesDTO">
+        <id property="fileCode" column="FILE_CODE"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="postCode" column="POST_CODE"/>
+    </resultMap>
+    <insert id="registWriting" parameterType="com.beanions.common.dto.FilesDTO">
+        INSERT INTO FILES
         (
-        MEMBER_CODE
-        , POST_TITLE
-        , POST_CONTEXT
-        , MAIN_CATEGORY
-        , SUB_CATEGORY
-        , POST_DATE
-        , VEF_STATUS
-        , REVIEW_STATUS
-        , VIEW_COUNT
+        FILE_CODE
+        , FILE_NAME
+        , POST_CODE
         )
         VALUES
         (
-        #{memberCode}
-        , #{postTitle}
-        , #{postContext}
-        , #{mainCategory}
-        , #{subCategory}
-        , now()
-        , "활성"
-        , <choose>
-                <when test="#{mainCategory} == '예리뷰'">'미승인'</when>
-                <otherwise>NULL</otherwise>
-            </choose>
-        , 0
+        NULL
+        , #{fileName}
+        , #{postCode}
         )
     </insert>
+    <select id="selectAllFiles" resultMap="uploadFilesResultMap">
+        SELECT
+            FILE_CODE
+            , FILE_NAME
+            , POST_CODE
+        FROM FILES
+    </select>
 </mapper>
