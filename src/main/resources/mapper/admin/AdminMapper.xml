@@ -206,6 +206,15 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         WHERE MAIN_CATEGORY = '공지사항'
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
         ORDER BY A.POST_DATE DESC
     </select>
 
@@ -439,4 +448,22 @@
 
         </if>
     </select>
+    <select id="countNotice" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE MAIN_CATEGORY IN ('공지사항')
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
+    </select>
+
 </mapper>

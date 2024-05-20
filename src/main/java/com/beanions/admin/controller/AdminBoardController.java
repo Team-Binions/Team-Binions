@@ -52,7 +52,7 @@ public class AdminBoardController {
 
         int code = Integer.parseInt(id);
 
-        List<AdminPostDTO> postDetail = adminService.selectPost(code);
+        AdminPostDTO postDetail = adminService.selectPost(code);
 
         System.out.println("postDetail = " + postDetail);
 
@@ -131,14 +131,21 @@ public class AdminBoardController {
     }
 
     @GetMapping("/notice")
-    public String selectAllNotice(Model model) {
+    public String selectAllNotice(@ModelAttribute("params") final SearchDTO params, Model model) {
 
-        List<AdminPostDTO> noticeList = adminService.selectAllNotice();
+        String Keyword = params.getKeyword();
+        System.out.println("keyword = " + Keyword);
+
+        List<AdminPostDTO> noticeList = adminService.selectAllNotice(params);
+
+        int count = adminService.countNotice(params);
 
         for (AdminPostDTO notice : noticeList) {
             System.out.println("notice = " + notice);
         }
 
+        model.addAttribute("count", count);
+        model.addAttribute("keyword", Keyword);
         model.addAttribute("noticeList", noticeList);
 
         return "/admin/notice/list";
@@ -164,7 +171,14 @@ public class AdminBoardController {
 
         int code = Integer.parseInt(id);
 
-        List<AdminPostDTO> noticeDetail = adminService.selectPost(code);
+        AdminPostDTO noticeDetail = adminService.selectPost(code);
+
+        String text = noticeDetail.getPostContext().replace("\r\n", "<br>");
+
+        System.out.println("text = " + text);
+
+        noticeDetail.setPostContext(text);
+
 
         System.out.println("noticeDetail = " + noticeDetail);
 
@@ -180,7 +194,7 @@ public class AdminBoardController {
 
         int code = Integer.parseInt(id);
 
-        List<AdminPostDTO> noticeDetail = adminService.selectPost(code);
+        AdminPostDTO noticeDetail = adminService.selectPost(code);
 
         System.out.println("noticeDetail = " + noticeDetail);
 
@@ -251,7 +265,7 @@ public class AdminBoardController {
 
         int code = Integer.parseInt(id);
 
-        List<AdminPostDTO> magazineDetail = adminService.selectPost(code);
+        AdminPostDTO magazineDetail = adminService.selectPost(code);
 
         System.out.println("magazineDetail = " + magazineDetail);
 
@@ -267,7 +281,7 @@ public class AdminBoardController {
 
         int code = Integer.parseInt(id);
 
-        List<AdminPostDTO> magazineDetail = adminService.selectPost(code);
+        AdminPostDTO magazineDetail = adminService.selectPost(code);
 
         System.out.println("magazineDetail = " + magazineDetail);
 
