@@ -250,12 +250,21 @@ html, body {
 
 /* 컨텐츠 전체 영역 */
 article {
+
     margin-top: 126px;
     margin-left: 176px;
     margin-right: 26px;
     width: 100%;
 }
 
+.div_content {
+    min-height: 64vh;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: var(--bold);
+}
 
 .search_form{
     position: absolute;

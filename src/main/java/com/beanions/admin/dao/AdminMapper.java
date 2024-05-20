@@ -27,7 +27,7 @@ public interface AdminMapper {
     List<AdminPostDTO> selectAllPost(SearchDTO params);
 
 
-    List<AdminPostDTO> selectPost(int code);
+    AdminPostDTO selectPost(int code);
 
     void postUpdate(PostDTO post);
 
@@ -35,7 +35,7 @@ public interface AdminMapper {
 
     void postDelete(int postCode);
 
-    List<AdminPostDTO> selectAllNotice();
+    List<AdminPostDTO> selectAllNotice(SearchDTO params);
 
     void noticeRegist(PostDTO newNotice);
 
@@ -52,4 +52,6 @@ public interface AdminMapper {
     List<AdminMainDTO> selectAdminMainData();
 
     int count(SearchDTO params);
+
+    int countNotice(SearchDTO params);
 }
