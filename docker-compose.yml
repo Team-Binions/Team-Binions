@@ -1,0 +1,32 @@
+version: '3'
+services:
+  redis: 						# 수행할 서비스 이름
+    image: redis:latest 			# run 할 image
+    container_name: test_redis		# container 이름
+    ports:							# container port 바인딩
+      - 6379:6379
+    volumes:						# redis volume 설정
+      - ./redis/data:/data
+      - ./redis/conf/redis.conf:/usr/local/conf/redis.conf
+    restart: always					# 컨테이너가 종료됐을 때 재시작 여부
+    command: redis-server /usr/local/conf/redis.conf # 실행할 명령
+
+  spring_application:
+    image: test_spring
+    container_name: application
+    ports:
+      - 8080:8080		# 서버 port
+      - 443:443	 		# https 인증 port
+    depends_on:			# 의존관계 설정 <- redis 서비스를 먼저 시작하도록 지정
+      - redis
+
+  mydb:
+    image: mysql:8.0
+    container_name: mydb
+    environment:
+      MYSQL_DATABASE: yesinyerang
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: eunseongjo
+      MYSQL_PASSWORD : dbpassword
+    ports:
+      - 3307:3306
