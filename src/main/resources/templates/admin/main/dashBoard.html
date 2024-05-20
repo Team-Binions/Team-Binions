@@ -149,14 +149,14 @@
     </div>
     <div class="dashBoard_box_third">
         <div class="dashBoard_table_area">
-            <p class="dashBoard_board_text">최신 공지사항</p>
+            <p class="dashBoard_board_text">공지사항</p>
             <div class="dashBoard_table_box">
                 <table class="dashBoard_table">
                     <tr class="dashBoard_tr">
-                        <th class="dashBoard_th">no</th>
+                        <th class="dashBoard_th index_th">no</th>
                         <th class="dashBoard_th">제목</th>
-                        <th class="dashBoard_th">작성일</th>
-                        <th class="dashBoard_th">조회수</th>
+                        <th class="dashBoard_th manage_th">작성일</th>
+                        <th class="dashBoard_th manage_th">조회수</th>
                     </tr>
                     <tr class="dashBoard_tr" th:each="notice : ${ postList }">
                         <td class="dashBoard_td" th:text="${ notice.postCode}"></td>
@@ -170,14 +170,14 @@
             </div>
         </div>
         <div class="dashBoard_table_area">
-            <p class="dashBoard_board_text">최신 매거진</p>
+            <p class="dashBoard_board_text">매거진</p>
             <div class="dashBoard_table_box">
                 <table class="dashBoard_table">
                     <tr class="dashBoard_tr">
-                        <th class="dashBoard_th">no</th>
+                        <th class="dashBoard_th index_th">no</th>
                         <th class="dashBoard_th">매거진</th>
-                        <th class="dashBoard_th">작성일</th>
-                        <th class="dashBoard_th">조회수</th>
+                        <th class="dashBoard_th manage_th">작성일</th>
+                        <th class="dashBoard_th manage_th">조회수</th>
                     </tr>
                     <tr class="dashBoard_tr" th:each="magazine : ${ magazineList }">
                         <td class="dashBoard_td" th:text="${ magazine.postCode }"></td>

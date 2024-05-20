@@ -24,6 +24,7 @@
 
 /* 자유, 리뷰 */
 .main_sub_category {
+    align-items: center;
     margin-left: 50px;
     display: flex;
 }
@@ -80,10 +81,9 @@
 }
 /* 내용 */
 .context_text {
-    margin-top: 16px;
-    width: 1200px;
-    height: 420px;
-    margin-bottom: 30px;
+    max-width: 100%;
+    min-height: 304px;
+    padding: 16px 5px;
 }
 /* 내용 아래 가로 선 */
 .down_line_context_line_context {
@@ -111,9 +111,8 @@
     font-weight: var(--semiBold);
 }
 #deleteModal_open_btn:hover {
-    background-color: #F4F4F9;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+    background-color: var(--point-color);
+    color: #ffffff;
     transition: background-color 200ms ease-in-out;
 }
 
@@ -124,9 +123,9 @@
     font-weight: var(--semiBold);
 }
 #back_post_btn:hover {
-    background-color: #F4F4F9;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+    background-color: var(--point-color);
+    color: #ffffff;
+    font-weight: var(--medium);
     transition: background-color 200ms ease-in-out;
 }
 
@@ -143,7 +142,7 @@
 }
 
 /* 모달 전체 영역 */
-#deleteModal {
+.modal {
     display: none;
     position: absolute;
     /*position: relative;*/
@@ -153,13 +152,13 @@
 }
 
 /* 모달 글 */
-#deleteModal p {
+.modal p {
     margin-top: 30px;
     text-align: center;
 }
 
 /* 모달 안에 있는 버튼 */
-#deleteModal button {
+.modal button {
     display: inline-block;
     cursor: pointer;
     width: 100px;
@@ -168,23 +167,40 @@
 }
 
 /* 모달 내용 */
-#deleteModal .deleteModal_content {
+.modal .deleteModal_content {
     width: 300px;
-    height: 200px;
+    height: 210px;
     /*margin: -100px 0 -100px 700px ;*/
     position: fixed;
     top: 40%;
     left: 40%;
     /*margin-top: -16%;*/
     /*margin-left: 28%;*/
-    padding: 10px 10px;
+    padding: 10px 10px 23px 10px;
     background: #ffffff;
     border-radius: 12px;
     /*border: 2px solid #666;*/
 }
 
+
+#cancelModal .deleteModal_content {
+    width: 300px;
+    height: 240px;
+    /*margin: -100px 0 -100px 700px ;*/
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    /*margin-top: -16%;*/
+    /*margin-left: 28%;*/
+    padding: 10px 10px 23px 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    /*border: 2px solid #666;*/
+}
+
+
 /* 모달 뒷 배경 */
-#deleteModal .deleteModal_layer {
+.modal .deleteModal_layer {
     position: fixed;
     top: 0;
     left: 0;
@@ -194,27 +210,28 @@
     z-index: -1;
 }
 
-#deleteModal .deleteModal_icon_box {
+.modal .deleteModal_icon_box {
     margin-top: 15px;
     text-align: center;
 }
 
-#deleteModal .deleteModal_icon {
+.modal .deleteModal_icon {
     height: 40px;
     width: 40px;
 }
 
-#deleteModal .deleteModal_button_box {
-    height: 40px;
-    width: 215px;
-    margin-top: 25px;
+.modal .deleteModal_button_box {
+    /*height: 40px;*/
+    /*width: 240px;*/
+    padding: 30px 30px 0 30px;
+    /*margin-top: 30px;*/
 
-    margin-left: 33px;
+    /*margin-left: 33px;*/
     display: flex;
     justify-content: space-between;
 }
 
-#deleteModal_close_btn {
+.modal_close_btn {
     background-color: #ffffff;
     color: var(--main-color);
     border: solid thin var(--main-color);
@@ -223,11 +240,15 @@
 
 }
 
-#deleteModal_close_btn:hover {
-    background-color: #ffffff;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+.modal_close_btn:hover {
+    background-color: var(--point-color);
+    color: #ffffff;
+    font-weight: var(--regular);
     transition: background-color 200ms ease-in-out;
+}
+
+.cancel_modal_text {
+    padding: 0 24px;
 }
 
 .subCategory_select {
@@ -246,9 +267,8 @@
     font-weight: var(--semiBold);
 }
 .cancel_btn:hover {
-    background-color: #F4F4F9;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+    background-color: var(--point-color);
+    color: #ffffff;
     transition: background-color 200ms ease-in-out;
 }
 

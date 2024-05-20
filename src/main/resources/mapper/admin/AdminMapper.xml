@@ -134,7 +134,8 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         WHERE MAIN_CATEGORY = '자유' OR  MAIN_CATEGORY = '리뷰'
-        ORDER BY A.POST_DATE DESC
+        <include refid="search" />
+        ORDER BY A.POST_DATE DESC, POST_CODE DESC;
     </select>
 
     <select id="selectPost" parameterType="_int" resultMap="adminPostResultMap">
@@ -380,5 +381,43 @@
         , (SELECT COUNT(*) MAGAZINE_DAY FROM POST WHERE MAIN_CATEGORY = '매거진' AND POST_DATE = CURDATE()) N
         , (SELECT COUNT(*) VISIT_ALL FROM VISITOR_COUNT) O
         , (SELECT COUNT(*) VISIT_DAY FROM VISITOR_COUNT WHERE DATE(TIMESTAMP) = DATE(NOW())) P;
+    </select>
+
+    <!-- 게시글 검색 -->
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                    <choose>
+                        <when test="'title'.equals( searchType )">
+                            AND POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'context'.equals( searchType )">
+                            AND POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </when>
+
+                <!-- 전체 검색일 때 -->
+                <otherwise>
+                    AND (
+                    A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+                    OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <!-- 게시글 수 카운팅 -->
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST
+        WHERE MAIN_CATEGORY IN ('자유', '리뷰')
+        <include refid="search" />
     </select>
 </mapper>

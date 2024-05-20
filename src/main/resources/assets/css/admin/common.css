@@ -368,9 +368,9 @@ th {
 }
 
 .table_box button:hover {
-    background-color: #F4F4F9;
-    border: solid thin var(--point-color);
-    color: var(--point-color);
+    background-color: var(--point-color);
+    color: #ffffff;
+    font-weight: var(--medium);
     transition: background-color 200ms ease-in-out;
 }
 

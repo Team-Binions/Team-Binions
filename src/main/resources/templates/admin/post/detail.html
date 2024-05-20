@@ -45,30 +45,20 @@
         <!-- 목록 버튼 -->
         <button onclick="location.href='/admin/post'" id="back_post_btn">목록</button>
         <!-- 상태 변경 버튼 -->
-        <form action="/admin/post/update" method="post">
-            <input type="hidden" th:value="${ post.postCode }" name="postCode">
-                <button class="modify_btn" type="submit" th:if="${ post.verifiedStatus == '활성' || post.verifiedStatus == null}">
-                    <input type="hidden" name="verifiedStatus" value="비활성">
-                    비활성화</button>
-            <button class="modify_btn" type="submit"  th:if="${ post.verifiedStatus == '비활성'}">
-                <input type="hidden" name="verifiedStatus" value="활성">
-                활성화</button>
-        </form>
-        <form action="/admin/post/review" method="post">
-            <input type="hidden" th:value="${ post.postCode }" name="postCode">
+        <div id="statusModal_open_btn">
+            <button class="modify_btn" type="button" th:if="${ post.verifiedStatus == '활성' || post.verifiedStatus == null}">비활성화</button>
+            <button class="modify_btn" type="button"  th:if="${ post.verifiedStatus == '비활성'}">활성화</button>
+        </div>
+        <div id="reviewModal_open_btn">
                 <span th:if="${ post.mainCategory == '리뷰'}">
-                    <button class="review_btn" type="submit" th:if="${ post.reviewStatus == '승인'}">
-                        <input type="hidden" name="reviewStatus" value="미승인">
-                        미승인</button>
-                    <button class="review_btn" type="submit" th:if="${ post.reviewStatus == '미승인'}">
-                        <input type="hidden" name="reviewStatus" value="승인">
-                        승인</button>
+                    <button class="review_btn" type="button" th:if="${ post.reviewStatus == '승인'}">미승인</button>
+                    <button class="review_btn" type="button" th:if="${ post.reviewStatus == '미승인'}">승인</button>
                 </span>
-        </form>
+        </div>
     </div>
 
     <!-- 삭제 모달창 -->
-    <div id="deleteModal">
+    <div id="deleteModal" class="modal">
         <div class="deleteModal_content">
             <div class="deleteModal_icon_box">
                 <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
@@ -77,7 +67,55 @@
             <form th:action="@{/admin/post/delete(id=${post.postCode})}" method="post">
                 <div class="deleteModal_button_box">
                     <button type="submit" id="deleteModal_check_btn">확인</button>
-                    <button type="button" id="deleteModal_close_btn">취소</button>
+                    <button type="button" id="deleteModal_close_btn" class="modal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+    <!-- 활성화 여부 모달창 -->
+    <div id="statusModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <form th:action="@{/admin/post/update(id=${post.postCode})}" method="post">
+                <div th:if="${ post.verifiedStatus == '활성'}">
+                    <p>게시글을 비활성화 하시겠습니까?</p>
+                    <input type="hidden" name="verifiedStatus" value="비활성">
+                </div>
+                <div th:if="${ post.verifiedStatus == '비활성'}">
+                    <p>게시글을 활성화 하시겠습니까?</p>
+                    <input type="hidden" name="verifiedStatus" value="활성">
+                </div>
+                <div class="deleteModal_button_box">
+                <input type="hidden" th:value="${ post.postCode }" name="postCode">
+                    <button type="submit" id="statusModal_check_btn">확인</button>
+                    <button type="button" id="statusModal_close_btn" class="modal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+    <!-- 승인 여부 모달창 -->
+    <div id="reviewModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <form th:action="@{/admin/post/review(id=${post.postCode})}" method="post">
+                <div th:if="${ post.reviewStatus == '승인'}">
+                    <p>게시글을 미승인 하시겠습니까?</p>
+                    <input type="hidden" name="reviewStatus" value="미승인">
+                </div>
+                <div th:if="${ post.reviewStatus == '미승인'}">
+                    <p>게시글을 승인 하시겠습니까?</p>
+                    <input type="hidden" name="reviewStatus" value="승인">
+                </div>
+                <div class="deleteModal_button_box">
+                    <input type="hidden" th:value="${ post.postCode }" name="postCode">
+                    <button type="submit" id="reviewModal_check_btn">확인</button>
+                    <button type="button" id="reviewModal_close_btn" class="modal_close_btn">취소</button>
                 </div>
             </form>
         </div>
@@ -88,6 +126,7 @@
 </article>
 </div>
 <script>
+    // 삭제 모달
     document.getElementById("deleteModal_open_btn").onclick = function () {
         document.getElementById("deleteModal").style.display = "block";
     }
@@ -99,6 +138,33 @@
     document.getElementById("deleteModal_check_btn").onclick = function () {
         document.getElementById("deleteModal").style.display = "none";
     }
+
+    // 활성화 모달
+    document.getElementById("statusModal_open_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "block";
+    }
+
+    document.getElementById("statusModal_close_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "none";
+    }
+
+    document.getElementById("statusModal_check_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "none";
+    }
+
+    // 승인 모달
+    document.getElementById("reviewModal_open_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "block";
+    }
+
+    document.getElementById("reviewModal_close_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "none";
+    }
+
+    document.getElementById("reviewModal_check_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "none";
+    }
+
 </script>
 </body>
 </html>

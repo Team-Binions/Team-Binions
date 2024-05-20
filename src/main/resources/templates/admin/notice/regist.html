@@ -33,6 +33,23 @@
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
         <button type="submit">등록</button>
     </div>
+
+    <!-- 취소 모달창 -->
+    <div id="cancelModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <div class="cancel_modal_text">
+                <p>작성 된 내용이 전부 삭제 됩니다. 공지사항 등록을 취소 하겠습니까?</p>
+            </div>
+            <div class="deleteModal_button_box">
+                <button type="button" id="cancelModal_check_btn" th:onclick="|location.href='@{/admin/notice}'|">확인</button>
+                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>
+            </div>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
 </form>
     <div th:replace="admin/footer.html"></div>
 </article>
@@ -65,6 +82,19 @@
             label.parentNode.classList.add('active');
         }
     })
+
+    // 취소 모달
+    document.getElementById("cancelModal_open_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "block";
+    }
+
+    document.getElementById("cancelModal_close_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "none";
+    }
+
+    document.getElementById("cancelModal_check_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "none";
+    }
 </script>
 </body>
 </html>
