@@ -23,7 +23,7 @@ public class AdminService {
         return adminMapper.selectAllPost(params);
     }
 
-    public List<AdminPostDTO> selectPost(int code) {
+    public AdminPostDTO selectPost(int code) {
 
         return adminMapper.selectPost(code);
     }
@@ -51,9 +51,9 @@ public class AdminService {
         adminMapper.postDelete(postCode);
     }
 
-    public List<AdminPostDTO> selectAllNotice() {
+    public List<AdminPostDTO> selectAllNotice(final SearchDTO params) {
 
-        return adminMapper.selectAllNotice();
+        return adminMapper.selectAllNotice(params);
     }
 
     @Transactional
@@ -97,5 +97,10 @@ public class AdminService {
     public int count(SearchDTO params) {
 
         return adminMapper.count(params);
+    }
+
+    public int countNotice(SearchDTO params) {
+
+        return adminMapper.countNotice(params);
     }
 }
