@@ -1,13 +1,10 @@
 package com.beanions.board.free.controller;
 
 import com.beanions.auth.model.AuthDetails;
-import com.beanions.board.common.dto.CommentAndAuthDetailsDto;
 import com.beanions.board.common.dto.CommentAndMemberDTO;
-import com.beanions.board.common.dto.PostAndCommentDTO;
 import com.beanions.board.common.dto.PostAndMemberDTO;
 import com.beanions.board.free.service.FreeBoardService;
 import com.beanions.common.dto.CommentsDTO;
-import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
 import com.beanions.common.dto.SearchDTO;
 import com.beanions.common.paging.PagingResponse;
@@ -15,8 +12,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +67,6 @@ public class FreeBoardController {
 
 //        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
         model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
-
 
         return "/user/board/freeDetail";
     }

@@ -67,7 +67,6 @@
         UPDATE MEMBERS
         SET
         NICKNAME = #{ nickname },
-        WEDD_FILE = #{ weddingFile },
         WEDD_VEF = #{ weddingVerified }
         WHERE MEMBER_CODE = #{ memberCode }
     </update>

@@ -37,7 +37,7 @@ public class MagazineController {
 
         List<PostAndMemberDTO> megazine = magazineService.selectMagazine(id);
 
-        model.addAttribute("magazine", megazine);
+        model.addAttribute("magazine", megazine.get(0));
 
         return "/user/board/magazineDetail";
     }
