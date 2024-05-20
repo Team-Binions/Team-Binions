@@ -14,7 +14,7 @@ input::-webkit-search-results-decoration {
 .content {
     display: flex;
     justify-content: center;
-    min-height: calc(100vh - 202px);
+    min-height: calc(100vh - 201px);
 }
 
 article {
@@ -126,13 +126,16 @@ article {
     border-bottom: 1px solid var(--text-color);
     text-align: center;
 }
+
+.write_btn_box {display: flex; justify-content: flex-end; align-items: center;}
+
 .regist_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
     margin-top: 20px;
     margin-bottom: 60px;
-    float: right;
+    /*float: right;*/
 }
 
 /* --------------- 리뷰게시판 상세페이지 ---------------*/
