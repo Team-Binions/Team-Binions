@@ -2,7 +2,7 @@ version: '3'
 services:
   redis: 						# 수행할 서비스 이름
     image: redis:latest 			# run 할 image
-    container_name: redis		# container 이름
+    container_name: test_redis		# container 이름
     ports:							# container port 바인딩
       - 6379:6379
     volumes:						# redis volume 설정
