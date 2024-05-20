@@ -17,6 +17,18 @@ public class UploadService {
 
   public List<FilesDTO> selectAllFiles() {return uploadMapper.selectAllFiles();}
 
+  public int registPost(PostDTO post) {
+    return uploadMapper.registPost(post);
+  }
+
+  public PostDTO selectPost(int membercode) {
+    return uploadMapper.selectPost(membercode);
+  }
+
+  public void insertFile(FilesDTO fileInfo) {
+    uploadMapper.insertFile(fileInfo);
+  }
+
 
   //public List<FilesDTO> registerFileSelected() {return uploadMapper.registerFileSelected();}
 }

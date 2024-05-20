@@ -18,6 +18,61 @@
         <result property="fileName" column="FILE_NAME"/>
         <result property="postCode" column="POST_CODE"/>
     </resultMap>
+    <!-- 글쓰기 등록 -->
+    <insert id="registPost">
+        INSERT INTO POST
+        (
+            POST_CODE,
+            MEMBER_CODE,
+            POST_TITLE,
+            POST_CONTEXT,
+            POST_DATE,
+            MAINCATEGORY,
+            SUBCATEGORY,
+            VEF_STATUS,
+            REVIEW_STATUS,
+            VIEW_COUNT
+        )
+        VALUES
+        (
+            #{postCode},
+            #{memberCode},
+            #{postTitle},
+            #{postContext},
+            NOW(),
+            #{mainCategory},
+            #{subCategory},
+            'N'
+            'N',
+            0
+        )
+    </insert>
+    <!-- 생성한 글 가져오기 -->
+    <select id="selectPost" resultMap="postResultMap">
+        SELECT
+                *
+        FROM POST
+        WHERE MEMBER_CODE = #{memberCode}
+        ORDER BY POST_DATE DESC
+        LIMIT 1
+    </select>
+    <insert id="insertFile">
+        INSERT INTO
+                FILES
+        (
+            FILE_CODE,
+            FILE_NAME,
+            POST_CODE
+        )
+        VALUES
+        (
+            #{fileCode},
+            #{fileName},
+            #{postCode}
+        )
+    </insert>
+
+
     <insert id="registWriting" parameterType="com.beanions.common.dto.FilesDTO">
         INSERT INTO FILES
         (

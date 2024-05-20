@@ -6,6 +6,7 @@ import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
 import com.beanions.mypage.service.MyPageService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -247,20 +248,25 @@ public class MyPageController {
   }
 
   // 마이페이지 > 파일 업로드
-  @GetMapping("/fileupload")
-  public String fileUpload(Model model){
+  @GetMapping("/fileUpload")
+  public String fileUpload(Model model, HttpSession session){
+
+    String memberCode = (String) session.getAttribute("memberCode");
+
+    model.addAttribute("memberCode",memberCode);
+
     return "user/mypage/fileUpload";
   }
 
   // 마이페이지 > 글쓰기
-  @GetMapping("/write")
-  public String writeBoard(HttpSession session, RedirectAttributes rttr, Model model){
-    Integer memberCode = (Integer) session.getAttribute("memberCode");
-    System.out.println("memberCode = " + memberCode);
-
-    model.addAttribute("memberCode", memberCode);
-    return "user/mypage/writeBoard";
-  }
+//  @GetMapping("/write")
+//  public String writeBoard(HttpSession session, RedirectAttributes rttr, Model model){
+//    Integer memberCode = (Integer) session.getAttribute("memberCode");
+//    System.out.println("memberCode = " + memberCode);
+//
+//    model.addAttribute("memberCode", memberCode);
+//    return "user/mypage/writeBoard";
+//  }
 
 
 
