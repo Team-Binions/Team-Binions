@@ -133,8 +133,16 @@
         , B.NICKNAME
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
-        WHERE MAIN_CATEGORY = '자유' OR  MAIN_CATEGORY = '리뷰'
-        <include refid="search" />
+        WHERE MAIN_CATEGORY IN ('자유', '리뷰')
+        <if test="keyword != null and keyword != ''">
+        <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
         ORDER BY A.POST_DATE DESC, POST_CODE DESC;
     </select>
 
@@ -403,8 +411,8 @@
                 <!-- 전체 검색일 때 -->
                 <otherwise>
                     AND (
-                    A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
-                    OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+                    POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+                    OR POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
                     )
                 </otherwise>
             </choose>
@@ -416,8 +424,17 @@
         SELECT
         COUNT(*)
         FROM
-        POST
+        POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         WHERE MAIN_CATEGORY IN ('자유', '리뷰')
-        <include refid="search" />
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
     </select>
 </mapper>
