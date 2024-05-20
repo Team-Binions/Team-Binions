@@ -43,11 +43,11 @@
             </tbody>
         </table>
 
-        <!--페이지네이션 렌더링-->
-        <div class="paging" align="center">
-
+        <div class="write_btn_box">
+            <button class="regist_button" type="button" th:onclick="|location.href='@{/board/freeRegist}'|">글쓰기</button>
         </div>
-        <button class="regist_button" type="button" th:onclick="|location.href='@{/board/freeRegist}'|">글쓰기</button>
+        <!--페이지네이션 렌더링-->
+        <div class="paging"></div>
     </article>
 </div>
 <div th:replace="user/layout/footer.html"></div>

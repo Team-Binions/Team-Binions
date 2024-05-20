@@ -11,7 +11,7 @@
 <body>
     <div class="wrapper">
         <div class="login_box">
-            <div style="justify-content: center" id="logo">
+            <div id="logo">
                 <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
             </div>
             <div id="title">
@@ -25,7 +25,7 @@
             <div id="email_div">
                 <th:block th:if="${ no == 1 }">
                     <div>
-                        <h4 style="font-weight:bold; font-size: 10px; color: #6667AB">
+                        <h4 style="font-weight:var(--regular); font-size: 14px; color: #6667AB">
                             가입 시 입력하신 이메일 주소를 입력해주세요.<br>
                             해당 이메일로 인증코드를 전송해 드릴게요!
                         </h4>
@@ -33,7 +33,7 @@
                 </th:block>
                 <th:block th:if="${ no == 2 }">
                     <div>
-                        <h4 style="font-weight:bold; font-size: 10px; color: #6667AB">
+                        <h4 style="font-weight:var(--regular); font-size: 14px; color: #6667AB">
                             아이디와 이메일 주소를 입력해 주세요.<br>
                             해당 이메일로 임시 비밀번호를 전송해 드릴게요!
                         </h4>
@@ -56,6 +56,15 @@
             <p class="signup_txt">예신예랑 회원이신가요?</p>
             <button type="button" class="login_btn go_signup" onclick="location.href='/login'">로그인</button>
         </div>
+    </div>
+    <!-- 240520-팝업창 by NJH   -->
+    <div class="pop_bg"></div>
+    <div class="pop_cont">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <div class="pop_txt">
+            <p>유효한 이메일이 아닙니다.<br>입력한 이메일을 확인해주세요.</p>
+        </div>
+        <span class="confirm_btn">확인</span>
     </div>
 
     <script src="/js/forgetInfo.js"></script>
