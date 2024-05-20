@@ -24,7 +24,7 @@
     <!-- profile -->
     <div class="profile_box">
       <div class="profile_img">
-        <!-- <img src="" alt=""> -->
+        <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
         <!-- <input type="file" class="profile_img_upload"> -->
       </div>
       <div class="profile_txt">
@@ -38,10 +38,10 @@
     <div class="contents_cont">
       <div class="sidebar mypage">
         <ul>
-          <li><a href="/user/mypage/review">나의 글</a></li>
-          <li><a href="/user/mypage/review">예리뷰</a></li>
-          <li><a href="/user/mypage/free">예수다</a></li>
-          <li><a href="/user/mypage/comment">댓글</a></li>
+          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">예리뷰</a></li>
+          <li><a href="/mypage/free">예수다</a></li>
+          <li><a href="/mypage/comment">댓글</a></li>
           <li class="active"><a href="/mypage/schedule">스케쥴</a></li>
           <!-- <li><a href="#">포인트</a></li> -->
           <li><a href="/mypage/myinfo">회원 정보 수정</a></li>
@@ -64,7 +64,7 @@
             <span class="txt_count eng"><span class="txt_counted">0</span>/100</span>
           </div>
           <div class="schedule_btn_list right noMargin">
-            <button class="register_btn" type="submit">등록</button>
+            <button class="register_btn" type="button" onclick="goWrite(this.form);">등록</button>
           </div>
         </form>
         <div class="schedule_btn_list left">
@@ -79,7 +79,15 @@
   <div th:replace="user/layout/footer.html"></div>
   <!-- //FOOTER -->
 </div>
-<!-- <script src="./js/common.js"></script> -->
+<div class="pop_bg"></div>
+<div class="pop_cont">
+  <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+  <div class="pop_txt">
+    <p>제목을 입력해주세요</p>
+  </div>
+  <span class="confirm_btn">확인</span>
+</div>
+ <script th:src="@{/js/common.js}"></script>
 <script>
     // daterangepicker 스케쥴 날짜 선택
     $('input[name="scheduleDate"]').daterangepicker({
@@ -118,6 +126,51 @@
     $('.schedule_tit, .schedule_date_input, .schedule_contxt_box').on('click', () => {
         $('html, body').animate({scrollTop: 100}, 200);
     })
+
+    // 제목 및 내용 미입력시 등록 불가
+    function goWrite(frm) {
+        var title = frm.scheduleTitle.value;
+        var content = frm.scheduleContext.value;
+
+        if (title.trim() == ''){
+            // alert("제목을 입력해주세요");
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{//회원탈퇴 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.schedule_tit').focus();
+            })
+
+            return false;
+        }
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{//회원탈퇴 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.schedule_contxt_box').focus();
+            })
+
+            return false;
+        }
+        frm.submit();
+    }
 </script>
 </body>
 </html>

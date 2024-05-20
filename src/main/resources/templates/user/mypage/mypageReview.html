@@ -19,7 +19,7 @@
         <!-- profile -->
         <div class="profile_box">
             <div class="profile_img">
-                <!-- <img src="" alt=""> -->
+                <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
                 <!-- <input type="file" class="profile_img_upload"> -->
             </div>
             <div class="profile_txt">
@@ -74,7 +74,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="review, i : ${userMypageReivewData.posts}" >
-                      <a th:href="@{/user/board/reviewDetail(id=${review.postCode})}">
+                      <a th:href="@{/board/reviewDetail(id=${review.postCode})}">
                         <td class="eng" th:text="${i.count}"></td>
                         <td th:text="${review.postTitle}"></td>
                         <td class="eng">0</td>
@@ -93,24 +93,28 @@
     <div th:replace="user/layout/footer.html"></div>
     <!-- //FOOTER -->
 </div>
-<!-- <script src="./js/common.js"></script> -->
+ <script th:src="@{/js/common.js}"></script>
 <script>
     // 검색시 x버튼
     const clearBtn = document.querySelector('.clear_btn');
-    clearBtn.addEventListener('click', (e) => {
-        e.currentTarget.parentNode.querySelector('.search_input').value = null;
-        clearBtn.classList.remove("active");
-    })
+    if(clearBtn){
+        clearBtn.addEventListener('click', (e) => {
+            e.currentTarget.parentNode.querySelector('.search_input').value = null;
+            clearBtn.classList.remove("active");
+        })
+    }
 
     // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
     const searchInput = document.querySelector('.search_input');
-    searchInput.addEventListener('input', (e) => {
-        if (e.currentTarget.value.length > 0) {
-            clearBtn.classList.add("active");
-        } else if (e.currentTarget.value.length <= 0) {
-            clearBtn.classList.remove("active");
-        }
-    })
+    if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+            if (e.currentTarget.value.length > 0) {
+                clearBtn.classList.add("active");
+            } else if (e.currentTarget.value.length <= 0) {
+                clearBtn.classList.remove("active");
+            }
+        })
+    }
 
 
 </script>

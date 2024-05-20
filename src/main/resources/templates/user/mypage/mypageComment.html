@@ -19,7 +19,7 @@
         <!-- profile -->
         <div class="profile_box">
             <div class="profile_img">
-                <!-- <img src="" alt=""> -->
+                <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
                 <!-- <input type="file" class="profile_img_upload"> -->
             </div>
             <div class="profile_txt">
@@ -72,7 +72,10 @@
                         </tr>
                         </thead>
 <!--                         th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|"-->
+<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}">-->
+<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category='/board/'+${userMypageCommentCategory.get(i.count - 1).posts.get(0).subCategory} + 'Detail?id='+${comment.postCode}" th:value="${category}" th:onclick="clickRoute([[${category}]]);">-->
                         <tbody>
+<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category='/board/'+${userMypageCommentCategory.posts.get(0).subCategory} + 'Detail?id='+${comment.postCode}" th:value="${category}" th:onclick="clickRoute([[${category}]]);">-->
                         <tr th:each="comment, i : ${userMypageCommentData.comments}">
                             <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${comment.commentContext}"></td>
@@ -80,37 +83,6 @@
                         </tr>
                         </tbody>
                     </table>
-<!--                    <table class="review_table">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th class="eng">no</th>-->
-<!--                            <th>내용</th>-->
-<!--                            <th>작성일자</th>-->
-<!--                            &lt;!&ndash;                            <th>게시글 번호</th>&ndash;&gt;-->
-<!--                            <th>선택</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}">-->
-<!--                            <td class="eng" th:text="${i.count}"></td>-->
-<!--                            <td>-->
-<!--                                <div class="comment_contxt_box">-->
-<!--                                    <div class="comment_info">-->
-<!--                                        <p class="comment_text" th:text="${comment.commentContext}"></p>-->
-<!--                                        <p class="comment_post_tit eng">aklflkjflk</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </td>-->
-<!--                            <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>-->
-<!--                            <td>-->
-<!--                                <label class="check_box">-->
-<!--                                    <input type="checkbox" class="check_input">-->
-<!--                                    <span class="check_mark"></span>-->
-<!--                                </label>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
                 </div>
             </div>
         </div>
@@ -121,26 +93,34 @@
     <div th:replace="user/layout/footer.html"></div>
     <!-- //FOOTER -->
 </div>
-<!-- <script src="./js/common.js"></script> -->
+ <script th:src="@{/js/common.js}"></script>
 <script>
     // 검색시 x버튼
     const clearBtn = document.querySelector('.clear_btn');
-    clearBtn.addEventListener('click', (e) => {
-        e.currentTarget.parentNode.querySelector('.search_input').value = null;
-        clearBtn.classList.remove("active");
-    })
+    if(clearBtn){
+        clearBtn.addEventListener('click', (e) => {
+            e.currentTarget.parentNode.querySelector('.search_input').value = null;
+            clearBtn.classList.remove("active");
+        })
+    }
 
     // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
     const searchInput = document.querySelector('.search_input');
-    searchInput.addEventListener('input', (e) => {
-        if (e.currentTarget.value.length > 0) {
-            clearBtn.classList.add("active");
-        } else if (e.currentTarget.value.length <= 0) {
-            clearBtn.classList.remove("active");
-        }
-    })
+    if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+            if (e.currentTarget.value.length > 0) {
+                clearBtn.classList.add("active");
+            } else if (e.currentTarget.value.length <= 0) {
+                clearBtn.classList.remove("active");
+            }
+        })
+    }
 
-
+    // onclick 함수
+    function clickRoute(category){
+        location.href = category;
+        //location.href = "@{/user/board/"+category+"Detail(id="+postCode+")}";
+    }
 </script>
 </body>
 </html>
