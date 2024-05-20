@@ -261,8 +261,9 @@
                                 </div>
                             </div>
                             `;
+                            const authBox = li.querySelector('.auth_box');
                             if (cmt.member.nickname === currentNickname) {
-                                $(".auth_box").css('display','block');
+                                authBox.style.display = 'block';
                             }
                             commentList.appendChild(li);
                         })
