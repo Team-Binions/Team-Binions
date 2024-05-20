@@ -34,7 +34,7 @@
 			<result property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
 			<result property="commentContext" column="COMMENT_CONTEXT"/>
-			<result property="commentDate" column="TIMESTAMP"/>
+			<result property="commentDate" column="COMMENT_DATE"/>
 		</collection>
 		<collection property="scheduleCode" javaType="com.beanions.mypage.dto.SchedulesDTO">
 			<result property="memberCode" column="MEMBER_CODE"/>
@@ -170,7 +170,7 @@
 			<result property="postCode" column="POST_CODE"/>
 			<result property="memberCode" column="MEMBER_CODE"/>
 			<result property="commentContext" column="COMMENT_CONTEXT"/>
-			<result property="commentDate" column="TIMESTAMP"/>
+			<result property="commentDate" column="COMMENT_DATE"/>
 		</collection>
 		<collection property="posts" ofType="com.beanions.common.dto.PostDTO">
 			<id property="postCode" column="POST_CODE"/>
@@ -189,7 +189,7 @@
 		B.COMMENT_CODE,
 		B.POST_CODE,
 		B.COMMENT_CONTEXT,
-		B.TIMESTAMP,
+		B.COMMENT_DATE,
 		C.COMMENT_COUNT,
 		D.Total
 		FROM
@@ -198,18 +198,18 @@
 		,   ( select count(*) COMMENT_COUNT from COMMENTS where MEMBER_CODE = #{memberCode} ) C
 		,   ( select (( select count(POST_CODE) from POST where MEMBER_CODE = #{memberCode} ) +
 		( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) D
-		ORDER BY B.TIMESTAMP DESC
+		ORDER BY B.COMMENT_DATE DESC
 	</select>
 	<select id="selectMyPageCommentPostCategory" resultMap="selectMyPageCommentsResultMap">
 		SELECT
 					A.COMMENT_CODE,
-					A.TIMESTAMP,
+					A.COMMENT_DATE,
 					B.POST_CODE,
 					B.MAIN_CATEGORY
 		FROM COMMENTS A
 		LEFT JOIN POST B ON A.POST_CODE = B.POST_CODE
 		WHERE A.MEMBER_CODE = #{memberCode}
-		ORDER BY A.TIMESTAMP DESC
+		ORDER BY A.COMMENT_DATE DESC
 	</select>
 
 	<!--	스케쥴 리스트 -->

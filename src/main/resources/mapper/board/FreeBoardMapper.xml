@@ -53,7 +53,7 @@
         <result property="postCode" column="POST_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
         <result property="commentContext" column="COMMENT_CONTEXT"/>
-        <result property="commentDate" column="TIMESTAMP"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="MEMBER_CODE"/>
             <result property="nickname" column="NICKNAME"/>
@@ -64,7 +64,7 @@
         <result property="postCode" column="POST_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
         <result property="commentContext" column="COMMENT_CONTEXT"/>
-        <result property="commentDate" column="TIMESTAMP"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
     </resultMap>
     
     <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
@@ -130,12 +130,12 @@
         , A.MEMBER_CODE
         , A.POST_CODE
         , A.COMMENT_CONTEXT
-        , A.TIMESTAMP
+        , A.COMMENT_DATE
         , B.NICKNAME
         FROM COMMENTS A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE A.POST_CODE = #{ code }
-        ORDER BY TIMESTAMP DESC
+        ORDER BY COMMENT_DATE DESC
     </select>
 
     <select id="selectAllCommentsAsc" resultMap="CommentResultMap">
@@ -144,12 +144,12 @@
         , A.MEMBER_CODE
         , A.POST_CODE
         , A.COMMENT_CONTEXT
-        , A.TIMESTAMP
+        , A.COMMENT_DATE
         , B.NICKNAME
         FROM COMMENTS A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE A.POST_CODE = #{ code }
-        ORDER BY TIMESTAMP ASC
+        ORDER BY COMMENT_DATE ASC
     </select>
 
     <!-- 댓글 등록 -->
@@ -159,7 +159,7 @@
                     POST_CODE,
                     MEMBER_CODE,
                     COMMENT_CONTEXT,
-                    TIMESTAMP
+                    COMMENT_DATE
                 )
         VALUES
         (
@@ -173,7 +173,7 @@
         UPDATE COMMENTS
         SET
         COMMENT_CONTEXT = #{commentContext},
-        TIMESTAMP = NOW()
+        COMMENT_DATE = NOW()
         WHERE COMMENT_CODE = #{commentCode}
     </update>
     <delete id="deleteComment">

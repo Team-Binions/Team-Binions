@@ -3,6 +3,7 @@ import com.beanions.common.dto.CommentsDTO;
 import com.beanions.common.dto.MembersDTO;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PostAndCommentDTO {
     private Integer memberCode;
     private String postTitle;
     private String postContext;
-    private Date postDate;
+    private Timestamp postDate;
     private String mainCategory;
     private String subCategory;
     private String verifiedStatus;

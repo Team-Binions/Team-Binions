@@ -32,7 +32,7 @@ public class MyPageService {
 
   public List<MyPageDTO> selectMyPageCommentData(int memberCode) {return myPageMapper.selectMyPageCommentData(memberCode);}
 
-  public List<MyPageDTO> selectMyPageCommentPostCategory(int memberCode) {return myPageMapper.selectMyPageCommentPostCategory();}
+  public List<MyPageDTO> selectMyPageCommentPostCategory(int memberCode) {return myPageMapper.selectMyPageCommentPostCategory(memberCode);}
 
   @Transactional
   public void registNewSchedule(SchedulesDTO newSchedule) {
