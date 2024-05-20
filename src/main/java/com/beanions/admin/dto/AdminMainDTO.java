@@ -22,4 +22,6 @@ public class AdminMainDTO {
     private int noticeDay;
     private int magazineAll;
     private int magazineDay;
+    private int visitAll;
+    private int visitDay;
 }

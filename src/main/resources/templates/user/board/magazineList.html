@@ -14,7 +14,7 @@
 <div th:replace="user/layout/header.html"></div>
 <div class="content">
     <article>
-        <p class="magazine_tit">매거진</p>
+        <p class="magazine_tit">예피셜 매거진</p>
 
         <form class="search_form">
             <div class="search_box">
@@ -24,21 +24,22 @@
             </div>
         </form>
 
-        <table class="magazine_cont">
-            <thead>
-            <tr>
-                <th class="eng">no</th>
-                <th>제목</th>
-                <th>글쓴이</th>
-                <th>조회수</th>
-                <th>작성시간</th>
-            </tr>
-            </thead>
-            <tbody id="list">
+<!--        <table class="magazine_cont">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th class="eng">no</th>-->
+<!--                <th>제목</th>-->
+<!--                <th>글쓴이</th>-->
+<!--                <th>조회수</th>-->
+<!--                <th>작성시간</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody id="list">-->
 
-            </tbody>
-        </table>
+<!--            </tbody>-->
+<!--        </table>-->
 
+        <p id="list"></p>
         <!--페이지네이션 렌더링-->
         <div class="paging" align="center">
 
@@ -80,13 +81,14 @@
         let html = '';
         list.forEach(row => {
             html += `
-                    <tr>
-                        <td>${num--}</td>
-                        <td><a href="/board/magazinedetail?id=${row.postCode}">${row.postTitle}</a></td>
-                        <td>${row.member.nickname}</td>
-                        <td>${row.viewCount}</td>
-                        <td>${formatDate(row.postDate)}</td>
-                    </tr>
+                    <div class="magazine_box">
+                        <span class="eng">${num--}</span>
+                        <span class="content_line">|</span>
+                        <span>${row.subCategory}</span>
+                        <p><a href="/board/magazinedetail?id=${row.postCode}">${row.postTitle}</a></p>
+                        <br>
+                        <p class="magazine_list_context">${row.postContext}</p>
+                    </div>
                 `;
         });
 
@@ -182,6 +184,23 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+    });
+
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
     });
 </script>
 </body>

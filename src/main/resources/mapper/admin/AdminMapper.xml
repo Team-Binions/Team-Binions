@@ -342,6 +342,8 @@
         <result property="noticeDay" column="notice_day"/>
         <result property="magazineAll" column="magazine_all"/>
         <result property="magazineDay" column="magazine_day"/>
+        <result property="visitAll" column="visit_all"/>
+        <result property="visitDay" column="visit_day"/>
     </resultMap>
     <select id="selectAdminMainData" resultMap="selectAdminMainResultMap">
         SELECT
@@ -359,6 +361,8 @@
         , L.NOTICE_DAY
         , M.MAGAZINE_ALL
         , N.MAGAZINE_DAY
+        , O.VISIT_ALL
+        , P.VISIT_DAY
         FROM
         (SELECT COUNT(*) MEMBER_ALL FROM MEMBERS) A
         , (SELECT COUNT(*) MEMBER_DAY FROM MEMBERS WHERE SIGNUP_DATE = CURDATE()) B
@@ -373,6 +377,8 @@
         , (SELECT COUNT(*) NOTICE_ALL FROM POST WHERE MAIN_CATEGORY = '공지사항') K
         , (SELECT COUNT(*) NOTICE_DAY FROM POST WHERE MAIN_CATEGORY = '공지사항' AND POST_DATE = CURDATE()) L
         , (SELECT COUNT(*) MAGAZINE_ALL FROM POST WHERE MAIN_CATEGORY = '매거진') M
-        , (SELECT COUNT(*) MAGAZINE_DAY FROM POST WHERE MAIN_CATEGORY = '매거진' AND POST_DATE = CURDATE()) N;
+        , (SELECT COUNT(*) MAGAZINE_DAY FROM POST WHERE MAIN_CATEGORY = '매거진' AND POST_DATE = CURDATE()) N
+        , (SELECT COUNT(*) VISIT_ALL FROM VISITOR_COUNT) O
+        , (SELECT COUNT(*) VISIT_DAY FROM VISITOR_COUNT WHERE DATE(TIMESTAMP) = DATE(NOW())) P;
     </select>
 </mapper>
