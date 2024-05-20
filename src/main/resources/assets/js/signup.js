@@ -110,7 +110,7 @@ $(document).ready(function () {
 
         var num = value.search(/[0-9]/g);
         var eng = value.search(/[a-z]/ig);
-        var spe = value.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
+        var spe = value.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
         var pattern = /\s/;
 
         if(value.length !== 0 && (value.length < 8 || value.length > 20) ) {

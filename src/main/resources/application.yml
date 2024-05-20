@@ -34,7 +34,7 @@ spring:
                         enable: true
     web:
         resources:
-            static-locations: classpath:/assets/
+            static-locations: classpath:/assets/, file:C:\Lecture\Team-Beanions\src\main\resources\assets\images\upload\user\verify
     file:
         upload:
             path: src/main/resources/assets/images/upload
