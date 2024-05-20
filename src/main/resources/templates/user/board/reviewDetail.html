@@ -1,96 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/comment.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
     <div th:each="yesin: ${ PostAndMemberDTO }">
         <title th:text="${yesin.postTitle}"></title>
     </div>
 </head>
 <body>
-<div th:replace="user/layout/header.html"></div>
-<div class="content">
-    <article>
-        <table>
-            <div th:each="yesin: ${ PostAndMemberDTO }">
-                <div class="category_data">
-                    <p class="mainCategory" th:text="${yesin.mainCategory}"></p>
-                    <p class="category_line">|</p>
-                    <p class="subCategory" th:text=" ${yesin.subCategory}"></p>
-                </div>
-                <div class="title_status">
-                    <p class="detail_title" th:text="${yesin.postTitle}"></p>
-                    <p class="status" th:if="${yesin.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
-                    <p class="status" th:if="${yesin.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
-                </div>
-                <div class="nickname_date">
-                    <p class="review_nickname" th:text="${yesin.member.nickname}"></p>
-                    <p class="review_date" th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
-                </div>
-                <hr class="content_line">
-                <p class="review_content" th:text="${yesin.postContext}"></p>
-                <hr class="content_line">
-                <div class="viewCount_buttons">
-                    <p class="viewCount" th:text="|조회수 ${yesin.viewCount}|"></p>
-                    <div class="detail_buttons">
-                        <button class="detail_button" type="button" th:onclick="|location.href='@{/board/reviewModify(id=${yesin.postCode})}'|">수정하기</button>
-                        <form th:action="@{/board/delete(id=${yesin.postCode})}" method="post">
-                            <input type="hidden" th:value="${yesin.subCategory}" name="subCategory">
-                            <input type="hidden" th:value="${yesin.postCode}" name="postCode">
-                            <button class="detail_delete_button" type="submit">삭제하기</button>
-                        </form>
+
+    <div th:replace="user/layout/header.html"></div>
+
+    <div class="content">
+        <article>
+            <div class="free_list_content" style="flex-direction: column; align-items: center;">
+                <div th:each="yesin: ${ PostAndMemberDTO }">
+                    <div class="category_data">
+                        <p class="mainCategory" th:text="${yesin.mainCategory}"></p>
+                        <p class="category_line">|</p>
+                        <p class="subCategory" th:text=" ${yesin.subCategory}"></p>
+                    </div>
+                    <div class="title_status">
+                        <p class="detail_title" th:text="${yesin.postTitle}"></p>
+                        <p class="status" th:if="${yesin.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
+                        <p class="status" th:if="${yesin.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
+                    </div>
+                    <div class="free_nickname_date">
+                        <p class="review_nickname" th:text="${yesin.member.nickname}"></p>
+                        <p class="review_date" th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
+                    </div>
+                    <hr class="content_line">
+                    <p class="review_content" th:text="${yesin.postContext}"></p>
+                    <hr class="content_line">
+
+                    <div class="viewCount_buttons">
+                        <p class="viewCount" th:text="|조회수 ${yesin.viewCount}|"></p>
+                        <div class="detail_buttons">
+                            <button class="detail_button" type="button" th:onclick="|location.href='@{/board/reviewModify(id=${yesin.postCode})}'|">수정하기</button>
+                            <form th:action="@{/board/delete(id=${yesin.postCode})}" method="post">
+                                <input type="hidden" th:value="${yesin.subCategory}" name="subCategory">
+                                <input type="hidden" th:value="${yesin.postCode}" name="postCode">
+                                <button class="detail_delete_button" type="submit">삭제하기</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </table>
-    </article>
-</div>
-<div th:replace="user/layout/footer.html"></div>
+        </article>
 
-<script>
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-        gnbmenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.nextElementSibling.classList.add("active");
-        })
-        gnbmenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.nextElementSibling.classList.remove("active");
-        })
-    });
+        <!-- 댓글 영역 -->
+        <!------------------------------------------------------------->
 
-    subMenu.forEach(submenu => {
-        submenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add("active");
-        })
-        submenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.classList.remove("active");
-        })
-    })
+        <!-- 등록된 댓글 영역 -->
+        <div class="registered_comment_box">
+            <div class="comment_top_sec">
+                <p class="comment_sec_tit">댓글</p>
+                <div class="filter_box filter_btn inactive">
+                    <p><span class="filter_txt">정렬</span><span class="filter_mark">▼</span></p>
+                    <ul class="filter_list">
+                        <li>최신순</li>
+                        <li>등록순</li>
+                    </ul>
+                </div>
+            </div>
 
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
+            <ul class="comment_list" id="comment_list" th:data-post-code="${PostAndMemberDTO.get(0).getPostCode()}">
 
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
+            </ul>
 
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-</script>
+            <!-- 댓글 입력 영역 -->
+            <div sec:authorize="hasAnyAuthority('USER','ADMIN')">
+                <div class="comment_input_box">
+                        <span class="comment_profile_img">
+                          <img th:src="@{/images/common/icon_user_profile.svg}" alt="user profile icon">
+                        </span>
+                    <!-- 댓글 입력 input -->
+                    <div class="comment_input_area">
+                        <div class="schedule_tit_box"><input type="text" class="schedule_tit" maxlength="100" placeholder="내용을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/100</span></div>
+                        <span class="register_btn register_comment_btn" id="register_comment_btn" data-type="regist">등록</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="user/layout/footer.html"></div>
+
+    <!-- 댓글 삭제 시 재확인 팝업창 -->
+    <div class="pop_bg"></div>
+    <div class="pop_cont selective">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <p>해당 댓글을 삭제하시겠습니까?</p>
+        <ul class="pop_btn_list">
+            <!-- <li class="cancel_btn execute_delete_btn" data-comment-index=""><span>삭제</span></li>-->
+            <li class="cancel_btn execute_delete_btn"><span>삭제</span></li>
+            <li class="confirm_btn">취소</li>
+        </ul>
+    </div>
+
+    <!-- 댓글 등록시 입력내용이 없는 경우 , 팝업창 -->
+    <div class="pop_cont no_text">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <p>등록 내용이 없습니다.<br>다시 입력해주세요.</p>
+        <span class="pop_btn confirm_btn">확인</span>
+    </div>
+
+    <script th:src="@{/js/common.js}"></script>
+    <script th:src="@{/js/comment.js}"></script>
+
 </body>
 </html>
