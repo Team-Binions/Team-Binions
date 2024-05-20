@@ -49,10 +49,24 @@
                         <label class="label_no_interval_line">기혼 여부</label>
                             <p class="gender_line2" th:text="${ memberDetail.marriedStatus }"></p>
                     </div>
+<!--                    <div class="member_line">-->
+<!--                        <label class="label_no_interval_line">업로드 파일명</label>-->
+<!--                        <input class="input_item" id="fileName" th:value="${ memberDetail.getWeddingFile() }" style="color: #A7A8C9" readonly>-->
+<!--&lt;!&ndash;                        <div style="padding-left: 30px; display: inline-block; float: right">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <label for="verifyFile">업로드</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="file" id="verifyFile" accept="image/jpeg, image/png, image/jpg, image/gif, image/webg">&ndash;&gt;-->
+<!--                    </div>-->
                     <div class="member_line">
                         <label class="label_interval_line">웨딩홀 인증</label>
                         <input class="member_nickname_box" type="text" name="weddingVerified"
                             th:value="${ memberDetail.weddingVerified }" readonly="readonly">
+                    </div>
+                    <div class="member_line">
+                        <label class="label_no_interval_line">업로드 이미지</label>
+                        <div th:unless="${memberDetail.getWeddingFile() == null}" style="justify-content: left; padding-left: 105px; padding-top: 20px">
+                            <img th:src="@{/images/upload/user/verify/{file}(file=${memberDetail.getWeddingFile()})}">
+                        </div>
                     </div>
                 </div>
             </div>
