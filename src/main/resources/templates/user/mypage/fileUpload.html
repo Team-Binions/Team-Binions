@@ -5,6 +5,7 @@
   <link rel="stylesheet" th:href="@{/css/default.css}">
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <link rel="stylesheet" th:href="@{/css/user/writeBoard.css}">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <title>MYPAGE</title>
   <style>
@@ -26,218 +27,256 @@
 </head>
 <body>
 <div class="wrapper">
-  <!-- HEADER -->
-  <div th:replace="user/layout/header.html"></div>
-  <!-- //HEADER -->
+  <div class="board_cont">
+    <p class="regist">글쓰기</p>
+    <form action="/registerFiles" method="post" enctype="multipart/form-data">
+      <!--       enctype="multipart/form-data"-->
+      <!-- 수정 페이지에서 원시 코드 보존을 위한 temp 부분 -->
+      <div id="temp" style="display: none">${board.contents}</div>
 
-  <div class="mypage_cont">
-    <p class="page_tit">마이 페이지</p>
-
-    <!-- profile -->
-    <div class="profile_box">
-      <div class="profile_img">
-        <!-- <img src="" alt=""> -->
-        <!-- <input type="file" class="profile_img_upload"> -->
+      <select id="mainCategory" name="mainCategory" th:value="mainCategory">
+        <option value="" disabled selected>게시판을 선택해 주세요.</option>
+        <option value="자유">예수다</option>
+        <option value="리뷰">예리뷰</option>
+      </select>
+      <select id="subCategory" name="subCategory" th:value="subCategory">
+        <option value="" disabled selected>카테고리를 선택해주세요.</option>
+        <option value="예신">예신</option>
+        <option value="예랑">예랑</option>
+        <option value="웨딩">웨딩</option>
+        <option value="스드메">스드메</option>
+        <option value="기타-리뷰">기타</option>
+      </select>
+      <!--      <input type="text" name="postTitle" placeholder="제목을 입력하세요.">-->
+      <div class="regist_top_sec">
+        <div class="schedule_tit_box">
+          <input type="text" name="postTitle" class="schedule_tit" maxlength="50" placeholder="제목을 입력하세요">
+          <span class="tit_count eng"><span class="tit_counted">0</span>/50</span>
+        </div>
       </div>
-      <div class="profile_txt">
-        <p class="profile_name"><span></span>님</p>
-        <p class="total_posts_count">총 게시글 <span class="eng" ></span></p>
+      <!--      <input type="hidden" th:value="${memberCode}" name="memberCode">-->
+      <div>
+        <!--            <textarea -->
+        <!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->
+        <textarea id="summernote" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="board_txt_box"></textarea>
       </div>
-    </div>
-
-    <!-- sidebar & contents -->
-    <div class="contents_cont">
-      <div class="sidebar mypage">
-        <ul>
-          <li><a href="/mypage">나의 글</a></li>
-          <li><a href="/mypage/review">예리뷰</a></li>
-          <li><a href="/mypage/free">예수다</a></li>
-          <li><a href="/mypage/comment">댓글</a></li>
-          <li><a href="/mypage/schedule">스케쥴</a></li>
-          <!-- <li><a href="#">포인트</a></li> -->
-          <li><a href="mypage/myinfo">회원 정보 수정</a></li>
+<!--      <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>-->
+      <div class="preview_box">
+        <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
+        <ul class="preview_list">
+          <li class="upload_img_btn">
+            <label class="file_upload_box preview" name="uploadFiles">
+              <span class="upload_btn">＋</span>
+              <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">
+            </label>
+          </li>
         </ul>
       </div>
+      <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
+      <button type="button" class="uploadBtn">Upload</button>
 
-      <div class="mypage_contents">
-        <div class="top_sec">
-          <p class="table_tit">회원 정보 수정</p>
-        </div>
-
-        <form class="myinfo_form">
-
-          <div class="preview_box">
-            <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
-            <ul class="preview_list">
-              <li class="upload_img_btn">
-                <label class="file_upload_box preview" name="uploadFiles">
-                  <span class="upload_btn">＋</span>
-                  <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">
-                </label>
-              </li>
-            </ul>
-          </div>
-
-
-          <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
-          <button type="button" class="uploadBtn">Upload</button>
-
-          <div class="uploadResult"></div>
-
-          <div class="resultDiv">
-            <p th:text="${log}"></p>
-          </div>
-
-
-          <ul class="myinfo_list">
-            <li>
-              <span class="list_item_tit">웨딩홀 인증</span>
-              <div class="upload_cont">
-                <div class="upload_box">
-                  <span class="upload_name_box"></span>
-                  <label class="file_upload_box">
-                    <span class="upload_btn">업로드</span>
-                    <input type="file" class="file_upload_input">
-                  </label>
-                </div>
-                <p class="upload_txt">업로드 최대 용량은 10MB</p>
-              </div>
-            </li>
-          </ul>
-          <button class="modify_btn">수정하기</button>
-        </form>
-        <button class="leave_btn">회원탈퇴</button>
+      <div class="uploadResult"></div>
+      <div class="button_list">
+        <button type="button" onclick="history.back()" class="cancel_btn">취소</button>
+        <button type="submit">등록</button>
+        <!--         onclick="goWrite(this.form);"-->
       </div>
-    </div>
-
+    </form>
   </div>
-
-  <!-- FOOTER -->
-  <div th:replace="user/layout/footer.html"></div>
-  <!-- //FOOTER -->
 </div>
-<!-- <script src="./js/common.js"></script> -->
+
+
+ <script src="./js/common.js"></script>
 <script>
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        $(".tit_counted").text($(".schedule_tit").val().length);
+    })
 
-    // 파일 선택 이벤트
-    $('input[name=uploadFiles]').on('change', function(e) {
-        var files = e.target.files;
-        var filesArr = Array.prototype.slice.call(files);
+    // 수정페이지에서 원시 코드 보존을 통한 코드 깨짐 방지
+    // window.onload = function () {
+    //     $('#summernote').summernote('code', document.getElementById('temp').innerHTML)
+    // }
 
-        // 업로드 된 파일 유효성 체크
-        if (filesArr.length > 5) {
-            alert("이미지는 최대 5개까지 업로드 가능합니다.");
-            // $('input[name=uploadFiles]').val();
-            return;
+    //스케쥴 제목 입력시 텍스트 길이 실시간 반영
+    $(".schedule_tit").on('input', (e) => {
+        $(".tit_counted").text(e.target.value.length);
+    })
+
+    $(document).ready(function () {
+        const mainCategorySelect = $('#mainCategory');
+        const subCategorySelect = $('#subCategory');
+
+        subCategorySelect.prop('disabled', true);
+
+        mainCategorySelect.change(function () {
+
+            subCategorySelect.empty();
+
+            if (mainCategorySelect.val() === "") {
+                subCategorySelect.prop('disabled', true);
+            } else {
+                subCategorySelect.prop('disabled', false)
+            }
+
+
+            switch (mainCategorySelect.val()) {
+                case '자유':
+                    addSubCategoryOptions(['예신', '예랑']);
+                    break;
+                case '리뷰':
+                    addSubCategoryOptions(['웨딩', '스드메', '기타']);
+                    break;
+                default :
+                    addSubCategoryOptions(['']);
+                    break;
+            }
+        })
+
+        function addSubCategoryOptions(options) {
+            $.each(options, function (index, option) {
+                subCategorySelect.append($('<option>', {
+                    value: option,
+                    text: option
+                }));
+            });
         }
 
-        // filesArr.forEach(function(f) {
-        //     inputFileList.push(f);    // 이미지 파일을 배열에 담는다.
-        // });
-    });
+        // 파일 선택 이벤트
+        $('input[name=uploadFiles]').on('change', function (e) {
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+
+            // 업로드 된 파일 유효성 체크
+            if (filesArr.length > 5) {
+                alert("이미지는 최대 5개까지 업로드 가능합니다.");
+                // $('input[name=uploadFiles]').val();
+                return;
+            }
+
+        });
 
 
-    // 파일 업로드 시 미리보기 추가
-    const previewTag = (imgSrc) => `<li class="preview_img">
+        // 파일 업로드 시 미리보기 추가
+        const previewTag = (imgSrc) => `<li class="preview_img">
                   <img src="${imgSrc}" alt="preview image">
                   <span class="remove_preview_btn">×</span>
                 </li>`;
 
-    // 선택 파일 삭제
-    $(document).on('click',".remove_preview_btn", (e) => {
-        const input = $('input[name=uploadFiles]');
-        console.log(input);
-        const files = input[0].files;
-        const index = $(e.target).closest("li").index();
-        console.log(files);
-        console.log("current delete index : " + index);
-        console.log(files[index]);
-        //files.delete(index);
+        // 선택 파일 삭제
+        $(document).on('click', ".remove_preview_btn", (e) => {
+            const input = $('input[name=uploadFiles]');
+            console.log(input);
+            const files = input[0].files;
+            const index = $(e.target).closest("li").index();
+            console.log(files);
+            console.log("current delete index : " + index);
+            console.log(files[index]);
+            //files.delete(index);
 
-        const dataTransfer = new DataTransfer();
-        let fileArray = Array.from(files)
-        fileArray.splice(index, 1);
-        fileArray.forEach(file => { dataTransfer.items.add(file); });//남은 배열을 dataTransfer로 처리(Array -> FileList)
-        input[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
-        if($('.preview_list .preview_img').length == 5){ //마지막 미리보기 이미지 삭제시
-            $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
-        }
-        $(e.target).closest("li").remove();
-        $(".count_preview").text($('.preview_list .preview_img').length);
-    })
+            const dataTransfer = new DataTransfer();
+            let fileArray = Array.from(files)
+            fileArray.splice(index, 1);
+            fileArray.forEach(file => {
+                dataTransfer.items.add(file);
+            });//남은 배열을 dataTransfer로 처리(Array -> FileList)
+            input[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+            if ($('.preview_list .preview_img').length == 5) { //마지막 미리보기 이미지 삭제시
+                $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
+            }
+            $(e.target).closest("li").remove();
+            $(".count_preview").text($('.preview_list .preview_img').length);
+        })
 
-    // 업로드 파일 경로 읽어오기
-    function readURL(input, index) {
-        if (input.files && input.files[0]) {
-            //const inputFile = $("input[name='uploadFiles']");
-            const files = input.files;
-            console.log("files : " + files);
-            console.log("열기한 파일 개수 : " + files.length);
-            $(".count_preview").text(files.length > 5 ? 5 : files.length);
+        // 업로드 파일 경로 읽어오기
+        function readURL(input, index) {
+            if (input.files && input.files[0]) {
+                //const inputFile = $("input[name='uploadFiles']");
+                const files = input.files;
+                console.log("files : " + files);
+                console.log("열기한 파일 개수 : " + files.length);
+                $(".count_preview").text(files.length > 5 ? 5 : files.length);
 
-            for(let i = 0; i < (files.length > 5 ? 5 : files.length); i++) {
-                const reader = new FileReader();
-                console.log(files[i]);
-                reader.readAsDataURL(files[i]);
-                reader.onload = function(e) {
-                    console.log( "files["+i+"] e.target : "+ e.target);
-                    $('.preview_list').prepend(previewTag(e.target.result));
-                    if(i == 4){
-                        $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
+                for (let i = 0; i < (files.length > 5 ? 5 : files.length); i++) {
+                    const reader = new FileReader();
+                    console.log(files[i]);
+                    reader.readAsDataURL(files[i]);
+                    reader.onload = function (e) {
+                        console.log("files[" + i + "] e.target : " + e.target);
+                        $('.preview_list').prepend(previewTag(e.target.result));
+                        if (i == 4) {
+                            $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
+                        }
                     }
+
                 }
 
             }
-
-        }
-    }
-
-    $(".file_upload_input").change(function() {
-        const index = $(".upload_img_btn").index();
-        console.log('파일업로드시 index : ' + index);
-        readURL(this, index);
-    });
-
-    $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
-        const formData = new FormData();
-        // const inputFile = $("input[type='file']");
-        const inputFile = $("input[name='uploadFiles']");
-
-        const files = inputFile[0].files;
-
-        for(let i = 0; i < files.length; i++) {
-            console.log(files[i]);
-            formData.append("uploadFiles", files[i]);
         }
 
-        const showUploadedImages = arr => {
-            console.log(arr);
+        $(".file_upload_input").change(function () {
+            const index = $(".upload_img_btn").index();
+            console.log('파일업로드시 index : ' + index);
+            readURL(this, index);
+        });
 
-            const divArea = $(".uploadResult");
+        $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
+            const formData = new FormData();
+            // const inputFile = $("input[type='file']");
+            const inputFile = $("input[name='uploadFiles']");
 
-            for(let i = 0; i<arr.length; i++){
-                // const imgUrl = "/display?fileName="+arr[i].imageURL;
-                divArea.append("<img src='/display?fileName="+arr[i].imageURL+"' alt='..null'>");
-                // $('.preview_list').prepend(previewTag(imgUrl));
+            const files = inputFile[0].files;
+
+            for (let i = 0; i < files.length; i++) {
+                console.log(files[i]);
+                formData.append("uploadFiles", files[i]);
             }
-        }
 
-        /*실제 업로드 부분*/
-        /*upload ajax*/
-        $.ajax({
-            url: '/uploadAjax',
-            processData: false,
-            contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
-            data: formData,
-            type: 'POST',
-            dataType: 'json',
-            success: result => {
-                console.log(result);
-                showUploadedImages(result);
-            },
-            error: (jqXHR, textStatus, errorThrown) => {
-                console.log(textStatus)
+            const showUploadedImages = arr => {
+                console.log(arr);
+
+                const divArea = $(".uploadResult");
+
+                for (let i = 0; i < arr.length; i++) {
+                    // const imgUrl = "/display?fileName="+arr[i].imageURL;
+                    divArea.append("<img src='/display?fileName=" + arr[i].imageURL + "' alt='..null'>");
+                    // $('.preview_list').prepend(previewTag(imgUrl));
+                }
             }
+
+            /*실제 업로드 부분*/
+            /*upload ajax*/
+            $.ajax({
+                url: '/uploadAjax',
+                processData: false,
+                contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
+                data: formData,
+                type: 'POST',
+                dataType: 'json',
+                success: result => {
+                    console.log(result);
+                    showUploadedImages(result);
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    console.log(textStatus)
+                }
+            })
+
+            // $.ajax({
+            //     url: '/registerFiles',
+            //     processData: false,
+            //     contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
+            //     data: formData,
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     success: result => {
+            //         console.log(result);
+            //         showUploadedImages(result);
+            //     },
+            //     error: (jqXHR, textStatus, errorThrown) => {
+            //         console.log(textStatus)
+            //     }
+            // })
         })
     })
 </script>

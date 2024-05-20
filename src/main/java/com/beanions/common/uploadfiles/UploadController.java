@@ -47,42 +47,14 @@ public class UploadController {
     this.uploadService = uploadService;
   }
 
-
-//  @GetMapping("/write")
-//  public String postWriteBoard(HttpSession session, RedirectAttributes rttr, Model model) {
-//
-//    Integer memberCode = (Integer) session.getAttribute("memberCode");
-//
-//    model.addAttribute("memberCode", memberCode);
-//
-//    //return "/mypage/writeBoard";
-//    return "user/mypage/writeBoard";
-////    if (memberCode != null) {
-////      // 회원 아이디를 글쓰기 페이지로 리다이렉트하면서 전달
-////      return "/writeboard";
-//////      return "/user/board/freeRegist";
-////    } else {
-////      // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
-////      rttr.addFlashAttribute("errorMessage", "로그인 후에 게시글을 작성할 수 있습니다.");
-////      return "redirect:/login";
-////    }
-//  }
-
-
-
-
-
-
-
-
-
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/uploadAjax")
   public ResponseEntity<List<UploadFilesDTO>> uploadFile(MultipartFile[] uploadFiles) {
 
     List<UploadFilesDTO> resultDTOList = new ArrayList<>();
+    List<FilesDTO> uploadFileList = new ArrayList<>();
 
-    for (MultipartFile uploadFile: uploadFiles) {
+    for (MultipartFile uploadFile : uploadFiles) {
 
       // 이미지 파일만 업로드
       if (!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
@@ -90,30 +62,31 @@ public class UploadController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
       }
 
-      //List<FilesDTO> uploadFileList = uploadService.registerFileSelected();
 
       // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로 => 바뀐 듯 ..
       String orginalName = uploadFile.getOriginalFilename();
       assert orginalName != null;
       String fileName = orginalName.substring(orginalName.lastIndexOf("\\") + 1);
 
-      log.info("fileName: "+fileName);
+      log.info("fileName: " + fileName);
 
       // 날짜 폴더 생성
-      String folderPath = makeFolder();
+      //String folderPath = makeFolder();
 
       // UUID
       String uuid = UUID.randomUUID().toString();
 
       // 저장할 파일 이름 중간에 "_"를 이용해서 구현
-      String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+      String saveName = uploadPath + File.separator + uuid + "_" + fileName;
 
       Path savePath = Paths.get(saveName);
 
       try {
         uploadFile.transferTo(savePath); // 실제 이미지 저장
-        resultDTOList.add(new UploadFilesDTO(fileName, uuid, folderPath)); //UploadFilesDTO에 추가
-
+        resultDTOList.add(new UploadFilesDTO(fileName, uuid, uploadPath)); //UploadFilesDTO에 추가
+        uploadFileList.add(new FilesDTO(5, saveName, 5));
+        System.out.println("uploadFileList from AJAX = " + uploadFileList);
+        uploadService.registWriting(); // Files내용 DB 저장
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -123,28 +96,7 @@ public class UploadController {
 
   }
 
-  /*날짜 폴더 생성*/
-  private String makeFolder() {
-
-    String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
-    String folderPath = str.replace("/", File.separator);
-
-    // make folder --------
-    File uploadPathFolder = new File(uploadPath, folderPath);
-
-    if(!uploadPathFolder.exists()) {
-      boolean mkdirs = uploadPathFolder.mkdirs();
-      log.info("-------------------makeFolder------------------");
-      log.info("uploadPathFolder.exists(): "+uploadPathFolder.exists());
-      log.info("mkdirs: "+mkdirs);
-    }
-
-    return folderPath;
-
-  }
-
-
+  // 비동기로 이미지 파일 보여주는 경로
   @GetMapping("/display")
   public ResponseEntity<byte[]> getFile(String fileName) { //인코딩된 파일 이름을 byte[]로 받음
 
@@ -168,6 +120,61 @@ public class UploadController {
     }
   }
 
+  @PostMapping("/registerFiles")
+  public String multiFileUpload(@RequestParam List<MultipartFile> uploadFiles, Model model) {
 
+    System.out.println("multiFile = " + uploadFiles);
+    String root = "src/main/resources/assets/images/upload";
+    String filePath = root + "/user/uploadTemp/";
+    File dir = new File(filePath);
+    System.out.println("filePath = " + filePath);
 
+    if (!dir.exists()) {
+      dir.mkdir();
+    }
+
+    List<FilesDTO> files = new ArrayList<>();
+    List<UploadFilesDTO> resultDTOList = new ArrayList<>();
+
+    /* 파일명 변경 처리 후 저장 : 다중 파일 반복문 처리 */
+    try {
+      for (MultipartFile file : uploadFiles) {
+        String originFileName = file.getOriginalFilename();
+        System.out.println("originFileName = " + originFileName);
+        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+        System.out.println("ext = " + ext);
+
+        String savedName = UUID.randomUUID() + ext;
+
+        System.out.println("savedName = " + savedName);
+
+        /* 파일에 관한 정보 추출 후 보관 */
+        files.add(new FilesDTO(17, savedName, 5));
+        System.out.println("files = " + files);
+        resultDTOList.add(new UploadFilesDTO(savedName, savedName, filePath)); //UploadFilesDTO에 추가
+        System.out.println("resultDTOList = " + resultDTOList);
+
+        /* 파일 저장 */
+        Path path = Paths.get(filePath + "/" + savedName).toAbsolutePath();
+        file.transferTo(path.toFile());
+        System.out.println("path = " + path);
+        List<FilesDTO> uploadedList = uploadService.selectAllFiles();
+        System.out.println("uploadedList from filesDB = " + uploadedList);
+        uploadService.registWriting(); // Files내용 DB 저장
+      }
+      /* 서버에 정해진 경로로 파일 저장이 완료되면 List<FileDTO> 타입의 객체에 저장된 정보를 DB에 insert한다. */
+      //uploadService.registWriting(); // Files내용 DB 저장
+      System.out.println("filePath = " + filePath);
+
+    } catch (IOException e) {
+      //throw new RuntimeException(e);
+      /* 파일 저장 중간에 실패 시 이전에 저장된 파일 삭제*/
+      for (FilesDTO file : files) {
+        new File(filePath + "/" + file.getFileName()).delete();
+      }
+      System.out.println("다중 파일 업로드 실패🤬");
+    }
+
+    return "redirect:/";
+  }
 }
