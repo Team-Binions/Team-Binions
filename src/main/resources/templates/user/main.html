@@ -29,17 +29,23 @@
   <!-- main contents -->
   <div class="main_cont">
     <div class="banner_box">
-      <div class="mainSwiper swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img th:src="@{/images/main/banner01.jpg}" alt="banner image">
-          </div>
-          <div class="swiper-slide">
-            <img th:src="@{/images/main/banner02.jpg}" alt="banner image">
-          </div>
+      <div class="about_banner">
+        <ul class="ball_bg"></ul>
+        <div class="img_bg">
+          <img th:src="@{/images/main/banner01.png}" alt="banner image">
         </div>
-        <div class="swiper-pagination"></div>
       </div>
+<!--      <div class="mainSwiper swiper">-->
+<!--        <div class="swiper-wrapper">-->
+<!--          <div class="swiper-slide">-->
+<!--            <img th:src="@{/images/main/banner01.jpg}" alt="banner image">-->
+<!--          </div>-->
+<!--          <div class="swiper-slide">-->
+<!--            <img th:src="@{/images/main/banner02.jpg}" alt="banner image">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="swiper-pagination"></div>-->
+<!--      </div>-->
     </div>
     <!-- // banner -->
 
@@ -117,51 +123,6 @@
               </div>
             </a>
           </div>
-          <div class="swiper-slide">
-            <a href="#" class="slide_box">
-              <div class="review_thumbnail">
-                <img th:src="@{/images/main/KakaoTalk_20230714_011813075_13.jpg}" alt="review image">
-              </div>
-              <div class="review_txt">
-                <p>꿈꾸던 야외 결혼식 했어요!</p>
-                <ul>
-                  <li>#Beanions웨딩홀</li>
-                  <li>#야외웨딩홀</li>
-                  <li>#야외결혼식</li>
-                </ul>
-              </div>
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="#" class="slide_box">
-              <div class="review_thumbnail">
-                <img th:src="@{/images/main/P1034264.JPG}" alt="review image">
-              </div>
-              <div class="review_txt">
-                <p>꿈꾸던 야외 결혼식 했어요!</p>
-                <ul>
-                  <li>#Beanions웨딩홀</li>
-                  <li>#야외웨딩홀</li>
-                  <li>#야외결혼식</li>
-                </ul>
-              </div>
-            </a>
-          </div>
-          <div class="swiper-slide">
-            <a href="#" class="slide_box">
-              <div class="review_thumbnail">
-                <img src="./images/main/P1045088.JPG" alt="review image">
-              </div>
-              <div class="review_txt">
-                <p>꿈꾸던 야외 결혼식 했어요!</p>
-                <ul>
-                  <li>#Beanions웨딩홀</li>
-                  <li>#야외웨딩홀</li>
-                  <li>#야외결혼식</li>
-                </ul>
-              </div>
-            </a>
-          </div>
         </div>
         <div class="swiper-button-prev">
           <img src="./images/common/icon_arrow_left_white.svg" alt="prev icon">
@@ -186,10 +147,7 @@
               <p class="magazine_no"><span class="eng">no <span class="eng" th:text="${magazineBoard.postCode}"></span></span> | <span th:text="${magazineBoard.subCategory}"></span></p>
               <p class="magazine_tit" th:text="${magazineBoard.postTitle}">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
               <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
-              <p class="magazine_contxt" th:text="${magazineBoard.postContext}">누구나 한번쯤 완벽한 웨딩을 꿈꿔 본 적이 있을 것입니다. 가장 특별한 날, 주인공이 되는 순간을 완벽하게 이루기 위해서 필요한 것은 무엇이
-                있을까요?<br>
-
-                우리의 결혼식, 그 날은 우리의 사랑과 약속을 공식화하는 특별한 순간입니다. 이 특별한 여정을 함께 나누고, 더욱 특별하게 만들어줄 비밀들을 함께 살펴보도록 하죠.</p>
+              <div class="magazine_contxt" th:text="${magazineBoard.postContext}"></div>
             </div>
           </a>
         </div>
@@ -209,11 +167,6 @@
                 </a>
               </li>
             </th:block>
-<!--            <li><a th:href="@{/user/board/yesinList}"><span class="notice_tag red">긴급</span>서버점검 및 업데이트로 인한 서비스 이용 제한</a></li>-->
-<!--            <li><a href="#"><span class="notice_tag event">이벤트</span>신규 회원 게시글 작성 포인트 더블 적립</a></li>-->
-<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 게시판 관련 이용 가이드</a></li>-->
-<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 포인트 관련 이용 가이드</a></li>-->
-<!--            <li><a href="#"><span class="notice_tag">일반</span>신규 회원을 위한 스케쥴 관련 이용 가이드</a></li>-->
           </ul>
         </div>
       </div>

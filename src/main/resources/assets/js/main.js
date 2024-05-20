@@ -63,7 +63,46 @@ $("#inquiry").click(function (){
                 console.error("Error:", error);
             });
     }
-
-
 })
+
+const colors = ["#6667AB", "#5046BF", "#B26EAD", "#A7A8C9", "#9B9ADD"];
+const numBalls = 50;
+const balls = [];
+const ballList = document.querySelector(".ball_bg");
+
+for (let i = 0; i < numBalls; i++) {
+    let ball = document.createElement("li");
+    ball.classList.add("ball");
+    ball.style.background = colors[Math.floor(Math.random() * colors.length)];
+    ball.style.left = `${Math.floor(Math.random() * 1160)}px`;
+    ball.style.top = `${Math.floor(Math.random() * 400)}px`;
+    ball.style.transform = `scale(${Math.random()})`;
+    ball.style.width = `${Math.random()}rem`;
+    ball.style.height = ball.style.width;
+
+    balls.push(ball);
+    ballList.append(ball);
+}
+
+// Keyframes
+balls.forEach((el, i, ra) => {
+    let to = {
+        x: Math.random() * (i % 2 === 0 ? -11 : 11),
+        y: Math.random() * 12
+    };
+
+    let anim = el.animate(
+        [
+            { transform: "translate(0, 0)" },
+            { transform: `translate(${to.x}rem, ${to.y}rem)` }
+        ],
+        {
+            duration: (Math.random() + 1) * 2000, // random duration
+            direction: "alternate",
+            fill: "both",
+            iterations: Infinity,
+            easing: "ease-in-out"
+        }
+    );
+});
 
