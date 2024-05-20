@@ -5,7 +5,8 @@
 .page_tit {display: flex; justify-content: flex-start; align-items: center; padding: 60px 0; font-size: 24px; font-weight: var(--bold);}
 .page_tit img{width: 24px; height: 24px; transform: rotateZ(180deg);}
 .profile_box {display: flex; align-items: center; width: 100%; padding: 20px; background-color: #fff; border: 1px solid var(--inactive-input-bg); box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); border-radius: 12px;}
-.profile_img {width: 11.03448275862069%; min-width: 72px; aspect-ratio: 1 / 1; background-color: var(--main-color); border-radius: 50%;}
+.profile_img {width: 11.03448275862069%; min-width: 72px; aspect-ratio: 1 / 1; border-radius: 50%;}
+.profile_img img {width: 100%; height: 100%; object-fit: cover;}
 /* (128px / 1160px) * 100 = 11.03448275862069% */
 .profile_txt {padding-left: 20px;}
 .profile_name {padding-bottom: 10px; font-size: 20px; font-weight: var(--bold);}
@@ -50,8 +51,19 @@
 .summary_mypage > li {width: calc((100% - 40px) / 3);}
 .summary_mypage > li > a {display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 20px; box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2); background-color: #fff; border-radius:12px; font-size: 16px; font-weight: var(--medium); transition: background-color 200ms ease-in-out, color 200ms ease-in-out;border: 1px solid var(--inactive-input-bg);}
 .summary_mypage > li > a:hover {color: #fff; background-color: var(--point-color);}
-.summary_mypage > li > a > span{transition: color 200ms ease-in-out;}
+.summary_mypage > li > a > span{display:block; height: 24px; padding-left:34px; transition: color 200ms ease-in-out;}
 .summary_mypage > li > a:hover > span{color: #fff;}
+.manage_schedule_btn:hover {background: center / contain no-repeat url("../../images/common/icon_edit_hover.png");
+    z-index: 20; cursor: pointer;}
+.summary_menu {background: left center / 24px 24px no-repeat url("../../images/common/icon_writing.png");
+    z-index: 20; cursor: pointer;}
+.summary_menu.comment {background: left center / 24px 24px no-repeat url("../../images/common/icon_comment.png");
+    z-index: 20; cursor: pointer;}
+.summary_mypage > li > a:hover .summary_menu{background: left center/ 24px 24px no-repeat url("../../images/common/icon_writing_white.png");
+    z-index: 20; cursor: pointer;}
+.summary_mypage > li > a:hover .summary_menu.comment {background: left center/ 24px 24px no-repeat url("../../images/common/icon_comment_white.png");
+    z-index: 20; cursor: pointer;}
+
 
 /* search input */
 input::-ms-clear,
@@ -130,11 +142,18 @@ input::-webkit-search-results-decoration {
 .duplicate_box {display: flex; justify-content: space-between; align-items: center; width: calc(100% - 120px);}
 .id_input {background-color: var(--inactive-input-bg); border: none; cursor:not-allowed;}
 .list_item_tit {width: 120px; font-size: 16px; font-weight: var(--medium);}
-.password_box {position: relative; width:calc(100% - 120px); height: 48px;}
+.password_box {position: relative; width:calc(100%); height: 48px;}
+.change_password_box {display: none; width: calc(100% - 120px);}
+.change_password_box.active {display: block;}
 .myinfo_list .password_box > input {width: 100%; height: 48px; border-radius: 12px;}
 .password_box .show_pw_btn {position: absolute; width: 24px; height: 24px; right:20px; top: 50%; transform: translateY(-50%); cursor: pointer;}
 .password_box .show_pw_btn img {width: 24px; height: 24px;}
 .password_box .show_pw_btn.active{}
+.change_pw_btn {display: block; height:50px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+.change_pw_btn:hover {background-color: var(--point-color);}
+.change_pw_btn.inactive {display: none;}
+.myinfo_list li.change_password_check {display: none;}
+.myinfo_list li.change_password_check.active {display: flex;}
 
 .upload_cont {width: calc(100% - 120px);}
 .upload_box {display: flex; justify-content: space-between; align-items: center; width: 100%;}
@@ -151,21 +170,27 @@ input::-webkit-search-results-decoration {
 
 .check_duplicate_btn {height: 48px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
 .check_duplicate_btn:hover {background-color: var(--point-color);}
+
+/* 제목/내용 미입력 관련 팝업창 */
 .pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
-.pop_cont {position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_cont {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_cont.selective {top: 120%;}
 .pop_bg.active {z-index: 200; opacity: 1;}
 .pop_cont.active {z-index: 500; opacity: 1;}
-.pop_icon {display: inline-block; margin-bottom: 20px;}
-.pop_icon img { width: 36px; height: 36px; }
-.pop_cont.selective p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
+.pop_icon {display: inline-block; width: 36px; height: 36px; margin-bottom: 20px; background-color: var(--main-color); border-radius: 50%;}
+.pop_icon img {width:100%; height:100%;}
+.pop_cont p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
 .pop_cont.selective p:last-of-type {font-weight: var(--semiBold);}
-
+.pop_txt {padding:20px;}
 .pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
 .pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
 .pop_btn_list li > a {display: block; width: 100%; height: 100%; line-height: 50px;}
 .pop_btn_list .cancel_btn a {color: var(--main-color);}
-.confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
+.confirm_btn { display: block; width:100%; height:50px; border-radius:12px; background-color: var(--main-color); color: #fff; line-height:50px; transition: all 200ms ease-in-out; cursor: pointer;}
 .confirm_btn:hover {background-color: var(--point-color);}
+.fixed {overflow: hidden;}
+
+
 
 /* schedule 상세 페이지 */
 .schedule_detail_date, .schedule_detail_tit {padding-bottom: 10px; border-bottom: 1px solid var(--input-color);}
