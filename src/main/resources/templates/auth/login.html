@@ -31,13 +31,23 @@
                         <li>|</li>
                         <li><a href="/forgetInfo?no=2">비밀번호 찾기</a></li>
                     </ul>
-                    <button class="login_btn" type="submit">로그인</button>
+                    <button class="login_btn" type="button" onclick="submitLogin(this.form)">로그인</button>
+<!--                    <button class="login_btn" type="submit" onclick="submitLogin(this.form)">로그인</button>-->
                 </form>
                 <span class="divide_line"></span>
                 <p class="signup_txt">아직 회원이 아니신가요?</p>
                 <button type="button" class="login_btn go_signup" onclick="location.href='/signup'">회원가입</button>
             </div>
         </div>
+    </div>
+    <!-- 240520-팝업창 by NJH   -->
+    <div class="pop_bg"></div>
+    <div class="pop_cont">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <div class="pop_txt">
+            <p>아이디를 입력해주세요.</p>
+        </div>
+        <span class="confirm_btn">확인</span>
     </div>
     <script>
         $(".show_pw_btn").click((e) => {
@@ -52,6 +62,41 @@
                 $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
             }
         })
+
+        // 아이디, 비밀번호 미입력시 로그인 진행 불가 팝업창
+        function submitLogin(frm) {
+            var user = frm.user.value;
+            var pass = frm.pass.value;
+
+            if (user.trim() == ''){
+                // alert("제목을 입력해주세요");
+                $(".pop_cont").find("p").text("아이디를 입력해주세요.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+                $(".confirm_btn").click((e) => { // 확인버튼 클릭시
+
+                    $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                    $("html, body").removeClass("fixed");
+                    $('.schedule_tit').focus();
+                })
+
+                return false;
+            }
+            if (pass.trim() == ''){
+                $(".pop_cont").find("p").text("비밀번호를 입력해주세요.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+                $(".confirm_btn").click((e) => {
+
+                    $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                    $("html, body").removeClass("fixed");
+                    $('.schedule_contxt_box').focus();
+                })
+
+                return false;
+            }
+            frm.submit();
+        }
     </script>
 </body>
 </html>
