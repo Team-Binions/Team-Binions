@@ -38,11 +38,11 @@
                 <div class="viewCount_buttons">
                     <p class="viewCount" th:text="|조회수 ${yesin.viewCount}|"></p>
                     <div class="detail_buttons">
-                        <button class="detail_button" type="button" th:onclick="|location.href='@{/board/reviewModify(id=${yesin.postCode})}'|">수정하기</button>
+                        <button class="detail_button" type="button" th:if="${yesin.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/reviewModify(id=${yesin.postCode})}'|">수정하기</button>
                         <form th:action="@{/board/delete(id=${yesin.postCode})}" method="post">
                             <input type="hidden" th:value="${yesin.subCategory}" name="subCategory">
                             <input type="hidden" th:value="${yesin.postCode}" name="postCode">
-                            <button class="detail_delete_button" type="submit">삭제하기</button>
+                            <button class="detail_delete_button" th:if="${yesin.memberCode == session.memberCode}" type="submit">삭제하기</button>
                         </form>
                     </div>
                 </div>
