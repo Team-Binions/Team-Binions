@@ -3,7 +3,7 @@
 # MySQL 서버 시작
 service mysql start
 # MySQL 초기 설정 및 사용자 호스트 변경
-mysql -u root -p${1234} <<EOF
+mysql -u root --password="${1234}" <<EOF
 UPDATE mysql.user SET host='localhost' WHERE user='ohgiraffers' AND host='%';
 FLUSH PRIVILEGES;
 EOF
