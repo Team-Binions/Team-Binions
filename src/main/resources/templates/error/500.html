@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Error Page</title>
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/Error.css}">
 </head>
 <body>
-    <h1>500 에러페이지</h1>
-    <p>500 에러페이지라네</p>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <article>
+        <div class="error_back">
+            <div class="error_box">
+                <h1 class="error_title">500 Error Page</h1>
+                <div>
+                    <p>500에러 페이지라네</p>
+                    <p>홈화면으로 이동해주시라네</p>
+                </div>
+                <div class="button_box">
+                    <button type="button"  onclick="location.href=' /main'">홈으로</button>
+                </div>
+            </div>
+            <div th:replace="admin/footer.html"></div>
+    </article>
+</div>
 </body>
 </html>

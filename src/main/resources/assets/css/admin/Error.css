@@ -1,0 +1,81 @@
+.tem {
+    display: flex;
+    align-content: center;
+    min-height : calc(100vh - 160px);
+
+}
+.error_back {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: center / cover no-repeat url(../../images/common/stampBg.svg);
+}
+.error_box {
+    width: 45%;
+    max-width: 444px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius:20px;
+    box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2);
+    text-align: center;
+    margin-top: 200px;
+}
+.error_title {
+    font-size: 40px;
+    color: #6667AB;
+}
+
+/* 삭제, 목록, 상태변경 버튼 */
+.button_box button {
+    margin-top: 30px;
+    cursor: pointer;
+    width: 170px;
+    height: 48px;
+}
+
+.button_box #deleteModal_open_btn {
+    background-color: #F4F4F9;
+    margin-right: 10px;
+    color: var(--main-color);
+    font-weight: var(--semiBold);
+}
+#deleteModal_open_btn:hover {
+    background-color: #F4F4F9;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+/* 목록 버튼 */
+.button_box #back_member_btn {
+    background-color: #F4F4F9;
+    color: var(--main-color);
+    font-weight: var(--semiBold);
+}
+#back_member_btn:hover {
+    background-color: #F4F4F9;
+    border: solid thin var(--point-color);
+    color: var(--point-color);
+    transition: background-color 200ms ease-in-out;
+}
+
+/* 상태변경 버튼 */
+.button_box .modify_btn {
+    position: absolute;
+    right: 26px;  /* 220*/
+}
+
+/* 상태변경 버튼 */
+.button_box .review_btn {
+    position: absolute;
+    right: 206px;
+}
+/* 버튼 정렬 */
+.button_interval {
+    margin-top: 30px;
+    text-align: center;
+    flex: auto;
+}
