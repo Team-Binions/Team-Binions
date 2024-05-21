@@ -1,44 +1,44 @@
-
-
 $(document).ready(function () {
-    const mainCategorySelect = $('#mainCategory');
-    const subCategorySelect = $('#subCategory');
 
-    subCategorySelect.prop('disabled', true);
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    const subCategory = document.querySelector('.subCategory');
 
-    mainCategorySelect.change(function () {
+    // 클릭한 옵션의 텍스트를 라벨 안에 넣음
+    const handleSelect = (item) => {
+        // console.log(item.textContent);
+        // console.log(label.textContent);
+        label.parentNode.classList.remove('active');
+        label.textContent = item.textContent;
+        subCategory.value = item.textContent;   // input value에 텍스트를 넣음
+        // console.log(subCategory.value);
+    }
+    // 옵션 클릭시 클릭한 옵션을 넘김
+    options.forEach(option => {
+        option.addEventListener('click', () => handleSelect(option))
+    })
 
-        subCategorySelect.empty();
-
-        if (mainCategorySelect.val() === "") {
-            subCategorySelect.prop('disabled', true);
+    // 라벨을 클릭시 옵션 목록이 열림/닫힘
+    label.addEventListener('click', () => {
+        if(label.parentNode.classList.contains('active')) {
+            label.parentNode.classList.remove('active');
         } else {
-            subCategorySelect.prop('disabled', false)
-        }
-
-
-        switch (mainCategorySelect.val()) {
-            case '자유':
-                addSubCategoryOptions(['예신', '예랑']);
-                break;
-            case '리뷰':
-                addSubCategoryOptions(['웨딩', '스드메', '기타']);
-                break;
-            default :
-                addSubCategoryOptions(['']);
-                break;
+            label.parentNode.classList.add('active');
         }
     })
 
-    function addSubCategoryOptions(options) {
-        $.each(options, function (index, option) {
-            subCategorySelect.append($('<option>', {
-                value: option,
-                text: option
-            }));
-        });
+    // 취소 모달
+    document.getElementById("cancelModal_open_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "block";
     }
 
+    document.getElementById("cancelModal_close_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "none";
+    }
+
+    document.getElementById("cancelModal_check_btn").onclick = function () {
+        document.getElementById("cancelModal").style.display = "none";
+    }
     //팝업창
 
     $(".confirm_btn").click(() => {
@@ -194,7 +194,7 @@ $(document).ready(function () {
         console.log(formData);
 
         // Fetch를 이용하여 요청을 보낸다.
-        fetch("/admin/uploadAjax", {
+        fetch("/user/uploadAjax", {
             method: "POST",
             body: formData
         })
@@ -235,18 +235,16 @@ $(document).ready(function () {
         }
         const postTitle = $("#postTitle").val();
         const postContext = $("#postContext").val();
-        const mainCategory = $("#mainCategory").val();
-        const subCategory = $("#subCategory").val();
+        const mainCategory = '매거진';
 
         const postInfo = {
-            memberCode: memberCode,
             postTitle: postTitle,
             postContext: postContext,
             mainCategory: mainCategory,
             subCategory: subCategory
         };
 
-        fetch("/admin/registPost", {
+        fetch("/user/registPost", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -278,7 +276,7 @@ $(document).ready(function () {
 
                 console.log("imgTemp:", imgTemp);
 
-                return fetch("/admin/registerFiles", {
+                return fetch("/user/registerFiles", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
