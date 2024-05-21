@@ -13,7 +13,7 @@ spring:
         store-type: redis
     data:
         redis:
-            host: localhost
+            host: redis:latest
             port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
