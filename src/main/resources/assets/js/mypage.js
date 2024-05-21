@@ -1,13 +1,12 @@
 
 
 const totalConfirm = {
-    pwdconfirmchk : false,
-    chkpwdconfirmchk : false,
-    nknconfirmchk : false,
-    emchk : false,
-    emconfirmchk : false,
-    gdconfirmchk : false,
+    pwdconfirmchk : true,
+    chkpwdconfirmchk : true,
+    gdconfirmchk : true
 };
+
+var password = $("#password");
 
 // 결혼인증파일
 var weddingFile;
@@ -49,6 +48,10 @@ $(document).ready(function () {
         $(".change_password_box").addClass("active");
         $(".change_pw_btn").addClass('inactive');
         $(".change_password_check").addClass('active');
+        $("#passwordHidden").prop("disabled",true);
+        totalConfirm.pwdconfirmchk = false;
+        totalConfirm.chkpwdconfirmchk = false;
+        password.val(null);
     })
 
     $("#password").keyup(function () {
@@ -134,120 +137,6 @@ $(document).ready(function () {
         }
     })
 
-
-    $('#nickname').keyup(function (){
-
-        var nickname = $(event.target).val();
-        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
-        var pattern = /\s/;
-
-        if ( nickname !== 0 && (nickname.length < 5 || nickname.length > 15) ) {
-            totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 최대 5~15자 까지 가능합니다</span>")
-            $("#nknconfirmchk").css({
-                "color" : "#FA3E3E",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            })
-        } else if (nickname.length !== 0 && pattern.test(nickname)) {
-            totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임에 공백이 포함될 수 없습니다</span>")
-            $("#nknconfirmchk").css({
-                "color" : "#FA3E3E",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            })
-        } else if (nickname.length !== 0 && spe > 0) {
-            totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임에 특수문자가 포함될 수 없습니다</span>")
-            $("#nknconfirmchk").css({
-                "color" : "#FA3E3E",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            })
-        } else if ( nickname === 0 ) {
-            totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='idconfirmchk'></span>")
-        } else {
-            $('#nicknameTxt').html("<span id='idconfirmchk'></span>")
-        }
-    })
-
-    $("#checkNkname").click(function() {
-        var nickname = $("#nickname").val();
-        var spe = nickname.search(/[`~!@#$%^&*|\\\'\";:\/?._\-"']/gi);
-        var pattern = /\s/;
-
-        if( nickname === '' ) {
-            alert("닉네임을 입력해주세요.");
-            $("#nickname").focus();
-        }
-        else if ( nickname.length < 5 || nickname.length > 15 ) {}
-        else if(pattern.test(nickname)){}
-        else if(spe > 0){}
-        else {
-            fetch("/request-dupCheck-nickname", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(nickname)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    chkDupNknConfirm(data, $("#nicknameTxt"));
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-        }
-    });
-
-    $("#checkEmail").click(function() {
-        var email = $("#memail").val();
-
-        if( email === '') {
-            alert("이메일을 입력해주세요.");
-            $("#memail").focus();
-        } else {
-            fetch("/request-verify-mail", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(email)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        alert("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.")
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if(data > 0) {
-                        return alert("이미 존재하는 이메일입니다.");
-                    }
-                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
-                    totalConfirm.emchk = true;
-
-                    chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-        }
-    })
-
-    $("#memail").keyup(function () {
-        totalConfirm.emchk = false;
-    })
-
     $('#phone').keyup(function () {
         var value = $(event.target).val();
         var phone = $('#phone').val();
@@ -322,7 +211,6 @@ $(document).ready(function () {
             })
             .then(data => {
                 // 성공적인 응답을 처리한다.
-                $("#fileName").val(data);
                 weddingFile = data;
                 console.log(data);
             })
@@ -346,42 +234,26 @@ $(document).ready(function () {
                 scrollTop: 250
             }, 'slow');
             $('#checkPw').focus();
-        } else if (!totalConfirm.nknconfirmchk) {
-            alert("닉네임을 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 300
-            }, 'slow');
-            $('#nickname').focus();
-        } else if (!totalConfirm.emchk) {
-            alert("이메일을 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 400
-            }, 'slow');
-            $('#memail').focus();
-        } else if (!totalConfirm.emconfirmchk) {
-            alert("이메일 인증번호를 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 500
-            }, 'slow');
-            $('#memailconfirm').focus();
         } else if (!totalConfirm.gdconfirmchk) {
             alert("성별을 확인해 주세요.");
         } else {
 
             console.log(weddingFile);
+            if(!weddingFile){
+                weddingFile = "";
+            }
+            console.log(weddingFile);
 
             var memberJoin = {
-                "memberId" : $('#memberId').val(),
-                "memberPw" : $('#password').val(),
-                "nickname" : $('#nickname').val(),
-                "email" : $('#memail').val(),
+                "memberId" : $("#memberId").val(),
+                "memberPw" : $("#password").val(),
                 "phone" : $("#phone").val(),
                 "gender" : $('input[type="checkbox"][name="gender"]').val(),
                 "marriedStatus" : $('input[type="checkbox"][name="verifyMarried"]').val(),
                 "weddingFile" : weddingFile
             }
 
-            fetch("/request-join-member", {
+            fetch("/request-modify-member", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -390,12 +262,10 @@ $(document).ready(function () {
             })
                 .then(response => {
                     if (!response.ok) {
-                        alert("유효 기간이 지나 회원가입이 실패하였습니다..")
-                        window.location.href="/signup";
                         throw new Error("Network response was not ok");
                     }
-                    alert("회원가입이 완료되었습니다!\n로그인창으로 이동합니다..");
-                    return window.location.href="/auth/login";
+                    alert("회원 정보 수정이 완료되었습니다!");
+                    return window.location.href="/mypage/myinfo";
                 })
                 .catch(error => {
                     // 오류가 발생했을 때 처리한다.
@@ -405,68 +275,3 @@ $(document).ready(function () {
     })
 
 });
-
-// 아이디 중복확인 함수
-function chkDupIdConfirm(data, $idTxt){
-    if (data != 0) {
-        totalConfirm.idconfirmchk = false;
-        $idTxt.text("! 이미 사용중인 아이디입니다")
-        $("#idTxt").css({
-            "color" : "#FA3E3E",
-            "font-weight" : "bold",
-            "font-size" : "10px"
-        })
-    } else {
-        totalConfirm.idconfirmchk = true;
-        $idTxt.text("✔️ 사용 가능한 아이디입니다")
-        $("#idTxt").css({
-            "color" : "#6667AB",
-            "font-weight" : "bold",
-            "font-size" : "10px"
-        })
-    }
-}
-
-// 닉네임 중복확인 함수
-function chkDupNknConfirm(data, $nicknameTxt){
-    if (data != 0) {
-        totalConfirm.nknconfirmchk = false;
-        $nicknameTxt.text("! 이미 사용중인 별명입니다")
-        $("#nicknameTxt").css({
-            "color" : "#FA3E3E",
-            "font-weight" : "bold",
-            "font-size" : "10px"
-        })
-    } else {
-        totalConfirm.nknconfirmchk = true;
-        $nicknameTxt.text("✔️ 사용 가능한 별명입니다")
-        $("#nicknameTxt").css({
-            "color" : "#6667AB",
-            "font-weight" : "bold",
-            "font-size" : "10px"
-        })
-    }
-}
-
-// 이메일 인증번호 함수
-function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt){
-    $memailconfirm.on("keyup", function(){
-        if (data != $memailconfirm.val()) {
-            totalConfirm.emconfirmchk = false;
-            $memailconfirmTxt.text("! 인증번호가 잘못되었습니다")
-            $("#memailconfirmTxt").css({
-                "color" : "#FA3E3E",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            })
-        } else {
-            totalConfirm.emconfirmchk = true;
-            $memailconfirmTxt.text("✔️ 인증번호 확인 완료")
-            $("#memailconfirmTxt").css({
-                "color" : "#6667AB",
-                "font-weight" : "bold",
-                "font-size" : "10px"
-            });
-        }
-    })
-}

@@ -34,4 +34,6 @@ public interface MyPageMapper {
   MyPageDTO selectMyPostInfo(int memberCode);
 
   void registWriting();
+
+  int modifyMemberInfo(MembersDTO member);
 }

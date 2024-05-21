@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <span class="tit_count eng"><span class="tit_counted">${registeredCommentLength}</span>/100</span>
                     </div>
                     <span class="register_btn register_comment_btn" id="modify_comment_btn" data-type="modify">등록</span>
+                    <span class="register_btn register_comment_btn" id="cancel_comment_btn" data-type="cancel">취소</span>
                 </div>
                 `);
 
@@ -194,6 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const commentCode = $(e.target).closest('li').data('commentModifyCode'); // 클릭된 댓글의 commentCode 가져오기
         selectedCommentCode = commentCode;
     });
+
+    $(document).on("click", "#cancel_comment_btn", function (e){
+        loadComments(align);
+    })
 
     $(document).on("click", "#modify_comment_btn", function (e) {
         let $commentBox = $(this).closest('.comment_inner_box');

@@ -4,6 +4,8 @@ import com.beanions.common.dto.MembersDTO;
 import com.beanions.mypage.dao.MyPageMapper;
 import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +14,14 @@ import java.util.List;
 @Service
 public class MyPageService {
 
+  @Autowired
   private final MyPageMapper myPageMapper;
+  @Autowired
+  private final PasswordEncoder passwordEncoder;
 
-  public MyPageService(MyPageMapper myPageMapper) {
+  public MyPageService(MyPageMapper myPageMapper, PasswordEncoder passwordEncoder) {
     this.myPageMapper = myPageMapper;
+      this.passwordEncoder = passwordEncoder;
   }
 
   public List<MyPageDTO> selectAllMyPageData() {
@@ -61,4 +67,19 @@ public class MyPageService {
 
   @Transactional
   public void registWriting() {myPageMapper.registWriting();}
+
+  public int modifyMemberInfo(MembersDTO member) {
+
+      int result = 0;
+
+      member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
+
+      result = myPageMapper.modifyMemberInfo(member);
+
+      if(result > 0 ) {
+        return result;
+      }
+      return result;
+  }
+
 }

@@ -6,7 +6,6 @@
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script th:src="@{/js/mypage.js}"></script>
   <title>MYPAGE</title>
 </head>
 <body>
@@ -26,7 +25,7 @@
       </div>
       <div class="profile_txt">
         <!--         th:text="${userMypageMainData.nickname}"-->
-        <p class="profile_name"><span th:text="${nickname}"></span>님</p>
+        <p class="profile_name"><span th:text="${session.nickname}"></span>님</p>
         <!--          th:text="${userMypageMainData.totalCount}"-->
         <p class="total_posts_count">총 게시글 <span class="eng" th:text="${totalCount}"></span></p>
       </div>
@@ -51,19 +50,19 @@
           <p class="table_tit">회원 정보 수정</p>
         </div>
 
-        <form class="myinfo_form">
+        <div class="myinfo_form">
           <ul class="myinfo_list">
             <li>
               <span class="list_item_tit">아이디</span>
-              <input type="text" class="id_input" th:value="${memberId}" readonly>
+              <input type="text" class="id_input" id="memberId" th:value="${session.memberId}" readonly>
             </li>
             <li>
               <span class="list_item_tit">비밀번호</span>
               <span class="change_pw_btn">비밀번호 변경</span>
-<!--                <input type="password" th:value="${memberPw}">-->
               <div class="change_password_box">
                 <div class="password_box">
-                  <input type="password" name="password" id="password"  placeholder="새로운 비밀번호를 입력해주세요.">
+<!--                  <input type="hidden" id="passwordHidden" th:value="${session.memberPw}">-->
+                  <input type="password" name="password" id="password" th:value="${session.memberPw}" placeholder="새로운 비밀번호를 입력해주세요.">
                   <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
                 </div>
                 <div class="message_box">
@@ -85,36 +84,19 @@
             </li>
             <li>
               <span class="list_item_tit" >닉네임</span>
-              <div class="include_message">
-                <div class="duplicate_box">
-                  <input type="text" class="duplicate_input" name="nickname" id="nickname" th:value="${nickname}">
-                  <span class="check_duplicate_btn" id="checkNkname">중복확인</span>
-                </div>
-                <div class="message_box">
-                  <span id="nicknameTxt"></span>
-                </div>
+              <input type="text" class="id_input" name="nickname" id="nickname" th:value="${session.nickname}" readonly>
+              <div class="message_box">
+                <span id="nicknameTxt"></span>
               </div>
             </li>
             <li>
               <span class="list_item_tit">이메일</span>
-              <div class="duplicate_box">
-                <input type="text" name="memail" id="memail" class="duplicate_input" th:value="${email}">
-                <span class="check_duplicate_btn" id="checkEmail">인증번호</span>
-              </div>
-            </li>
-            <li>
-              <span class="list_item_tit">이메일 인증</span>
-              <div class="duplicate_box box_100">
-                <input type="text" name="memail" id="memailconfirm" placeholder="인증번호를 입력해 주세요" class="duplicate_input">
-                <div class="message_box">
-                  <span id="memailconfirmTxt"></span>
-                </div>
-              </div>
+              <input type="text" name="memail" id="memail" class="id_input" th:value="${session.email}" readonly>
             </li>
             <li>
               <span class="list_item_tit">전화번호</span>
               <div class="include_message">
-                <input type="text" id="phone" th:value="${phone}">
+                <input type="text" id="phone" th:value="${session.phone}">
                 <div class="message_box">
                   <span id="phoneTxt"></span>
                 </div>
@@ -124,12 +106,12 @@
               <span class="list_item_tit">성별</span>
               <div class="duplicate_box checkBoxes">
                 <label class="check_box" for="male" style="padding-right: 20px">
-                  <input class="check_input" type="checkbox" name="gender" id="male" value="남성">
+                  <input class="check_input" type="checkbox" name="gender" id="male" value="남성" th:checked="${session.gender == '남성' ? true : false}">
                   <span class="check_mark"></span>
                   &nbsp;&nbsp;남성
                 </label>
                 <label class="check_box" for="female">
-                  <input class="check_input" type="checkbox" name="gender" id="female" value="여성">
+                  <input class="check_input" type="checkbox" name="gender" id="female" value="여성" th:checked="${session.gender == '여성' ? true : false}">
                   <span class="check_mark"></span>
                   &nbsp;&nbsp;여성
                 </label>
@@ -139,12 +121,12 @@
               <span class="list_item_tit">기혼 여부</span>
               <div class="duplicate_box checkBoxes">
                 <label class="check_box" for="married" style="padding-right: 20px">
-                  <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼">
+                  <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼" th:checked="${session.weddingVerified == '기혼' ? true : false}">
                   <span class="check_mark"></span>
                   &nbsp;&nbsp;기혼
                 </label>
                 <label class="check_box" for="single">
-                  <input class="check_input" type="checkbox" name="verifyMarried" id="single" value="미혼">
+                  <input class="check_input" type="checkbox" name="verifyMarried" id="single" value="미혼" th:checked="${session.weddingVerified == '미혼' ? true : false}">
                   <span class="check_mark"></span>
                   &nbsp;&nbsp;미혼
                 </label>
@@ -155,7 +137,7 @@
               <div class="upload_cont">
                 <div class="upload_box">
 <!--                   th:value="${weddingFile}"-->
-                  <span class="upload_name_box" id="fileName" th:text="${weddingFile}"></span>
+<!--                  <input type="hidden" class="upload_name_box" id="fileName" th:unless="${session.weddingFile == null || session.weddingFile.isEmpty()}" th:text="${session.weddingFile}">-->
                   <label class="file_upload_box">
                     <span class="upload_btn">업로드</span>
                     <input type="file" class="file_upload_input" id="verifyFile" >
@@ -164,9 +146,17 @@
                 <p class="upload_txt">업로드 최대 용량은 10MB</p>
               </div>
             </li>
+            <li>
+              <span class="list_item_tit">업로드 이미지</span>
+              <div class="include_message">
+                <div th:unless="${session.weddingFile == null}" style="justify-content: left; padding-top: 20px">
+                  <img th:src="@{/images/upload/user/verify/{file}(file=${session.weddingFile})}">
+                </div>
+              </div>
+            </li>
           </ul>
           <button class="modify_btn" id="join">수정하기</button>
-        </form>
+        </div>
         <button class="leave_btn">회원탈퇴</button>
       </div>
     </div>
@@ -190,9 +180,21 @@
     <li class="confirm_btn">취소</li>
   </ul>
 </div>
- <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/mypage.js}"></script>
 <script>
-
+  $(".show_pw_btn").click((e) => {
+    console.log("target : " + e.target);
+    if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
+      $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
+      $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
+      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
+    }else{ // 비활성화된 상태라면
+      $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
+      $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
+      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
+    }
+  })
 </script>
 </body>
 </html>
