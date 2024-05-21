@@ -324,4 +324,11 @@ public class MyPageController {
 //      // ...
 //    }
   }
+
+  @PostMapping("/mypage/withdraw")
+  public String deleteInfo(@RequestParam("id") String id, RedirectAttributes rttr) {
+
+
+    return "redirect:/";
+  }
 }

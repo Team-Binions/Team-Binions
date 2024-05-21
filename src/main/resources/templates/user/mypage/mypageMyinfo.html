@@ -169,7 +169,7 @@
 </div>
 <!-- popup -->
 <div class="pop_bg"></div>
-<div class="pop_cont selective">
+<div class="pop_cont_withdraw selective">
   <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
   <p>회원님께서 등록하신<br>
     모든 게시물이 삭제되며<br>
@@ -195,6 +195,28 @@
       $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
     }
   })
+
+  // 회원 탈퇴
+  function goWithdraw(frm) {
+      var memberCode = frm.memberCode.value;
+      console.log()
+
+      $(".leave_btn").on(('click'), () => {
+          $(".pop_bg, .pop_cont").addClass("active");
+      })
+
+      $(".pop_btn_list > li").click((e) => {
+          if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
+              console.log("회원탈퇴 확인 버튼 클릭");
+          }else{//회원탈퇴 취소 버튼을 클릭시
+              console.log("회원탈퇴 취소 버튼 클릭");
+          }
+
+          $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+      })
+
+      frm.submit();
+  }
 </script>
 </body>
 </html>

@@ -171,6 +171,14 @@ input::-webkit-search-results-decoration {
 .check_duplicate_btn {height: 48px; padding: 0 20px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
 .check_duplicate_btn:hover {background-color: var(--point-color);}
 
+/* 회원탈퇴 팝업창 */
+.pop_cont_withdraw {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_cont_withdraw .selective  {top: -100%;}
+.pop_cont_withdraw.active {z-index: 500; opacity: 1;}
+.pop_cont_withdraw p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
+.pop_cont_withdraw.selective p:last-of-type {font-weight: var(--semiBold);}
+
+
 /* 제목/내용 미입력 관련 팝업창 */
 .pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
 .pop_cont {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }

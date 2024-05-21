@@ -30,7 +30,7 @@ $(document).ready(function () {
 
 //회원탈퇴 버튼 클릭시, 재확인 팝업창 활성화
     $(".leave_btn").on(('click'), () => {
-        $(".pop_bg, .pop_cont").addClass("active");
+        $(".pop_bg, .pop_cont_withdraw").addClass("active");
     })
 
     $(".pop_btn_list > li").click((e) => {
@@ -40,7 +40,7 @@ $(document).ready(function () {
             console.log("회원탈퇴 취소 버튼 클릭");
         }
 
-        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+        $(".pop_bg, .pop_cont_withdraw").removeClass("active"); // 팝업창/팝업배경 비활성화
     })
 
 //비밀번호 변경 버튼 클릭
