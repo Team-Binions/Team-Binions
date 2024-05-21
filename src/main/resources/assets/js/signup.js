@@ -567,7 +567,7 @@ $(document).ready(function () {
                         $(".confirm_btn").click(() => {
                             $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
                             $("html, body").removeClass("fixed");
-                            window.location.href="/signup";
+                            window.location.href="/login";
                         })
                         throw new Error("Network response was not ok");
                     }
@@ -580,7 +580,7 @@ $(document).ready(function () {
                         $(".confirm_btn").click(() => {
                             $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
                             $("html, body").removeClass("fixed");
-                            window.location.href="/auth/login";
+                            window.location.href="/login";
                         })
                     }
                     return successSignUp();
@@ -596,7 +596,7 @@ $(document).ready(function () {
                     $(".confirm_btn").click(() => {
                         $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
                         $("html, body").removeClass("fixed");
-                        window.location.href="/auth/login";
+                        window.location.href="/login";
                     })
                 });
         }
