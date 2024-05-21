@@ -29,4 +29,4 @@ services:
       MYSQL_USER: eunseongjo
       MYSQL_PASSWORD : dbpassword
     ports:
-      - 3307:3306
+      - 3308:3306
