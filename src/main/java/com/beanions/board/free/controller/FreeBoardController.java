@@ -60,19 +60,20 @@ public class FreeBoardController {
     public String freeDetail(@RequestParam("id") String code, Model model){
 
         System.out.println("code : " + code);
-        List<PostAndMemberDTO> postAndMemberDTO = freeBoardService.freeDetail(code);
+        PostAndMemberDTO postAndMemberDTO = freeBoardService.freeDetail(code);
         System.out.println(postAndMemberDTO);
 //        PostAndCommentDTO postAndCommentDTO = freeBoardService.selectAllComments(code);
 //        System.out.println(postAndCommentDTO);
-        String text = postAndMemberDTO.get(0).getPostContext().replace("\r\n", "<br>");
+        String before = postAndMemberDTO.getPostContext();
+        String text = before.replace("\n", "<br>");
 
-        System.out.println("free text = " + text);
+        System.out.println("before text = " + before);
+        System.out.println("after text = " + text);
 
-        postAndMemberDTO.get(0).setPostContext(text);
+        postAndMemberDTO.setPostContext(text);
 
-        System.out.println("postDetail = " + text);
-//        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
-        model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
+        System.out.println("postAndMemberDTO = " + postAndMemberDTO);
+        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
 
         return "/user/board/freeDetail";
     }
@@ -176,7 +177,7 @@ public class FreeBoardController {
     @GetMapping("/yesinmodify")
     public String yesinModify(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
+        PostAndMemberDTO modify = freeBoardService.freeDetail(id);
 
         model.addAttribute("modify", modify);
 
@@ -186,7 +187,7 @@ public class FreeBoardController {
     @GetMapping("/yerangmodify")
     public String yerangModify(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> modify = freeBoardService.freeDetail(id);
+        PostAndMemberDTO modify = freeBoardService.freeDetail(id);
 
         model.addAttribute("modify", modify);
 
@@ -228,7 +229,7 @@ public class FreeBoardController {
     @GetMapping("/freedetail")
     public String freeDetailComment(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> PostAndMemberDTO = freeBoardService.freeDetail(id);
+        PostAndMemberDTO PostAndMemberDTO = freeBoardService.freeDetail(id);
 
         model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
 

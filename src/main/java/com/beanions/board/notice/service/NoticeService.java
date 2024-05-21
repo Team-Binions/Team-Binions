@@ -35,7 +35,7 @@ public class NoticeService {
         return new PagingResponse<>(list, pagination);
     }
 
-    public List<PostAndMemberDTO> selectNotice(String id) {
+    public PostAndMemberDTO selectNotice(String id) {
 
         int code = Integer.parseInt(id);
         return noticeMapper.noticeSelectOneDetail(code);

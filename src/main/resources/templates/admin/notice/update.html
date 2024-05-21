@@ -14,7 +14,7 @@
 <div class="sidebar_content">
     <div th:replace="admin/sidebar.html"></div>
     <article class="all-content">
-<h1>공지사항 수정</h1>
+<p class="title">공지사항 수정</p>
 <form action="/admin/notice/update" method="post">
     <div th:each="notice : ${ noticeDetail }">
     <input type="hidden" name="postCode" th:value="${notice.postCode}">

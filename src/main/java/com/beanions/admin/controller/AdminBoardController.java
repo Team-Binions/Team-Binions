@@ -54,7 +54,7 @@ public class AdminBoardController {
 
         AdminPostDTO postDetail = adminService.selectPost(code);
 
-        String text = postDetail.getPostContext().replace("\r\n", "<br>");
+        String text = postDetail.getPostContext().replace("\n", "<br>");
 
         System.out.println("text = " + text);
 

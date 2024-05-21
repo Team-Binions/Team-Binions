@@ -35,9 +35,16 @@ public class MagazineController {
     @GetMapping( "/magazinedetail")
     public String magazineDetail(@RequestParam("id") String id, Model model) {
 
-        List<PostAndMemberDTO> megazine = magazineService.selectMagazine(id);
+        PostAndMemberDTO magazine = magazineService.selectMagazine(id);
 
-        model.addAttribute("magazine", megazine.get(0));
+        String text = magazine.getPostContext().replace("\r\n", "<br>"); // "\r\n", "\n" 둘다 가능
+
+        System.out.println("text = " + text);
+
+        magazine.setPostContext(text);
+
+
+        model.addAttribute("magazine", magazine);
 
         return "/user/board/magazineDetail";
     }

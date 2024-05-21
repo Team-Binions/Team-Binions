@@ -14,7 +14,7 @@ public interface MagazineMapper {
     @Update("UPDATE Post SET view_count = #{viewCount} WHERE Post_Code = #{id}")
     void updateViewCount(@Param("id") int id, @Param("viewCount") int viewCount);
 
-    List<PostAndMemberDTO> magazineSelectOneDetail(int id);
+    PostAndMemberDTO magazineSelectOneDetail(int id);
 
     int count(MagazineDTO params);
 

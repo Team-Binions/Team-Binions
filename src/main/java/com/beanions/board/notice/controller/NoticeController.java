@@ -33,9 +33,13 @@ public class NoticeController {
     @GetMapping( "/noticedetail")
     public String noticeDetail(@RequestParam("id") String id, Model model) {
 
-        List<PostAndMemberDTO> notice = noticeService.selectNotice(id);
+        PostAndMemberDTO notice = noticeService.selectNotice(id);
 
-        model.addAttribute("notice", notice.get(0));
+        String text = notice.getPostContext().replace("\r\n", "<br>");
+
+        notice.setPostContext(text);
+
+        model.addAttribute("notice", notice);
 
         return "user/board/noticeDetail";
     }
