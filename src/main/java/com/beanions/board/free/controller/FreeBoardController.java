@@ -64,7 +64,13 @@ public class FreeBoardController {
         System.out.println(postAndMemberDTO);
 //        PostAndCommentDTO postAndCommentDTO = freeBoardService.selectAllComments(code);
 //        System.out.println(postAndCommentDTO);
+        String text = postAndMemberDTO.get(0).getPostContext().replace("\r\n", "<br>");
 
+        System.out.println("free text = " + text);
+
+        postAndMemberDTO.get(0).setPostContext(text);
+
+        System.out.println("postDetail = " + text);
 //        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
         model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
 
