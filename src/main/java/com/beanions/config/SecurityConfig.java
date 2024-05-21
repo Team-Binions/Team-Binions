@@ -4,6 +4,7 @@ package com.beanions.config;
 import com.beanions.auth.dto.MemberRole;
 import com.beanions.config.handler.AuthSuccessHandler;
 import com.beanions.config.handler.AuthFailHandler;
+import com.beanions.config.handler.LogoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -52,6 +55,10 @@ public class SecurityConfig {
         return new SessionRegistryImpl();
     }
 
+//    private LogoutSuccessHandler logoutSuccessHandler() {
+//        return new LogoutHandler();
+//    }
+
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
@@ -75,16 +82,19 @@ public class SecurityConfig {
                     "/main",
                     "/signup",
                     "/inquiry",
+                    "/about",
+                    "/privacy",
+                    "/terms",
                     "/search",
-                    "/board/reviewList",
-                    "/board/reviewDetail",
+                    "/board/review",
+                    "/board/reviewdetail",
                     "/board/notice",
                     "/board/noticedetail",
                     "/board/magazine",
                     "/board/magazinedetail",
-                    "/board/yerangList",
-                    "/board/yesinList",
-                    "/board/freeDetail",
+                    "/board/yerang",
+                    "/board/yesin",
+                    "/board/freedetail",
                     "/board/comments"
                     ).permitAll();
             
@@ -110,7 +120,10 @@ public class SecurityConfig {
             logout.invalidateHttpSession(true);
             logout.logoutSuccessUrl("/"); // 로그아웃 성공한 뒤 이동할 페이지 설정
 
-        }).sessionManagement( session -> { session
+        }).requestCache( cache -> cache
+            .requestCache(new HttpSessionRequestCache())
+            // 요청에 대한 URL을 보관하는 방법
+         ).sessionManagement(session -> { session
             .maximumSessions(1)
             .maxSessionsPreventsLogin(false)
             .expiredUrl("/")
