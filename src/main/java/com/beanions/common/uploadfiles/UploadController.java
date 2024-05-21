@@ -67,39 +67,39 @@ public class UploadController {
 
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/user/uploadAjax")
-  public String uploadFile(@RequestParam(value="file",required = false) MultipartFile file) throws JsonProcessingException {
-
+  public String uploadFile(@RequestParam(value = "file", required = false) MultipartFile[] files) throws JsonProcessingException {
     String root = "src/main/resources/assets/images/upload";
     String filePath = root + "/user/uploadTemp";
 
     File dir = new File(filePath);
-
-    if( !dir.exists() ) {
+    if (!dir.exists()) {
       dir.mkdirs();
     }
 
-    /* 파일명 변경하기 */
-    String originFileName = file.getOriginalFilename();
-    System.out.println("originFileName : " + originFileName);
-    String ext = originFileName.substring(originFileName.lastIndexOf("."));
-//        System.out.println("ext : " + ext);
+    List<String> savedFileNames = new ArrayList<>();
 
-    String savedName = UUID.randomUUID() + ext;
-    System.out.println("savedName : " + savedName);
+    for (MultipartFile file : files) {
+      if (file.isEmpty()) {
+        continue;
+      }
 
+      String originFileName = file.getOriginalFilename();
+      System.out.println("originFileName : " + originFileName);
+      String ext = originFileName.substring(originFileName.lastIndexOf("."));
+      String savedName = UUID.randomUUID() + ext;
+      System.out.println("savedName : " + savedName);
 
-    /* 파일 저장 */
-    try {
-      Path path= Paths.get(filePath + "/" + savedName).toAbsolutePath();
-      file.transferTo(path.toFile());
-//            file.transferTo(new File(filePath + "/" + savedName));
+      try {
+        Path path = Paths.get(filePath + "/" + savedName).toAbsolutePath();
+        file.transferTo(path.toFile());
+      } catch (IOException e) {
+        System.out.println("error : " + e);
+      }
 
-    } catch (IOException e) {
-      System.out.println("error : " + e);
+      savedFileNames.add(savedName);
     }
 
-    return new ObjectMapper().writeValueAsString(savedName);
-
+    return new ObjectMapper().writeValueAsString(savedFileNames);
   }
 
   // 비동기로 이미지 파일 보여주는 경로

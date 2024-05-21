@@ -232,15 +232,15 @@
           console.log('파일업로드시 index : ' + index);
           readURL(this, index);
 
-          // 파일을 가져온다.
-          var file = event.target.files[0];
+          // 선택된 파일들을 가져온다
+          const files = this.files;
 
-          // console.log(file);
-
-          // formData객체에 파일(MultipartFile)형태 그대로 담는다
+          // formData 객체에 모든 파일을 추가
           var formData = new FormData();
-          formData.append("file",file);
-          // console.log(formData.get("file"));
+          Array.from(files).forEach(file => {
+            formData.append("file", file);
+          });
+          console.log(formData);
 
           // Fetch를 이용하여 요청을 보낸다.
           fetch("/user/uploadAjax", {
@@ -258,11 +258,14 @@
                     if(data == null) {
                       return alert("실패");
                     }
-                    const imgTmp = {};
-                    imgTmp["fileName"] = data; // "fileName"을 키로 사용하여 data를 객체에 추가
-                    imgTemp.push(imgTmp); // imgTmp 객체를 imgTemp 배열에 추가
 
-                    console.log("imgTmp:", imgTmp);
+                    // 서버에서 반환한 데이터가 여러 파일에 대한 것일 경우 처리
+                    Array.from(data).forEach(fileData => {
+                      const imgTmp = {};
+                      imgTmp["fileName"] = fileData; // "fileName"을 키로 사용하여 data를 객체에 추가
+                      imgTemp.push(imgTmp); // imgTmp 객체를 imgTemp 배열에 추가
+                    });
+
                     console.log("imgTemp:", imgTemp);
                   })
                   .catch(error => {
