@@ -5,12 +5,12 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/comment.css}">
-    <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-
+    <title>예랑예신</title>
     <div th:each="yesin: ${ PostAndMemberDTO }">
         <title th:text="${yesin.postTitle}"></title>
     </div>
@@ -21,7 +21,7 @@
 
     <div class="content">
         <article>
-            <div class="free_list_content">
+            <div >
                 <div>
                     <div class="category_data">
                         <p class="mainCategory" th:text="${PostAndMemberDTO.mainCategory}"></p>
@@ -33,7 +33,7 @@
                         <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
                         <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
                     </div>
-                    <div class="free_nickname_date">
+                    <div class="nickname_date">
                         <p class="review_nickname" th:text="${PostAndMemberDTO.member.nickname}"></p>
                         <p class="review_date" th:text="${ #dates.format(PostAndMemberDTO.postDate, 'yyyy.MM.dd') }"></p>
                     </div>

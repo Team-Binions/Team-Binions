@@ -41,8 +41,13 @@
         ,   WEDD_VEF
         ,   SIGNUP_DATE
         FROM MEMBERS
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            WHERE
+            NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         ORDER BY SIGNUP_DATE DESC, MEMBER_ID DESC
-<!--        LIMIT 18-->
+        <!--        LIMIT 18-->
     </select>
 
     <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
@@ -293,6 +298,15 @@
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE MAIN_CATEGORY = '매거진'
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
         ORDER BY A.POST_DATE DESC, A.POST_CODE DESC;
     </select>
 
@@ -476,6 +490,24 @@
         POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         WHERE MAIN_CATEGORY IN ('공지사항')
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            AND (
+            A.POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+            OR A.POST_CONTEXT LIKE CONCAT('%', #{keyword}, '%')
+            OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+
+        </if>
+    </select>
+
+    <select id="countMagazine" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST A
+        LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        WHERE MAIN_CATEGORY IN ('매거진')
         <if test="keyword != null and keyword != ''">
             <!-- 전체 검색일 때 -->
             AND (

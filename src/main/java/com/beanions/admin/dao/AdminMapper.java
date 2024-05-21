@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 @Mapper
 public interface AdminMapper {
-    List<MembersDTO> membersAllList();
+    List<MembersDTO> membersAllList(SearchDTO params);
 
     MembersDTO selectMembers(int code);
 
@@ -41,7 +41,7 @@ public interface AdminMapper {
 
     void noticeUpdate(PostDTO post);
 
-    List<AdminPostDTO> selectAllMagazine();
+    List<AdminPostDTO> selectAllMagazine(SearchDTO params);
 
     void magazineRegist(PostDTO newMagazine);
   
@@ -54,4 +54,6 @@ public interface AdminMapper {
     int count(SearchDTO params);
 
     int countNotice(SearchDTO params);
+
+    int countMagazine(SearchDTO params);
 }

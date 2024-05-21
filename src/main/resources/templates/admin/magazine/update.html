@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beanions</title>
+    <title>YERANGYESIN-ADMIN</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
@@ -49,43 +49,39 @@
                 <li class="optionItem">기타</li>
             </ul>
         </div>
-        <input class="input_title" type="text" th:value="${ magazine.postTitle }" name="postTitle">
-        <textarea class="input_context" th:text="${ magazine.postContext }" name="postContext"></textarea>
 
-<!--        <div class="preview_box">-->
-<!--            <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>-->
-<!--            <ul class="preview_list">-->
-<!--                <li class="upload_img_btn">-->
-<!--                    <label class="file_upload_box preview" name="uploadFiles">-->
-<!--                        <span class="upload_btn">＋</span>-->
-<!--                        <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">-->
-<!--                    </label>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-
+        <div class="tit_box">
+            <input class="input_title" type="text" name="postTitle" th:value="${ magazine.postTitle }" placeholder="제목을 입력하세요."
+                   maxlength="50">
+            <span class="tit_count eng"><span class="tit_counted">0</span>/50</span>
+        </div>
+        <div class="txt_box">
+            <textarea class="input_context" th:utext="${ magazine.postContext }" name="postContext"
+                      maxlength="1000"></textarea>
+            <span class="txt_count eng"><span class="txt_counted">0</span>/1000</span>
+        </div>
     </div>
     <div class="button_box" id="regist_button_box">
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
-        <button type="submit">등록</button>
+        <button type="button" onclick="goWrite(this.form);">등록</button>
     </div>
 
-    <!-- 취소 모달창 -->
-    <div id="cancelModal" class="modal">
-        <div class="deleteModal_content">
-            <div class="deleteModal_icon_box">
-                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
-            </div>
-            <div class="cancel_modal_text">
-                <p>변경 된 내용이 전부 삭제 됩니다. 매거진 수정을 취소 하겠습니까?</p>
-            </div>
-            <div class="deleteModal_button_box">
-                <button type="button" id="cancelModal_check_btn" onclick="history.back()">확인</button>
-                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>
-            </div>
-        </div>
-        <div class="deleteModal_layer"></div>
-    </div>
+<!--    &lt;!&ndash; 취소 모달창 &ndash;&gt;-->
+<!--    <div id="cancelModal" class="modal">-->
+<!--        <div class="deleteModal_content">-->
+<!--            <div class="deleteModal_icon_box">-->
+<!--                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">-->
+<!--            </div>-->
+<!--            <div class="cancel_modal_text">-->
+<!--                <p>변경 된 내용이 전부 삭제 됩니다. 매거진 수정을 취소 하겠습니까?</p>-->
+<!--            </div>-->
+<!--            <div class="deleteModal_button_box">-->
+<!--                <button type="button" id="cancelModal_check_btn" onclick="history.back()">확인</button>-->
+<!--                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="deleteModal_layer"></div>-->
+<!--    </div>-->
 </form>
         <div th:replace="admin/footer.html"></div>
 </article>
@@ -122,17 +118,104 @@
         }
     })
 
-    // 취소 모달
-    document.getElementById("cancelModal_open_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "block";
-    }
+    // // 취소 모달
+    // document.getElementById("cancelModal_open_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "block";
+    // }
+    //
+    // document.getElementById("cancelModal_close_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
+    //
+    // document.getElementById("cancelModal_check_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
 
-    document.getElementById("cancelModal_close_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
-    }
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        $(".tit_counted").text($(".input_title").val().length);
+        $(".txt_counted").text($(".input_context").val().length);
+    })
 
-    document.getElementById("cancelModal_check_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
+    // 제목 입력시 텍스트 길이 실시간 반영
+    $(".input_title").on('input', (e) => {
+        console.log("input_title op");
+        $(".tit_counted").text(e.target.value.length);
+    })
+
+    // 내용 입력시 텍스트 길이 실시간 반영
+    $(document).on('input',".input_context",  (e) => {
+        console.log("input op");
+        $(".txt_counted").text(e.target.value.length);
+    })
+
+
+
+    // 제목 및 내용 미입력시 등록 불가
+    function goWrite(frm) {
+        var category = frm.subCategory.value;
+        var title = frm.postTitle.value;
+        var content = frm.postContext.value;
+
+        if (category.trim() == ''){
+            $(".pop_cont").find("p").text("분류를 선택해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("확인 버튼 클릭");
+                }else{//회원탈퇴 취소 버튼을 클릭시
+                    console.log("취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.label').click();
+            })
+
+            return false;
+        }
+
+
+        if (title.trim() == ''){
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_title').focus();
+            })
+
+            return false;
+        }
+
+
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_context').focus();
+            })
+
+            return false;
+        }
+        frm.submit();
     }
 </script>
 </body>

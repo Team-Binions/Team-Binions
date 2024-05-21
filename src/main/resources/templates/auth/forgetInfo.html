@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>예랑예신</title>
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <div class="login_box">
             <div id="logo">
-                <img th:src="@{/images/common/logo.svg}" alt="YESINYERANG logo">
+                <img th:src="@{/images/common/logo.svg}" alt="YERANGYESIN logo">
             </div>
             <div id="title">
                 <th:block th:if="${ no == 1 }">
@@ -53,7 +56,7 @@
                 </th:block>
             </div>
             <span class="divide_line"></span>
-            <p class="signup_txt">예신예랑 회원이신가요?</p>
+            <p class="signup_txt">예랑예신 회원이신가요?</p>
             <button type="button" class="login_btn go_signup" onclick="location.href='/login'">로그인</button>
         </div>
     </div>

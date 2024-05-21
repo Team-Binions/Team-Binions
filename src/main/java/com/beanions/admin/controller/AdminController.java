@@ -4,6 +4,7 @@ import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.admin.service.AdminMemberService;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,15 +33,20 @@ public class AdminController {
     }
 
     @GetMapping("/member")
-    public String findMembersList(Model model) {
+    public String findMembersList(@ModelAttribute("params") final SearchDTO params, Model model) {
 
-        List<MembersDTO> membersList = adminMemberService.membersAllList();
+        String Keyword = params.getKeyword();
+        System.out.println("keyword = " + params.getKeyword());
+
+        List<MembersDTO> membersList = adminMemberService.membersAllList(params);
 
         for (MembersDTO members : membersList) {
             System.out.println("members = " + members);
         }
 
+        model.addAttribute("keyword", Keyword);
         model.addAttribute("membersList", membersList);
+
 
         return "/admin/member/membersList";
     }

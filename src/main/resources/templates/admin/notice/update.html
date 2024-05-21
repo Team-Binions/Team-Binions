@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beanions</title>
+    <title>YERANGYESIN-ADMIN</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 </head>
@@ -42,7 +45,7 @@
     </div>
     <div class="button_box" id="regist_button_box">
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
-        <button type="submit">등록</button>
+        <button type="button" onclick="goWrite(this.form);">등록</button>
     </div>
 
 <!--    &lt;!&ndash; 취소 모달창 &ndash;&gt;-->

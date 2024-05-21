@@ -5,7 +5,10 @@
   <link rel="stylesheet" th:href="@{/css/default.css}">
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
-  <title>MYPAGE</title>
+  <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+  <title>예랑예신</title>
 </head>
 <body>
 <div class="wrapper">
@@ -58,7 +61,7 @@
     <!-- about context -->
     <div class="about_txt_box">
       <p>결혼에 대한 우리 모두의 이야기</p>
-      <p>예신예랑에서 나눠주세요.</p>
+      <p>예랑예신에서 나눠주세요.</p>
     </div>
 
     <div class="about_bottom_logo">
@@ -69,6 +72,8 @@
   <!-- FOOTER -->
   <div th:replace="user/layout/footer.html"></div>
   <!-- //FOOTER -->
+  <!-- TOP BUTTON -->
+  <span class="top_btn eng">TOP</span>
 </div>
 <script th:src="@{/js/common.js}"></script>
 </body>

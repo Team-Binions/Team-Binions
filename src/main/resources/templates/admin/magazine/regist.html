@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beanions</title>
+    <title>YERANGYESIN-ADMIN</title>
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
@@ -28,6 +28,7 @@
         .file_upload_box.preview {display: flex; justify-content: center; padding:20px; align-items: center; height: 100%; border-radius:12px; background-color: #fff; cursor: pointer;}
         .file_upload_box.preview .upload_btn {display: flex; justify-content: center; align-items: center; width: 100%;  height: 100%; border-radius: 12px; background-color: #fff; border: 1px dashed var(--main-color); font-size: 24px; font-weight: var(--bold); color: var(--main-color);}
     </style>
+
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -119,6 +120,7 @@
         </div>
         <div class="deleteModal_layer"></div>
     </div>
+
 <div th:replace="admin/footer.html"></div>
 </article>
 </div>
@@ -134,6 +136,7 @@
 
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/adminFileUpload.js}"></script>
+
 <script>
     const label = document.querySelector('.label');
     const options = document.querySelectorAll('.optionItem');
@@ -162,17 +165,104 @@
         }
     })
 
-    // 취소 모달
-    document.getElementById("cancelModal_open_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "block";
-    }
+    // // 취소 모달
+    // document.getElementById("cancelModal_open_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "block";
+    // }
+    //
+    // document.getElementById("cancelModal_close_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
+    //
+    // document.getElementById("cancelModal_check_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
 
-    document.getElementById("cancelModal_close_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
-    }
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        $(".tit_counted").text($(".input_title").val().length);
+        $(".txt_counted").text($(".input_context").val().length);
+    })
 
-    document.getElementById("cancelModal_check_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
+    // 제목 입력시 텍스트 길이 실시간 반영
+    $(".input_title").on('input', (e) => {
+        console.log("input_title op");
+        $(".tit_counted").text(e.target.value.length);
+    })
+
+    // 내용 입력시 텍스트 길이 실시간 반영
+    $(document).on('input',".input_context",  (e) => {
+        console.log("input op");
+        $(".txt_counted").text(e.target.value.length);
+    })
+
+
+
+    // 제목 및 내용 미입력시 등록 불가
+    function goWrite(frm) {
+        var category = frm.subCategory.value;
+        var title = frm.postTitle.value;
+        var content = frm.postContext.value;
+
+        if (category.trim() == ''){
+            $(".pop_cont").find("p").text("분류를 선택해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("확인 버튼 클릭");
+                }else{//회원탈퇴 취소 버튼을 클릭시
+                    console.log("취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.label').focus();
+            })
+
+            return false;
+        }
+
+
+        if (title.trim() == ''){
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_title').focus();
+            })
+
+            return false;
+        }
+
+
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_context').focus();
+            })
+
+            return false;
+        }
+        frm.submit();
     }
 </script>
 <!--<p class="title">매거진 등록</p>-->
