@@ -143,8 +143,8 @@ article {
 /* --------------- 자유게시판 상세페이지 ---------------*/
 
 .free_list_content{
-    /*display: flex;*/
-    /*justify-content: center;*/
+    display: flex;
+    justify-content: center;
 }
 
 .category_data{
