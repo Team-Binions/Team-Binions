@@ -6,8 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/signup.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -578,6 +576,16 @@
     <!--FOOTER-->
     <div th:replace="user/layout/footer.html"></div>
     <!--/FOOTER-->
+
+    <!-- 팝업창-->
+    <div class="pop_bg"></div>
+    <div class="pop_cont">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <div class="pop_txt">
+            <p>제목을 입력해주세요</p>
+        </div>
+        <span class="confirm_btn">확인</span>
+    </div>
 
     <script th:src="@{/js/signup.js}"></script>
     <script th:src="@{/js/common.js}"></script>
