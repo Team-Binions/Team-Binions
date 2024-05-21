@@ -73,7 +73,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="free, i : ${userMypageFreeData.posts}" th:onclick="|location.href='@{/board/yesinDetail(id=${free.postCode})}'|">
+                        <tr th:each="free, i : ${userMypageFreeData.posts}" th:onclick="|location.href='@{/board/freeDetail(id=${free.postCode})}'|">
                             <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${free.postTitle}"></td>
                             <td class="eng">0</td>

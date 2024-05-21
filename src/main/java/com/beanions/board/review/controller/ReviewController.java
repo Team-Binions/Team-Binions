@@ -16,6 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/board")
+@SessionAttributes
 public class ReviewController {
 
     private final ReviewService reviewService;
