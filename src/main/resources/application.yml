@@ -30,7 +30,7 @@ spring:
                     ssl:
                         trust: "smtp.gmail.com"
                     auth: true
-                    startt  ls:
+                    start:
                         enable: true
     web:
         resources:
