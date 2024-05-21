@@ -5,12 +5,12 @@ CMD ["java", "-jar", "/app.jar"]
 
 # MySQL 설치
 RUN apt-get update && \
-    apt-get install -y mysql-server && \
+    apt-get install -y mysql-server-8.0 && \
     rm -rf /var/lib/apt/lists/*
 
 # Redis 설치
 RUN apt-get update && \
-    apt-get install -y redis-server && \
+    apt-get install -y redis-server-latest && \
     rm -rf /var/lib/apt/lists/*
 
 # MySQL 및 Redis 포트 노출
