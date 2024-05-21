@@ -1,25 +1,32 @@
 version: '3'
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: beanionsdb
+          MYSQL_USER: ohgiraffers
+          MYSQL_PASSWORD: ohgiraffers
+
   mysql:
-    #image: mysql:latest
+    image: mysql:8.0
     #container_name: mysql
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: beanionsdb
       MYSQL_USER: ohgiraffers
       MYSQL_PASSWORD: ohgiraffers
-    ports:
-      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
-  app:
-    build: .
-    ports:
-      - "8081:8081"
-    depends_on:
-      - mysql
-      - redis
-
 volumes:
   mysql-data:
+  app_data:
