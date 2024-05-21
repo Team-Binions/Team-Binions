@@ -5,6 +5,7 @@ import com.beanions.admin.dto.AdminMemberPostDTO;
 import com.beanions.admin.dto.AdminPostDTO;
 import com.beanions.common.dto.MembersDTO;
 import com.beanions.common.dto.PostDTO;
+import com.beanions.common.dto.SearchDTO;
 import com.beanions.mypage.dto.MyPageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,9 @@ public class AdminMemberService {
         this.adminMapper = adminMapper;
     }
 
-    public List<MembersDTO> membersAllList() {
+    public List<MembersDTO> membersAllList(final SearchDTO params) {
 
-        return adminMapper.membersAllList();
+        return adminMapper.membersAllList(params);
     }
 
     public MembersDTO selectMembers(int code) {

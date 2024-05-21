@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 @Mapper
 public interface AdminMapper {
-    List<MembersDTO> membersAllList();
+    List<MembersDTO> membersAllList(SearchDTO params);
 
     MembersDTO selectMembers(int code);
 

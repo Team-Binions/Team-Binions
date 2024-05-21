@@ -41,8 +41,13 @@
         ,   WEDD_VEF
         ,   SIGNUP_DATE
         FROM MEMBERS
+        <if test="keyword != null and keyword != ''">
+            <!-- 전체 검색일 때 -->
+            WHERE
+            NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+        </if>
         ORDER BY SIGNUP_DATE DESC, MEMBER_ID DESC
-<!--        LIMIT 18-->
+        <!--        LIMIT 18-->
     </select>
 
     <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
