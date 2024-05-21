@@ -1,39 +1,28 @@
 version: '3.8'
 
 services:
+  springboot-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/mydb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_REDIS_HOST=redis:latest
+    depends_on:
+      - mysql
+      - redis
+
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ohgiraffers
-      MYSQL_DATABASE: beanionsdb
-      MYSQL_USER: ohgiraffers
-      MYSQL_PASSWORD: ohgiraffers
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: mydb
     ports:
       - "3307:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
 
   redis:
     image: redis:latest
     ports:
-      - "6379:6379"
-
-  app:
-    image: myapp:latest
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/beanionsdb
-      - SPRING_DATASOURCE_USERNAME=ohgiraffers
-      - SPRING_DATASOURCE_PASSWORD=ohgiraffers
-      - SPRING_REDIS_HOST=redis
-      - SPRING_REDIS_PORT=6379
-      - SPRING_MAIL_HOST=smtp.gmail.com
-      - SPRING_MAIL_PORT=587
-      - SPRING_MAIL_USERNAME=lmcwul@gmail.com
-      - SPRING_MAIL_PASSWORD=jouxsxznvyxykceu
-    depends_on:
-      - mysql
-      - redis
-    ports:
-      - "8081:8081"
-    volumes:
-      - ./src/main/resources/assets/images/upload:/usr/local/upload
+      - "6378:6379"

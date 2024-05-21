@@ -1,17 +1,24 @@
-# Start with a base image containing Java runtime
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:17
+ARG JAR_FILE=./build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+CMD ["java", "-jar", "/app.jar"]
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+# MySQL 설치
+RUN apt-get update && \
+    apt-get install -y mysql-server && \
+    rm -rf /var/lib/apt/lists/*
 
-# Make port 8081 available to the world outside this container
-EXPOSE 8081
+# Redis 설치
+RUN apt-get update && \
+    apt-get install -y redis-server && \
+    rm -rf /var/lib/apt/lists/*
 
-# The application's jar file
-ARG JAR_FILE=target/myapp.jar
+# MySQL 및 Redis 포트 노출
+EXPOSE 3306 6379 8080
 
-# Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
+# MySQL 및 Redis 시작 스크립트 작성
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Run the jar file
-ENTRYPOINT ["java","-Dspring.config.location=classpath:/application.yml","-jar","/app.jar"]
+# 애플리케이션 실행
+ENTRYPOINT ["/start.sh"]
