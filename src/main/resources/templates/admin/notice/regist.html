@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -27,32 +29,43 @@
     </div>
     <input class="input_title" type="text" name="postTitle" placeholder="제목을 입력하세요.">
     <div>
-        <textarea class="input_context" name="postContext" placeholder="내용을 입력하세요."></textarea>
+        <textarea class="input_context" name="postContext" placeholder="내용을 입력하세요."
+                  maxlength="500"></textarea>
+        <span class="txt_count"><span class="txt_counted">0</span>/500</span>
     </div>
     <div class="button_box" id="regist_button_box">
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>
-        <button type="submit">등록</button>
+        <button type="button" onclick="goWrite(this.form);">등록</button>
     </div>
 
-    <!-- 취소 모달창 -->
-    <div id="cancelModal" class="modal">
-        <div class="deleteModal_content">
-            <div class="deleteModal_icon_box">
-                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
-            </div>
-            <div class="cancel_modal_text">
-                <p>작성 된 내용이 전부 삭제 됩니다. 공지사항 등록을 취소 하겠습니까?</p>
-            </div>
-            <div class="deleteModal_button_box">
-                <button type="button" id="cancelModal_check_btn" th:onclick="|location.href='@{/admin/notice}'|">확인</button>
-                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>
-            </div>
-        </div>
-        <div class="deleteModal_layer"></div>
-    </div>
+<!--    &lt;!&ndash; 취소 모달창 &ndash;&gt;-->
+<!--    <div id="cancelModal" class="modal">-->
+<!--        <div class="deleteModal_content">-->
+<!--            <div class="deleteModal_icon_box">-->
+<!--                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">-->
+<!--            </div>-->
+<!--            <div class="cancel_modal_text">-->
+<!--                <p>작성 된 내용이 전부 삭제 됩니다. 공지사항 등록을 취소 하겠습니까?</p>-->
+<!--            </div>-->
+<!--            <div class="deleteModal_button_box">-->
+<!--                <button type="button" id="cancelModal_check_btn" th:onclick="|location.href='@{/admin/notice}'|">확인</button>-->
+<!--                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="deleteModal_layer"></div>-->
+<!--    </div>-->
 </form>
     <div th:replace="admin/footer.html"></div>
 </article>
+</div>
+
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>제목을 입력해주세요</p>
+    </div>
+    <span class="confirm_btn">확인</span>
 </div>
 
 <script>
@@ -83,17 +96,49 @@
         }
     })
 
-    // 취소 모달
-    document.getElementById("cancelModal_open_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "block";
-    }
+    // // 취소 모달
+    // document.getElementById("cancelModal_open_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "block";
+    // }
+    //
+    // document.getElementById("cancelModal_close_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
+    //
+    // document.getElementById("cancelModal_check_btn").onclick = function () {
+    //     document.getElementById("cancelModal").style.display = "none";
+    // }
 
-    document.getElementById("cancelModal_close_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
-    }
 
-    document.getElementById("cancelModal_check_btn").onclick = function () {
-        document.getElementById("cancelModal").style.display = "none";
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        // $(".tit_counted").text($(".schedule_tit").val().length);
+        $(".txt_counted").text($(".input_context").val().length);
+    })
+
+    // 내용 입력시 텍스트 길이 실시간 반영
+    $(document).on('input',".input_context", (e) => {
+        console.log("input op");
+        $(".txt_counted").text(e.target.value.length);
+    })
+
+
+
+
+
+    // 제목 및 내용 미입력시 등록 불가
+    function goWrite(frm) {
+        // var title = frm.scheduleTitle.value;
+        var content = frm.postContext.value;
+
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+
+            return false;
+        }
+        frm.submit();
     }
 </script>
 </body>

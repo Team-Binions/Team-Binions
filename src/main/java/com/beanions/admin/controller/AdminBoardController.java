@@ -54,6 +54,12 @@ public class AdminBoardController {
 
         AdminPostDTO postDetail = adminService.selectPost(code);
 
+        String text = postDetail.getPostContext().replace("\r\n", "<br>");
+
+        System.out.println("text = " + text);
+
+        postDetail.setPostContext(text);
+
         System.out.println("postDetail = " + postDetail);
 
         model.addAttribute("postDetail", postDetail);
@@ -266,6 +272,13 @@ public class AdminBoardController {
         int code = Integer.parseInt(id);
 
         AdminPostDTO magazineDetail = adminService.selectPost(code);
+
+        String text = magazineDetail.getPostContext().replace("\r\n", "<br>");
+
+        System.out.println("text = " + text);
+
+        magazineDetail.setPostContext(text);
+
 
         System.out.println("magazineDetail = " + magazineDetail);
 
