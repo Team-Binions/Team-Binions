@@ -285,3 +285,22 @@ textarea {
 .uploaded_img_box ul li{width:calc(20% - 10px); margin-right: 10px; aspect-ratio: 1 / 1;}
 .uploaded_img_box ul li:nth-child(5n){margin-right: 0;}
 .uploaded_img_box ul li img {width:100%; object-fit: cover; border-radius: 12px;}
+
+/* 제목/내용 미입력 관련 팝업창 */
+.pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
+.pop_cont {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_cont.selective {top: 120%;}
+.pop_bg.active {z-index: 200; opacity: 1;}
+.pop_cont.active {z-index: 500; opacity: 1;}
+.pop_icon {display: inline-block; width: 36px; height: 36px; margin-bottom: 20px; background-color: var(--main-color); border-radius: 50%;}
+.pop_icon img {width:100%; height:100%;}
+.pop_cont p{padding-bottom: 20px; font-size: 14px; font-weight: var(--regular);}
+.pop_cont.selective p:last-of-type {font-weight: var(--semiBold);}
+.pop_txt {padding:20px;}
+.pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
+.pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
+.pop_btn_list li > a {display: block; width: 100%; height: 100%; line-height: 50px;}
+.pop_btn_list .cancel_btn a {color: var(--main-color);}
+.confirm_btn { display: block; width:100%; height:50px; border-radius:12px; background-color: var(--main-color); color: #fff; line-height:50px; transition: all 200ms ease-in-out; cursor: pointer;}
+.confirm_btn:hover {background-color: var(--point-color);}
+.fixed {overflow: hidden;}
