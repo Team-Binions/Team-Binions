@@ -357,4 +357,19 @@
 		, 0
 		)
 	</insert>
+
+	<update id="modifyMemberInfo">
+		UPDATE
+			MEMBERS
+		SET
+			MEMBER_ID = #{memberId}
+		,	MEMBER_PW = #{memberPw}
+		,	NICKNAME = #{nickname}
+		,	EMAIL = #{email}
+		,	PHONE = #{phone}
+		, 	GENDER = #{gender}
+		,	MARRIED_STATUS = #{marriedStatus}
+		,	WEDD_FILE = #{weddingFile}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>

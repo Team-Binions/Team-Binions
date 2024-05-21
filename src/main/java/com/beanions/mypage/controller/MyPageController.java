@@ -6,13 +6,12 @@ import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
 import com.beanions.mypage.service.MyPageService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -222,29 +221,20 @@ public class MyPageController {
     int totalCount = myPageDTO.getTotalCount();
     model.addAttribute("totalCount",totalCount);
 
-    String memberId = (String) session.getAttribute("memberId");
-    String memberPw = (String) session.getAttribute("memberPw");
-    String nickname = (String) session.getAttribute("nickname");
-    String email = (String) session.getAttribute("email");
-    String phone = (String) session.getAttribute("phone");
-    String gender = (String) session.getAttribute("gender");
-    String marriedStatus = (String) session.getAttribute("marriedStatus");
-    String weddingFile = (String) session.getAttribute("weddingFile");
-    String weddingVerified = (String) session.getAttribute("weddingVerified");
-    Date signupDate = (Date) session.getAttribute("signupDate");
-
-    model.addAttribute("memberId",memberId);
-    model.addAttribute("memberPw",memberPw);
-    model.addAttribute("nickname",nickname);
-    model.addAttribute("email",email);
-    model.addAttribute("phone",phone);
-    model.addAttribute("gender",gender);
-    model.addAttribute("marriedStatus",marriedStatus);
-    model.addAttribute("weddingFile",weddingFile);
-    model.addAttribute("weddingVerified",weddingVerified);
-    model.addAttribute("signupDate",signupDate);
-
     return "user/mypage/mypageMyinfo";
+  }
+
+  @PostMapping("/request-modify-member")
+  @ResponseBody
+  public ResponseEntity<String> modifyMemberInfo(@RequestBody MembersDTO member){
+
+    System.out.println("수정된 회원 정보 : " + member);
+    int result = myPageService.modifyMemberInfo(member);
+    if(result>0){
+      return ResponseEntity.ok().build();
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
   }
 
   // 마이페이지 > 파일 업로드
