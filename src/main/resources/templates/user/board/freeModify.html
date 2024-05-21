@@ -5,8 +5,8 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -24,7 +24,7 @@
         <textarea class="modify_content" th:text="${ post.postContext }" name="postContext"></textarea>
 
         <div class="detail_buttons">
-            <button class="detail_button" type="submit">수정하기</button>
+            <button class="detail_button" type="button" onclick="goWrite(this.form);">수정하기</button>
             <button class="detail_button" type="button" onclick="history.back()">이전으로</button>
         </div>
     </div>
@@ -32,45 +32,60 @@
 </article>
 </div>
 <div th:replace="user/layout/footer.html"></div>
-<script th:inline="javascript">
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-        gnbmenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.nextElementSibling.classList.add("active");
-        })
-        gnbmenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.nextElementSibling.classList.remove("active");
-        })
-    });
 
-    subMenu.forEach(submenu => {
-        submenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add("active");
-        })
-        submenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.classList.remove("active");
-        })
-    })
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>제목을 입력해주세요</p>
+    </div>
+    <span class="confirm_btn">확인</span>
+</div>
+<script th:src="@{/js/common.js}"></script>
 
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
+<script>
+    function goWrite(frm) {
+        var title = frm.postTitle.value
+        var content = frm.postContext.value;
 
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
+        if (title.trim() == ''){
+            // alert("제목을 입력해주세요");
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.schedule_tit').focus();
+            })
 
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+            return false;
+        }
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.schedule_contxt_box').focus();
+            })
+
+            return false;
+        }
+
+        if (title.trim() != '' || content.trim() != ''){
+            $(".pop_cont").find("p").text("수정되었습니다");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+            })
+
+        frm.submit();
+        }
+    }
 </script>
 </body>
 </html>
