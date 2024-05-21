@@ -87,7 +87,7 @@
             html += `
                     <tr>
                         <td>${num--}</td>
-                        <td><a href="/board/freeDetail?id=${row.postCode}">${row.postTitle}</a></td>
+                        <td><a href="/board/freedetail?id=${row.postCode}">${row.postTitle}</a></td>
                         <td>${row.member.nickname}</td>
                         <td>${row.viewCount}</td>
                         <td>${formatDate(row.postDate)}</td>
@@ -140,14 +140,14 @@
     function movePage(page) {
         const queryParams = {
             page: (page) ? page : 1,
-            recordSize: 3,
-            pageSize: 5
+            recordSize: 20,
+            pageSize: 10
         };
 
         if(name === '예신'){
-        location.href = '/board/yesinList?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        location.href = '/board/yesin?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
         } else {
-        location.href = '/board/yerangList?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        location.href = '/board/yerang?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
         }
     }
 </script>

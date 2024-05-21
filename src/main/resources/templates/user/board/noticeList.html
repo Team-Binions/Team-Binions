@@ -133,8 +133,8 @@
     function movePage(page) {
       const queryParams = {
         page: (page) ? page : 1,
-        recordSize: 3,
-        pageSize: 5
+        recordSize: 20,
+        pageSize: 10
       };
 
       location.href = '/board/notice' + '?' + new URLSearchParams(queryParams).toString();

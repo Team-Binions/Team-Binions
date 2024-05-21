@@ -77,7 +77,7 @@
                     </thead>
                     <tbody>
 <!--                    th:href="@{/board/reviewDetail(id=${review.postCode})}"-->
-                    <tr th:each="review, i : ${userMypageReivewData.posts}" th:onclick="|location.href='@{/board/reviewDetail(id=${review.postCode})}'|">
+                    <tr th:each="review, i : ${userMypageReivewData.posts}" th:onclick="|location.href='@{/board/reviewdetail(id=${review.postCode})}'|">
                         <td class="eng" th:text="${i.count}"></td>
                         <td th:text="${review.postTitle}"></td>
                         <td class="eng">0</td>

@@ -27,7 +27,7 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/reviewList")
+    @GetMapping("/review")
     public String reviewAllList(Model model, @ModelAttribute("params") final SearchDTO params) {
 
         PagingResponse<PostAndMemberDTO> PostAndMemberDTOList = reviewService.reviewAllList(params);
@@ -37,7 +37,7 @@ public class ReviewController {
         return "user/board/reviewList";
     }
 
-    @GetMapping("/reviewDetail")
+    @GetMapping("/reviewdetail")
     public String reviewDetail(@RequestParam("id") String id, Model model){
 
         PostAndMemberDTO postAndMemberDTO = reviewService.reviewDetail(id);
@@ -53,7 +53,7 @@ public class ReviewController {
         return "user/board/reviewDetail";
     }
 
-    @GetMapping("/reviewModify")
+    @GetMapping("/reviewmodify")
     public String modifyPost(@RequestParam("id") String id, Model model){
 
         PostAndMemberDTO modify = reviewService.reviewDetail(id);
@@ -70,17 +70,17 @@ public class ReviewController {
 
         rttr.addFlashAttribute("successMessage", "수정 성공");
 
-        return "redirect:/board/reviewList";
+        return "redirect:/board/review";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/reviewDelete")
     public String deletePost(RedirectAttributes rttr, PostDTO postDTO){
 
         reviewService.deleteReview(postDTO);
 
         rttr.addFlashAttribute("successMessage", "게시글 삭제 성공");
 
-        return "redirect:/board/reviewList";
+        return "redirect:/board/review";
     }
 
 }

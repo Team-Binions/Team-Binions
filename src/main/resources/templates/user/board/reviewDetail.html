@@ -56,8 +56,8 @@
                     <div class="viewCount_buttons">
                         <p class="viewCount" th:text="|조회수 ${PostAndMemberDTO.viewCount}|"></p>
                         <div class="detail_buttons">
-                            <button class="detail_button" type="button" th:if="${PostAndMemberDTO.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/reviewModify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>
-                            <form th:action="@{/board/delete(id=${PostAndMemberDTO.postCode})}" method="post">
+                            <button class="detail_button" type="button" th:if="${PostAndMemberDTO.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/reviewmodify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>
+                            <form th:action="@{/board/reviewDelete(id=${PostAndMemberDTO.postCode})}" method="post">
                                 <input type="hidden" th:value="${PostAndMemberDTO.subCategory}" name="subCategory">
                                 <input type="hidden" th:value="${PostAndMemberDTO.postCode}" name="postCode">
                                 <button class="detail_delete_button" th:if="${PostAndMemberDTO.memberCode == session.memberCode}" type="submit">삭제하기</button>

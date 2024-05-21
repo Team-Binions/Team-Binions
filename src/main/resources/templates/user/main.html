@@ -68,23 +68,23 @@
       <div class="board_inner_box">
         <div class="board_list_box">
           <ul>
-            <li><a th:href="@{/board/yesinList}">예신수다</a></li>
-            <li class="more_btn right"><a th:href="@{board/yesinList}">+ 더보기</a></li>
+            <li><a th:href="@{/board/yesin(id='예신')}">예신수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yesin(id='예신')}">+ 더보기</a></li>
           </ul>
           <ul>
             <th:block th:each="yesin, i : ${freeBoardByBridge}">
-              <li><a th:href="@{/board/freeDetail(id=${yesin.postCode})}" th:text="${yesin.postTitle}"></a></li>
+              <li><a th:href="@{/board/freedetail(id=${yesin.postCode})}" th:text="${yesin.postTitle}"></a></li>
             </th:block>
           </ul>
         </div>
         <div class="board_list_box">
           <ul>
-            <li><a th:href="@{/board/yerangList}">예랑수다</a></li>
-            <li class="more_btn right"><a th:href="@{board/yerangList}">+ 더보기</a></li>
+            <li><a th:href="@{/board/yerang(id='예랑')}">예랑수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yerang(id='예랑')}">+ 더보기</a></li>
           </ul>
           <ul>
             <th:block th:each="yerang, i : ${freeBoardByGroom}">
-              <li><a th:href="@{/board/freeDetail(id=${yerang.postCode})}" th:text="${yerang.postTitle}"></a></li>
+              <li><a th:href="@{/board/freedetail(id=${yerang.postCode})}" th:text="${yerang.postTitle}"></a></li>
             </th:block>
           </ul>
         </div>
@@ -101,7 +101,7 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           <div class="swiper-slide" th:each="review : ${reviewBoard}">
-            <a th:href="@{/board/reviewDetail(id=${review.postCode})}" class="slide_box">
+            <a th:href="@{/board/reviewdetail(id=${review.postCode})}" class="slide_box">
               <div class="review_thumbnail">
                 <img th:src="@{/images/main/KakaoTalk_20230405_053202431_12.jpg}" alt="review image">
               </div>
@@ -129,7 +129,7 @@
     <!-- 예피셜&공지사항 -->
     <div class="magazine_notice_cont">
       <div class="magazine_cont">
-        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a th:href="@{/board/magazineList}">+ 더보기</a></span></div>
+        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a th:href="@{/board/magazine}">+ 더보기</a></span></div>
         <div class="magazine_box">
           <a th:href="@{/board/magazinedetail(id=${magazineBoard.postCode})}" class="magazine_inner_box">
             <div class="magazine_img">
@@ -145,7 +145,7 @@
         </div>
       </div>
       <div class="notice_cont">
-        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a th:href="@{/board/noticeList.html}">+ 더보기</a></span></div>
+        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a th:href="@{/board/notice}">+ 더보기</a></span></div>
         <div class="notice_box">
           <ul>
             <th:block th:each="notice : ${noticeBoard}">
@@ -174,7 +174,7 @@
             <p>문의사항 있으세요?</p>
             <input type="text" id="inquiryEmail" placeholder="이메일 주소를 입력해주세요">
             <textarea id="inquiryContext" placeholder="문의 내용을 입력해주세요"></textarea>
-            <button id="inquiry">문의하기</button>
+            <button id="inquiry" style="cursor: pointer;">문의하기</button>
           </div>
           <div class="contact_img">
             <img th:src="@{/images/main/contactIllust.svg}" alt="contact image">

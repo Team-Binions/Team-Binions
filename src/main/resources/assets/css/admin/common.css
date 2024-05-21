@@ -395,6 +395,7 @@ th {
     right: 340px;
     /*background-color: #C9C9C9;*/
     display: block;
+    cursor: pointer;
 }
 
 .regist_search_box button {
