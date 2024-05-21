@@ -6,8 +6,11 @@
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
   <link rel="stylesheet" th:href="@{/css/user/writeBoard.css}">
+  <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <title>MYPAGE</title>
+  <title>예신예랑</title>
   <style>
       /* 이미지 미리보기 */
       .preview_box {width: 100%; padding: 20px; border-radius: 12px; background-color: #F4F4F9;}
@@ -93,268 +96,17 @@
 <div th:replace="user/layout/footer.html"></div>
 <!-- //FOOTER -->
 
+<!-- 팝업창 -->
+<div class="pop_bg"></div>
+<div class="pop_cont">
+  <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+  <div class="pop_txt">
+    <p>게시글 등록이 완료되었습니다.</p>
+  </div>
+  <span class="confirm_btn">확인</span>
+</div>
 
 <script th:src="@{/js/common.js}"></script>
-<script>
-    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
-    $(window).on('load', () => {
-        $(".tit_counted").text($(".schedule_tit").val().length);
-    })
-
-    // 수정페이지에서 원시 코드 보존을 통한 코드 깨짐 방지
-    // window.onload = function () {
-    //     $('#summernote').summernote('code', document.getElementById('temp').innerHTML)
-    // }
-
-    //스케쥴 제목 입력시 텍스트 길이 실시간 반영
-    $(".schedule_tit").on('input', (e) => {
-        $(".tit_counted").text(e.target.value.length);
-    })
-
-    //스케쥴 내용 입력시 텍스트 길이 실시간 반영
-    $(".schedule_contxt_box").on('input', (e) => {
-        $(".txt_counted").text(e.target.value.length);
-    })
-
-    $(document).ready(function () {
-        const mainCategorySelect = $('#mainCategory');
-        const subCategorySelect = $('#subCategory');
-
-        subCategorySelect.prop('disabled', true);
-
-        mainCategorySelect.change(function () {
-
-            subCategorySelect.empty();
-
-            if (mainCategorySelect.val() === "") {
-                subCategorySelect.prop('disabled', true);
-            } else {
-                subCategorySelect.prop('disabled', false)
-            }
-
-
-            switch (mainCategorySelect.val()) {
-                case '자유':
-                    addSubCategoryOptions(['예신', '예랑']);
-                    break;
-                case '리뷰':
-                    addSubCategoryOptions(['웨딩', '스드메', '기타']);
-                    break;
-                default :
-                    addSubCategoryOptions(['']);
-                    break;
-            }
-        })
-
-        function addSubCategoryOptions(options) {
-            $.each(options, function (index, option) {
-                subCategorySelect.append($('<option>', {
-                    value: option,
-                    text: option
-                }));
-            });
-        }
-
-        // 파일 선택 이벤트
-        $('input[name=uploadFiles]').on('change', function (e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-
-            // 업로드 된 파일 유효성 체크
-            if (filesArr.length > 5) {
-                alert("이미지는 최대 5개까지 업로드 가능합니다.");
-                // $('input[name=uploadFiles]').val();
-                return;
-            }
-
-        });
-
-
-        // 파일 업로드 시 미리보기 추가
-        const previewTag = (imgSrc) => `<li class="preview_img">
-                  <img src="${imgSrc}" alt="preview image">
-                  <span class="remove_preview_btn">×</span>
-                </li>`;
-
-        // 선택 파일 삭제
-        $(document).on('click', ".remove_preview_btn", (e) => {
-            const input = $('input[name=uploadFiles]');
-            console.log(input);
-            const files = input[0].files;
-            const index = $(e.target).closest("li").index();
-            console.log(files);
-            console.log("current delete index : " + index);
-            console.log(files[index]);
-            //files.delete(index);
-
-            const dataTransfer = new DataTransfer();
-            let fileArray = Array.from(files)
-            fileArray.splice(index, 1);
-            fileArray.forEach(file => {
-                dataTransfer.items.add(file);
-            });//남은 배열을 dataTransfer로 처리(Array -> FileList)
-            input[0].files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
-            if ($('.preview_list .preview_img').length == 5) { //마지막 미리보기 이미지 삭제시
-                $(".upload_img_btn").removeClass("inactive"); // 업로드 버튼 활성화
-            }
-            $(e.target).closest("li").remove();
-            $(".count_preview").text($('.preview_list .preview_img').length);
-        })
-
-
-        // 업로드 파일 경로 읽어오기
-        function readURL(input, index) {
-            if (input.files && input.files[0]) {
-                //const inputFile = $("input[name='uploadFiles']");
-                const files = input.files;
-                console.log("files : " + files);
-                console.log("열기한 파일 개수 : " + files.length);
-                $(".count_preview").text(files.length > 5 ? 5 : files.length);
-
-                for (let i = 0; i < (files.length > 5 ? 5 : files.length); i++) {
-                    const reader = new FileReader();
-                    console.log(files[i]);
-                    reader.readAsDataURL(files[i]);
-
-                    // imgTmp.fileName = reader.readAsDataURL(files[i].name);
-                    // imgTemp[i].add(imgTmp);
-
-                    reader.onload = function (e) {
-                        console.log("files[" + i + "] e.target : " + e.target);
-                        $('.preview_list').prepend(previewTag(e.target.result));
-                        if (i === 4) {
-                            $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
-                        }
-                    }
-
-                }
-
-            }
-        }
-
-        let imgTemp = [];
-        $(".file_upload_input").change(function () {
-
-          const index = $(".file_upload_input").index(this); // index를 올바르게 가져오기 위해 'this' 사용
-          console.log('파일업로드시 index : ' + index);
-          readURL(this, index);
-
-          // 선택된 파일들을 가져온다
-          const files = this.files;
-
-          // formData 객체에 모든 파일을 추가
-          var formData = new FormData();
-          Array.from(files).forEach((file, index) => {
-              if(index == 5){
-                  return false;
-              } else {
-                formData.append("file", file);
-              }
-          });
-          console.log(formData);
-
-          // Fetch를 이용하여 요청을 보낸다.
-          fetch("/user/uploadAjax", {
-            method: "POST",
-            body: formData
-          })
-                  .then(response => {
-                    if (!response.ok) {
-                      throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                  })
-                  .then(data => {
-
-                    if(data == null) {
-                      return alert("실패");
-                    }
-
-                    // 서버에서 반환한 데이터가 여러 파일에 대한 것일 경우 처리
-                    Array.from(data).forEach(fileData => {
-                      const imgTmp = {};
-                      imgTmp["fileName"] = fileData; // "fileName"을 키로 사용하여 data를 객체에 추가
-                      imgTemp.push(imgTmp); // imgTmp 객체를 imgTemp 배열에 추가
-                    });
-
-                    console.log("imgTemp:", imgTemp);
-                  })
-                  .catch(error => {
-                    // 오류가 발생했을 때 처리한다.
-                    console.error("Error:", error);
-                  });
-
-        });
-
-      $("#registPost").click(function () {
-        const memberCodeString = $("#memberCode").val();
-        const memberCode = parseInt(memberCodeString, 10);
-        if (isNaN(memberCode)) {
-          console.error("memberCode is not a valid integer.");
-          return; // 유효하지 않은 경우 작업 중단
-        }
-        const postTitle = $("#postTitle").val();
-        const postContext = $("#postContext").val();
-        const mainCategory = $("#mainCategory").val();
-        const subCategory = $("#subCategory").val();
-
-        const postInfo = {
-          memberCode: memberCode,
-          postTitle: postTitle,
-          postContext: postContext,
-          mainCategory: mainCategory,
-          subCategory: subCategory
-        };
-
-        fetch("/user/registPost", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(postInfo)
-        })
-                .then(res => {
-                  if (!res.ok) {
-                    throw new Error("Network response was not ok");
-                  }
-                  return res.json();
-                })
-                .then(data => {
-                  if (data == null) {
-                    alert("글 쓰기 등록 실패");
-                    return window.location.href = "/";
-                  }
-
-                  // imgTemp 배열의 각 객체에 postCode 추가
-                  imgTemp = imgTemp.map(img => {
-                    return {
-                      ...img,
-                      postCode: data.postCode
-                    };
-                  });
-
-                  console.log("imgTemp:", imgTemp);
-
-                  return fetch("/user/registerFiles", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(imgTemp)
-                  });
-                })
-                .then(res => {
-                  if (!res.ok) {
-                    throw new Error("Network response was not ok");
-                  }
-                  alert("게시글 등록 성공!")
-                  return window.location.href="/main";
-                })
-                .catch(error => {
-                  return console.error("Error:", error);
-                });
-      });
-    })
-</script>
+<script th:src="@{/js/fileUpload.js}"></script>
 </body>
 </html>
