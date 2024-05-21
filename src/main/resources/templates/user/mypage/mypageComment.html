@@ -71,12 +71,8 @@
                             <th>작성일자</th>
                         </tr>
                         </thead>
-<!--                         th:onclick="|location.href='@{/user/board/yesinDetail(id=${free.postCode})}'|"-->
-<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}">-->
-<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category='/board/'+${userMypageCommentCategory.get(i.count - 1).posts.get(0).subCategory} + 'Detail?id='+${comment.postCode}" th:value="${category}" th:onclick="clickRoute([[${category}]]);">-->
                         <tbody>
-<!--                        <tr th:each="comment, i : ${userMypageCommentData.comments}" th:with="category='/board/'+${userMypageCommentCategory.posts.get(0).subCategory} + 'Detail?id='+${comment.postCode}" th:value="${category}" th:onclick="clickRoute([[${category}]]);">-->
-                        <tr th:each="comment, i : ${userMypageCommentData.comments}">
+                        <tr th:each="comment, i : ${userMypageCommentData.comments}" th:attr="onclick='redirectToDetailPage(\'' + ${userMypageCommentCategory.get(i.count - 1).posts.get(0).mainCategory} + '\', \'' + ${comment.postCode} + '\')'">
                             <td class="eng" th:text="${i.count}"></td>
                             <td th:text="${comment.commentContext}"></td>
                             <td class="eng" th:text="${#dates.format(comment.commentDate, 'yyyy.MM.dd')}"></td>
@@ -116,10 +112,19 @@
         })
     }
 
-    // onclick 함수
-    function clickRoute(category){
-        location.href = category;
-        //location.href = "@{/user/board/"+category+"Detail(id="+postCode+")}";
+    function redirectToDetailPage(mainCategory, postCode) {
+        var url;
+        switch (mainCategory) {
+            case '리뷰':
+                url = '/board/reviewDetail?id=' + postCode;
+                break;
+            case '자유':
+                url = '/board/freeDetail?id=' + postCode;
+                break;
+        }
+        if (url) {
+            location.href = url;
+        }
     }
 </script>
 </body>
