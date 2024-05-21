@@ -9,10 +9,9 @@ services:
     depends_on:
       - mysql
     environment:
-          MYSQL_ROOT_PASSWORD: 1234
-          MYSQL_DATABASE: beanionsdb
-          MYSQL_USER: ohgiraffers
-          MYSQL_PASSWORD: ohgiraffers
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/beanionsdb
+        SPRING_DATASOURCE_USERNAME: ohgiraffers
+        SPRING_DATASOURCE_PASSWORD: ohgiraffers
 
   mysql:
     image: mysql:8.0
