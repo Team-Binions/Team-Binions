@@ -41,7 +41,7 @@ public interface AdminMapper {
 
     void noticeUpdate(PostDTO post);
 
-    List<AdminPostDTO> selectAllMagazine();
+    List<AdminPostDTO> selectAllMagazine(SearchDTO params);
 
     void magazineRegist(PostDTO newMagazine);
   
@@ -54,4 +54,6 @@ public interface AdminMapper {
     int count(SearchDTO params);
 
     int countNotice(SearchDTO params);
+
+    int countMagazine(SearchDTO params);
 }

@@ -237,14 +237,21 @@ public class AdminBoardController {
     }
 
     @GetMapping("/magazine")
-    public String selectAllMagazine(Model model) {
+    public String selectAllMagazine(@ModelAttribute("params") final SearchDTO params, Model model) {
 
-        List<AdminPostDTO> magazineList = adminService.selectAllMagazine();
+        String Keyword = params.getKeyword();
+        System.out.println("keyword = " + Keyword);
+
+        List<AdminPostDTO> magazineList = adminService.selectAllMagazine(params);
+
+        int count = adminService.countMagazine(params);
 
         for (AdminPostDTO magazine : magazineList) {
             System.out.println("magazine = " + magazine);
         }
 
+        model.addAttribute("count", count);
+        model.addAttribute("keyword", Keyword);
         model.addAttribute("magazineList", magazineList);
 
         return "/admin/magazine/list";

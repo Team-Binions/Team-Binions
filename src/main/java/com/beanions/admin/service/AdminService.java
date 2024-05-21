@@ -68,9 +68,9 @@ public class AdminService {
         adminMapper.noticeUpdate(post);
     }
 
-    public List<AdminPostDTO> selectAllMagazine() {
+    public List<AdminPostDTO> selectAllMagazine(final SearchDTO params) {
 
-        return adminMapper.selectAllMagazine();
+        return adminMapper.selectAllMagazine(params);
     }
 
     @Transactional
@@ -102,5 +102,10 @@ public class AdminService {
     public int countNotice(SearchDTO params) {
 
         return adminMapper.countNotice(params);
+    }
+
+    public int countMagazine(SearchDTO params) {
+
+        return adminMapper.countMagazine(params);
     }
 }

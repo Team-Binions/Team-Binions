@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beanions</title>
+    <title>YERANGYESIN-ADMIN</title>
     <link rel="stylesheet" th:href="@{../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../css/admin/common.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <script>
         const successMessage = `[[${ successMessage }]]`;
         if (successMessage) {
@@ -21,9 +24,9 @@
     <div class="regist_search_box">
         <button onclick="location.href='/admin/magazine/regist'">등록</button>
     </div>
-    <form class="search_form">
+    <form class="search_form" th:action="@{/admin/notice}" method="get">
         <div class="search_box">
-            <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+            <input type="search" class="search_input" th:value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
             <span class="clear_btn"></span>
             <span class="search_btn"></span>
         </div>
