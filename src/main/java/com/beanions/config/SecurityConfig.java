@@ -18,11 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
 @EnableWebSecurity
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 public class SecurityConfig {
 
     @Autowired
@@ -113,8 +112,8 @@ public class SecurityConfig {
         }).sessionManagement( session -> { session
             .maximumSessions(1)
             .maxSessionsPreventsLogin(false)
-            .expiredUrl("/")
-            .sessionRegistry(sessionRegistry());
+            .expiredUrl("/");
+//            .sessionRegistry(sessionRegistry());
 
             //CSRF 보안 공격 방어. 403에러 원인 범인1
         }).csrf( csrf -> csrf.disable());

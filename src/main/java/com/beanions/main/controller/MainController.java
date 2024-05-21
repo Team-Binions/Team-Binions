@@ -24,7 +24,7 @@ import java.util.List;
 public class MainController{
     private final MainService mainService;
     private final MailService mailService;
-    private final VisitorService visitorService;
+//    private final VisitorService visitorService;
 
     @GetMapping(value = {"/","/main"})
     public String main(Authentication authentication, Model model, HttpServletRequest request){
@@ -47,10 +47,10 @@ public class MainController{
             }
         }
 
-        visitorService.incrementVisitorCount(request);
-        System.out.println("===============================================");
-        System.out.println("방문자 수 : " + visitorService.getVisitorCount());
-        System.out.println("===============================================");
+//        visitorService.incrementVisitorCount(request);
+//        System.out.println("===============================================");
+//        System.out.println("방문자 수 : " + visitorService.getVisitorCount());
+//        System.out.println("===============================================");
 
         //예수다
         List<PostDTO> freeBoardByBride = mainService.selectFreeBoardByBride();

@@ -117,17 +117,17 @@
     <!-- 계정 정보 조회 -->
 
     <!-- 방문자 수 -->
-    <insert id="insertVisitorCount">
-        INSERT INTO VISITOR_COUNT
-        (
-        COUNT,
-        TIMESTAMP
-        )
-        VALUES
-        (
-        #{count},
-        NOW()
-        )
-    </insert>
+<!--    <insert id="insertVisitorCount">-->
+<!--        INSERT INTO VISITOR_COUNT-->
+<!--        (-->
+<!--        COUNT,-->
+<!--        TIMESTAMP-->
+<!--        )-->
+<!--        VALUES-->
+<!--        (-->
+<!--        #{count},-->
+<!--        NOW()-->
+<!--        )-->
+<!--    </insert>-->
 
 </mapper>

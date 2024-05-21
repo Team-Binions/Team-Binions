@@ -8,12 +8,12 @@ server:
 ## driver config
 
 spring:
-    session:
-        store-type: redis
-    data:
-        redis:
-            host: redis:latest
-            port: 6379
+#    session:
+#        store-type: redis
+#    data:
+#        redis:
+#            host: redis:latest
+#            port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/beanionsdb

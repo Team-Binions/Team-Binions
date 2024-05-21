@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 @AllArgsConstructor
 public class VisitorInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private final VisitorService visitorService;
+//    @Autowired
+//    private final VisitorService visitorService;
 
 //    @Override
 //    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -33,12 +33,12 @@ public class VisitorInterceptor implements HandlerInterceptor {
 //        System.out.println("VisitorCount : " + visitorCount);
 //    }
     //    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
-        visitorService.incrementVisitorCount(request);
-
-        int visitorCount = visitorService.getVisitorCount();
-        System.out.println("VisitorCount : " + visitorCount);
-
-    }
+//    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//
+//        visitorService.incrementVisitorCount(request);
+//
+//        int visitorCount = visitorService.getVisitorCount();
+//        System.out.println("VisitorCount : " + visitorCount);
+//
+//    }
 }

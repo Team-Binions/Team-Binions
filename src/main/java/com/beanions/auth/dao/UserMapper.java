@@ -23,6 +23,6 @@ public interface UserMapper {
 
     int checkDupEmail(String email);
 
-    void insertVisitorCount(Integer visitorCount);
+//    void insertVisitorCount(Integer visitorCount);
 }
 
