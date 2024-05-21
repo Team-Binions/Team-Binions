@@ -58,10 +58,12 @@
         </div>
       </div>
       <input type="hidden" th:value="${memberCode}" id="memberCode">
-      <div>
+      <div class="schedule_txt_box">
         <!--            <textarea -->
         <!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->
-        <textarea id="postContext" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="board_txt_box"></textarea>
+<!--        board_txt_box-->
+        <textarea id="postContext" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="schedule_contxt_box" maxlength="1000"></textarea>
+        <span class="txt_count eng"><span class="txt_counted">0</span>/1000</span>
       </div>
 <!--      <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>-->
       <div class="preview_box">
@@ -107,6 +109,11 @@
     //스케쥴 제목 입력시 텍스트 길이 실시간 반영
     $(".schedule_tit").on('input', (e) => {
         $(".tit_counted").text(e.target.value.length);
+    })
+
+    //스케쥴 내용 입력시 텍스트 길이 실시간 반영
+    $(".schedule_contxt_box").on('input', (e) => {
+        $(".txt_counted").text(e.target.value.length);
     })
 
     $(document).ready(function () {
@@ -237,8 +244,12 @@
 
           // formData 객체에 모든 파일을 추가
           var formData = new FormData();
-          Array.from(files).forEach(file => {
-            formData.append("file", file);
+          Array.from(files).forEach((file, index) => {
+              if(index == 5){
+                  return false;
+              } else {
+                formData.append("file", file);
+              }
           });
           console.log(formData);
 

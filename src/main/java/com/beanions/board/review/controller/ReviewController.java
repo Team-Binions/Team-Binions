@@ -42,6 +42,12 @@ public class ReviewController {
 
         List<PostAndMemberDTO> postAndMemberDTO = reviewService.reviewDetail(id);
 
+        String text = postAndMemberDTO.get(0).getPostContext().replace("\r\n", "<br>");
+
+        System.out.println("review text = " + text);
+
+        postAndMemberDTO.get(0).setPostContext(text);
+
         model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
 
         return "user/board/reviewDetail";
