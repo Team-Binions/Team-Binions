@@ -219,7 +219,6 @@ public class AdminBoardController {
 
         adminService.noticeUpdate(post);
 
-
         rttr.addFlashAttribute("successMessage", "공지사항 수정 성공!");
 
         return "redirect:/admin/notice";
