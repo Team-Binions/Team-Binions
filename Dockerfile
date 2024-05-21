@@ -9,12 +9,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 
-# Redis 설치
-RUN apt-get update && \
-    apt-get install -y redis-server && \
-    rm -rf /var/lib/apt/lists/*
-
-
 # MySQL 사용자 디렉토리 생성 및 권한 설정
 RUN mkdir -p /home/mysql && \
     chown mysql:mysql /home/mysql
