@@ -26,7 +26,7 @@
     <p class="member_text" th:text="${ magazine.member.nickname }"></p>
     <p th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }" class="number"></p>
     <hr class="up_line_context">
-    <p class="context_text"  th:text="${ magazine.postContext }"></p>
+    <p class="context_text"  th:utext="${ magazine.postContext }"></p>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 수정 버튼 div -->
     <div class="button_box">

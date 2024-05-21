@@ -215,7 +215,7 @@
             )
 
         </if>
-        ORDER BY A.POST_DATE DESC
+        ORDER BY A.POST_DATE DESC, POST_CODE DESC;
     </select>
 
     <insert id="noticeRegist" parameterType="com.beanions.common.dto.PostDTO">

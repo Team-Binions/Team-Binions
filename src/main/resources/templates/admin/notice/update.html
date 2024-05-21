@@ -28,7 +28,7 @@
             </ul>
         </div>
         <input class="input_title" type="text" name="postTitle" th:value="${ notice.postTitle }">
-        <textarea class="input_context" th:text="${ notice.postContext }" name="postContext"></textarea>
+        <textarea class="input_context" th:utext="${ notice.postContext }" name="postContext"></textarea>
     </div>
     <div class="button_box" id="regist_button_box">
         <button class="cancel_btn" type="button" onclick="history.back()">취소</button>

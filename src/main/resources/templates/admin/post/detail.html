@@ -34,7 +34,7 @@
     <p class="member_text" th:text="${ post.member.nickname }"></p>
     <p th:text="${ #dates.format(post.postDate, 'yyyy-MM-dd')}" class="number"></p>
     <hr class="up_line_context">
-    <p class="context_text" th:text="${ post.postContext}"></p>
+    <p class="context_text" th:utext="${ post.postContext}"></p>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 변경 버튼 div -->
     <div class="button_box">
