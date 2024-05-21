@@ -262,6 +262,7 @@ article {
 }
 
 .title {
+    padding-top: 10px;
     font-size: 24px;
     font-weight: var(--bold);
 }
@@ -388,6 +389,7 @@ th {
 }
 
 .regist_search_box {
+    padding-top: 10px;
     position: absolute;
     top: 140px;
     right: 340px;

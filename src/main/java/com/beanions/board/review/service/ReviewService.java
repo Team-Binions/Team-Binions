@@ -45,18 +45,17 @@ public class ReviewService {
     }
 
 
-    public List<PostAndMemberDTO> reviewDetail(String id) {
+    public PostAndMemberDTO reviewDetail(String id) {
 
         int code = Integer.parseInt(id);
 
-        List<PostAndMemberDTO> postAndMemberDTOS = reviewMapper.reviewDetail(code);
+        PostAndMemberDTO postAndMemberDTOS = reviewMapper.reviewDetail(code);
 
-        if(postAndMemberDTOS != null && !postAndMemberDTOS.isEmpty()){
-            PostAndMemberDTO post = postAndMemberDTOS.get(0);
+        if(postAndMemberDTOS != null){
 
-            int updateViewCount = post.getViewCount() + 1;
+            int updateViewCount = postAndMemberDTOS.getViewCount() + 1;
 
-            post.setViewCount(updateViewCount);
+            postAndMemberDTOS.setViewCount(updateViewCount);
 
             reviewMapper.updateViewCount(code, updateViewCount);
         }

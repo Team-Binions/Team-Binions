@@ -40,15 +40,15 @@ public class ReviewController {
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> postAndMemberDTO = reviewService.reviewDetail(id);
+        PostAndMemberDTO postAndMemberDTO = reviewService.reviewDetail(id);
 
-        String text = postAndMemberDTO.get(0).getPostContext().replace("\r\n", "<br>");
+        String text = postAndMemberDTO.getPostContext().replace("\n", "<br>");
 
         System.out.println("review text = " + text);
 
-        postAndMemberDTO.get(0).setPostContext(text);
+        postAndMemberDTO.setPostContext(text);
 
-        model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
+        model.addAttribute("PostAndMemberDTO", postAndMemberDTO);
 
         return "user/board/reviewDetail";
     }
@@ -56,7 +56,7 @@ public class ReviewController {
     @GetMapping("/reviewModify")
     public String modifyPost(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> modify = reviewService.reviewDetail(id);
+        PostAndMemberDTO modify = reviewService.reviewDetail(id);
 
         model.addAttribute("modify", modify);
 

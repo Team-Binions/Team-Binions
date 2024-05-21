@@ -4,15 +4,16 @@ server:
     error:
         path: /error
 
-
 ## driver config
 
 spring:
+    mvc:
+        throw-exception-if-no-handler-found: true
     session:
         store-type: redis
     data:
         redis:
-            host: localhost
+            host: redis:latest
             port: 6379
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,6 +36,7 @@ spring:
     web:
         resources:
             static-locations: classpath:/assets/, file:C:\Lecture\Team-Beanions\src\main\resources\assets\images\upload\user\verify
+
     file:
         upload:
             path: src/main/resources/assets/images/upload
