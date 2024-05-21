@@ -30,10 +30,12 @@
     <p th:text="${ #dates.format(magazineDetail.postDate, 'yyyy-MM-dd') }" class="number"></p>
     <hr class="up_line_context">
     <p class="context_text"  th:utext="${ magazineDetail.postContext }"></p>
-    <div th:unless="${magazineDetail.getFile() == null || magazineDetail.getFile().isEmpty()}">
-        <div th:each="img : ${magazineDetail.getFile()}" style="display: inline-block;">
-            <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
-        </div>
+    <div class="uploaded_img_box" th:if="${magazineDetail.getFile().get(0).getFileName() != null}">
+        <ul>
+            <li th:each="img : ${magazineDetail.getFile()}">
+                <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+            </li>
+        </ul>
     </div>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 수정 버튼 div -->

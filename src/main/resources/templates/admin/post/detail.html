@@ -38,10 +38,12 @@
     <p th:text="${ #dates.format(postDetail.postDate, 'yyyy-MM-dd')}" class="number"></p>
     <hr class="up_line_context">
     <p class="context_text" th:utext="${ postDetail.postContext}"></p>
-    <div th:unless="${postDetail.getFile() == null || postDetail.getFile().isEmpty()}">
-        <div th:each="img : ${postDetail.getFile()}" style="display: inline-block;">
-            <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
-        </div>
+    <div class="uploaded_img_box" th:if="${postDetail.getFile().get(0).getFileName() != null}">
+        <ul>
+            <li th:each="img : ${postDetail.getFile()}">
+                <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+            </li>
+        </ul>
     </div>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 변경 버튼 div -->

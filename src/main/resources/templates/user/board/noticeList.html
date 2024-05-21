@@ -5,10 +5,10 @@
   <link rel="stylesheet" th:href="@{/css/default.css}">
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/board/notice.css}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  <title>공지사항</title>
+  <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+  <title>예랑예신</title>
 </head>
 <body>
 
@@ -133,8 +133,8 @@
     function movePage(page) {
       const queryParams = {
         page: (page) ? page : 1,
-        recordSize: 3,
-        pageSize: 5
+        recordSize: 20,
+        pageSize: 10
       };
 
       location.href = '/board/notice' + '?' + new URLSearchParams(queryParams).toString();

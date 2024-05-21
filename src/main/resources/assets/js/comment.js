@@ -180,13 +180,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 등록된 댓글 내용을 textarea에 입력
         $commentBox.find('.comment_context').replaceWith(`
-                <div class="comment_input_area">
+                <div class="comment_input_area" style="width:100%;">
                     <div class="schedule_tit_box"><input type="text" class="schedule_tit" id="modifyContext" maxLength="100"
-                                                         placeholder="내용을 입력하세요" value="${registeredComment}"/>
-                        <span class="tit_count eng"><span class="tit_counted">${registeredCommentLength}</span>/100</span>
+                                                         placeholder="내용을 입력하세요" value="${registeredComment}" style="padding-right:180px;"/>
+                        <span class="tit_count eng" style="right: 140px;"><span class="tit_counted">${registeredCommentLength}</span>/100</span>
                     </div>
-                    <span class="register_btn register_comment_btn" id="modify_comment_btn" data-type="modify">등록</span>
-                    <span class="register_btn register_comment_btn" id="cancel_comment_btn" data-type="cancel">취소</span>
+                    <div style="display: flex; align-content: center;">
+                        <span class="register_btn register_comment_btn" id="modify_comment_btn" data-type="modify">등록</span>
+                        <span class="register_btn register_comment_btn" id="cancel_comment_btn" data-type="cancel" style="margin-left: -125px;">취소</span>
+                    </div>                   
                 </div>
                 `);
 
