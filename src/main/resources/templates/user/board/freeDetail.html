@@ -40,7 +40,15 @@
                     </div>
                 </div>
                 <hr class="content_line">
-
+                <div class="detail_buttons">
+                    <button class="detail_button" type="button" th:if="${PostAndMemberDTO.subCategory.equals('예신')} and ${PostAndMemberDTO.member.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/yesinmodify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>
+                    <button class="detail_button" type="button" th:if="${PostAndMemberDTO.subCategory.equals('예랑')} and ${PostAndMemberDTO.member.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/yerangmodify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>
+                    <form th:action="@{/board/freedelete(id=${PostAndMemberDTO.postCode})}" method="post">
+                        <input type="hidden" th:value="${PostAndMemberDTO.subCategory}" name="subCategory">
+                        <input type="hidden" th:value="${PostAndMemberDTO.postCode}" name="postCode">
+                        <button class="detail_delete_button" th:if="${PostAndMemberDTO.member.memberCode == session.memberCode}" type="submit">삭제하기</button>
+                    </form>
+                </div>
             </div>
         </article>
 

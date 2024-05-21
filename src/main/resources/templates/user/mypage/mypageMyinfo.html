@@ -6,6 +6,7 @@
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script th:src="@{/js/mypage.js}"></script>
   <title>MYPAGE</title>
 </head>
 <body>
@@ -62,8 +63,11 @@
 <!--                <input type="password" th:value="${memberPw}">-->
               <div class="change_password_box">
                 <div class="password_box">
-                  <input type="password" placeholder="새로운 비밀번호를 입력해주세요.">
+                  <input type="password" name="password" id="password"  placeholder="새로운 비밀번호를 입력해주세요.">
                   <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
+                </div>
+                <div class="message_box">
+                  <span id="pwdTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">* 영문,숫자,특수문자 조합 8자 이상 입력해 주세요</span>
                 </div>
               </div>
             </li>
@@ -71,50 +75,97 @@
               <span class="list_item_tit">비밀번호 확인</span>
               <div class="change_password_box">
                 <div class="password_box check_again">
-                  <input type="password" placeholder="비밀번호를 다시 입력해주세요.">
+                  <input type="password" name="checkPw" id="checkPw" placeholder="비밀번호를 다시 입력해주세요.">
                   <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
+                </div>
+                <div class="message_box">
+                  <span id="pwdCheckTxt" style="font-weight:bold; font-size: 10px; color : #6667AB">* 비밀번호를 한번 더 입력해 주세요</span>
                 </div>
               </div>
             </li>
             <li>
-              <span class="list_item_tit">닉네임</span>
-              <div class="duplicate_box">
-                <input type="text" class="duplicate_input" th:value="${nickname}">
-                <span class="check_duplicate_btn">중복확인</span>
+              <span class="list_item_tit" >닉네임</span>
+              <div class="include_message">
+                <div class="duplicate_box">
+                  <input type="text" class="duplicate_input" name="nickname" id="nickname" th:value="${nickname}">
+                  <span class="check_duplicate_btn" id="checkNkname">중복확인</span>
+                </div>
+                <div class="message_box">
+                  <span id="nicknameTxt"></span>
+                </div>
               </div>
             </li>
             <li>
               <span class="list_item_tit">이메일</span>
               <div class="duplicate_box">
-                <input type="text" class="duplicate_input" th:value="${email}">
-                <span class="check_duplicate_btn">중복확인</span>
+                <input type="text" name="memail" id="memail" class="duplicate_input" th:value="${email}">
+                <span class="check_duplicate_btn" id="checkEmail">인증번호</span>
+              </div>
+            </li>
+            <li>
+              <span class="list_item_tit">이메일 인증</span>
+              <div class="duplicate_box box_100">
+                <input type="text" name="memail" id="memailconfirm" placeholder="인증번호를 입력해 주세요" class="duplicate_input">
+                <div class="message_box">
+                  <span id="memailconfirmTxt"></span>
+                </div>
               </div>
             </li>
             <li>
               <span class="list_item_tit">전화번호</span>
-              <input type="text" th:value="${phone}">
+              <div class="include_message">
+                <input type="text" id="phone" th:value="${phone}">
+                <div class="message_box">
+                  <span id="phoneTxt"></span>
+                </div>
+              </div>
             </li>
             <li>
               <span class="list_item_tit">성별</span>
+              <div class="duplicate_box checkBoxes">
+                <label class="check_box" for="male" style="padding-right: 20px">
+                  <input class="check_input" type="checkbox" name="gender" id="male" value="남성">
+                  <span class="check_mark"></span>
+                  &nbsp;&nbsp;남성
+                </label>
+                <label class="check_box" for="female">
+                  <input class="check_input" type="checkbox" name="gender" id="female" value="여성">
+                  <span class="check_mark"></span>
+                  &nbsp;&nbsp;여성
+                </label>
+              </div>
             </li>
             <li>
               <span class="list_item_tit">기혼 여부</span>
+              <div class="duplicate_box checkBoxes">
+                <label class="check_box" for="married" style="padding-right: 20px">
+                  <input class="check_input" type="checkbox" name="verifyMarried" id="married" value="기혼">
+                  <span class="check_mark"></span>
+                  &nbsp;&nbsp;기혼
+                </label>
+                <label class="check_box" for="single">
+                  <input class="check_input" type="checkbox" name="verifyMarried" id="single" value="미혼">
+                  <span class="check_mark"></span>
+                  &nbsp;&nbsp;미혼
+                </label>
+              </div>
             </li>
             <li>
               <span class="list_item_tit">웨딩홀 인증</span>
               <div class="upload_cont">
                 <div class="upload_box">
-                  <span class="upload_name_box"></span>
+<!--                   th:value="${weddingFile}"-->
+                  <span class="upload_name_box" id="fileName" th:text="${weddingFile}"></span>
                   <label class="file_upload_box">
                     <span class="upload_btn">업로드</span>
-                    <input type="file" class="file_upload_input" th:value="${weddingFile}">
+                    <input type="file" class="file_upload_input" id="verifyFile" >
                   </label>
                 </div>
                 <p class="upload_txt">업로드 최대 용량은 10MB</p>
               </div>
             </li>
           </ul>
-          <button class="modify_btn">수정하기</button>
+          <button class="modify_btn" id="join">수정하기</button>
         </form>
         <button class="leave_btn">회원탈퇴</button>
       </div>
@@ -141,42 +192,7 @@
 </div>
  <script th:src="@{/js/common.js}"></script>
 <script>
-    //비밀번호 보기 아이콘 버튼 클릭시, 비밀번호 노출/비노출
-    $(".show_pw_btn").click((e) => {
-        if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
-            $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
-            $(e.target).attr("th:src","@{/images/common/icon_show.png}"); // show 아이콘 이미지로 변경
-            $(e.target).attr("src","/images/common/icon_show.png"); // show 아이콘 이미지로 변경
-            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
-        }else{ // 비활성화된 상태라면
-            $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
-            $(e.target).attr("th:src","@{/images/common/icon_hide.png}"); // hide 아이콘 이미지로 변경
-            $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
-            $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
-        }
-    })
 
-    //회원탈퇴 버튼 클릭시, 재확인 팝업창 활성화
-    $(".leave_btn").on(('click'), () => {
-        $(".pop_bg, .pop_cont").addClass("active");
-    })
-
-    $(".pop_btn_list > li").click((e) => {
-        if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
-            console.log("회원탈퇴 확인 버튼 클릭");
-        }else{//회원탈퇴 취소 버튼을 클릭시
-            console.log("회원탈퇴 취소 버튼 클릭");
-        }
-
-        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
-    })
-
-    //비밀번호 변경 버튼 클릭
-    $(document).on('click','.change_pw_btn', () => {
-        $(".change_password_box").addClass("active");
-        $(".change_pw_btn").addClass('inactive');
-        $(".change_password_check").addClass('active');
-    })
 </script>
 </body>
 </html>

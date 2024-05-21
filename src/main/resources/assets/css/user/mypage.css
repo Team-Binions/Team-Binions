@@ -79,7 +79,7 @@ input::-webkit-search-results-decoration {
 
 /* comment */
 .comment_contxt_box {display: flex;}
-.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.check_box {display: flex; justify-content: center; align-content: center; position: relative; cursor: pointer;font-size: 20px; line-height: 1; -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
 .check_box > input.check_input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
 .check_mark {display: block; width: 20px; height: 20px; background: center / contain no-repeat url("../../images/common/icon_checkbox_boder.svg");}
 .check_box > input.check_input:checked + .check_mark {background: center / contain no-repeat url("../../images/common/icon_group_checkbox_verryperi.svg");}
@@ -159,7 +159,7 @@ input::-webkit-search-results-decoration {
 .upload_box {display: flex; justify-content: space-between; align-items: center; width: 100%;}
 .file_upload_box {display: flex; justify-content: center; align-items: center;}
 .file_upload_box .file_upload_input {width: 0; padding:0; visibility: hidden;}
-.upload_name_box {display: block; width: calc(100% - 120px); height: 48px; border: 1px solid var(--input-color); border-radius: 12px;}
+.upload_name_box {display: block; width: calc(100% - 120px); height: 48px; padding:0 10px; line-height: 48px; border: 1px solid var(--input-color); border-radius: 12px;}
 .upload_btn {width: 100px; height: 48px; border-radius: 12px; background-color: var(--main-color); color: #fff; font-size: 16px; font-weight: var(--medium); text-align: center; line-height: 48px; cursor: pointer; transition: background-color 200ms ease-in-out;}
 .upload_btn:hover {background-color: var(--point-color);}
 .upload_txt {padding-left: 5px; padding-top: 5px; font-size: 8px; font-weight: var(--regular);}
@@ -197,5 +197,12 @@ input::-webkit-search-results-decoration {
 .schedule_detail_tit { width: calc(100% - 100px);}
 /*.calendar_box {width: 130px; display: flex; align-items: center;}*/
 /*.calendar_box > img {width: 24px; height: 24px;}*/
+
+#phone {width: 100%;}
+.duplicate_box {justify-content: space-between;}
+.duplicate_box.checkBoxes {justify-content: flex-start;}
+.myinfo_list li .duplicate_box.box_100 input {width: 100%;}
+.myinfo_list li .include_message {width:calc(100% - 120px); }
+.myinfo_list li .include_message .duplicate_box { width: 100%;}
 
 

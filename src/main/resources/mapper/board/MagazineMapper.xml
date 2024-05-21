@@ -27,7 +27,7 @@
     </resultMap>
 
 
-    <select id="allMagazineList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
+    <select id="allMagazineList" parameterType="com.beanions.board.magazine.dto.MagazineDTO" resultMap="PostAndMemberResultMap">
         SELECT
         A.POST_CODE
         , A.POST_TITLE
@@ -45,7 +45,7 @@
         ORDER BY POST_DATE desc, POST_CODE desc
         LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
-    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+    <select id="count" parameterType="com.beanions.board.magazine.dto.MagazineDTO" resultType="int">
         SELECT
          COUNT(*)
         FROM
