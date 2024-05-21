@@ -14,6 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -226,11 +231,48 @@ public class MyPageController {
 
   @PostMapping("/request-modify-member")
   @ResponseBody
-  public ResponseEntity<String> modifyMemberInfo(@RequestBody MembersDTO member){
+  public ResponseEntity<String> modifyMemberInfo(@RequestBody MembersDTO member, HttpSession session){
 
     System.out.println("수정된 회원 정보 : " + member);
     int result = myPageService.modifyMemberInfo(member);
-    if(result>0){
+    if(result > 0){
+      if ( member.getWeddingFile() == null ) {
+        return ResponseEntity.ok().build();
+      } else {
+        // 파일 저장 로직
+        String fileName = member.getWeddingFile();
+
+        String root = "src/main/resources/assets/images/upload";
+
+        String filePath = root + "/user/signupTemp/" + fileName;
+        String copyFolderPath = root + "/user/verify/";
+
+        File file = new File(filePath);
+
+        try {
+          // 기존 경로 폴더에 있던 파일을(Temp폴더) 해당하는 폴더로 복붙한다.
+          Path sourcePath = Paths.get(filePath);
+          System.out.println("임시파일 저장 폴더 : " + sourcePath);
+          if (!Files.exists(sourcePath)) {
+            // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+          }
+
+          System.out.println(member);
+          result = myPageService.modifyMemberInfo(member);
+
+          Path destinationPath = Paths.get(copyFolderPath + file.getName());
+          Files.move(sourcePath, destinationPath);
+          System.out.println("복사된 폴더 경로 : " + destinationPath);
+
+        } catch (IOException e) {
+          System.out.println("error : " + e);
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+      }
+      session.setAttribute("weddingFile",member.getWeddingFile());
+      System.out.println("result : " + result);
+
       return ResponseEntity.ok().build();
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

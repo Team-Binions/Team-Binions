@@ -362,10 +362,7 @@
 		UPDATE
 			MEMBERS
 		SET
-			MEMBER_ID = #{memberId}
-		,	MEMBER_PW = #{memberPw}
-		,	NICKNAME = #{nickname}
-		,	EMAIL = #{email}
+			MEMBER_PW = #{memberPw}
 		,	PHONE = #{phone}
 		, 	GENDER = #{gender}
 		,	MARRIED_STATUS = #{marriedStatus}

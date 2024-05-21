@@ -6,7 +6,7 @@ const totalConfirm = {
     gdconfirmchk : true
 };
 
-var password = $("#passwordHidden");
+var password = $("#password");
 
 // 결혼인증파일
 var weddingFile;
@@ -51,7 +51,7 @@ $(document).ready(function () {
         $("#passwordHidden").prop("disabled",true);
         totalConfirm.pwdconfirmchk = false;
         totalConfirm.chkpwdconfirmchk = false;
-        password = $("#password");
+        password.val(null);
     })
 
     $("#password").keyup(function () {
@@ -211,7 +211,6 @@ $(document).ready(function () {
             })
             .then(data => {
                 // 성공적인 응답을 처리한다.
-                $("#fileName").val(data);
                 weddingFile = data;
                 console.log(data);
             })
@@ -241,15 +240,13 @@ $(document).ready(function () {
 
             console.log(weddingFile);
             if(!weddingFile){
-                weddingFile = null;
+                weddingFile = "";
             }
             console.log(weddingFile);
 
             var memberJoin = {
-                "memberId" : $('#memberId').val(),
-                "memberPw" : password,
-                "nickname" : $('#nickname').val(),
-                "email" : $('#memail').val(),
+                "memberId" : $("#memberId").val(),
+                "memberPw" : $("#password").val(),
                 "phone" : $("#phone").val(),
                 "gender" : $('input[type="checkbox"][name="gender"]').val(),
                 "marriedStatus" : $('input[type="checkbox"][name="verifyMarried"]').val(),
@@ -267,8 +264,8 @@ $(document).ready(function () {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
                     }
-                    return alert("회원 정보 수정이 완료되었습니다!");
-                    // return window.location.href="/mypage";
+                    alert("회원 정보 수정이 완료되었습니다!");
+                    return window.location.href="/mypage/myinfo";
                 })
                 .catch(error => {
                     // 오류가 발생했을 때 처리한다.

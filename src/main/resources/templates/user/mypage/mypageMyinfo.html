@@ -6,7 +6,6 @@
   <link rel="stylesheet" th:href="@{/css/user/common.css}">
   <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script th:src="@{/js/mypage.js}"></script>
   <title>MYPAGE</title>
 </head>
 <body>
@@ -55,15 +54,15 @@
           <ul class="myinfo_list">
             <li>
               <span class="list_item_tit">아이디</span>
-              <input type="text" class="id_input" th:value="${session.memberId}" readonly>
+              <input type="text" class="id_input" id="memberId" th:value="${session.memberId}" readonly>
             </li>
             <li>
               <span class="list_item_tit">비밀번호</span>
               <span class="change_pw_btn">비밀번호 변경</span>
               <div class="change_password_box">
                 <div class="password_box">
-                  <input type="hidden" id="passwordHidden" th:value="${session.memberPw}">
-                  <input type="password" name="password" id="password"  placeholder="새로운 비밀번호를 입력해주세요.">
+<!--                  <input type="hidden" id="passwordHidden" th:value="${session.memberPw}">-->
+                  <input type="password" name="password" id="password" th:value="${session.memberPw}" placeholder="새로운 비밀번호를 입력해주세요.">
                   <span class="show_pw_btn"><img th:src="@{/images/common/icon_show.png}" alt="show icon image"></span>
                 </div>
                 <div class="message_box">
@@ -181,9 +180,21 @@
     <li class="confirm_btn">취소</li>
   </ul>
 </div>
- <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/mypage.js}"></script>
 <script>
-
+  $(".show_pw_btn").click((e) => {
+    console.log("target : " + e.target);
+    if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
+      $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
+      $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
+      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
+    }else{ // 비활성화된 상태라면
+      $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
+      $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
+      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
+    }
+  })
 </script>
 </body>
 </html>
