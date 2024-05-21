@@ -18,7 +18,7 @@ public interface FreeBoardMapper {
 
     int count(String id, SearchDTO params);
 
-    List<PostAndMemberDTO> freeDetail(int id);
+    PostAndMemberDTO freeDetail(int id);
 
     void freeRegist(PostDTO postDTO);
 

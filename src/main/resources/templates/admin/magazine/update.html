@@ -12,7 +12,7 @@
 <div class="sidebar_content">
     <div th:replace="admin/sidebar.html"></div>
     <article class="all-content">
-<h1>매거진 수정</h1>
+<p class="title">매거진 수정</p>
 <form action="/admin/magazine/update" method="post">
     <div th:each="magazine : ${ magazineDetail }">
         <input type="hidden" th:value="${ magazine.postCode }" name="postCode">

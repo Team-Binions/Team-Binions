@@ -11,7 +11,7 @@ public interface NoticeMapper {
 
     List<PostAndMemberDTO> allNoticeList(SearchDTO params);
 
-    List<PostAndMemberDTO> noticeSelectOneDetail(int id);
+    PostAndMemberDTO noticeSelectOneDetail(int id);
 
     int count(SearchDTO params);
 }

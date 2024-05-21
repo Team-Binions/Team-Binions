@@ -14,7 +14,7 @@ public interface ReviewMapper {
     List<PostAndMemberDTO> reviewAllList(SearchDTO params);
     int count(SearchDTO params);
 
-    List<PostAndMemberDTO> reviewDetail(int id);
+    PostAndMemberDTO reviewDetail(int id);
 
     void reviewRegist(PostDTO postDTO);
 

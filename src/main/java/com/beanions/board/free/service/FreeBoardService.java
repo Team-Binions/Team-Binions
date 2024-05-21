@@ -47,18 +47,17 @@ public class FreeBoardService {
         return new PagingResponse<>(list, pagination);
     }
 
-    public List<PostAndMemberDTO> freeDetail(String id) {
+    public PostAndMemberDTO freeDetail(String id) {
 
         int code = Integer.parseInt(id);
 
-        List<PostAndMemberDTO> postAndMemberDTO = freeBoardMapper.freeDetail(code);
+        PostAndMemberDTO postAndMemberDTO = freeBoardMapper.freeDetail(code);
 
-        if(postAndMemberDTO != null && !postAndMemberDTO.isEmpty()){
-            PostAndMemberDTO post = postAndMemberDTO.get(0);
+        if(postAndMemberDTO != null){
 
-            int updateViewCount = post.getViewCount() + 1;
+            int updateViewCount = postAndMemberDTO.getViewCount() + 1;
 
-            post.setViewCount(updateViewCount);
+            postAndMemberDTO.setViewCount(updateViewCount);
 
             freeBoardMapper.updateViewCount(code, updateViewCount);
         }

@@ -28,7 +28,7 @@
           <p class="notice_Date" th:text="${#dates.format(notice.postDate, 'yyyy.MM.dd')}"></p>
         </div>
         <hr class="notice_content_line">
-        <p class="notice_content" th:text="${notice.postContext}"></p>
+        <p class="notice_content" th:utext="${notice.postContext}"></p>
         <div th:unless="${notice.getFile() == null || notice.getFile().isEmpty()}">
           <div th:each="img : ${notice.getFile()}" style="display: inline-block">
             <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}">

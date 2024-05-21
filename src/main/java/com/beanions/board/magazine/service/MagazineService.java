@@ -41,7 +41,7 @@ public class MagazineService {
     }
 
 
-    public List<PostAndMemberDTO> selectMagazine(String id) {
+    public PostAndMemberDTO selectMagazine(String id) {
 
         int code = Integer.parseInt(id);
 

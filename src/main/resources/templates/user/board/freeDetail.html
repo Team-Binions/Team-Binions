@@ -33,7 +33,7 @@
                     <p class="free_date" th:text="${ #dates.format(PostAndMemberDTO.getPostDate(), 'yyyy.MM.dd') }"></p>
                 </div>
                 <hr class="content_line">
-                <p class="free_content" th:utext="${PostAndMemberDTO.getPostContext()}"></p>
+                <p class="free_content" th:utext="${PostAndMemberDTO.getPostContext}"></p>
 <!--                th:unless="${PostAndMemberDTO.getFile() == null || PostAndMemberDTO.getFile().isEmpty()}"-->
                 <div class="uploaded_img_box" th:if="${PostAndMemberDTO.getFile() != null || !PostAndMemberDTO.getFile().isEmpty()}">
                     <ul>

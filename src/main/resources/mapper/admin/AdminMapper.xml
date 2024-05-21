@@ -41,8 +41,8 @@
         ,   WEDD_VEF
         ,   SIGNUP_DATE
         FROM MEMBERS
-        ORDER BY SIGNUP_DATE DESC
-        LIMIT 18
+        ORDER BY SIGNUP_DATE DESC, MEMBER_ID DESC
+<!--        LIMIT 18-->
     </select>
 
     <select id="selectMembers" parameterType="_int" resultMap="membersResultMap">
@@ -293,7 +293,7 @@
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE MAIN_CATEGORY = '매거진'
-        ORDER BY A.POST_DATE DESC
+        ORDER BY A.POST_DATE DESC, A.POST_CODE DESC;
     </select>
 
     <insert id="magazineRegist" parameterType="com.beanions.common.dto.PostDTO">
@@ -348,7 +348,7 @@
              , VIEW_COUNT
           FROM POST
          WHERE MAIN_CATEGORY = '공지사항'
-         ORDER BY POST_DATE DESC
+         ORDER BY POST_DATE DESC, POST_CODE DESC
          LIMIT 5
     </select>
     <select id="selectCurrentMagazine" resultMap="selectCurrenBoardResultMap">
@@ -364,7 +364,7 @@
              , VIEW_COUNT
           FROM POST
          WHERE MAIN_CATEGORY = '매거진'
-         ORDER BY POST_DATE DESC
+         ORDER BY POST_DATE DESC, POST_CODE DESC
          LIMIT 5
     </select>
 
@@ -410,11 +410,11 @@
         , (SELECT COUNT(*) POST_ALL FROM POST) C
         , (SELECT COUNT(*) POST_DAY FROM POST WHERE POST_DATE = CURDATE()) D
         , (SELECT COUNT(*) REVIEW_ALL FROM POST WHERE MAIN_CATEGORY = '리뷰') E
-        , (SELECT COUNT(*) REVIEW_DAY FROM POST WHERE MAIN_CATEGORY = '리뷰' AND POST_DATE = CURDATE()) F
+        , (SELECT COUNT(*) REVIEW_DAY FROM POST WHERE MAIN_CATEGORY = '리뷰' AND DATE(POST_DATE) = DATE(NOW())) F
         , (SELECT COUNT(*) YESIN_ALL FROM POST WHERE SUB_CATEGORY = '예신') G
-        , (SELECT COUNT(*) YESIN_DAY FROM POST WHERE SUB_CATEGORY = '예신' AND POST_DATE = CURDATE()) H
+        , (SELECT COUNT(*) YESIN_DAY FROM POST WHERE SUB_CATEGORY = '예신' AND DATE(POST_DATE) = DATE(NOW())) H
         , (SELECT COUNT(*) YERANG_ALL FROM POST WHERE SUB_CATEGORY = '예랑') I
-        , (SELECT COUNT(*) YERANG_DAY FROM POST WHERE SUB_CATEGORY = '예랑' AND POST_DATE = CURDATE()) J
+        , (SELECT COUNT(*) YERANG_DAY FROM POST WHERE SUB_CATEGORY = '예랑' AND DATE(POST_DATE) = DATE(NOW())) J
         , (SELECT COUNT(*) NOTICE_ALL FROM POST WHERE MAIN_CATEGORY = '공지사항') K
         , (SELECT COUNT(*) NOTICE_DAY FROM POST WHERE MAIN_CATEGORY = '공지사항' AND POST_DATE = CURDATE()) L
         , (SELECT COUNT(*) MAGAZINE_ALL FROM POST WHERE MAIN_CATEGORY = '매거진') M

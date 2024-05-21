@@ -29,7 +29,7 @@
                 <p class="magazine_date" th:text="${#dates.format(magazine.postDate, 'yyyy.MM.dd')}"></p>
             </div>
             <hr class="content_line">
-            <p class="context" th:text="${magazine.postContext}"></p>
+            <p class="context" th:utext="${magazine.postContext}"></p>
             <div th:unless="${magazine.getFile() == null || magazine.getFile().isEmpty()}">
                 <div th:each="img : ${magazine.getFile()}" style="display: inline-block">
                     <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}">
