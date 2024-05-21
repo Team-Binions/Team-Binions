@@ -89,7 +89,7 @@
                 html += `
                     <tr>
                         <td>${num--}</td>
-                        <td><a href="/board/reviewDetail?id=${row.postCode}">${row.postTitle}</a></td>
+                        <td><a href="/board/reviewdetail?id=${row.postCode}">${row.postTitle}</a></td>
                         <td>${row.member.nickname}</td>
                         <td>${row.viewCount}</td>
                         <td>${formatDate(row.postDate)}</td>
@@ -142,10 +142,10 @@
         function movePage(page) {
             const queryParams = {
                 page: (page) ? page : 1,
-                recordSize: 3,
-                pageSize: 5
+                recordSize: 20,
+                pageSize: 10
             };
-                location.href = '/board/reviewList' + '?' + new URLSearchParams(queryParams).toString();
+                location.href = '/board/review' + '?' + new URLSearchParams(queryParams).toString();
         }
     </script>
 <script>
