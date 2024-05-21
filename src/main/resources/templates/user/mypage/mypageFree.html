@@ -5,7 +5,10 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
-    <title>MYPAGE</title>
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <title>예랑예신</title>
 </head>
 <body>
 <div class="wrapper">
@@ -14,7 +17,8 @@
     <!-- //HEADER -->
 
     <div class="mypage_cont">
-        <p class="page_tit">마이 페이지 > 예수다</p>
+        <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}"
+                                             alt="right arrow icon">&nbsp;예수다</p>
 
         <!-- profile -->
         <div class="profile_box">
