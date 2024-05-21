@@ -26,10 +26,13 @@
   </style>
 </head>
 <body>
+
+<!-- HEADER -->
+<div th:replace="user/layout/header.html"></div>
+
 <div class="wrapper">
   <div class="board_cont">
     <p class="regist">글쓰기</p>
-    <form action="/registerFiles" method="post" enctype="multipart/form-data">
       <!--       enctype="multipart/form-data"-->
       <!-- 수정 페이지에서 원시 코드 보존을 위한 temp 부분 -->
       <div id="temp" style="display: none">${board.contents}</div>
@@ -50,15 +53,15 @@
       <!--      <input type="text" name="postTitle" placeholder="제목을 입력하세요.">-->
       <div class="regist_top_sec">
         <div class="schedule_tit_box">
-          <input type="text" name="postTitle" class="schedule_tit" maxlength="50" placeholder="제목을 입력하세요">
+          <input id="postTitle" type="text" name="postTitle" class="schedule_tit" maxlength="50" placeholder="제목을 입력하세요">
           <span class="tit_count eng"><span class="tit_counted">0</span>/50</span>
         </div>
       </div>
-      <!--      <input type="hidden" th:value="${memberCode}" name="memberCode">-->
+      <input type="hidden" th:value="${memberCode}" id="memberCode">
       <div>
         <!--            <textarea -->
         <!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->
-        <textarea id="summernote" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="board_txt_box"></textarea>
+        <textarea id="postContext" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="board_txt_box"></textarea>
       </div>
 <!--      <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>-->
       <div class="preview_box">
@@ -73,20 +76,23 @@
         </ul>
       </div>
       <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
-      <button type="button" class="uploadBtn">Upload</button>
+<!--      <button type="button" class="uploadBtn">Upload</button>-->
 
       <div class="uploadResult"></div>
       <div class="button_list">
         <button type="button" onclick="history.back()" class="cancel_btn">취소</button>
-        <button type="submit">등록</button>
+        <button id="registPost">등록</button>
         <!--         onclick="goWrite(this.form);"-->
       </div>
-    </form>
   </div>
 </div>
 
+<!-- FOOTER -->
+<div th:replace="user/layout/footer.html"></div>
+<!-- //FOOTER -->
 
- <script src="./js/common.js"></script>
+
+<script th:src="@{/js/common.js}"></script>
 <script>
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
     $(window).on('load', () => {
@@ -188,6 +194,7 @@
             $(".count_preview").text($('.preview_list .preview_img').length);
         })
 
+
         // 업로드 파일 경로 읽어오기
         function readURL(input, index) {
             if (input.files && input.files[0]) {
@@ -201,10 +208,14 @@
                     const reader = new FileReader();
                     console.log(files[i]);
                     reader.readAsDataURL(files[i]);
+
+                    // imgTmp.fileName = reader.readAsDataURL(files[i].name);
+                    // imgTemp[i].add(imgTmp);
+
                     reader.onload = function (e) {
                         console.log("files[" + i + "] e.target : " + e.target);
                         $('.preview_list').prepend(previewTag(e.target.result));
-                        if (i == 4) {
+                        if (i === 4) {
                             $(".upload_img_btn").addClass("inactive"); // 업로드 버튼 비활성화
                         }
                     }
@@ -214,70 +225,121 @@
             }
         }
 
+        let imgTemp = [];
         $(".file_upload_input").change(function () {
-            const index = $(".upload_img_btn").index();
-            console.log('파일업로드시 index : ' + index);
-            readURL(this, index);
+
+          const index = $(".file_upload_input").index(this); // index를 올바르게 가져오기 위해 'this' 사용
+          console.log('파일업로드시 index : ' + index);
+          readURL(this, index);
+
+          // 파일을 가져온다.
+          var file = event.target.files[0];
+
+          // console.log(file);
+
+          // formData객체에 파일(MultipartFile)형태 그대로 담는다
+          var formData = new FormData();
+          formData.append("file",file);
+          // console.log(formData.get("file"));
+
+          // Fetch를 이용하여 요청을 보낸다.
+          fetch("/user/uploadAjax", {
+            method: "POST",
+            body: formData
+          })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+
+                    if(data == null) {
+                      return alert("실패");
+                    }
+                    const imgTmp = {};
+                    imgTmp["fileName"] = data; // "fileName"을 키로 사용하여 data를 객체에 추가
+                    imgTemp.push(imgTmp); // imgTmp 객체를 imgTemp 배열에 추가
+
+                    console.log("imgTmp:", imgTmp);
+                    console.log("imgTemp:", imgTemp);
+                  })
+                  .catch(error => {
+                    // 오류가 발생했을 때 처리한다.
+                    console.error("Error:", error);
+                  });
+
         });
 
-        $(".uploadBtn").click(() => {// 업로드 버튼 클릭시, FormData생성 후 upload파일 배열 생성
-            const formData = new FormData();
-            // const inputFile = $("input[type='file']");
-            const inputFile = $("input[name='uploadFiles']");
+      $("#registPost").click(function () {
+        const memberCodeString = $("#memberCode").val();
+        const memberCode = parseInt(memberCodeString, 10);
+        if (isNaN(memberCode)) {
+          console.error("memberCode is not a valid integer.");
+          return; // 유효하지 않은 경우 작업 중단
+        }
+        const postTitle = $("#postTitle").val();
+        const postContext = $("#postContext").val();
+        const mainCategory = $("#mainCategory").val();
+        const subCategory = $("#subCategory").val();
 
-            const files = inputFile[0].files;
+        const postInfo = {
+          memberCode: memberCode,
+          postTitle: postTitle,
+          postContext: postContext,
+          mainCategory: mainCategory,
+          subCategory: subCategory
+        };
 
-            for (let i = 0; i < files.length; i++) {
-                console.log(files[i]);
-                formData.append("uploadFiles", files[i]);
-            }
-
-            const showUploadedImages = arr => {
-                console.log(arr);
-
-                const divArea = $(".uploadResult");
-
-                for (let i = 0; i < arr.length; i++) {
-                    // const imgUrl = "/display?fileName="+arr[i].imageURL;
-                    divArea.append("<img src='/display?fileName=" + arr[i].imageURL + "' alt='..null'>");
-                    // $('.preview_list').prepend(previewTag(imgUrl));
-                }
-            }
-
-            /*실제 업로드 부분*/
-            /*upload ajax*/
-            $.ajax({
-                url: '/uploadAjax',
-                processData: false,
-                contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
-                data: formData,
-                type: 'POST',
-                dataType: 'json',
-                success: result => {
-                    console.log(result);
-                    showUploadedImages(result);
-                },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    console.log(textStatus)
-                }
-            })
-
-            // $.ajax({
-            //     url: '/registerFiles',
-            //     processData: false,
-            //     contentType: false, // 파일 업로드를 multipart/form-data 타입을 사용하기 위함
-            //     data: formData,
-            //     type: 'POST',
-            //     dataType: 'json',
-            //     success: result => {
-            //         console.log(result);
-            //         showUploadedImages(result);
-            //     },
-            //     error: (jqXHR, textStatus, errorThrown) => {
-            //         console.log(textStatus)
-            //     }
-            // })
+        fetch("/user/registPost", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(postInfo)
         })
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return res.json();
+                })
+                .then(data => {
+                  if (data == null) {
+                    alert("글 쓰기 등록 실패");
+                    return window.location.href = "/";
+                  }
+
+                  // imgTemp 배열의 각 객체에 postCode 추가
+                  imgTemp = imgTemp.map(img => {
+                    return {
+                      ...img,
+                      postCode: data.postCode
+                    };
+                  });
+
+                  console.log("imgTemp:", imgTemp);
+
+                  return fetch("/user/registerFiles", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(imgTemp)
+                  });
+                })
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  alert("게시글 등록 성공!")
+                  return window.location.href="/main";
+                })
+                .catch(error => {
+                  return console.error("Error:", error);
+                });
+      });
     })
 </script>
 </body>

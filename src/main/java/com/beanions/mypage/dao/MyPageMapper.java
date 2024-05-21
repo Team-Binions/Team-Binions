@@ -19,7 +19,7 @@ public interface MyPageMapper {
 
   List<MyPageDTO> selectMyPageCommentData(int memberCode);
 
-  List<MyPageDTO> selectMyPageCommentPostCategory();
+  List<MyPageDTO> selectMyPageCommentPostCategory(int memberCode);
 
   void insertNewSchedule(SchedulesDTO newSchedule);
 

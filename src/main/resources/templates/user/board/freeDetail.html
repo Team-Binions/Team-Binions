@@ -34,6 +34,11 @@
                 </div>
                 <hr class="content_line">
                 <p class="free_content" th:text="${PostAndMemberDTO.getPostContext()}"></p>
+                <div th:unless="${PostAndMemberDTO.getFile() == null || PostAndMemberDTO.getFile().isEmpty()}">
+                    <div th:each="img : ${PostAndMemberDTO.getFile()}" style="display: inline-block;">
+                        <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+                    </div>
+                </div>
                 <hr class="content_line">
                 <div class="detail_buttons">
                     <button class="detail_button" type="button" th:if="${PostAndMemberDTO.subCategory.equals('예신')} and ${PostAndMemberDTO.member.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/yesinmodify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>

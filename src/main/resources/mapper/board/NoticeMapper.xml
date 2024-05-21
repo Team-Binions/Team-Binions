@@ -18,6 +18,11 @@
             <id property="memberCode" column="MEMBER_CODE"/>
             <result property="nickname" column="NICKNAME"/>
         </association>
+        <collection property="file" ofType="com.beanions.common.dto.FilesDTO">
+            <id property="fileCode" column="FILE_CODE"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="postCode" column="POST_CODE"/>
+        </collection>
     </resultMap>
 
 
@@ -69,8 +74,12 @@
         , A.SUB_CATEGORY
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE MAIN_CATEGORY = '공지사항' AND POST_CODE = #{ id }
+        LEFT JOIN FILES C ON A.POST_CODE = C.POST_CODE
+        WHERE A.POST_CODE = #{ id }
+        ORDER BY POST_DATE desc
     </select>
 </mapper>

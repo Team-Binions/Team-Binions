@@ -39,9 +39,9 @@ public class ReviewController {
     @GetMapping("/reviewDetail")
     public String reviewDetail(@RequestParam("id") String id, Model model){
 
-        List<PostAndMemberDTO> PostAndMemberDTO = reviewService.reviewDetail(id);
+        List<PostAndMemberDTO> postAndMemberDTO = reviewService.reviewDetail(id);
 
-        model.addAttribute("PostAndMemberDTO", PostAndMemberDTO);
+        model.addAttribute("PostAndMemberDTO", postAndMemberDTO.get(0));
 
         return "user/board/reviewDetail";
     }

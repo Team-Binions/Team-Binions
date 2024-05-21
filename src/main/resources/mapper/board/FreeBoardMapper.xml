@@ -19,6 +19,11 @@
             <id property="memberCode" column="member_code"/>
             <result property="nickname" column="nickname"/>
         </association>
+        <collection property="file" ofType="com.beanions.common.dto.FilesDTO">
+            <id property="fileCode" column="FILE_CODE"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="postCode" column="POST_CODE"/>
+        </collection>
     </resultMap>
 
 <!--    <resultMap id="PostAndCommentResultMap" type="com.beanions.board.common.dto.PostAndCommentDTO">-->
@@ -53,7 +58,7 @@
         <result property="postCode" column="POST_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
         <result property="commentContext" column="COMMENT_CONTEXT"/>
-        <result property="commentDate" column="TIMESTAMP"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
         <association property="member" javaType="com.beanions.common.dto.MembersDTO">
             <id property="memberCode" column="MEMBER_CODE"/>
             <result property="nickname" column="NICKNAME"/>
@@ -64,7 +69,7 @@
         <result property="postCode" column="POST_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
         <result property="commentContext" column="COMMENT_CONTEXT"/>
-        <result property="commentDate" column="TIMESTAMP"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
     </resultMap>
     
     <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
@@ -118,9 +123,12 @@
         , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
-        WHERE POST_CODE = #{ id }
+        LEFT JOIN FILES C ON A.POST_CODE = C.POST_CODE
+        WHERE A.POST_CODE = #{ id }
     </select>
 
     <!-- 댓글 조회 -->
@@ -130,12 +138,12 @@
         , A.MEMBER_CODE
         , A.POST_CODE
         , A.COMMENT_CONTEXT
-        , A.TIMESTAMP
+        , A.COMMENT_DATE
         , B.NICKNAME
         FROM COMMENTS A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE A.POST_CODE = #{ code }
-        ORDER BY TIMESTAMP DESC
+        ORDER BY COMMENT_DATE DESC
     </select>
 
     <select id="selectAllCommentsAsc" resultMap="CommentResultMap">
@@ -144,12 +152,12 @@
         , A.MEMBER_CODE
         , A.POST_CODE
         , A.COMMENT_CONTEXT
-        , A.TIMESTAMP
+        , A.COMMENT_DATE
         , B.NICKNAME
         FROM COMMENTS A
         LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
         WHERE A.POST_CODE = #{ code }
-        ORDER BY TIMESTAMP ASC
+        ORDER BY COMMENT_DATE ASC
     </select>
 
     <!-- 댓글 등록 -->
@@ -159,7 +167,7 @@
                     POST_CODE,
                     MEMBER_CODE,
                     COMMENT_CONTEXT,
-                    TIMESTAMP
+                    COMMENT_DATE
                 )
         VALUES
         (
@@ -173,7 +181,7 @@
         UPDATE COMMENTS
         SET
         COMMENT_CONTEXT = #{commentContext},
-        TIMESTAMP = NOW()
+        COMMENT_DATE = NOW()
         WHERE COMMENT_CODE = #{commentCode}
     </update>
     <delete id="deleteComment">

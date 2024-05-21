@@ -85,7 +85,8 @@ public class SecurityConfig {
                     "/board/yerangList",
                     "/board/yesinList",
                     "/board/freeDetail",
-                    "/board/comments").permitAll();
+                    "/board/comments"
+                    ).permitAll();
             
             // UserRole에 설정해준 상수 값과 비교해 접근 권한 부여
             auth.requestMatchers("/user/*").hasAnyAuthority(MemberRole.USER.getRole());

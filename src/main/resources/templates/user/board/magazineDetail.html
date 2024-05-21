@@ -18,7 +18,6 @@
 
     <div class="content">
         <article>
-        <div th:each=" magazine: ${ magazine }">
             <div class="magazine_category">
                 <p class="magazine_mainCategory" th:text="${magazine.mainCategory}"></p>
                 <p class="category_line">|</p>
@@ -31,8 +30,12 @@
             </div>
             <hr class="content_line">
             <p class="context" th:text="${magazine.postContext}"></p>
+            <div th:unless="${magazine.getFile() == null || magazine.getFile().isEmpty()}">
+                <div th:each="img : ${magazine.getFile()}" style="display: inline-block">
+                    <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}">
+                </div>
+            </div>
             <hr class="content_line">
-        </div>
 
             <button class="back_button" onclick="location.href='/board/magazine'">목록</button>
         </article>

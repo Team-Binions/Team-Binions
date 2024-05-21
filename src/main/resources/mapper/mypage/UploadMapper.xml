@@ -12,12 +12,69 @@
         <result property="mainCategory" column="MAIN_CATEGORY"/>
         <result property="subCategory" column="SUB_CATEGORY"/>
         <result property="verifiedStatus" column="VEF_STATUS"/>
+        <result property="reviewStatus" column="REVIEW_STATUS"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
     </resultMap>
     <resultMap id="uploadFilesResultMap" type="com.beanions.common.dto.FilesDTO">
         <id property="fileCode" column="FILE_CODE"/>
         <result property="fileName" column="FILE_NAME"/>
         <result property="postCode" column="POST_CODE"/>
     </resultMap>
+    <!-- 글쓰기 등록 -->
+    <insert id="registPost">
+        INSERT INTO POST
+        (
+            POST_CODE,
+            MEMBER_CODE,
+            POST_TITLE,
+            POST_CONTEXT,
+            POST_DATE,
+            MAIN_CATEGORY,
+            SUB_CATEGORY,
+            VEF_STATUS,
+            REVIEW_STATUS,
+            VIEW_COUNT
+        )
+        VALUES
+        (
+            #{postCode},
+            #{memberCode},
+            #{postTitle},
+            #{postContext},
+            NOW(),
+            #{mainCategory},
+            #{subCategory},
+            '활성',
+            '미승인',
+            0
+        )
+    </insert>
+    <!-- 생성한 글 가져오기 -->
+    <select id="selectPost" resultMap="postResultMap">
+        SELECT
+                *
+        FROM POST
+        WHERE MEMBER_CODE = #{memberCode}
+        ORDER BY POST_DATE DESC
+        LIMIT 1
+    </select>
+    <insert id="insertFile">
+        INSERT INTO
+                FILES
+        (
+            FILE_CODE,
+            FILE_NAME,
+            POST_CODE
+        )
+        VALUES
+        (
+            #{fileCode},
+            #{fileName},
+            #{postCode}
+        )
+    </insert>
+
+
     <insert id="registWriting" parameterType="com.beanions.common.dto.FilesDTO">
         INSERT INTO FILES
         (

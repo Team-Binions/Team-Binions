@@ -22,26 +22,31 @@
     <div class="content">
         <article>
             <div class="free_list_content" style="flex-direction: column; align-items: center;">
-                <div th:each="yesin: ${ PostAndMemberDTO }">
+                <div>
                     <div class="category_data">
-                        <p class="mainCategory" th:text="${yesin.mainCategory}"></p>
+                        <p class="mainCategory" th:text="${PostAndMemberDTO.mainCategory}"></p>
                         <p class="category_line">|</p>
-                        <p class="subCategory" th:text=" ${yesin.subCategory}"></p>
+                        <p class="subCategory" th:text=" ${PostAndMemberDTO.subCategory}"></p>
                     </div>
                     <div class="title_status">
-                        <p class="detail_title" th:text="${yesin.postTitle}"></p>
-                        <p class="status" th:if="${yesin.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
-                        <p class="status" th:if="${yesin.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
+                        <p class="detail_title" th:text="${PostAndMemberDTO.postTitle}"></p>
+                        <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
+                        <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
                     </div>
                     <div class="free_nickname_date">
-                        <p class="review_nickname" th:text="${yesin.member.nickname}"></p>
-                        <p class="review_date" th:text="${ #dates.format(yesin.postDate, 'yyyy.MM.dd') }"></p>
+                        <p class="review_nickname" th:text="${PostAndMemberDTO.member.nickname}"></p>
+                        <p class="review_date" th:text="${ #dates.format(PostAndMemberDTO.postDate, 'yyyy.MM.dd') }"></p>
                     </div>
                     <hr class="content_line">
-                    <p class="review_content" th:text="${yesin.postContext}"></p>
+                    <p class="review_content" th:text="${PostAndMemberDTO.postContext}"></p>
+                    <div th:unless="${PostAndMemberDTO.getFile() == null || PostAndMemberDTO.getFile().isEmpty()} ">
+                        <div th:each="image: ${PostAndMemberDTO.getFile()}" style="display: inline-block; padding-left: 20px">
+                            <img th:src="@{/images/upload/user/upload/{file}(file=${image.getFileName()})}">
+                        </div>
+                    </div>
                     <hr class="content_line">
                     <div class="viewCount_buttons">
-                        <p class="viewCount" th:text="|조회수 ${yesin.viewCount}|"></p>
+                        <p class="viewCount" th:text="|조회수 ${PostAndMemberDTO.viewCount}|"></p>
                         <div class="detail_buttons">
                             <button class="detail_button" type="button" th:if="${yesin.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/reviewModify(id=${yesin.postCode})}'|">수정하기</button>
                             <form th:action="@{/board/delete(id=${yesin.postCode})}" method="post">
@@ -71,7 +76,7 @@
                 </div>
             </div>
 
-            <ul class="comment_list" id="comment_list" th:data-post-code="${PostAndMemberDTO.get(0).getPostCode()}">
+            <ul class="comment_list" id="comment_list" th:data-post-code="${PostAndMemberDTO.getPostCode()}">
 
             </ul>
 

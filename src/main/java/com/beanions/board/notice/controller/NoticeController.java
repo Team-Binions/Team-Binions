@@ -35,7 +35,7 @@ public class NoticeController {
 
         List<PostAndMemberDTO> notice = noticeService.selectNotice(id);
 
-        model.addAttribute("notice", notice);
+        model.addAttribute("notice", notice.get(0));
 
         return "user/board/noticeDetail";
     }

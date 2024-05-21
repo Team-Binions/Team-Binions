@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class FilesDTO {
 
-    private int fileCode;
+    private Integer fileCode;
     private String fileName;
     private int postCode;
 }
