@@ -30,10 +30,12 @@
             </div>
             <hr class="content_line">
             <p class="context" th:text="${magazine.postContext}"></p>
-            <div th:unless="${magazine.getFile() == null || magazine.getFile().isEmpty()}">
-                <div th:each="img : ${magazine.getFile()}" style="display: inline-block">
-                    <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}">
-                </div>
+            <div class="uploaded_img_box" th:if="${magazine.getFile().get(0).getFileName() != null}">
+                <ul>
+                    <li th:each="img : ${magazine.getFile()}">
+                        <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}">
+                    </li>
+                </ul>
             </div>
             <hr class="content_line">
 
