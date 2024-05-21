@@ -14,6 +14,7 @@ const totalConfirm = {
 var weddingFile;
 
 $(document).ready(function () {
+
     $("#agree").click(function(){
         if($("#agree").is(':checked')){
             totalConfirm.trmconfirmchk = true;
@@ -71,8 +72,16 @@ $(document).ready(function () {
         var pattern = /\s/;
 
         if( id === '' ) {
-            alert("아이디를 입력해주세요.");
-            $("#memberId").focus();
+            //alert("아이디를 입력해주세요.");
+            $(".pop_cont").find("p").text("아이디를 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $("#memberId").focus();
+            })
+
         }
         else if(id.length < 5 || id.length > 15){}
         else if(pattern.test(id)){}
@@ -197,7 +206,7 @@ $(document).ready(function () {
 
         if ( nickname !== 0 && (nickname.length < 5 || nickname.length > 15) ) {
             totalConfirm.nknconfirmchk = false;
-            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 최대 5~15자 까지 가능합니다</span>")
+            $('#nicknameTxt').html("<span id='nknconfirmchk'>! 닉네임은 최소 5 ~ 최대 15자 까지 가능합니다</span>")
             $("#nknconfirmchk").css({
                 "color" : "#FA3E3E",
                 "font-weight" : "bold",
@@ -233,8 +242,15 @@ $(document).ready(function () {
         var pattern = /\s/;
 
         if( nickname === '' ) {
-            alert("닉네임을 입력해주세요.");
-            $("#nickname").focus();
+            //alert("닉네임을 입력해주세요.");
+            $(".pop_cont").find("p").text("닉네임을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $("#nickname").focus();
+            })
         }
         else if ( nickname.length < 5 || nickname.length > 15 ) {}
         else if(pattern.test(nickname)){}
@@ -266,8 +282,15 @@ $(document).ready(function () {
         var email = $("#memail").val();
 
         if( email === '') {
-            alert("이메일을 입력해주세요.");
-            $("#memail").focus();
+            //alert("이메일을 입력해주세요.");
+            $(".pop_cont").find("p").text("이메일을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $("#memail").focus();
+            })
         } else {
             fetch("/request-verify-mail", {
                 method: "POST",
@@ -278,16 +301,41 @@ $(document).ready(function () {
             })
                 .then(response => {
                     if (!response.ok) {
-                        alert("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.")
+                        //alert("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.")
+                        $(".pop_cont").find("p").text("유효한 이메일이 아닙니다.\n입력한 이메일을 확인해주세요.");
+                        $(".pop_bg, .pop_cont").addClass("active");
+                        $("html, body").addClass("fixed");
+                        $(".confirm_btn").click(() => {
+                            $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                            $("html, body").removeClass("fixed");
+                            $("#memail").focus();
+                        })
                         throw new Error("Network response was not ok");
                     }
                     return response.json();
                 })
                 .then(data => {
                     if(data > 0) {
-                        return alert("이미 존재하는 이메일입니다.");
+                        function popUp(){
+                            $(".pop_cont.email_pop").find("p").text("이미 존재하는 이메일입니다.");
+                            $(".pop_bg, .pop_cont").addClass("active");
+                            $("html, body").addClass("fixed");
+                            $(".confirm_btn").click(() => {
+                                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                                $("html, body").removeClass("fixed");
+                            })
+                        }
+                        return popUp();
+                        //return alert("이미 존재하는 이메일입니다.");
                     }
-                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
+                    //alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
+                    $(".pop_cont.email_pop").find("p").text("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인해주세요.");
+                    $(".pop_bg, .pop_cont").addClass("active");
+                    $("html, body").addClass("fixed");
+                    $(".confirm_btn").click(() => {
+                        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                        $("html, body").removeClass("fixed");
+                    })
                     totalConfirm.emchk = true;
 
                     chkEmailConfirm(data, $("#memailconfirm"), $("#memailconfirmTxt"));
@@ -389,49 +437,105 @@ $(document).ready(function () {
     // 회원가입 유효성 검사
     $('#join').click(function (){
         if (!totalConfirm.trmconfirmchk) {
-            alert("약관 동의가 필요합니다.");
-            $('html, body').animate({
-                scrollTop: 0
-            }, 'slow');
-            $('#agree').focus();
+            //alert("약관 동의가 필요합니다.");
+            $(".pop_cont").find("p").text("약관 동의가 필요합니다.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 'slow');
+                $('#agree').focus();
+            })
         } else if (!totalConfirm.idconfirmchk) {
-            alert("아이디를 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 100
-            }, 'slow');
-            $('#memberId').focus();
+            //alert("아이디를 확인해 주세요.");
+            $(".pop_cont").find("p").text("아이디를 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 100
+                }, 'slow');
+                $('#memberId').focus();
+            })
         } else if (!totalConfirm.pwdconfirmchk) {
-            alert("비밀번호를 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 200
-            }, 'slow');
-            $('#password').focus();
+            //alert("비밀번호를 확인해 주세요.");
+            $(".pop_cont").find("p").text("비밀번호를 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 200
+                }, 'slow');
+                $('#password').focus();
+            })
         } else if (!totalConfirm.chkpwdconfirmchk) {
-            alert("비밀번호를 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 250
-            }, 'slow');
-            $('#checkPw').focus();
+            //alert("비밀번호를 확인해 주세요.");
+            $(".pop_cont").find("p").text("비밀번호 재입력을 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 250
+                }, 'slow');
+                $('#checkPw').focus();
+            })
         } else if (!totalConfirm.nknconfirmchk) {
-            alert("닉네임을 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 300
-            }, 'slow');
-            $('#nickname').focus();
+            $(".pop_cont").find("p").text("닉네임을 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 300
+                }, 'slow');
+                $('#nickname').focus();
+            })
+            //alert("닉네임을 확인해 주세요.");
         } else if (!totalConfirm.emchk) {
-            alert("이메일을 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 400
-            }, 'slow');
-            $('#memail').focus();
+            $(".pop_cont").find("p").text("이메일을 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 400
+                }, 'slow');
+                $('#memail').focus();
+            })
+            //alert("이메일을 확인해 주세요.");
         } else if (!totalConfirm.emconfirmchk) {
-            alert("이메일 인증번호를 확인해 주세요.");
-            $('html, body').animate({
-                scrollTop: 500
-            }, 'slow');
-            $('#memailconfirm').focus();
+            //alert("이메일 인증번호를 확인해 주세요.");
+            $(".pop_cont").find("p").text("이메일 인증번호를 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('html, body').animate({
+                    scrollTop: 500
+                }, 'slow');
+                $('#memailconfirm').focus();
+            })
         } else if (!totalConfirm.gdconfirmchk) {
-            alert("성별을 확인해 주세요.");
+            //alert("성별을 확인해 주세요.");
+            $(".pop_cont").find("p").text("성별을 확인해 주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+            })
         } else {
 
             console.log(weddingFile);
@@ -456,16 +560,44 @@ $(document).ready(function () {
             })
                 .then(response => {
                     if (!response.ok) {
-                        alert("유효 기간이 지나 회원가입이 실패하였습니다..")
-                        window.location.href="/signup";
+                        //alert("유효 기간이 지나 회원가입이 실패하였습니다..")
+                        $(".pop_cont").find("p").text("유효 기간이 지나 회원가입이 실패하였습니다.");
+                        $(".pop_bg, .pop_cont").addClass("active");
+                        $("html, body").addClass("fixed");
+                        $(".confirm_btn").click(() => {
+                            $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                            $("html, body").removeClass("fixed");
+                            window.location.href="/signup";
+                        })
                         throw new Error("Network response was not ok");
                     }
-                    alert("회원가입이 완료되었습니다!\n로그인창으로 이동합니다..");
-                    return window.location.href="/auth/login";
+                    //alert("회원가입이 완료되었습니다!\n로그인창으로 이동합니다..");
+                    function successSignUp(){
+                        $(".pop_cont").find("p").text("회원가입이 완료되었습니다!\n로그인창으로 이동합니다.");
+                        $(".pop_icon").find("img").attr("src", "/images/common/icon_group_modal_check.svg");
+                        $(".pop_bg, .pop_cont").addClass("active");
+                        $("html, body").addClass("fixed");
+                        $(".confirm_btn").click(() => {
+                            $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                            $("html, body").removeClass("fixed");
+                            window.location.href="/auth/login";
+                        })
+                    }
+                    return successSignUp();
+                    //return window.location.href="/auth/login";
                 })
                 .catch(error => {
                     // 오류가 발생했을 때 처리한다.
                     console.error("Error:", error);
+                    $(".pop_cont").find("p").text("알 수 없는 에러가 발생했습니다.\n관리자에게 문의해주세요.");
+                    $(".pop_icon").find("img").attr("src", "/images/common/icon_group_modal_check.svg");
+                    $(".pop_bg, .pop_cont").addClass("active");
+                    $("html, body").addClass("fixed");
+                    $(".confirm_btn").click(() => {
+                        $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                        $("html, body").removeClass("fixed");
+                        window.location.href="/auth/login";
+                    })
                 });
         }
     })
