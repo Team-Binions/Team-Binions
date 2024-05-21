@@ -137,13 +137,7 @@
             $(".pop_cont").find("p").text("제목을 입력해주세요.");
             $(".pop_bg, .pop_cont").addClass("active");
             $("html, body").addClass("fixed");
-            $(".confirm_btn").click((e) => {
-                if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
-                    console.log("회원탈퇴 확인 버튼 클릭");
-                }else{//회원탈퇴 취소 버튼을 클릭시
-                    console.log("회원탈퇴 취소 버튼 클릭");
-                }
-
+            $(".confirm_btn").click(() => {
                 $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
                 $("html, body").removeClass("fixed");
                 $('.schedule_tit').focus();
@@ -155,13 +149,7 @@
             $(".pop_cont").find("p").text("내용을 입력해주세요.");
             $(".pop_bg, .pop_cont").addClass("active");
             $("html, body").addClass("fixed");
-            $(".confirm_btn").click((e) => {
-                if($(e.target).closest("li").hasClass("cancel_btn")){//회원탈퇴 확인 버튼을 클릭시
-                    console.log("회원탈퇴 확인 버튼 클릭");
-                }else{//회원탈퇴 취소 버튼을 클릭시
-                    console.log("회원탈퇴 취소 버튼 클릭");
-                }
-
+            $(".confirm_btn").click(() => {
                 $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
                 $("html, body").removeClass("fixed");
                 $('.schedule_contxt_box').focus();

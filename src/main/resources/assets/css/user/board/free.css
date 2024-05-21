@@ -30,7 +30,9 @@ article {
 
 .content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     min-height: calc(100vh - 201px);
 }
 
@@ -141,8 +143,8 @@ article {
 /* --------------- 자유게시판 상세페이지 ---------------*/
 
 .free_list_content{
-    display: flex;
-    justify-content: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
 }
 
 .category_data{
@@ -287,3 +289,8 @@ textarea {
     margin-bottom: 10px;
     padding: 17px 17px 17px 17px;
 }
+
+.uploaded_img_box {}
+.uploaded_img_box ul {display: flex; flex-wrap: wrap;}
+.uploaded_img_box ul li{width:20%; aspect-ratio: 1 / 1;}
+.uploaded_img_box ul li img {width:100%; object-fit: cover; border-radius: 12px;}
