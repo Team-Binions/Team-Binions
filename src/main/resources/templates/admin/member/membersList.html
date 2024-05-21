@@ -22,13 +22,14 @@
     <article>
         <div class="membersDisplay">
             <p class="title">회원 전체조회</p>
-            <form class="search_form">
+            <form class="search_form" th:action="@{/admin/member}" method="get">
                 <div class="search_box">
-                    <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+                    <input type="search" class="search_input" th:value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
                     <span class="clear_btn"></span>
                     <span class="search_btn"></span>
                 </div>
             </form>
+
             <div class="table_box">
                 <table>
                     <tr>
