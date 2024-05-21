@@ -10,11 +10,6 @@ RUN apt-get update && \
 
 
 # MySQL 사용자 디렉토리 생성 및 권한 설정
-RUN mkdir -p /home/mysql && \
-    chown mysql:mysql /home/mysql
-
-# MySQL 설정 파일 수정
-RUN sed -i 's|/nonexistent|/home/mysql|g' /etc/passwd
 
 # MySQL 및 Redis 시작 스크립트 작성
 COPY start.sh /start.sh
