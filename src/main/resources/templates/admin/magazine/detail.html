@@ -13,20 +13,25 @@
 <div th:replace="admin/sidebar.html"></div>
 <article class="all-content">
 <p class="contents_head">매거진 상세 정보</p>
-<div th:each="magazine : ${ magazineDetail }">
+<div>
     <div class="post_main_sub_category">
         <p class="post_main_text">예피셜</p>
         <div class="main_sub_category">
-            <p class="main_text" th:text="${ magazine.mainCategory }"></p>
+            <p class="main_text" th:text="${ magazineDetail.mainCategory }"></p>
             <p class="main_sub">|</p>
-            <p class="sub_text" th:text="${ magazine.subCategory }"></p>
+            <p class="sub_text" th:text="${ magazineDetail.subCategory }"></p>
         </div>
     </div>
-    <p class="title_text" th:text="${ magazine.postTitle }"></p>
-    <p class="member_text" th:text="${ magazine.member.nickname }"></p>
-    <p th:text="${ #dates.format(magazine.postDate, 'yyyy-MM-dd') }" class="number"></p>
+    <p class="title_text" th:text="${ magazineDetail.postTitle }"></p>
+    <p class="member_text" th:text="${ magazineDetail.member.nickname }"></p>
+    <p th:text="${ #dates.format(magazineDetail.postDate, 'yyyy-MM-dd') }" class="number"></p>
     <hr class="up_line_context">
-    <p class="context_text"  th:utext="${ magazine.postContext }"></p>
+    <p class="context_text"  th:utext="${ magazineDetail.postContext }"></p>
+    <div th:unless="${magazineDetail.getFile() == null || magazineDetail.getFile().isEmpty()}">
+        <div th:each="img : ${magazineDetail.getFile()}" style="display: inline-block;">
+            <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+        </div>
+    </div>
     <hr class="down_line_context">
     <!-- 삭제, 목록, 수정 버튼 div -->
     <div class="button_box">
@@ -37,7 +42,7 @@
         <!-- 목록 버튼 -->
         <button id="back_post_btn" onclick="location.href='/admin/magazine'">목록</button>
         <!-- 수정 버튼 -->
-        <button class="modify_btn" type="button" th:onclick="|location.href='@{/admin/magazine/update(id=${magazine.postCode})}'|">수정</button>
+        <button class="modify_btn" type="button" th:onclick="|location.href='@{/admin/magazine/update(id=${magazineDetail.postCode})}'|">수정</button>
     </div>
 
     <!-- 삭제 모달창 -->
@@ -47,7 +52,7 @@
                 <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
             </div>
             <p>매거진을 삭제하시겠습니까?</p>
-            <form th:action="@{/admin/magazine/delete(id=${magazine.postCode})}" method="post">
+            <form th:action="@{/admin/magazine/delete(id=${magazineDetail.postCode})}" method="post">
                 <div class="deleteModal_button_box">
                     <button type="submit" id="deleteModal_check_btn">확인</button>
                     <button type="button" id="deleteModal_close_btn" class="modal_close_btn">취소</button>

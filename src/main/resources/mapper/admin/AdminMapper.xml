@@ -117,6 +117,11 @@
             <id property="memberCode" column="member_code"/>
             <result property="nickname" column="nickname"/>
         </association>
+        <collection property="file" ofType="com.beanions.common.dto.FilesDTO">
+            <id property="fileCode" column="FILE_CODE"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="postCode" column="POST_CODE"/>
+        </collection>
     </resultMap>
 
     <select id="selectAllPost" resultMap="adminPostResultMap">
@@ -133,8 +138,12 @@
         , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_CODE
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE MAIN_CATEGORY IN ('자유', '리뷰')
         <if test="keyword != null and keyword != ''">
         <!-- 전체 검색일 때 -->
@@ -145,7 +154,7 @@
             )
 
         </if>
-        ORDER BY A.POST_DATE DESC, POST_CODE DESC;
+        ORDER BY A.POST_DATE DESC, A.POST_CODE DESC;
     </select>
 
     <select id="selectPost" parameterType="_int" resultMap="adminPostResultMap">
@@ -162,8 +171,12 @@
         , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_CODE
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE A.POST_CODE = #{ id }
     </select>
 
@@ -203,8 +216,12 @@
         , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_CODE
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE MAIN_CATEGORY = '공지사항'
         <if test="keyword != null and keyword != ''">
             <!-- 전체 검색일 때 -->
@@ -215,7 +232,7 @@
             )
 
         </if>
-        ORDER BY A.POST_DATE DESC, POST_CODE DESC;
+        ORDER BY A.POST_DATE DESC, A.POST_CODE DESC;
     </select>
 
     <insert id="noticeRegist" parameterType="com.beanions.common.dto.PostDTO">
@@ -269,8 +286,12 @@
         , A.VIEW_COUNT
         , B.MEMBER_CODE
         , B.NICKNAME
+        , C.FILE_CODE
+        , C.FILE_NAME
+        , C.POST_CODE
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
+        LEFT JOIN FILES C ON (A.POST_CODE = C.POST_CODE)
         WHERE MAIN_CATEGORY = '매거진'
         ORDER BY A.POST_DATE DESC
     </select>
