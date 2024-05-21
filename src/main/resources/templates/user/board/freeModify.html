@@ -86,7 +86,7 @@
 
                     console.log(`[[${modify.postCode}]]`)
                 $(".confirm_btn").click(() => {
-                    window.location.href = "/board/freeDetail?id="+`[[${modify.postCode}]]`; // 수정 완료 후 이동할 페이지 URL
+                    window.location.href = "/board/freedetail?id="+`[[${modify.postCode}]]`; // 수정 완료 후 이동할 페이지 URL
                 });
             },
             error: function(xhr, status, error) {

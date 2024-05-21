@@ -5,7 +5,6 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/user/common.css}">
     <link rel="stylesheet" th:href="@{/css/user/comment.css}">
-    <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
     <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -21,7 +20,7 @@
 
     <div class="content">
         <article>
-            <div class="free_list_content">
+            <div >
                 <div>
                     <div class="category_data">
                         <p class="mainCategory" th:text="${PostAndMemberDTO.mainCategory}"></p>
@@ -33,7 +32,7 @@
                         <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
                         <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('미승인')}">👀모니터링 중인 리뷰입니다.</p>
                     </div>
-                    <div class="free_nickname_date">
+                    <div class="nickname_date">
                         <p class="review_nickname" th:text="${PostAndMemberDTO.member.nickname}"></p>
                         <p class="review_date" th:text="${ #dates.format(PostAndMemberDTO.postDate, 'yyyy.MM.dd') }"></p>
                     </div>
