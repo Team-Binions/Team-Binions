@@ -13,12 +13,6 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  redis:
-    image: redis:latest
-    container_name: test_redis
-    ports:
-      - "6378:6379"
-
   app:
     build: .
     ports:
