@@ -44,7 +44,7 @@
 <!--                            <img th:src="@{/images/upload/user/upload/{file}(file=${image.getFileName()})}">-->
 <!--                        </div>-->
 <!--                    </div>-->
-                    <div class="uploaded_img_box" th:if="${PostAndMemberDTO.getFile() != null || !PostAndMemberDTO.getFile().isEmpty()}">
+                    <div class="uploaded_img_box" th:if="${PostAndMemberDTO.getFile().get(0).getFileName() != null}">
                         <ul>
                             <li th:each="img : ${PostAndMemberDTO.getFile()}">
                                 <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>

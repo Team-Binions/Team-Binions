@@ -282,5 +282,6 @@ textarea {
 
 .uploaded_img_box {}
 .uploaded_img_box ul {display: flex; flex-wrap: wrap;}
-.uploaded_img_box ul li{width:20%; aspect-ratio: 1 / 1;}
+.uploaded_img_box ul li{width:calc(20% - 10px); margin-right: 10px; aspect-ratio: 1 / 1;}
+.uploaded_img_box ul li:nth-child(5n){margin-right: 0;}
 .uploaded_img_box ul li img {width:100%; object-fit: cover; border-radius: 12px;}
