@@ -80,6 +80,40 @@ public class UploadController {
     return new ObjectMapper().writeValueAsString(null);
   }
 
+//  @PostMapping(value = "/user/modifyPost")
+//  @ResponseBody
+//  public String userModifyPost(@RequestBody PostDTO post) throws JsonProcessingException {
+//    System.out.println(post);
+//
+//    int result = uploadService.modifyPost(post);
+//    System.out.println("result : " + result);
+//
+//    if(result > 0) {
+//      PostDTO postDTO = uploadService.selectPost(post.getPostCode());
+//      System.out.println(postDTO);
+//      return new ObjectMapper().writeValueAsString(postDTO);
+//    }
+//    return new ObjectMapper().writeValueAsString(null);
+//  }
+
+//  @PostMapping(value = "/admin/modifyPost")
+//  @ResponseBody
+//  public String adminModifyPost(@RequestBody PostDTO post) throws JsonProcessingException {
+//    System.out.println(post);
+//
+//    int result = uploadService.modifyPost(post);
+//    System.out.println("result : " + result);
+//
+//    if(result > 0) {
+//      PostDTO postDTO = uploadService.selectPost(post.getPostCode());
+//      System.out.println(postDTO);
+//      return new ObjectMapper().writeValueAsString(postDTO);
+//    }
+//    return new ObjectMapper().writeValueAsString(null);
+//  }
+
+
+
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/user/uploadAjax")
   public String userUploadFile(@RequestParam(value = "file", required = false) MultipartFile[] files) throws JsonProcessingException {
@@ -278,4 +312,55 @@ public class UploadController {
     }
     return ResponseEntity.ok().build();
   }
+
+//  @PostMapping("/admin/modifyFiles")
+//  public Object adminMultiFileModify(@RequestBody List<FilesDTO> imgTemp) {
+//
+//    if(imgTemp == null || imgTemp.isEmpty()) {
+//      return ResponseEntity.ok().build();
+//    }
+//
+//    String fileName;
+//    String root = "src/main/resources/assets/images/upload";
+//    String filePath = root + "/user/uploadTemp/";
+//    String copyFolderPath = root + "/user/upload/";
+//    File dir = new File(filePath);
+//
+//    if (!dir.exists()) {
+//      dir.mkdir();
+//    }
+//
+//    try {
+//      for (FilesDTO fileInfo : imgTemp) {
+//
+//        fileName = fileInfo.getFileName();
+//        filePath = filePath + fileName;
+//        File file = new File(filePath);
+//
+//        Path sourcePath = Paths.get(filePath);
+//        System.out.println("임시파일 저장 폴더 : " + sourcePath);
+//        if (!Files.exists(sourcePath)) {
+//          // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
+//          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//
+//        System.out.println("multiFile = " + fileInfo);
+//
+//        Path destinationPath = Paths.get(copyFolderPath + file.getName());
+//        Files.move(sourcePath, destinationPath);
+//        System.out.println("복사된 폴더 경로 : " + destinationPath);
+//
+//        uploadService.modiftyFile(fileInfo);
+//        filePath = root + "/user/uploadTemp/";
+//      }
+//    } catch (IOException e) {
+//      //throw new RuntimeException(e);
+//      /* 파일 저장 중간에 실패 시 이전에 저장된 파일 삭제*/
+//      for (FilesDTO file : imgTemp) {
+//        new File(filePath + "/" + file.getFileName()).delete();
+//      }
+//      System.out.println("다중 파일 업로드 실패🤬");
+//    }
+//    return ResponseEntity.ok().build();
+//  }
 }

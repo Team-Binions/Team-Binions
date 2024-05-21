@@ -194,7 +194,7 @@ $(document).ready(function () {
         console.log(formData);
 
         // Fetch를 이용하여 요청을 보낸다.
-        fetch("/admin/uploadAjax", {
+        fetch("/user/uploadAjax", {
             method: "POST",
             body: formData
         })
@@ -246,7 +246,7 @@ $(document).ready(function () {
             subCategory: subCategory
         };
 
-        fetch("/admin/registPost", {
+        fetch("/user/registPost", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -278,7 +278,7 @@ $(document).ready(function () {
 
                 console.log("imgTemp:", imgTemp);
 
-                return fetch("/admin/registerFiles", {
+                return fetch("/user/registerFiles", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

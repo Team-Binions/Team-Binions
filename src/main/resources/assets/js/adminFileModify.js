@@ -175,7 +175,7 @@ $(document).ready(function () {
         // formData 객체에 모든 파일을 추가
         var formData = new FormData();
         if(countLeft > files.length){ // 남은 가능한 업로드 갯수가 파일열기한 갯수보다 크다면
-            if(files.length == 1){
+            if(files.length === 1){
                 console.log("files.length : " + files.length);
             }
             for(let i=0; i < files.length; i++){ //남은 업로드 가능한 파일갯수만큼
@@ -226,10 +226,10 @@ $(document).ready(function () {
 
     });
 
-    $("#registPost").click(function () {
-        const memberCodeString = $("#memberCode").val();
-        const memberCode = parseInt(memberCodeString, 10);
-        if (isNaN(memberCode)) {
+    $("#modifyPost").click(function () {
+        const postCodeString = $("#postCode").val();
+        const postCode = parseInt(postCodeString, 10);
+        if (isNaN(postCode)) {
             console.error("memberCode is not a valid integer.");
             return; // 유효하지 않은 경우 작업 중단
         }
@@ -239,14 +239,14 @@ $(document).ready(function () {
         const subCategory = $("#subCategory").val();
 
         const postInfo = {
-            memberCode: memberCode,
+            postCode: postCode,
             postTitle: postTitle,
             postContext: postContext,
             mainCategory: mainCategory,
             subCategory: subCategory
         };
 
-        fetch("/admin/registPost", {
+        fetch("/admin/modifyPost", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -278,7 +278,7 @@ $(document).ready(function () {
 
                 console.log("imgTemp:", imgTemp);
 
-                return fetch("/admin/registerFiles", {
+                return fetch("/admin/modifyFiles", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
