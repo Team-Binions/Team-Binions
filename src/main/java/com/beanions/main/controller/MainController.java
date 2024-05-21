@@ -85,4 +85,19 @@ public class MainController{
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/about")
+    public String about(Model model){
+        return "user/layout/about";
+    }
+
+    @GetMapping("/privacy")
+    public String privacy(Model model){
+        return "user/layout/privacy";
+    }
+
+    @GetMapping("/terms")
+    public String terms(Model model){
+        return "user/layout/terms";
+    }
+
 }
