@@ -368,6 +368,10 @@ th {
     font-family: 'Poppins';
 }
 
+.eng {
+    font-family: 'Poppins';
+}
+
 .table_box button {
     background-color: #F4F4F9;
     color: var(--main-color);
