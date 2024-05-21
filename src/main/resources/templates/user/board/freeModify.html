@@ -21,6 +21,7 @@
     <div th:each="post : ${ modify }">
         <input type="hidden" th:value="${post.subCategory}" name="subCategory">
         <input type="hidden" th:value="${post.postCode}" name="postCode">
+        <input type="hidden" th:value="@{/board/free/detail/{postCode}(postCode=${post.postCode})}" name="detailPageUrl">
 
         <input class="modify_title" th:value="${post.postTitle}" name="postTitle">
         <hr class="content_line">
@@ -48,19 +49,18 @@
 
 <script>
     function goWrite(frm) {
-        var title = frm.postTitle.value
+        var title = frm.postTitle.value;
         var content = frm.postContext.value;
 
         if (title.trim() == ''){
-            // alert("제목을 입력해주세요");
             $(".pop_cont").find("p").text("제목을 입력해주세요.");
             $(".pop_bg, .pop_cont").addClass("active");
             $("html, body").addClass("fixed");
             $(".confirm_btn").click(() => {
-                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $(".pop_bg, .pop_cont").removeClass("active");
                 $("html, body").removeClass("fixed");
-                $('.schedule_tit').focus();
-            })
+                $('.modify_title').focus();
+            });
 
             return false;
         }
@@ -69,26 +69,36 @@
             $(".pop_bg, .pop_cont").addClass("active");
             $("html, body").addClass("fixed");
             $(".confirm_btn").click(() => {
-                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $(".pop_bg, .pop_cont").removeClass("active");
                 $("html, body").removeClass("fixed");
-                $('.schedule_contxt_box').focus();
-            })
+                $('.modify_content').focus();
+            });
 
             return false;
         }
 
-        if (title.trim() != '' || content.trim() != ''){
-            $(".pop_cont").find("p").text("수정되었습니다");
-            $(".pop_bg, .pop_cont").addClass("active");
-            $("html, body").addClass("fixed");
-            $(".confirm_btn").click(() => {
-                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
-                $("html, body").removeClass("fixed");
-            })
+        // AJAX를 사용하여 수정 완료된 후 모달 표시하고, 확인 버튼 클릭 시 페이지 이동
+        $.ajax({
+            type: "POST",
+            url: "/board/freeModify", // 수정 완료되는 API 엔드포인트
+            data: $(frm).serialize(), // 폼 데이터 직렬화하여 전송
+            success: function(response) {
+                $(".pop_cont").find("p").text("수정 완료되었습니다.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
 
-        frm.submit();
-        }
+                    console.log(`[[${modify.postCode}]]`)
+                $(".confirm_btn").click(() => {
+                    window.location.href = "/board/freedetail?id="+`[[${modify.postCode}]]`; // 수정 완료 후 이동할 페이지 URL
+                });
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                console.error(error);
+            }
+        });
     }
+</script>
 </script>
 </body>
 </html>
