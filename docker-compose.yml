@@ -17,7 +17,7 @@ services:
     image: redis:latest
     container_name: test_redis
     ports:
-      - "6379:6379"
+      - "6378:6379"
 
   app:
     build: .
