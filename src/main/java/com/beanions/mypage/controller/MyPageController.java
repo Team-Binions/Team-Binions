@@ -290,15 +290,15 @@ public class MyPageController {
     return "user/mypage/fileUpload";
   }
 
-  // 마이페이지 > 글쓰기
-//  @GetMapping("/write")
-//  public String writeBoard(HttpSession session, RedirectAttributes rttr, Model model){
-//    Integer memberCode = (Integer) session.getAttribute("memberCode");
-//    System.out.println("memberCode = " + memberCode);
-//
-//    model.addAttribute("memberCode", memberCode);
-//    return "user/mypage/writeBoard";
-//  }
+  // 마이페이지 > 회원탈퇴
+  @GetMapping("/deleteMember")
+  public String deleteMember(HttpSession session){
+    Integer memberCode = (Integer) session.getAttribute("memberCode");
+    System.out.println("memberCode to be deleted = " + memberCode);
+
+    myPageService.deleteMember(memberCode);
+    return "redirect:/auth/logout";
+  }
 
 
 

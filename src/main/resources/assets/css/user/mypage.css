@@ -304,4 +304,4 @@ input::-webkit-search-results-decoration {
 .myinfo_list li .include_message {width:calc(100% - 120px); }
 .myinfo_list li .include_message .duplicate_box { width: 100%;}
 
-
+.pop_cont.leave_confirm {top: 50%;}
