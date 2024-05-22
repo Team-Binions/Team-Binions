@@ -242,6 +242,7 @@
 				( select count(COMMENT_CODE) from COMMENTS where MEMBER_CODE = #{memberCode} ) ) Total) B
 				, (select count(*) SCHEDULE_COUNT from SCHEDULES   where MEMBER_CODE = #{memberCode} ) D
 				, (select * from SCHEDULES WHERE MEMBER_CODE = #{memberCode}) C
+		ORDER BY C.SCHEDULE_DATE
 	</select>
 	<!-- 스케쥴 상세 조회 -->
 	<select id="selectScheduleDetail" resultMap="selectMyPageScheduleInfoResultMap">
