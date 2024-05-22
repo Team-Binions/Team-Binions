@@ -279,7 +279,7 @@ public class AdminBoardController {
 
         AdminPostDTO magazineDetail = adminService.selectPost(code);
 
-        String text = magazineDetail.getPostContext().replace("\r\n", "<br>");
+        String text = magazineDetail.getPostContext().replace("\n", "<br>");
 
         System.out.println("text = " + text);
 
