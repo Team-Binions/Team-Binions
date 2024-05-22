@@ -306,7 +306,7 @@ public class AdminBoardController {
 
         model.addAttribute("magazineDetail", magazineDetail);
 
-        return "/admin/magazine/update";
+        return "redirect:/admin/magazine";
     }
 
     @PostMapping("/magazine/update")

@@ -46,7 +46,7 @@
             #{subCategory},
             '활성',
             <choose>
-                <when test="#{mainCategory} == '예리뷰'">'미승인'</when>
+                <when test="mainCategory == '리뷰'">'미승인'</when>
                 <otherwise>NULL</otherwise>
             </choose>,
             0

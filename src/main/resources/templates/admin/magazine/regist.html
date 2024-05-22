@@ -6,8 +6,7 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
-    <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
-    <link rel="stylesheet" th:href="@{/css/user/writeBoard.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminWriteBoard.css}">
     <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
     <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
@@ -35,13 +34,13 @@
 <div class="sidebar_content">
     <div th:replace="admin/sidebar.html"></div>
     <article class="all-content">
-        <div class="wrapper">
-            <div class="board_cont">
-                <p class="regist">글쓰기</p>
+        <div>
+            <div>
+                <p class="title">매거진 등록</p>
                 <!--       enctype="multipart/form-data"-->
                 <!-- 수정 페이지에서 원시 코드 보존을 위한 temp 부분 -->
                 <div id="temp" style="display: none">${board.contents}</div>
-                <input type="hidden" id="mainCategory" value="매거진"></input>
+                <input type="hidden" id="mainCategory" value="매거진">
                 <div class="subCategory_select_box">
                     <button type="button" class="label">시리즈</button>
                     <span class="iconArrow"><img th:src="@{../../images/common/icon_arrow_right_colored.svg}" alt="icon_arrow_right_colored"></span>
@@ -75,8 +74,6 @@
                 </div>
                 <input type="hidden" id="memberCode" th:value="${session.memberCode}">
                 <div class="schedule_txt_box">
-                    <!--            <textarea -->
-                    <!--                      style="height: 400px; width: 1000px; margin-top: 10px"></textarea>-->
                     <!--        board_txt_box-->
                     <textarea id="postContext" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="schedule_contxt_box" maxlength="1000"></textarea>
                     <span class="txt_count eng"><span class="txt_counted">0</span>/1000</span>
@@ -129,7 +126,7 @@
 <div class="pop_cont">
     <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_check.svg}" alt="popup icon image"></span>
     <div class="pop_txt">
-        <p>게시글 등록이 완료되었습니다.</p>
+        <p>매거진 등록이 완료되었습니다.</p>
     </div>
     <span class="confirm_btn">확인</span>
 </div>
@@ -165,18 +162,6 @@
         }
     })
 
-    // // 취소 모달
-    // document.getElementById("cancelModal_open_btn").onclick = function () {
-    //     document.getElementById("cancelModal").style.display = "block";
-    // }
-    //
-    // document.getElementById("cancelModal_close_btn").onclick = function () {
-    //     document.getElementById("cancelModal").style.display = "none";
-    // }
-    //
-    // document.getElementById("cancelModal_check_btn").onclick = function () {
-    //     document.getElementById("cancelModal").style.display = "none";
-    // }
 
     //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
     $(window).on('load', () => {
