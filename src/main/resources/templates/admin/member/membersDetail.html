@@ -82,8 +82,9 @@
                 <th>게시판</th>
                 <th>분류</th>
                 <th>제목</th>
+                <th>작성자</th>
                 <th>작성일</th>
-
+                <th>조회수</th>
             </tr>
             <tr th:each="memberOne, i: ${ memberOnePosts }">
                 <td th:text="${ i.index + 1 }"></td>
@@ -93,6 +94,7 @@
                     <a th:text="${memberOne.postTitle}"></a>
                 </td>
                 <td class="number" th:text="${#dates.format(memberOne.postDate, 'yyyy-MM-dd') }" ></td>
+                <td th:text="${ memberOne.viewCount }"></td>
             </tr>
         </table>
     </div>
