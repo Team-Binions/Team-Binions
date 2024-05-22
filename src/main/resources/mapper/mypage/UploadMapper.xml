@@ -45,7 +45,10 @@
             #{mainCategory},
             #{subCategory},
             '활성',
-            '미승인',
+            <choose>
+                <when test="#{mainCategory} == '예리뷰'">'미승인'</when>
+                <otherwise>NULL</otherwise>
+            </choose>,
             0
         )
     </insert>
@@ -73,8 +76,6 @@
             #{postCode}
         )
     </insert>
-
-
     <insert id="registWriting" parameterType="com.beanions.common.dto.FilesDTO">
         INSERT INTO FILES
         (

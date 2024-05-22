@@ -1,14 +1,14 @@
 ## server port config
 server:
     port: 8081
-    error:
-        path: /error
+#    error:
+#        path: /error
 
 ## driver config
 
 spring:
-    mvc:
-        throw-exception-if-no-handler-found: true
+#    mvc:
+#        throw-exception-if-no-handler-found: true
     session:
         store-type: redis
     data:

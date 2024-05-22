@@ -19,4 +19,8 @@ public interface UploadMapper {
   PostDTO selectPost(int membercode);
 
   void insertFile(FilesDTO fileInfo);
+
+//    int modifyPost(PostDTO post);
+//
+//  void modifyFile(FilesDTO fileInfo);
 }

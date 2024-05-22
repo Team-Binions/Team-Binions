@@ -51,7 +51,22 @@ public class UploadController {
 
   @PostMapping(value = "/user/registPost")
   @ResponseBody
-  public String registPost(@RequestBody PostDTO post) throws JsonProcessingException {
+  public String userRegistPost(@RequestBody PostDTO post) throws JsonProcessingException {
+    System.out.println(post);
+
+    int result = uploadService.registPost(post);
+    System.out.println("result : " + result);
+
+    if(result > 0) {
+      PostDTO postDTO = uploadService.selectPost(post.getMemberCode());
+      System.out.println(postDTO);
+      return new ObjectMapper().writeValueAsString(postDTO);
+    }
+    return new ObjectMapper().writeValueAsString(null);
+  }
+  @PostMapping(value = "/admin/registPost")
+  @ResponseBody
+  public String adminRegistPost(@RequestBody PostDTO post) throws JsonProcessingException {
     System.out.println(post);
 
     int result = uploadService.registPost(post);
@@ -65,9 +80,79 @@ public class UploadController {
     return new ObjectMapper().writeValueAsString(null);
   }
 
+//  @PostMapping(value = "/user/modifyPost")
+//  @ResponseBody
+//  public String userModifyPost(@RequestBody PostDTO post) throws JsonProcessingException {
+//    System.out.println(post);
+//
+//    int result = uploadService.modifyPost(post);
+//    System.out.println("result : " + result);
+//
+//    if(result > 0) {
+//      PostDTO postDTO = uploadService.selectPost(post.getPostCode());
+//      System.out.println(postDTO);
+//      return new ObjectMapper().writeValueAsString(postDTO);
+//    }
+//    return new ObjectMapper().writeValueAsString(null);
+//  }
+
+//  @PostMapping(value = "/admin/modifyPost")
+//  @ResponseBody
+//  public String adminModifyPost(@RequestBody PostDTO post) throws JsonProcessingException {
+//    System.out.println(post);
+//
+//    int result = uploadService.modifyPost(post);
+//    System.out.println("result : " + result);
+//
+//    if(result > 0) {
+//      PostDTO postDTO = uploadService.selectPost(post.getPostCode());
+//      System.out.println(postDTO);
+//      return new ObjectMapper().writeValueAsString(postDTO);
+//    }
+//    return new ObjectMapper().writeValueAsString(null);
+//  }
+
+
+
   /*파일 업로드, 업로드 결과 반환*/
   @PostMapping("/user/uploadAjax")
-  public String uploadFile(@RequestParam(value = "file", required = false) MultipartFile[] files) throws JsonProcessingException {
+  public String userUploadFile(@RequestParam(value = "file", required = false) MultipartFile[] files) throws JsonProcessingException {
+    String root = "src/main/resources/assets/images/upload";
+    String filePath = root + "/user/uploadTemp";
+
+    File dir = new File(filePath);
+    if (!dir.exists()) {
+      dir.mkdirs();
+    }
+
+    List<String> savedFileNames = new ArrayList<>();
+
+    for (MultipartFile file : files) {
+      if (file.isEmpty()) {
+        continue;
+      }
+
+      String originFileName = file.getOriginalFilename();
+      System.out.println("originFileName : " + originFileName);
+      String ext = originFileName.substring(originFileName.lastIndexOf("."));
+      String savedName = UUID.randomUUID() + ext;
+      System.out.println("savedName : " + savedName);
+
+      try {
+        Path path = Paths.get(filePath + "/" + savedName).toAbsolutePath();
+        file.transferTo(path.toFile());
+      } catch (IOException e) {
+        System.out.println("error : " + e);
+      }
+
+      savedFileNames.add(savedName);
+    }
+
+    return new ObjectMapper().writeValueAsString(savedFileNames);
+  }
+
+  @PostMapping("/admin/uploadAjax")
+  public String adminUploadFile(@RequestParam(value = "file", required = false) MultipartFile[] files) throws JsonProcessingException {
     String root = "src/main/resources/assets/images/upload";
     String filePath = root + "/user/uploadTemp";
 
@@ -127,7 +212,7 @@ public class UploadController {
   }
 
   @PostMapping("/user/registerFiles")
-  public Object multiFileUpload(@RequestBody List<FilesDTO> imgTemp) {
+  public Object userMultiFileUpload(@RequestBody List<FilesDTO> imgTemp) {
 
     if(imgTemp == null || imgTemp.isEmpty()) {
       return ResponseEntity.ok().build();
@@ -176,4 +261,106 @@ public class UploadController {
     }
     return ResponseEntity.ok().build();
   }
+
+  @PostMapping("/admin/registerFiles")
+  public Object adminMultiFileUpload(@RequestBody List<FilesDTO> imgTemp) {
+
+    if(imgTemp == null || imgTemp.isEmpty()) {
+      return ResponseEntity.ok().build();
+    }
+
+    String fileName;
+    String root = "src/main/resources/assets/images/upload";
+    String filePath = root + "/user/uploadTemp/";
+    String copyFolderPath = root + "/user/upload/";
+    File dir = new File(filePath);
+
+    if (!dir.exists()) {
+      dir.mkdir();
+    }
+
+    try {
+      for (FilesDTO fileInfo : imgTemp) {
+
+        fileName = fileInfo.getFileName();
+        filePath = filePath + fileName;
+        File file = new File(filePath);
+
+        Path sourcePath = Paths.get(filePath);
+        System.out.println("임시파일 저장 폴더 : " + sourcePath);
+        if (!Files.exists(sourcePath)) {
+          // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        System.out.println("multiFile = " + fileInfo);
+
+        Path destinationPath = Paths.get(copyFolderPath + file.getName());
+        Files.move(sourcePath, destinationPath);
+        System.out.println("복사된 폴더 경로 : " + destinationPath);
+
+        uploadService.insertFile(fileInfo);
+        filePath = root + "/user/uploadTemp/";
+      }
+    } catch (IOException e) {
+      //throw new RuntimeException(e);
+      /* 파일 저장 중간에 실패 시 이전에 저장된 파일 삭제*/
+      for (FilesDTO file : imgTemp) {
+        new File(filePath + "/" + file.getFileName()).delete();
+      }
+      System.out.println("다중 파일 업로드 실패🤬");
+    }
+    return ResponseEntity.ok().build();
+  }
+
+//  @PostMapping("/admin/modifyFiles")
+//  public Object adminMultiFileModify(@RequestBody List<FilesDTO> imgTemp) {
+//
+//    if(imgTemp == null || imgTemp.isEmpty()) {
+//      return ResponseEntity.ok().build();
+//    }
+//
+//    String fileName;
+//    String root = "src/main/resources/assets/images/upload";
+//    String filePath = root + "/user/uploadTemp/";
+//    String copyFolderPath = root + "/user/upload/";
+//    File dir = new File(filePath);
+//
+//    if (!dir.exists()) {
+//      dir.mkdir();
+//    }
+//
+//    try {
+//      for (FilesDTO fileInfo : imgTemp) {
+//
+//        fileName = fileInfo.getFileName();
+//        filePath = filePath + fileName;
+//        File file = new File(filePath);
+//
+//        Path sourcePath = Paths.get(filePath);
+//        System.out.println("임시파일 저장 폴더 : " + sourcePath);
+//        if (!Files.exists(sourcePath)) {
+//          // 파일이 존재하지 않는 경우 404 Not Found 응답 반환
+//          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
+//
+//        System.out.println("multiFile = " + fileInfo);
+//
+//        Path destinationPath = Paths.get(copyFolderPath + file.getName());
+//        Files.move(sourcePath, destinationPath);
+//        System.out.println("복사된 폴더 경로 : " + destinationPath);
+//
+//        uploadService.modiftyFile(fileInfo);
+//        filePath = root + "/user/uploadTemp/";
+//      }
+//    } catch (IOException e) {
+//      //throw new RuntimeException(e);
+//      /* 파일 저장 중간에 실패 시 이전에 저장된 파일 삭제*/
+//      for (FilesDTO file : imgTemp) {
+//        new File(filePath + "/" + file.getFileName()).delete();
+//      }
+//      System.out.println("다중 파일 업로드 실패🤬");
+//    }
+//    return ResponseEntity.ok().build();
+//  }
 }

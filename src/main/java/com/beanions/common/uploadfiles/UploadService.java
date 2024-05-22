@@ -58,5 +58,13 @@ public class UploadService {
     }
   }
 
+//    public int modifyPost(PostDTO post) {
+//    return uploadMapper.modifyPost(post);
+//    }
+//
+//  public void modiftyFile(FilesDTO fileInfo) {
+//    uploadMapper.modifyFile(fileInfo);
+//  }
+
   //public List<FilesDTO> registerFileSelected() {return uploadMapper.registerFileSelected();}
 }
