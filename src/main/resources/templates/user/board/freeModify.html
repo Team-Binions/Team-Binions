@@ -21,7 +21,6 @@
     <div th:each="post : ${ modify }">
         <input type="hidden" th:value="${post.subCategory}" name="subCategory">
         <input type="hidden" th:value="${post.postCode}" name="postCode">
-        <input type="hidden" th:value="@{/board/free/detail/{postCode}(postCode=${post.postCode})}" name="detailPageUrl">
 
         <input class="modify_title" th:value="${post.postTitle}" name="postTitle">
         <hr class="content_line">
@@ -45,6 +44,7 @@
     </div>
     <span class="confirm_btn">확인</span>
 </div>
+
 <script th:src="@{/js/common.js}"></script>
 
 <script>
@@ -99,6 +99,6 @@
         });
     }
 </script>
-</script>
+
 </body>
 </html>

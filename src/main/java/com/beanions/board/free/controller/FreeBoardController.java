@@ -210,7 +210,7 @@ public class FreeBoardController {
         }
     }
 
-    @PostMapping("/freeDelete")
+    @PostMapping("/freedelete")
     public String deletePost(RedirectAttributes rttr, PostDTO postDTO){
 
         freeBoardService.deletePost(postDTO);

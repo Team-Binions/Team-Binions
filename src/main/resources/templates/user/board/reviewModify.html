@@ -7,7 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
     <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
-    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <title>예랑예신</title>
 </head>
 <body>
@@ -27,7 +28,7 @@
                 <textarea class="modify_context" th:text="${ post.postContext }" name="postContext"></textarea>
 
                 <div class="detail_buttons">
-                    <button class="detail_button" type="submit">수정하기</button>
+                    <button class="detail_button" type="button" onclick="goWrite(this.form);">수정하기</button>
                     <button class="detail_button" type="button" th:onclick="history.back()">이전으로</button>
                 </div>
             </div>
@@ -36,45 +37,69 @@
 </div>
 <div th:replace="user/layout/footer.html"></div>
 
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>제목을 입력해주세요</p>
+    </div>
+    <span class="confirm_btn">확인</span>
+</div>
+
+<script th:src="@{/js/common.js}"></script>
 <script>
-    //header sub menu 활성화
-    const gnbMenu = document.querySelectorAll('.header_gnb > li > a');
-    const subMenu = document.querySelectorAll('.sub_menu');
-    gnbMenu.forEach(gnbmenu => {
-        gnbmenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.nextElementSibling.classList.add("active");
-        })
-        gnbmenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.nextElementSibling.classList.remove("active");
-        })
-    });
+    function goWrite(frm) {
+        var title = frm.postTitle.value;
+        var content = frm.postContext.value;
 
-    subMenu.forEach(submenu => {
-        submenu.addEventListener('mouseover', (e) => {
-            e.currentTarget.classList.add("active");
-        })
-        submenu.addEventListener('mouseout', (e) => {
-            e.currentTarget.classList.remove("active");
-        })
-    })
+        if (title.trim() == ''){
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active");
+                $("html, body").removeClass("fixed");
+                $('.modify_title').focus();
+            });
 
-    // 예리뷰 슬라이드
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
+            return false;
+        }
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active");
+                $("html, body").removeClass("fixed");
+                $('.modify_context').focus();
+            });
 
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
+            return false;
+        }
 
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+        // AJAX를 사용하여 수정 완료된 후 모달 표시하고, 확인 버튼 클릭 시 페이지 이동
+        $.ajax({
+            type: "POST",
+            url: "/board/reviewModify", // 수정 완료되는 API 엔드포인트
+            data: $(frm).serialize(), // 폼 데이터 직렬화하여 전송
+            success: function(response) {
+                $(".pop_cont").find("p").text("수정 완료되었습니다.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+
+                console.log(`[[${modify.postCode}]]`)
+                $(".confirm_btn").click(() => {
+                    window.location.href = "/board/reviewdetail?id="+`[[${modify.postCode}]]`; // 수정 완료 후 이동할 페이지 URL
+                });
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                console.error(error);
+            }
+        });
+
+    }
 </script>
+
 </body>
 </html>
