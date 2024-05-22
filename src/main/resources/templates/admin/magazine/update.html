@@ -6,28 +6,11 @@
     <link rel="stylesheet" th:href="@{../../css/default.css}"/>
     <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
     <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
-    <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
-    <link rel="stylesheet" th:href="@{/css/user/writeBoard.css}">
     <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
     <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <style>
-        /* 이미지 미리보기 */
-        .preview_box {width: 100%; padding: 20px; border-radius: 12px; background-color: #F4F4F9;}
-        .preview_list {padding-top: 20px; display: flex; }
-        .preview_list li {width: calc(20% - 18px); aspect-ratio: 1 / 1; margin-right: 20px; }
-        .preview_list li:nth-child(5) {margin-right: 0; }
-        .preview_img {position: relative; width: 100%; height: 100%;}
-        .preview_img > img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1 / 1; border-radius: 12px; }
-        .remove_preview_btn {position: absolute; top: 6px; right:6px; display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--main-color); color: #fff; font-size: 18px; font-weight: var(--semiBold); text-align: center; line-height: 24px; cursor: pointer; transition: background-color 200ms ease-in-out;}
-        .remove_preview_btn:hover {background-color: var(--point-color);}
-        .attached_file_count {padding: 16px; background-color: var(--inactive-btn); border-radius: 12px; font-size: 16px; font-weight: var(--medium);}
-        .count_preview {color: var(--point-color); font-weight: var(--bold);}
-        .upload_img_btn.inactive {display: none;}
-        .file_upload_box.preview {display: flex; justify-content: center; padding:20px; align-items: center; height: 100%; border-radius:12px; background-color: #fff; cursor: pointer;}
-        .file_upload_box.preview .upload_btn {display: flex; justify-content: center; align-items: center; width: 100%;  height: 100%; border-radius: 12px; background-color: #fff; border: 1px dashed var(--main-color); font-size: 24px; font-weight: var(--bold); color: var(--main-color);}
-    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 </head>
 <body>
 <div th:replace="admin/header.html"></div>
@@ -85,6 +68,15 @@
 </form>
         <div th:replace="admin/footer.html"></div>
 </article>
+</div>
+
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>제목을 입력해주세요</p>
+    </div>
+    <span class="confirm_btn">확인</span>
 </div>
 
 <script th:src="@{/js/common.js}"></script>

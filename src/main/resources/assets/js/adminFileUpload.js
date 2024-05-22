@@ -309,7 +309,7 @@ $(document).ready(function () {
         $(".pop_bg, .pop_cont").addClass("active");
         $("html, body").addClass("fixed");
         $(".confirm_btn").on("click", () => {
-            window.location.href="/main";
+            window.location.href="/admin/magazine";
         })
     }
 })
