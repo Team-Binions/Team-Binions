@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <title>예랑예신</title>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            //alert(successMessage);
+            $(".pop_bg, .pop_cont").addClass("active"); // 팝업창/팝업배경 비활성화
+            $('html, body').addClass('fixed');
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .leavePop").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+            })
+        }
+    </script>
+</head>
+<body>
+<div th:replace="user/layout/header.html"></div>
+<div class="content">
+    <article>
+        <p class="free_title" th:text="|${name}수다방|"></p>
+
+        <form class="search_form">
+            <div class="search_box">
+                <input type="search" class="search_input" placeholder="검색어를 입력하세요">
+                <span class="clear_btn"></span>
+                <span class="search_btn"></span>
+            </div>
+        </form>
+
+        <table class="free_list">
+            <thead>
+            <tr>
+                <th class="eng">no</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>조회수</th>
+                <th>작성시간</th>
+            </tr>
+            </thead>
+            <tbody id="list">
+
+            </tbody>
+        </table>
+
+        <div class="write_btn_box">
+            <button class="regist_button" type="button" th:onclick="|location.href='@{/board/fileUpload}'|">글쓰기</button>
+        </div>
+
+        <!--페이지네이션 렌더링-->
+        <div class="paging"></div>
+    </article>
+</div>
+<div th:replace="user/layout/footer.html"></div>
+<!-- 게시글 삭제된 경우 , 팝업창 -->
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <p>게시글이 삭제되었습니다.</p>
+    <span class="pop_btn confirm_btn">확인</span>
+</div>
+<script src="../js/common.js"></script>
+
+<script th:inline="javascript">
+    var list = /*[[${ PostAndMemberDTOList.list }]]*/ [];
+    var pagination = /*[[${ PostAndMemberDTOList.pagination }]]*/ {};
+    var params = /*[[${ params }]]*/ {};
+</script>
+
+<script>
+    window.onload = () => {
+        findAllPost();
+        console.log('페이지 시작 시 로드...');
+    };
+
+    function findAllPost() {
+        console.log('function 시작 시 로드...', list);
+
+        if (!list || list.length === 0) {
+            console.log('if 시작 시 로드...');
+            document.getElementById('list').innerHTML = '<td colspan="4"><div class="no_data_msg">검색된 결과가 없습니다.</div></td>';
+            drawPage(pagination, params);
+            return;
+        }
+
+        let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+        console.log('num', num);
+
+        drawList(list, num);
+        drawPage(pagination, params);
+    }
+
+    function drawList(list, num) {
+        let html = '';
+        list.forEach(row => {
+            html += `
+                    <tr>
+                        <td>${num--}</td>
+                        <td><a href="/board/freedetail?id=${row.postCode}">${row.postTitle}</a></td>
+                        <td>${row.member.nickname}</td>
+                        <td>${row.viewCount}</td>
+                        <td>${formatDate(row.postDate)}</td>
+                    </tr>
+                `;
+        });
+
+        function formatDate(dateString) {
+            let date = new Date(dateString);
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+            return `${year}.${month}.${day}`;
+        }
+
+        document.getElementById('list').innerHTML = html;
+    }
+
+    function drawPage(pagination, params) {
+        if (!pagination || !params) {
+            document.querySelector('.paging').innerHTML = '';
+            throw new Error('Missing required parameters...');
+        }
+
+        let html = '';
+        if (pagination.existPrevPage) {
+            html += `
+                    <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first"><<</a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev"><</a>
+                `;
+        }
+
+        for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+            html += (i !== params.page)
+                ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+                : `<span class="on">${i}</span>`
+        }
+
+
+        if (pagination.existNextPage) {
+            html += `
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">></a>
+                    <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">>></a>
+                `;
+        }
+
+        document.querySelector('.paging').innerHTML = html;
+    }
+
+    function movePage(page) {
+        const queryParams = {
+            page: (page) ? page : 1,
+            recordSize: 20,
+            pageSize: 10
+        };
+
+        if(name === '예신'){
+        location.href = '/board/yesin?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        } else {
+        location.href = '/board/yerang?id='+ '[[${name}]]' + '&' + new URLSearchParams(queryParams).toString();
+        }
+    }
+</script>
+
+<script th:inline="javascript">
+
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
+</script>
+</body>
+</html>

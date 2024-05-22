@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/error/error.css}">
+    <title>YESINYERANG</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="login_cont">
+        <div class="left_side">
+            <img th:src="@{/images/common/logo.svg}" alt="YERANGYESIN logo">
+            <p class="logo_tit">예랑예신</p>
+            <a href="/main" class="go_to_main">홈으로</a>
+        </div>
+        <div class="login_box">
+            <p class="box_error">403</p>
+            <p class="box_tit">접근할 수 없는 페이지입니다.</p>
+            <p class="box_context">권한이 없거나 사용할 수 없는 페이지입니다.</p>
+            <p class="box_context">로그인 정보를 다시 한번 확인해 주세요.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

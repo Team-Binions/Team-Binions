@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+  <title>예랑예신</title>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+  <!-- //HEADER -->
+
+  <div class="mypage_cont">
+    <p class="page_tit">마이 페이지</p>
+
+    <!-- profile -->
+    <div class="profile_box">
+      <div class="profile_img">
+         <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
+        <!-- <input type="file" class="profile_img_upload"> -->
+      </div>
+      <div class="profile_txt">
+        <p class="profile_name"><span th:text="${userMypageMainData.nickname}"></span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng"  th:text="${userMypageMainData.totalCount}"></span></p>
+      </div>
+    </div>
+
+    <!-- sidebar & contents -->
+    <div class="contents_cont">
+      <div class="sidebar mypage">
+        <ul>
+          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">예리뷰</a></li>
+          <li><a href="/mypage/free">예수다</a></li>
+          <li><a href="/mypage/comment">댓글</a></li>
+          <li><a href="/mypage/schedule">스케쥴</a></li>
+          <!-- <li><a href="#">포인트</a></li> -->
+          <li><a href="mypage/myinfo">회원 정보 수정</a></li>
+        </ul>
+      </div>
+
+      <div class="mypage_contents">
+        <!-- null - 등록한 게시글 없는 경우 -->
+        <div class="null_txt" th:if="${userMypageMainData.totalCount} == 0">
+          <p>아직 등록한 글이 없어요.</p>
+          <p>지금 바로 글을 작성하셔서<br>
+            예쓰니가 되어주세요!</p>
+        </div>
+
+        <!-- 등록한 게시물이 있는 경우 -->
+        <ul class="summary_mypage" th:unless="${userMypageMainData.totalCount} == 0">
+          <li><a th:href="@{/mypage/review}"><span class="summary_menu">예리뷰</span><span class="eng" th:text="${userMypageMainData.reviewCount}"></span></a></li>
+          <li><a href="/mypage/free"><span class="summary_menu">예수다</span><span class="eng" th:text="${userMypageMainData.freeCount}"></span></a></li>
+          <li><a href="/mypage/comment"><span class="summary_menu comment">댓글</span><span class="eng" th:text="${userMypageMainData.commentCount}"></span></a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+</div>
+ <script th:src="@{/js/common.js}"></script>
+</body>
+</html>

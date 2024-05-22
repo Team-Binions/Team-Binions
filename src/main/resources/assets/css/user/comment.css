@@ -1,0 +1,80 @@
+/* 댓글 */
+.registered_comment_box {width: 100%; max-width: 1200px; min-width: 1200px; padding: 20px 20px 60px; margin: 0 auto;}
+.comment_top_sec {display: flex; align-items: center; padding-bottom: 60px;}
+.comment_sec_tit { margin-top: -2px; font-size: 20px; font-weight: var(--semiBold); line-height: 18px;}
+
+/* filter 댓글 정렬버튼 */
+.filter_box {position: relative; width: 74px; height: 30px; margin-left: 10px; border: 1px solid var(--main-color); border-radius:20px; cursor: pointer; text-align: center; line-height: 28px;}
+.filter_box p{font-size: 12px; font-weight: var(--semiBold); color: var(--main-color);}
+.filter_box p span{font-size: 12px; font-weight: var(--semiBold); color: var(--main-color);line-height: 17px;}
+.filter_txt {margin-right: 6px;}
+.filter_box p span.filter_mark {font-size: 10px;}
+.filter_btn .filter_list {display: block; position: absolute; top: 30px; left: 0; width: 100%; padding:4px; border: 1px solid var(--main-color); border-radius:12px; background-color: #fff;}
+.filter_btn.inactive .filter_list{display: none;}
+.filter_list li { padding: 4px 0; font-size: 12px; font-weight: var(--medium); color: var(--main-color); text-align: center; border-radius: 12px; transition: background-color 200ms ease-in-out, color 200ms ease-in-out, font-weight 200ms ease-in-out;}
+.filter_list li:hover { background-color: var(--point-color); color:#fff; font-weight: var(--semiBold); }
+
+/* 등록 댓글 */
+.comment_list {padding-bottom: 40px;}
+.comment_list li{padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--inactive-input-bg);}
+.comment_inner_box {display: flex;}
+.comment_profile_img {display: flex; justify-content: center; align-items: center; width: 40px; height: 40px;}
+.comment_profile_img img{width: 100%; aspect-ratio: 1 / 1;}
+.comment_txt_box {width:100%; padding-left: 20px;}
+.comment_nickname {font-size: 14px; font-weight: var(--semiBold); margin-right: 20px;}
+.comment_date {font-size: 12px; font-weight: var(--regular); color: var(--inactive-text);}
+.comment_context {font-size: 14px; text-align: justify;}
+
+/* 댓글 입력 영역 */
+.comment_input_box, .comment_input_area {display: flex; align-items: center;}
+.comment_input_box {justify-content: space-between;}
+.comment_input_area { display: flex; align-items: center; width: calc(100% - 60px); height: 48px;}
+.comment_input_area input {width: 100%; height: 100%; padding: 0 110px 0 10px;border-radius:12px;}
+.comment_input_area .register_btn {width: 60px; height: 38px; margin-left: -66px; font-size: 12px; font-weight: var(--medium); color: #fff; text-align: center; line-height: 38px;border-radius:12px; background-color: var(--main-color); cursor: pointer;z-index: 50; transition:background-color 200ms var(--point-color);}
+.comment_input_area .register_btn:hover {}
+.schedule_tit_box {position: relative; width: 100%; height: 48px;}
+.schedule_tit_box .tit_count {position: absolute; top: 50%; right: 80px; transform: translateY(-50%); font-size: 12px; color: var(--input-color);}
+.schedule_tit {width: 100%; height: 48px; padding-left: 10px; padding-right: 60px; font-size: 16px; font-weight: var(--medium);}
+.schedule_tit_box .tit_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_tit:focus + .tit_count > .tit_counted {color: var(--point-color);}
+.schedule_tit::placeholder, .schedule_contxt_box::placeholder  {font-size: 14px; font-weight: var(--regular); color: var(--inactive-input-bg);}
+
+/* 댓글 등록 버튼 */
+.comment_btn_list {display: flex; align-items: center; padding-left: 30px;}
+.comment_btn_list li {display: block; padding-left: 10px; margin-bottom: 0; font-size: 12px; font-weight: var(--medium); color: var(--main-color); border: none; cursor: pointer; transition: color 200ms ease-in-out;}
+.comment_btn_list li:hover {color: var(--point-color);}
+.comment_btn_list li:nth-child(2):hover {color: var(--main-color);}
+.comment_txt_top {display: flex; justify-content: space-between; align-items: center;}
+
+/* 댓글 수정 영역 */
+.schedule_txt_box.active {display: block; position: relative; width: 100%; height: 160px; padding-top: 20px;}
+.schedule_txt_box {display: none;}
+.schedule_contxt_box {position: absolute; width: 100%; height: 120px; padding:10px; border:1px solid var(--inactive-input-bg); border-radius: 12px; font-size: 14px; transition : border-color 200ms ease-in-out; resize: none; outline: none;}
+.schedule_contxt_box:focus {border-color: var(--point-color);}
+.txt_count {position: absolute; top: 40px; right: 20px; font-size: 12px; color: var(--input-color); z-index: 50;}
+.txt_counted {color: var(--input-color); transition: color 200ms ease-in-out;}
+.schedule_contxt_box:focus + .txt_count .txt_counted {color: var(--point-color);}
+.schedule_btn_list {position: absolute;right: 20px; bottom: 40px; display: flex; justify-content: flex-end; align-items: center; z-index: 50;}
+.schedule_btn_list > button {height: 38px; padding: 0 20px; font-size: 12px; font-weight: var(--medium); cursor: pointer;}
+.schedule_btn_list > button.cancel_btn {margin-right: 10px;}
+.cancel_btn {background-color: #fff; color: var(--main-color); border: 1px solid var(--main-color);}
+.cancel_btn:hover {background-color: var(--hashBg-color);}
+
+/* 댓글관련 팝업창 */
+.pop_bg {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity:0; transition: all 200ms ease-in-out; background-color: rgba(102, 103, 171, 0.4);}
+.pop_cont {position: absolute; bottom: -70%; left: 50%; transform: translateX(-50%); width: 27%; max-width: 360px; min-width: 200px; padding: 20px; z-index: -1; opacity: 0; background-color: #fff; border-radius: 12px; text-align: center; transition: all 200ms ease-in-out; }
+.pop_bg.active {z-index: 200; opacity: 1;}
+.pop_cont.active {z-index: 500; opacity: 1;}
+.pop_icon {display: inline-block; width: 36px; height: 36px; margin-bottom: 20px; background-color: var(--main-color); border-radius: 50%;}
+.pop_icon img {width:100%; height:100%;}
+
+/* 댓글 삭제시 재확인 팝업창 */
+.pop_cont p{padding-top:20px; padding-bottom: 40px; font-size: 14px; font-weight: var(--regular);}
+.pop_btn_list {display: flex; justify-content: space-between; align-items: center;}
+.pop_btn_list li {width: calc(50% - 10px); height: 50px; line-height: 50px; text-align: center; border-radius: 12px; cursor: pointer;}
+.pop_btn_list li > span {display: block; width: 100%; height: 100%; line-height: 50px;}
+.pop_btn_list .cancel_btn span {color: var(--main-color);}
+.confirm_btn {background-color: var(--main-color); color: #fff; transition: all 200ms ease-in-out;}
+.confirm_btn:hover {background-color: var(--point-color);}
+.fixed { overflow:hidden;}
+span.confirm_btn { display: block; height: 50px; line-height: 50px; border-radius: 12px; cursor: pointer;}

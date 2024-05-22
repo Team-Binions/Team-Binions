@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.mypage.dao.UploadMapper">
+    <resultMap id="postResultMap" type="com.beanions.common.dto.PostDTO">
+        <id property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContext" column="POST_CONTEXT"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="mainCategory" column="MAIN_CATEGORY"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
+        <result property="verifiedStatus" column="VEF_STATUS"/>
+        <result property="reviewStatus" column="REVIEW_STATUS"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
+    </resultMap>
+    <resultMap id="uploadFilesResultMap" type="com.beanions.common.dto.FilesDTO">
+        <id property="fileCode" column="FILE_CODE"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="postCode" column="POST_CODE"/>
+    </resultMap>
+    <!-- 글쓰기 등록 -->
+    <insert id="registPost">
+        INSERT INTO POST
+        (
+            POST_CODE,
+            MEMBER_CODE,
+            POST_TITLE,
+            POST_CONTEXT,
+            POST_DATE,
+            MAIN_CATEGORY,
+            SUB_CATEGORY,
+            VEF_STATUS,
+            REVIEW_STATUS,
+            VIEW_COUNT
+        )
+        VALUES
+        (
+            #{postCode},
+            #{memberCode},
+            #{postTitle},
+            #{postContext},
+            NOW(),
+            #{mainCategory},
+            #{subCategory},
+            '활성',
+            <choose>
+                <when test="mainCategory == '리뷰'">'미승인'</when>
+                <otherwise>NULL</otherwise>
+            </choose>,
+            0
+        )
+    </insert>
+    <!-- 생성한 글 가져오기 -->
+    <select id="selectPost" resultMap="postResultMap">
+        SELECT
+                *
+        FROM POST
+        WHERE MEMBER_CODE = #{memberCode}
+        ORDER BY POST_DATE DESC
+        LIMIT 1
+    </select>
+    <insert id="insertFile">
+        INSERT INTO
+                FILES
+        (
+            FILE_CODE,
+            FILE_NAME,
+            POST_CODE
+        )
+        VALUES
+        (
+            #{fileCode},
+            #{fileName},
+            #{postCode}
+        )
+    </insert>
+    <insert id="registWriting" parameterType="com.beanions.common.dto.FilesDTO">
+        INSERT INTO FILES
+        (
+        FILE_CODE
+        , FILE_NAME
+        , POST_CODE
+        )
+        VALUES
+        (
+        NULL
+        , #{fileName}
+        , #{postCode}
+        )
+    </insert>
+    <select id="selectAllFiles" resultMap="uploadFilesResultMap">
+        SELECT
+            FILE_CODE
+            , FILE_NAME
+            , POST_CODE
+        FROM FILES
+    </select>
+</mapper>

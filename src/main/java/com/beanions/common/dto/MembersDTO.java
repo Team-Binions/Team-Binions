@@ -1,6 +1,28 @@
 package com.beanions.common.dto;
 
+import lombok.*;
+
+import java.util.Date;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class MembersDTO {
- //유조종보
-    //변경사항
+
+    private Integer memberCode;
+    private String memberId;
+    private String memberPw;
+    private String nickname;
+    private String email;
+    private String phone;
+    private String gender;
+    private String marriedStatus;
+//    private MemberRole memberRole;
+    private String memberRole;
+    private String weddingFile;
+    private String weddingVerified;
+    private Date signupDate;
+
 }

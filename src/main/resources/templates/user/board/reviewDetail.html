@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/comment.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/review.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <title>예랑예신</title>
+    <div th:each="yesin: ${ PostAndMemberDTO }">
+        <title th:text="${yesin.postTitle}"></title>
+    </div>
+</head>
+<body>
+
+    <div th:replace="user/layout/header.html"></div>
+
+    <div class="content">
+        <article>
+            <div >
+                <div>
+                    <div class="category_data">
+                        <p class="mainCategory" th:text="${PostAndMemberDTO.mainCategory}"></p>
+                        <p class="category_line">|</p>
+                        <p class="subCategory" th:text=" ${PostAndMemberDTO.subCategory}"></p>
+                    </div>
+                    <div class="title_status">
+                        <p class="detail_title" th:text="${PostAndMemberDTO.postTitle}"></p>
+                        <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('승인')}">🤩모니터링 완료된 리뷰입니다.</p>
+                        <p class="status" th:if="${PostAndMemberDTO.reviewStatus.equals('미승인') || PostAndMemberDTO.reviewStatus == null}">👀모니터링 중인 리뷰입니다.</p>
+                    </div>
+                    <div class="nickname_date">
+                        <p class="review_nickname" th:text="${PostAndMemberDTO.member.nickname}"></p>
+                        <p class="review_date" th:text="${ #dates.format(PostAndMemberDTO.postDate, 'yyyy.MM.dd') }"></p>
+                    </div>
+                    <hr class="content_line">
+                    <p class="review_content" th:utext="${PostAndMemberDTO.postContext}"></p>
+<!--                    <div th:unless="${PostAndMemberDTO.getFile() == null || PostAndMemberDTO.getFile().isEmpty()} ">-->
+<!--                        <div th:each="image: ${PostAndMemberDTO.getFile()}" style="display: inline-block; padding-left: 20px">-->
+<!--                            <img th:src="@{/images/upload/user/upload/{file}(file=${image.getFileName()})}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="uploaded_img_box" th:if="${PostAndMemberDTO.getFile().get(0).getFileName() != null}">
+                        <ul>
+                            <li th:each="img : ${PostAndMemberDTO.getFile()}">
+                                <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="content_line">
+                    <div class="viewCount_buttons">
+                        <p class="viewCount" th:text="|조회수 ${PostAndMemberDTO.viewCount}|"></p>
+                        <div class="detail_buttons">
+                            <button class="detail_button" type="button" th:if="${PostAndMemberDTO.memberCode == session.memberCode}" th:onclick="|location.href='@{/board/reviewmodify(id=${PostAndMemberDTO.postCode})}'|">수정하기</button>
+                            <form th:action="@{/board/reviewDelete(id=${PostAndMemberDTO.postCode})}" method="post">
+                                <input type="hidden" th:value="${PostAndMemberDTO.subCategory}" name="subCategory">
+                                <input type="hidden" th:value="${PostAndMemberDTO.postCode}" name="postCode">
+                                <button class="detail_delete_button" th:if="${PostAndMemberDTO.memberCode == session.memberCode}" type="submit">삭제하기</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 댓글 영역 -->
+        <!------------------------------------------------------------->
+
+        <!-- 등록된 댓글 영역 -->
+        <div class="registered_comment_box">
+            <div class="comment_top_sec">
+                <p class="comment_sec_tit">댓글</p>
+                <div class="filter_box filter_btn inactive">
+                    <p><span class="filter_txt">정렬</span><span class="filter_mark">▼</span></p>
+                    <ul class="filter_list">
+                        <li>최신순</li>
+                        <li>등록순</li>
+                    </ul>
+                </div>
+            </div>
+
+            <ul class="comment_list" id="comment_list" th:data-post-code="${PostAndMemberDTO.getPostCode()}">
+
+            </ul>
+
+            <!-- 댓글 입력 영역 -->
+            <div sec:authorize="hasAnyAuthority('USER','ADMIN')">
+                <div class="comment_input_box">
+                        <span class="comment_profile_img">
+                          <img th:src="@{/images/common/icon_user_profile.svg}" alt="user profile icon">
+                        </span>
+                    <!-- 댓글 입력 input -->
+                    <div class="comment_input_area">
+                        <div class="schedule_tit_box"><input type="text" class="schedule_tit" maxlength="100" placeholder="내용을 입력하세요"><span class="tit_count eng"><span class="tit_counted">0</span>/100</span></div>
+                        <span class="register_btn register_comment_btn" id="register_comment_btn" data-type="regist">등록</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="user/layout/footer.html"></div>
+
+    <!-- 댓글 삭제 시 재확인 팝업창 -->
+    <div class="pop_bg"></div>
+    <div class="pop_cont selective deleteCommentPop">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <p>해당 댓글을 삭제하시겠습니까?</p>
+        <ul class="pop_btn_list">
+            <!-- <li class="cancel_btn execute_delete_btn" data-comment-index=""><span>삭제</span></li>-->
+            <li class="cancel_btn execute_delete_btn"><span>삭제</span></li>
+            <li class="confirm_btn">취소</li>
+        </ul>
+    </div>
+
+    <!-- 댓글 등록시 입력내용이 없는 경우 , 팝업창 -->
+    <div class="pop_cont no_text">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <p>등록 내용이 없습니다.<br>다시 입력해주세요.</p>
+        <span class="pop_btn confirm_btn">확인</span>
+    </div>
+
+    <script th:src="@{/js/common.js}"></script>
+    <script th:src="@{/js/comment.js}"></script>
+
+</body>
+</html>

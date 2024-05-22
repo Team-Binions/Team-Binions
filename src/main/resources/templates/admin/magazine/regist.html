@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YERANGYESIN-ADMIN</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminWriteBoard.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <style>
+        /* 이미지 미리보기 */
+        .preview_box {width: 100%; padding: 20px; border-radius: 12px; background-color: #F4F4F9;}
+        .preview_list {padding-top: 20px; display: flex; }
+        .preview_list li {width: calc(20% - 18px); aspect-ratio: 1 / 1; margin-right: 20px; }
+        .preview_list li:nth-child(5) {margin-right: 0; }
+        .preview_img {position: relative; width: 100%; height: 100%;}
+        .preview_img > img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1 / 1; border-radius: 12px; }
+        .remove_preview_btn {position: absolute; top: 6px; right:6px; display: block; width: 24px; height: 24px; border-radius: 50%; background-color: var(--main-color); color: #fff; font-size: 18px; font-weight: var(--semiBold); text-align: center; line-height: 24px; cursor: pointer; transition: background-color 200ms ease-in-out;}
+        .remove_preview_btn:hover {background-color: var(--point-color);}
+        .attached_file_count {padding: 16px; background-color: var(--inactive-btn); border-radius: 12px; font-size: 16px; font-weight: var(--medium);}
+        .count_preview {color: var(--point-color); font-weight: var(--bold);}
+        .upload_img_btn.inactive {display: none;}
+        .file_upload_box.preview {display: flex; justify-content: center; padding:20px; align-items: center; height: 100%; border-radius:12px; background-color: #fff; cursor: pointer;}
+        .file_upload_box.preview .upload_btn {display: flex; justify-content: center; align-items: center; width: 100%;  height: 100%; border-radius: 12px; background-color: #fff; border: 1px dashed var(--main-color); font-size: 24px; font-weight: var(--bold); color: var(--main-color);}
+    </style>
+
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+    <article class="all-content">
+        <div>
+            <div>
+                <p class="title">매거진 등록</p>
+                <!--       enctype="multipart/form-data"-->
+                <!-- 수정 페이지에서 원시 코드 보존을 위한 temp 부분 -->
+                <div id="temp" style="display: none">${board.contents}</div>
+                <input type="hidden" id="mainCategory" value="매거진">
+                <div class="subCategory_select_box">
+                    <button type="button" class="label">시리즈</button>
+                    <span class="iconArrow"><img th:src="@{../../images/common/icon_arrow_right_colored.svg}" alt="icon_arrow_right_colored"></span>
+                    <input type="hidden" class="subCategory" id="subCategory" name="subCategory">
+                    <ul class="optionList">
+                        <li class="optionItem">정보</li>
+                        <li class="optionItem">꿀팁</li>
+                        <li class="optionItem">뉴스</li>
+                        <li class="optionItem">기타</li>
+                    </ul>
+                </div>
+<!--                <select id="mainCategory" name="mainCategory" th:value="mainCategory">-->
+<!--                    <option value="" disabled selected>게시판을 선택해 주세요.</option>-->
+<!--                    <option value="자유">예수다</option>-->
+<!--                    <option value="리뷰">예리뷰</option>-->
+<!--                </select>-->
+<!--                <select id="subCategory" name="subCategory" th:value="subCategory">-->
+<!--                    <option value="" disabled selected>카테고리를 선택해주세요.</option>-->
+<!--                    <option value="예신">예신</option>-->
+<!--                    <option value="예랑">예랑</option>-->
+<!--                    <option value="웨딩">웨딩</option>-->
+<!--                    <option value="스드메">스드메</option>-->
+<!--                    <option value="기타-리뷰">기타</option>-->
+<!--                </select>-->
+                <!--      <input type="text" name="postTitle" placeholder="제목을 입력하세요.">-->
+                <div class="regist_top_sec">
+                    <div class="schedule_tit_box">
+                        <input id="postTitle" type="text" name="postTitle" class="schedule_tit" maxlength="50" placeholder="제목을 입력하세요">
+                        <span class="tit_count eng"><span class="tit_counted">0</span>/50</span>
+                    </div>
+                </div>
+                <input type="hidden" id="memberCode" th:value="${session.memberCode}">
+                <div class="schedule_txt_box">
+                    <!--        board_txt_box-->
+                    <textarea id="postContext" type="text" name="postContext" placeholder="내용을 입력하세요." th:class="schedule_contxt_box" maxlength="1000"></textarea>
+                    <span class="txt_count eng"><span class="txt_counted">0</span>/1000</span>
+                </div>
+                <!--      <label>태그</label><input type="text" name="tag" placeholder="#태그를 추가하세요."><br>-->
+                <div class="preview_box">
+                    <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>
+                    <ul class="preview_list">
+                        <li class="upload_img_btn">
+                            <label class="file_upload_box preview" name="uploadFiles">
+                                <span class="upload_btn">＋</span>
+                                <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <!--          <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp">-->
+                <!--      <button type="button" class="uploadBtn">Upload</button>-->
+
+                <div class="uploadResult"></div>
+                <div class="button_list">
+                    <button type="button" onclick="history.back()" class="cancel_btn">취소</button>
+                    <button id="registPost">등록</button>
+                    <!--         onclick="goWrite(this.form);"-->
+                </div>
+            </div>
+        </div>
+
+    <div id="cancelModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <div class="cancel_modal_text">
+                <p>작성 된 내용이 전부 삭제 됩니다. 매거진 등록을 취소 하겠습니까?</p>
+            </div>
+            <div class="deleteModal_button_box">
+                <button type="submit" id="cancelModal_check_btn" onclick="history.back()">확인</button>
+                <button type="button" id="cancelModal_close_btn" class="modal_close_btn">취소</button>
+            </div>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+
+<div th:replace="admin/footer.html"></div>
+</article>
+</div>
+
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_check.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>매거진 등록이 완료되었습니다.</p>
+    </div>
+    <span class="confirm_btn">확인</span>
+</div>
+
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/adminFileUpload.js}"></script>
+
+<script>
+    const label = document.querySelector('.label');
+    const options = document.querySelectorAll('.optionItem');
+    const subCategory = document.querySelector('.subCategory');
+
+    // 클릭한 옵션의 텍스트를 라벨 안에 넣음
+    const handleSelect = (item) => {
+        // console.log(item.textContent);
+        // console.log(label.textContent);
+        label.parentNode.classList.remove('active');
+        label.textContent = item.textContent;
+        subCategory.value = item.textContent;   // input value에 텍스트를 넣음
+        // console.log(subCategory.value);
+    }
+    // 옵션 클릭시 클릭한 옵션을 넘김
+    options.forEach(option => {
+        option.addEventListener('click', () => handleSelect(option))
+    })
+
+    // 라벨을 클릭시 옵션 목록이 열림/닫힘
+    label.addEventListener('click', () => {
+        if(label.parentNode.classList.contains('active')) {
+            label.parentNode.classList.remove('active');
+        } else {
+            label.parentNode.classList.add('active');
+        }
+    })
+
+
+    //페이지 로드시, 등록된 스케쥴 제목 및 내용 텍스트 길이 반영
+    $(window).on('load', () => {
+        $(".tit_counted").text($(".input_title").val().length);
+        $(".txt_counted").text($(".input_context").val().length);
+    })
+
+    // 제목 입력시 텍스트 길이 실시간 반영
+    $(".input_title").on('input', (e) => {
+        console.log("input_title op");
+        $(".tit_counted").text(e.target.value.length);
+    })
+
+    // 내용 입력시 텍스트 길이 실시간 반영
+    $(document).on('input',".input_context",  (e) => {
+        console.log("input op");
+        $(".txt_counted").text(e.target.value.length);
+    })
+
+
+
+    // 제목 및 내용 미입력시 등록 불가
+    function goWrite(frm) {
+        var category = frm.subCategory.value;
+        var title = frm.postTitle.value;
+        var content = frm.postContext.value;
+
+        if (category.trim() == ''){
+            $(".pop_cont").find("p").text("분류를 선택해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("확인 버튼 클릭");
+                }else{//회원탈퇴 취소 버튼을 클릭시
+                    console.log("취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.label').focus();
+            })
+
+            return false;
+        }
+
+
+        if (title.trim() == ''){
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_title').focus();
+            })
+
+            return false;
+        }
+
+
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click((e) => {
+                if($(e.target).closest("li").hasClass("cancel_btn")){// 확인 버튼을 클릭시
+                    console.log("회원탈퇴 확인 버튼 클릭");
+                }else{// 취소 버튼을 클릭시
+                    console.log("회원탈퇴 취소 버튼 클릭");
+                }
+
+                $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+                $('.input_context').focus();
+            })
+
+            return false;
+        }
+        frm.submit();
+    }
+</script>
+<!--<p class="title">매거진 등록</p>-->
+<!--&lt;!&ndash;<form action="/admin/magazine/regist" method="post">&ndash;&gt;-->
+<!--    <input class="input_title" type="text" id="postTitle" name="postTitle" placeholder="제목을 입력하세요.">-->
+<!--    <div>-->
+<!--        <textarea class="input_context" id="postContext" name="postContext" placeholder="내용을 입력하세요."></textarea>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; 파일 업로드 &ndash;&gt;-->
+<!--    <div class="preview_box">-->
+<!--        <p class="attached_file_count">첨부파일 (&nbsp;<span class="eng"><span class="eng count_preview">0&nbsp;</span>/&nbsp;5</span>&nbsp;)</p>-->
+<!--        <ul class="preview_list">-->
+<!--            <li class="upload_img_btn">-->
+<!--                <label class="file_upload_box preview" name="uploadFiles">-->
+<!--                    <span class="upload_btn">＋</span>-->
+<!--                    <input name="uploadFiles" type="file" multiple accept="png, jpg, jpeg, webp" class="file_upload_input">-->
+<!--                </label>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="uploadResult"></div>-->
+<!--    <div class="button_list">-->
+<!--        <button type="button" onclick="history.back()" class="cancel_btn">취소</button>-->
+<!--        <button id="registPost">등록</button>-->
+<!--    </div>-->
+<!--&lt;!&ndash;    <div class="button_box" id="regist_button_box">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button class="cancel_btn" type="button" onclick="history.back()">취소</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit">등록</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+<!--    &lt;!&ndash; 취소 모달창 &ndash;&gt;-->
+
+</body>
+</html>

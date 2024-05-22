@@ -1,0 +1,405 @@
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+.container {
+    position: fixed; margin-top: 113px;
+    width: 150px;
+    border-right-style: solid;
+    border-right-color: #6667AB;
+    border-right-width: 1px;
+    height: 100%
+}
+
+.menu-item {
+    padding-bottom: 30px;
+    cursor: pointer
+}
+
+.menu-item:hover {
+    font-weight: var(--bold);
+}
+
+.menu-item.active {
+    background-color: #D4CFEB;
+    font-weight: var(--bold);
+}
+
+/* ========== 관리자 메인페이지 ========== */
+/* dashBoard 첫 번째 줄 */
+/* 회원 관련 정보 box */
+.dashBoard_member_text {
+    font-weight: var(--regular);
+    font-size: 20px;
+    padding-top: 20px;
+}
+.dashBoard_box_first {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.dashBoard_item_first {
+    background-color: #6667AB;
+    color: #ffffff;
+    width: 33%;
+    margin: 10px;
+    /*padding: 10px;*/
+    /*width: 500px;*/
+    height: 150px;
+    border-radius: 12px;
+}
+
+.main_content_box {
+    padding: 20px;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+}
+
+.main_content_box p {
+    color: #ffffff;
+}
+
+.content_header {
+    width: 100%;
+    font-size: 18px;
+    font-weight: var(--regular);
+}
+
+.content_text_box {
+    margin-top: -6px;
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.content_count_box {
+    width: 50%;
+}
+
+.content_count_box p {
+    font-size: 16px;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.content_count_box .number {
+    font-weight: var(--semiBold);
+}
+
+
+.main_content_box hr {
+    margin-top: -40px;
+    width: 88%;
+    background-color: #ffffff;
+    height: 1px;
+    border: 0;
+}
+
+
+/* dashBoard 두번째 줄 */
+.dashBoard_box_second {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 67px;
+}
+.dashBoard_board_box {
+    width: 34%;
+    padding: 10px;
+}
+
+.dashBoard_board_text {
+    font-weight: var(--regular);
+    font-size: 20px;
+}
+
+.dashBoard_item_second {
+    color: var(--text-color);
+    height: 150px;
+    border-radius: 12px;
+    border: 1px solid var(--text-color);
+    margin-top: 20px;
+}
+
+.second_main_content_box {
+    padding: 20px;
+}
+
+
+.second_main_content_box hr {
+    margin-top: -40px;
+    width: 88%;
+    background-color: #EDEDFF;
+    height: 2px;
+    border: 0;
+}
+
+.free_count_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.free_content_count_box p {
+    font-size: 16px;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.free_content_count_box .number {
+    font-weight: var(--semiBold);
+}
+
+#yesin_count_box {
+    border-right: 2px solid #EDEDFF;
+}
+
+#notice_count_box {
+    border-right: 2px solid #EDEDFF;
+}
+
+#yesin_margin {
+    margin-right: 10px;
+}
+
+#notice_margin {
+    margin-right: 10px;
+}
+
+#yerang_margin {
+    margin-left: 10px;
+}
+
+#magazine_margin {
+    margin-left: 10px;
+}
+
+.second_main_content_box .free_line {
+    width: 100%;
+}
+
+/* dashBoard 세번째 줄 */
+.dashBoard_box_third {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 67px;
+}
+
+.dashBoard_table_area {
+    width: 50%;
+    padding: 10px;
+}
+
+.dashBoard_table_box {
+    width: 100%;
+    margin-top: 20px;
+    display: inline-block;      /* 내부 테이블 크기에 맞춤 */
+    border: 1px solid var(--text-color);    /* border 표시 */
+    border-radius: 12px;    /* radius 적용 */
+    overflow: hidden;       /* 넘치는 내용 감춤 */
+}
+
+.dashBoard_table{
+    width: 100%;
+    text-align: center;
+    border-style: hidden;   /* 두께 맞추기 위해 border-style 숨김 */
+    /*border: 2px groove var(--text-color);*/
+    /*border-radius: 12px;*/
+    border-collapse: collapse;
+}
+
+.dashBoard_th {
+    background-color: #ffffff;
+    color: var(--text-color);
+    border: none;
+    font-weight: var(--medium);
+    font-size: 16px;
+}
+
+.dashBoard_tr { border: 1px groove var(--text-color)}
+.dashBoard_td { border: none; height: 38px}
+
+.dashBoard_table th, td {
+    height: 40px;
+    font-size: 14px;
+}
+
+
+.dashBoard_table th {
+    /*background-color: #6667AB;*/
+    /*color: #ffffff;*/
+    font-weight: var(--medium);
+    font-size: 16px;
+    height: 45px;
+}
+
+
+/* ======= content 영역 설정 ==========*/
+/* 사이드바의 세로 길이를 화면 높이에 맞추기 위한 설정 */
+html, body {
+    height: 100%;
+}
+
+/* 컨텐츠 전체 영역 */
+article {
+
+    margin-top: 126px;
+    margin-left: 176px;
+    margin-right: 26px;
+    width: 100%;
+}
+
+.div_content {
+    min-height: 64vh;
+}
+
+.title {
+    padding-top: 10px;
+    font-size: 24px;
+    font-weight: var(--bold);
+}
+
+.search_form{
+    position: absolute;
+    right: 27px;
+}
+
+.search_box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 300px;
+}
+.search_input {
+    position: absolute;
+    height: 40px;
+    padding: 0 105px 0 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--hashBg-color);
+}
+.search_input::placeholder {
+    color: var(--main-color);
+}
+.clear_btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 40px;
+    background: center / contain no-repeat
+    url("../../images/common/icons_delete.svg");
+    cursor: pointer;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 200ms ease-in-out, z-index 200ms ease-in-out;
+}
+.clear_btn.active {
+    opacity: 1;
+    z-index: 1;
+}
+.search_btn {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    right: 10px;
+    background: center / contain no-repeat
+    url("../../images/common/icon_search.svg");
+    cursor: pointer;
+}
+/* 사이드바 + 컨텐츠 전체 영역 */
+.sidebar_content {
+    display: flex;
+}
+
+
+
+/* 게시판 관리 */
+/* 테이블 전체 영역 */
+.table_box {
+    width: 100%;
+    margin-top: 40px;
+    display: inline-block;      /* 내부 테이블 크기에 맞춤 */
+    border: 1px solid var(--text-color);    /* border 표시 */
+    border-radius: 12px;    /* radius 적용 */
+    overflow: hidden;       /* 넘치는 내용 감춤 */
+}
+table {
+    width: 100%;
+    text-align: center;
+    border-style: hidden;   /* 두께 맞추기 위해 border-style 숨김 */
+    /*border: 2px groove var(--text-color);*/
+    /*border-radius: 12px;*/
+    border-collapse: collapse;
+}
+
+tr, th, td {
+    border: 1px groove var(--inactive-text);
+    /*border-radius: 12px;*/
+}
+
+th, td {
+    height: 40px;
+    font-size: 14px;
+}
+
+
+th {
+    background-color: #6667AB;
+    color: #ffffff;
+    font-weight: var(--regular);
+    font-size: 16px;
+}
+
+/* 테이블 컬럼 폭 */
+.index_th {width: 70px;}
+.nickname_th {width: 150px;}
+.date_th {width: 130px;}
+.manage_th {width: 110px;}
+
+.number {
+    font-family: 'Poppins';
+}
+
+.eng {
+    font-family: 'Poppins';
+}
+
+.table_box button {
+    background-color: #F4F4F9;
+    color: var(--main-color);
+    cursor: pointer;
+    height: 30px;
+    width: 90px;
+}
+
+.table_box button:hover {
+    background-color: var(--point-color);
+    color: #ffffff;
+    font-weight: var(--medium);
+    transition: background-color 200ms ease-in-out;
+}
+
+.regist_search_box {
+    padding-top: 10px;
+    position: absolute;
+    top: 140px;
+    right: 340px;
+    /*background-color: #C9C9C9;*/
+    display: block;
+}
+
+.regist_search_box button {
+    /*margin-top: 20px;*/
+    width: 140px;
+    height: 40px;
+    cursor: pointer;
+}

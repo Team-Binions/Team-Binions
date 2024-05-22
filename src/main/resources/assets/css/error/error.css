@@ -1,0 +1,91 @@
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: center / cover no-repeat url(../../images/common/stampBg.svg);
+}
+
+.login_cont {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    padding: 40px;
+    background-color: rgba(255,255,255, 0.74);
+    border-radius:20px;
+}
+
+.left_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 55%;}
+
+.left_side img {
+    width: 200px;
+    height: 200px;
+}
+
+.logo_tit {
+    padding-top: 20px;
+    font-size: 36px;
+    font-weight: var(--bold);
+    color: var(--main-color);
+}
+
+.go_to_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    height: 50px;
+    padding:0 40px;
+    background-color: var(--main-color);
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: var(--medium);
+    color: #fff;
+    transition: background-color 200ms ease-in-out;
+}
+
+.go_to_main:hover {
+    background-color: var(--point-color);
+}
+
+.login_box {
+    align-content: center;
+    width: 45%;
+    max-width: 470px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius:20px;
+    box-shadow: 0 2px 5px rgba(102, 103, 171, 0.2);
+}
+
+.box_error {
+    padding-bottom: 10px;
+    font-size: 40px;
+    font-weight: var(--bold);
+    color: var(--main-color);
+}
+
+.box_tit {
+    padding-bottom: 20px;
+    font-size: 24px;
+    font-weight: var(--semiBold);
+    color: var(--main-color);
+}
+
+.box_context {
+    font-size: 16px;
+    font-weight: var(--regular);
+    color: var(--main-color);
+}

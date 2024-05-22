@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" th:href="@{/css/user/main.css}">
+  <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>예랑예신</title>
+  <script>
+    const message = `[[${ message }]]`;
+    if(message) {
+      alert(message);
+    }
+  </script>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+<!--  <th:block th:with="nick=${loginUserInfo}">-->
+<!--    <div th:replace="user/layout/header.html"></div>-->
+<!--  </th:block>-->
+
+  <!-- //HEADER -->
+
+  <!-- main contents -->
+  <div class="main_cont">
+    <div class="banner_box">
+      <div class="about_banner">
+        <ul class="ball_bg"></ul>
+        <div class="img_bg">
+          <img th:src="@{/images/main/banner01.png}" alt="banner image">
+        </div>
+      </div>
+    </div>
+    <!-- // banner -->
+
+    <!-- 검색 -->
+    <div class="search_box">
+      <p>어떤 글을 찾고 계세요?</p>
+<!--      <div class="search_bar">-->
+        <form class="search_bar" th:action="@{/search}" method="get">
+          <input type="hidden" name="searchType" value="">
+          <input type="text" placeholder="검색어를 입력하세요" name="keyword">
+          <button type="submit">검색</button>
+        </form>
+<!--      </div>-->
+      <ul>
+        <li><a href="#">#웨딩홀</a></li>
+        <li><a href="#">#스드메</a></li>
+        <li><a href="#">#드레스</a></li>
+        <li><a href="#">#예복</a></li>
+        <li><a href="#">#반지</a></li>
+        <li><a href="#">#시댁</a></li>
+      </ul>
+    </div>
+    <!-- // search -->
+
+    <!-- 예수다 -->
+    <div class="board_cont">
+      <p class="sec_tit">예수다</p>
+      <div class="board_inner_box">
+        <div class="board_list_box">
+          <ul>
+            <li><a th:href="@{/board/yesin(id='예신')}">예신수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yesin(id='예신')}">+ 더보기</a></li>
+          </ul>
+          <ul>
+            <th:block th:each="yesin, i : ${freeBoardByBridge}">
+              <li><a th:href="@{/board/freedetail(id=${yesin.postCode})}" th:text="${yesin.postTitle}"></a></li>
+            </th:block>
+          </ul>
+        </div>
+        <div class="board_list_box">
+          <ul>
+            <li><a th:href="@{/board/yerang(id='예랑')}">예랑수다</a></li>
+            <li class="more_btn right"><a th:href="@{board/yerang(id='예랑')}">+ 더보기</a></li>
+          </ul>
+          <ul>
+            <th:block th:each="yerang, i : ${freeBoardByGroom}">
+              <li><a th:href="@{/board/freedetail(id=${yerang.postCode})}" th:text="${yerang.postTitle}"></a></li>
+            </th:block>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- // board_cont -->
+
+    <!-- 예리뷰 -->
+    <div class="review_cont">
+      <p class="sec_tit">예리뷰</p>
+      <!-- Slider main container -->
+      <div class="reviewSwiper swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide" th:each="review : ${reviewBoard}">
+            <a th:href="@{/board/reviewdetail(id=${review.postCode})}" class="slide_box">
+              <div class="review_thumbnail">
+                <img th:src="@{/images/main/KakaoTalk_20230405_053202431_12.jpg}" alt="review image">
+              </div>
+              <div class="review_txt">
+                <p th:text="${review.postTitle}">꿈꾸던 야외 결혼식 했어요!</p>
+                <ul>
+                  <li>#Beanions웨딩홀</li>
+                  <li>#야외웨딩홀</li>
+                  <li>#야외결혼식</li>
+                </ul>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="swiper-button-prev">
+          <img src="./images/common/icon_arrow_left_white.svg" alt="prev icon">
+        </div>
+        <div class="swiper-button-next">
+          <img src="./images/common/icon_arrow_right_white.svg" alt="next icon">
+        </div>
+      </div>
+    </div>
+    <!-- //review_cont -->
+
+    <!-- 예피셜&공지사항 -->
+    <div class="magazine_notice_cont">
+      <div class="magazine_cont">
+        <div class="more_top_sec"><p class="sec_tit">예피셜</p><span class="more_btn"><a th:href="@{/board/magazine}">+ 더보기</a></span></div>
+        <div class="magazine_box">
+          <a th:href="@{/board/magazinedetail(id=${magazineBoard.postCode})}" class="magazine_inner_box">
+            <div class="magazine_img">
+              <img th:src="@{/images/common/logo.svg}" alt="magazine image">
+            </div>
+            <div class="magazine_text">
+              <p class="magazine_no"><span class="eng">no <span class="eng" th:text="${magazineBoard.postCode}"></span></span> | <span th:text="${magazineBoard.subCategory}"></span></p>
+              <p class="magazine_tit" th:text="${magazineBoard.postTitle}">우리의 특별한 날, 완벽한 웨딩의 비밀</p>
+              <p class="magazine_tag"><span># 탑시크릿</span><span># 완벽한</span><span># 특별한</span><span># 나만알고 싶은</span></p>
+              <div class="magazine_contxt" th:text="${magazineBoard.postContext}"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="notice_cont">
+        <div class="more_top_sec"><p class="sec_tit">공지사항</p><span class="more_btn"><a th:href="@{/board/notice}">+ 더보기</a></span></div>
+        <div class="notice_box">
+          <ul>
+            <th:block th:each="notice : ${noticeBoard}">
+              <li>
+                <a th:href="@{/board/noticedetail(id=${notice.postCode})}">
+                  <span th:if="${notice.subCategory == '업데이트'}" class="notice_tag red">업데이트</span>
+                  <span th:if="${notice.subCategory == '공지'}" class="notice_tag">공지</span>
+                  <span th:if="${notice.subCategory == '이벤트'}" class="notice_tag event">이벤트</span>
+                  <span th:if="${notice.subCategory == '이용 안내'}" class="notice_tag">이용안내</span>
+                  <span th:text="${notice.postTitle}"></span>
+                </a>
+              </li>
+            </th:block>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //magazine_notice_cont -->
+
+    <!-- contact -->
+    <div class="contact_cont">
+      <p class="sec_tit eng">CONTACT</p>
+      <div class="contact_box">
+        <div class="contact_inner_box">
+          <div class="contact_input">
+            <p>문의사항 있으세요?</p>
+            <input type="text" id="inquiryEmail" placeholder="이메일 주소를 입력해주세요">
+            <textarea id="inquiryContext" placeholder="문의 내용을 입력해주세요"></textarea>
+            <button id="inquiry" style="cursor: pointer;">문의하기</button>
+          </div>
+          <div class="contact_img">
+            <img th:src="@{/images/main/contactIllust.svg}" alt="contact image">
+            <p><span class="mail_icon"><img th:src="@{/images/common/icon_mail.svg}" alt="mail icon"></span>beanions-cs@beanions.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //contact_cont -->
+  </div>
+  <!-- // main contents -->
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+
+  <!-- TOP BUTTON -->
+  <span class="top_btn eng">TOP</span>
+</div>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

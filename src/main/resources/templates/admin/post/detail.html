@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YERANGYESIN-ADMIN</title>
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{../../css/admin/adminPost.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
+<article class="all-content">
+<p class="contents_head title">게시글 상세 정보</p>
+<div>
+    <div class="post_main_sub_category">
+        <p class="post_main_text" th:if="${ postDetail.mainCategory == '자유'}">예수다</p>
+        <p class="post_main_text" th:if="${ postDetail.mainCategory == '리뷰'}">예리뷰</p>
+        <div class="main_sub_category">
+            <p class="main_text" th:text="${ postDetail.mainCategory}"></p>
+            <p class="main_sub">|</p>
+            <p class="sub_text" th:text="${ postDetail.subCategory}"></p>
+        </div>
+    </div>
+    <p class="title_text" th:text="${ postDetail.postTitle}"></p>
+    <p class="member_text" th:text="${ postDetail.member.nickname }"></p>
+    <p th:text="${ #dates.format(postDetail.postDate, 'yyyy-MM-dd')}" class="number"></p>
+    <hr class="up_line_context">
+    <p class="context_text" th:utext="${ postDetail.postContext}"></p>
+    <div class="uploaded_img_box" th:if="${postDetail.getFile().get(0).getFileName() != null}">
+        <ul>
+            <li th:each="img : ${postDetail.getFile()}">
+                <img th:src="@{/images/upload/user/upload/{file}(file=${img.getFileName()})}"  alt="게시글 파일"/>
+            </li>
+        </ul>
+    </div>
+    <hr class="down_line_context">
+    <!-- 삭제, 목록, 변경 버튼 div -->
+    <div class="button_box">
+        <!-- 삭제 버튼 -->
+        <div id="root">
+            <button type="button" id="deleteModal_open_btn">삭제</button>
+        </div>
+        <!-- 목록 버튼 -->
+        <button onclick="location.href='/admin/post'" id="back_post_btn">목록</button>
+        <!-- 상태 변경 버튼 -->
+        <div id="statusModal_open_btn">
+            <button class="modify_btn" type="button" th:if="${ postDetail.verifiedStatus == '활성' || postDetail.verifiedStatus == null}">비활성화</button>
+            <button class="modify_btn" type="button"  th:if="${ postDetail.verifiedStatus == '비활성'}">활성화</button>
+        </div>
+        <div id="reviewModal_open_btn">
+                <span th:if="${ postDetail.mainCategory == '리뷰'}">
+                    <button class="review_btn" type="button" th:if="${ postDetail.reviewStatus == '승인'}">미승인</button>
+                    <button class="review_btn" type="button" th:if="${ postDetail.reviewStatus == '미승인'}">승인</button>
+                </span>
+        </div>
+    </div>
+
+    <!-- 삭제 모달창 -->
+    <div id="deleteModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <p>게시글을 삭제하시겠습니까?</p>
+            <form th:action="@{/admin/post/delete(id=${postDetail.postCode})}" method="post">
+                <div class="deleteModal_button_box">
+                    <button type="submit" id="deleteModal_check_btn">확인</button>
+                    <button type="button" id="deleteModal_close_btn" class="modal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+    <!-- 활성화 여부 모달창 -->
+    <div id="statusModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <form th:action="@{/admin/post/update(id=${postDetail.postCode})}" method="post">
+                <div th:if="${ postDetail.verifiedStatus == '활성'}">
+                    <p>게시글을 비활성화 하시겠습니까?</p>
+                    <input type="hidden" name="verifiedStatus" value="비활성">
+                </div>
+                <div th:if="${ postDetail.verifiedStatus == '비활성'}">
+                    <p>게시글을 활성화 하시겠습니까?</p>
+                    <input type="hidden" name="verifiedStatus" value="활성">
+                </div>
+                <div class="deleteModal_button_box">
+                <input type="hidden" th:value="${ postDetail.postCode }" name="postCode">
+                    <button type="submit" id="statusModal_check_btn">확인</button>
+                    <button type="button" id="statusModal_close_btn" class="modal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+    <!-- 승인 여부 모달창 -->
+    <div id="reviewModal" class="modal">
+        <div class="deleteModal_content">
+            <div class="deleteModal_icon_box">
+                <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}" alt="icon_group_modal_bang">
+            </div>
+            <form th:action="@{/admin/post/review(id=${postDetail.postCode})}" method="post">
+                <div th:if="${ postDetail.reviewStatus == '승인'}">
+                    <p>게시글을 미승인 하시겠습니까?</p>
+                    <input type="hidden" name="reviewStatus" value="미승인">
+                </div>
+                <div th:if="${ postDetail.reviewStatus == '미승인'}">
+                    <p>게시글을 승인 하시겠습니까?</p>
+                    <input type="hidden" name="reviewStatus" value="승인">
+                </div>
+                <div class="deleteModal_button_box">
+                    <input type="hidden" th:value="${ postDetail.postCode }" name="postCode">
+                    <button type="submit" id="reviewModal_check_btn">확인</button>
+                    <button type="button" id="reviewModal_close_btn" class="modal_close_btn">취소</button>
+                </div>
+            </form>
+        </div>
+        <div class="deleteModal_layer"></div>
+    </div>
+</div>
+    <div th:replace="admin/footer.html"></div>
+</article>
+</div>
+<script>
+    // 삭제 모달
+    document.getElementById("deleteModal_open_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "block";
+    }
+
+    document.getElementById("deleteModal_close_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+
+    document.getElementById("deleteModal_check_btn").onclick = function () {
+        document.getElementById("deleteModal").style.display = "none";
+    }
+
+    // 활성화 모달
+    document.getElementById("statusModal_open_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "block";
+    }
+
+    document.getElementById("statusModal_close_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "none";
+    }
+
+    document.getElementById("statusModal_check_btn").onclick = function () {
+        document.getElementById("statusModal").style.display = "none";
+    }
+
+    // 승인 모달
+    document.getElementById("reviewModal_open_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "block";
+    }
+
+    document.getElementById("reviewModal_close_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "none";
+    }
+
+    document.getElementById("reviewModal_check_btn").onclick = function () {
+        document.getElementById("reviewModal").style.display = "none";
+    }
+
+</script>
+</body>
+</html>

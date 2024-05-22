@@ -1,0 +1,221 @@
+/* search input */
+input::-ms-clear,
+input::-ms-reveal {
+    display: none;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
+/* ----------- 공지사항 List ----------- */
+.content {
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 202px);
+}
+
+article {
+    width: 100%;
+    padding: 60px 20px 60px;
+    max-width: 1200px;
+}
+
+.notice_title_icon {
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.notice_img {
+    width: 24px;
+    margin-right: 8px;
+}
+
+.notice_title {
+    font-weight: var(--bold);
+    font-size: 24px;
+    color: var(--text-color);
+    display: inline-block;
+}
+
+.search_form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.search_box {
+    align-items: center;
+    position: relative;
+    width: 300px;
+    height: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search_input {
+    position: absolute;
+    height: 40px;
+    padding: 0 105px 0 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--hashBg-color);
+}
+
+.search_input::placeholder {
+    color: var(--main-color);
+}
+
+.clear_btn {
+    position: absolute;
+    margin-top: 8px;
+    width: 24px;
+    height: 24px;
+    right: 40px;
+    background: center / contain no-repeat
+    url("../../../images/common/icons_delete.svg");
+    cursor: pointer;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 200ms ease-in-out, z-index 200ms ease-in-out;
+}
+
+.clear_btn.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.search_btn {
+    position: absolute;
+    margin-top: 8px;
+    display: block;
+    width: 24px;
+    height: 24px;
+    right: 10px;
+    background: center / contain no-repeat
+    url("../../../images/common/icon_search.svg");
+    cursor: pointer;
+}
+
+/* 공지사항 table */
+.notice_List {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.eng {
+    font-family: 'Poppins';
+}
+
+.notice_List tbody tr {
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+}
+
+.notice_List tbody tr:hover {
+    background-color: var(--hashBg-color);
+}
+
+.notice_List thead th {
+    padding:8px 0;
+    border: 1px solid var(--text-color);
+    border-left: none;
+    border-right: none;
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 16px;
+    font-weight: var(--semiBold);
+}
+
+.notice_List tbody td {
+    padding:8px 0;
+    font-size: 16px;
+    font-weight: var(--medium);
+    border-bottom: 1px solid var(--text-color);
+    text-align: center;
+}
+
+/* ----------- 공지사항 상세페이지 ----------- */
+
+/* 공지사항 카테고리 title */
+.notice_category {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.notice_mainCategory {
+    font-size: 20px;
+    font-weight: var(--semiBold);
+    color: var(--inactive-text);
+    display: inline;
+}
+
+.category_line {
+    color: var(--inactive-text);
+    display: inline;
+    margin: 0 10px;
+}
+
+.notice_subCategory {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+/* 공지사항 내용 */
+
+.notice_data {
+
+}
+
+.notice_detail_title {
+    color: var(--text-color);
+    font-size: 24px;
+    font-weight: var(--medium);
+    margin-bottom: 40px;
+}
+
+.notice_content_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.notice_nickname {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: var(--bold);
+    margin-bottom: 24px;
+}
+
+.notice_Date {
+    color: var(--inactive-text);
+    display: inline-block;
+}
+
+.notice_content_line {
+    color: var(--inactive-input-bg);
+}
+
+.notice_content {
+    color: var(--text-color);
+    min-height: 600px;
+    margin: 12px 8px 12px 8px;
+}
+
+.notice_back_button {
+    width: 100px;
+    height: 50px;
+    background-color: var(--inactive-input-bg);
+    margin-top: 12px;
+    margin-bottom: 60px;
+    float: right;
+}
+
+.uploaded_img_box {}
+.uploaded_img_box ul {display: flex; flex-wrap: wrap;}
+.uploaded_img_box ul li{width:20%; aspect-ratio: 1 / 1;}
+.uploaded_img_box ul li img {width:100%; object-fit: cover; border-radius: 12px;}

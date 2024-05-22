@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beanions.board.notice.dao.NoticeMapper">
+
+    <resultMap id="PostAndMemberResultMap" type="com.beanions.board.common.dto.PostAndMemberDTO">
+        <id property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContext" column="POST_CONTEXT"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="mainCategory" column="MAIN_CATEGORY"/>
+        <result property="subCategory" column="SUB_CATEGORY"/>
+        <result property="verifiedStatus" column="VEF_STATUS"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="MEMBER_CODE"/>
+            <result property="nickname" column="NICKNAME"/>
+        </association>
+        <collection property="file" ofType="com.beanions.common.dto.FilesDTO">
+            <id property="fileCode" column="FILE_CODE"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="postCode" column="POST_CODE"/>
+        </collection>
+    </resultMap>
+
+
+    <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
+        <id property="page" column="page"/>
+        <result property="recordSize" column="recordSize"/>
+        <result property="pageSize" column="pageSize"/>
+        <association property="pagination" javaType="com.beanions.common.paging.Pagination">
+            <id property="pagination" column="pagination"/>
+        </association>
+    </resultMap>
+
+    <!-- 공지사항 전체 조회 -->
+    <select id="allNoticeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE MAIN_CATEGORY = '공지사항'
+        ORDER BY POST_DATE desc, POST_CODE desc
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        POST
+        WHERE MAIN_CATEGORY='공지사항'
+    </select>
+
+    <!-- 공지사항 상세 조회 -->
+    <select id="noticeSelectOneDetail" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        , C.FILE_NAME
+        , C.POST_CODE
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        LEFT JOIN FILES C ON A.POST_CODE = C.POST_CODE
+        WHERE A.POST_CODE = #{ id }
+        ORDER BY POST_DATE desc
+    </select>
+</mapper>

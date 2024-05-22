@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="header_box">
+  <header>
+    <a th:href="@{/main}" class="logo">
+      <img th:src="@{/images/common/logo.svg}" alt="YERANGYESIN logo">
+    </a>
+    <nav>
+      <ul class="header_gnb">
+        <li>
+          <a href="#">예피셜</a>
+          <ul class="sub_menu">
+            <li><a href="/board/notice">공지사항</a></li>
+            <li><a href="/board/magazine">매거진</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">예수다</a>
+          <ul class="sub_menu">
+            <li><a href="/board/yesin?id=예신">예신</a></li>
+            <li><a href="/board/yerang?id=예랑">예랑</a></li>
+          </ul>
+        </li>
+        <li><a href="/board/review">예리뷰</a></li>
+      </ul>
+      <ul class="right_menu">
+        <li><a href="/board/fileUpload">글쓰기</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
+        <li sec:authorize="hasAnyAuthority('USER')" class="mypage_btn"><a th:href="@{/mypage}"></a></li>
+        <li sec:authorize="hasAnyAuthority('USER')" class="logout_btn"><a th:href="@{/auth/logout}"></a></li>
+      </ul>
+    </nav>
+  </header>
+</div>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beanions.board.free.dao.FreeBoardMapper">
+
+    <resultMap id="PostAndMemberResultMap" type="com.beanions.board.common.dto.PostAndMemberDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="memberCode" column="member_code"/>
+        <result property="postTitle" column="post_title"/>
+        <result property="postContext" column="post_context"/>
+        <result property="postDate" column="post_date"/>
+        <result property="mainCategory" column="main_category"/>
+        <result property="subCategory" column="sub_category"/>
+        <result property="verifiedStatus" column="vef_status"/>
+        <result property="reviewStatus" column="review_status"/>
+        <result property="viewCount" column="view_count"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="member_code"/>
+            <result property="nickname" column="nickname"/>
+        </association>
+        <collection property="file" ofType="com.beanions.common.dto.FilesDTO">
+            <id property="fileCode" column="FILE_CODE"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="postCode" column="POST_CODE"/>
+        </collection>
+    </resultMap>
+
+<!--    <resultMap id="PostAndCommentResultMap" type="com.beanions.board.common.dto.PostAndCommentDTO">-->
+<!--        <id property="postCode" column="post_code"/>-->
+<!--        <result property="memberCode" column="member_code"/>-->
+<!--        <result property="postTitle" column="post_title"/>-->
+<!--        <result property="postContext" column="post_context"/>-->
+<!--        <result property="postDate" column="post_date"/>-->
+<!--        <result property="mainCategory" column="main_category"/>-->
+<!--        <result property="subCategory" column="sub_category"/>-->
+<!--        <result property="verifiedStatus" column="vef_status"/>-->
+<!--        <result property="reviewStatus" column="review_status"/>-->
+<!--        <result property="viewCount" column="VIEW_COUNT"/>-->
+<!--        <association property="member" javaType="com.beanions.common.dto.MembersDTO">-->
+<!--            <id property="memberCode" column="MEMBER_CODE"/>-->
+<!--            <result property="nickname" column="NICKNAME"/>-->
+<!--        </association>-->
+<!--        <collection property="comment" ofType="com.beanions.board.common.dto.CommentAndMemberDTO">-->
+<!--            <id property="commentCode" column="COMMENT_CODE"/>-->
+<!--            <result property="postCode" column="POST_CODE"/>-->
+<!--            <result property="memberCode" column="MEMBER_CODE"/>-->
+<!--            <result property="commentContext" column="COMMENT_CONTEXT"/>-->
+<!--            <result property="commentDate" column="COMMENT_DATE"/>-->
+<!--            <association property="member" javaType="com.beanions.common.dto.MembersDTO">-->
+<!--                <id property="memberCode" column="MEMBER_CODE"/>-->
+<!--                <result property="nickname" column="NICKNAME"/>-->
+<!--            </association>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+    <resultMap id="CommentResultMap" type="com.beanions.board.common.dto.CommentAndMemberDTO">
+        <id property="commentCode" column="COMMENT_CODE"/>
+        <result property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="commentContext" column="COMMENT_CONTEXT"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
+        <association property="member" javaType="com.beanions.common.dto.MembersDTO">
+            <id property="memberCode" column="MEMBER_CODE"/>
+            <result property="nickname" column="NICKNAME"/>
+        </association>
+    </resultMap>
+    <resultMap id="Comments" type="com.beanions.common.dto.CommentsDTO">
+        <id property="commentCode" column="COMMENT_CODE"/>
+        <result property="postCode" column="POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="commentContext" column="COMMENT_CONTEXT"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
+    </resultMap>
+    
+    <resultMap id="SearchResultmap" type="com.beanions.common.dto.SearchDTO">
+        <id property="page" column="page"/>
+        <result property="recordSize" column="recordSize"/>
+        <result property="pageSize" column="pageSize"/>
+        <association property="pagination" javaType="com.beanions.common.paging.Pagination">
+            <id property="pagination" column="pagination"/>
+        </association>
+    </resultMap>
+
+
+    <select id="freeList" parameterType="com.beanions.common.dto.SearchDTO" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VIEW_COUNT
+        , A.VEF_STATUS
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE MAIN_CATEGORY = '자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
+        ORDER BY POST_DATE desc, POST_CODE desc
+        LIMIT #{params.pagination.limitStart}, #{params.recordSize}
+    </select>
+
+
+    <select id="count" parameterType="com.beanions.common.dto.SearchDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            POST
+        WHERE MAIN_CATEGORY='자유' AND SUB_CATEGORY = #{ id } AND VEF_STATUS = '활성'
+    </select>
+
+    <select id="freeDetail" resultMap="PostAndMemberResultMap">
+        SELECT
+        A.POST_CODE
+        , A.POST_TITLE
+        , A.MEMBER_CODE
+        , A.POST_CONTEXT
+        , A.POST_DATE
+        , A.MAIN_CATEGORY
+        , A.SUB_CATEGORY
+        , A.VIEW_COUNT
+        , B.MEMBER_CODE
+        , B.NICKNAME
+        , C.FILE_NAME
+        , C.POST_CODE
+        FROM POST A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        LEFT JOIN FILES C ON A.POST_CODE = C.POST_CODE
+        WHERE A.POST_CODE = #{ id }
+    </select>
+
+    <!-- 댓글 조회 -->
+    <select id="selectAllCommentsDesc" resultMap="CommentResultMap">
+        SELECT
+        A.COMMENT_CODE
+        , A.MEMBER_CODE
+        , A.POST_CODE
+        , A.COMMENT_CONTEXT
+        , A.COMMENT_DATE
+        , B.NICKNAME
+        FROM COMMENTS A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE A.POST_CODE = #{ code }
+        ORDER BY COMMENT_DATE DESC
+    </select>
+
+    <select id="selectAllCommentsAsc" resultMap="CommentResultMap">
+        SELECT
+        A.COMMENT_CODE
+        , A.MEMBER_CODE
+        , A.POST_CODE
+        , A.COMMENT_CONTEXT
+        , A.COMMENT_DATE
+        , B.NICKNAME
+        FROM COMMENTS A
+        LEFT JOIN MEMBERS B ON A.MEMBER_CODE = B.MEMBER_CODE
+        WHERE A.POST_CODE = #{ code }
+        ORDER BY COMMENT_DATE ASC
+    </select>
+
+    <!-- 댓글 등록 -->
+    <insert id="registComment">
+        INSERT INTO COMMENTS
+                (
+                    POST_CODE,
+                    MEMBER_CODE,
+                    COMMENT_CONTEXT,
+                    COMMENT_DATE
+                )
+        VALUES
+        (
+            #{postCode},
+            #{memberCode},
+            #{commentContext},
+            NOW()
+        )
+    </insert>
+    <update id="modifyComment">
+        UPDATE COMMENTS
+        SET
+        COMMENT_CONTEXT = #{commentContext},
+        COMMENT_DATE = NOW()
+        WHERE COMMENT_CODE = #{commentCode}
+    </update>
+    <delete id="deleteComment">
+        DELETE FROM
+                    COMMENTS
+        WHERE COMMENT_CODE = #{ commentCode }
+    </delete>
+
+    <insert id="freeRegist" parameterType="com.beanions.common.dto.PostDTO">
+        INSERT INTO POST
+        (
+        MEMBER_CODE
+        , POST_TITLE
+        , POST_CONTEXT
+        , MAIN_CATEGORY
+        , SUB_CATEGORY
+        , POST_DATE
+        , VEF_STATUS
+        , REVIEW_STATUS
+        , VIEW_COUNT
+        )
+        VALUES
+        (
+        #{memberCode}
+        , #{postTitle}
+        , #{postContext}
+        , #{mainCategory}
+        , #{subCategory}
+        , now()
+        , "활성"
+        , <choose>
+            <when test="#{mainCategory} == '예리뷰'">'승인'</when>
+            <otherwise>NULL</otherwise>
+            </choose>
+        , 0
+        )
+    </insert>
+
+    <update id="freeModify" parameterType="com.beanions.common.dto.PostDTO">
+        UPDATE POST
+           SET
+               POST_TITLE = #{ postTitle },
+               POST_CONTEXT = #{ postContext }
+         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+    </update>
+
+    <delete id="freeDelete" parameterType="com.beanions.common.dto.PostDTO">
+        DELETE
+          FROM
+               POST
+         WHERE POST_CODE = #{ postCode } AND SUB_CATEGORY = #{ subCategory }
+    </delete>
+</mapper>

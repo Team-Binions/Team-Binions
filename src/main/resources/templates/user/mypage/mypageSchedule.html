@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/default.css}">
+  <link rel="stylesheet" th:href="@{/css/user/common.css}">
+  <link rel="stylesheet" th:href="@{/css/user/mypage.css}">
+  <title>예랑예신</title>
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER -->
+  <div th:replace="user/layout/header.html"></div>
+  <!-- //HEADER -->
+
+  <div class="mypage_cont">
+    <p class="page_tit">마이 페이지&nbsp;<img th:src="@{/images/common/icon_arrow_right_colored.svg}" alt="right arrow icon">&nbsp;스케쥴 관리</p>
+
+    <!-- profile -->
+    <div class="profile_box">
+      <div class="profile_img">
+        <img th:src="@{/images/common/icon_user_profile.svg}" alt="mypage icon">
+        <!-- <input type="file" class="profile_img_upload"> -->
+      </div>
+      <div class="profile_txt">
+        <p class="profile_name"><span th:text="${userMypageScheduleInfo.nickname}"></span>님</p>
+        <p class="total_posts_count">총 게시글 <span class="eng" th:text="${userMypageScheduleInfo.totalCount}"></span></p>
+      </div>
+    </div>
+
+    <!-- sidebar & contents -->
+    <div class="contents_cont">
+      <div class="sidebar mypage">
+        <ul>
+          <li><a href="/mypage">나의 글</a></li>
+          <li><a href="/mypage/review">예리뷰</a></li>
+          <li><a href="/mypage/free">예수다</a></li>
+          <li><a href="/mypage/comment">댓글</a></li>
+          <li class="active"><a href="/mypage/schedule">스케쥴</a></li>
+          <!-- <li><a href="#">포인트</a></li> -->
+          <li><a href="/mypage/myinfo">회원 정보 수정</a></li>
+        </ul>
+      </div>
+
+      <div class="mypage_contents">
+        <!-- 등록한 게시글이 있는 경우 -->
+        <div class="top_sec">
+          <button class="register_schedule_btn" th:onclick="|location.href='@{/mypage/scheduleRegister}'|">스케쥴 등록</button>
+          <p class="today_date eng"><span class="eng">TODAY</span>&nbsp<span th:text="${#dates.format(#dates.createToday, 'yyyy-MM-dd')}" class="eng"></span></p>
+        </div>
+
+        <!-- null - 등록한 게시글 없는 경우 -->
+        <div class="null_txt" th:if="${userMypageScheduleInfo.scheduleCount} == 0">
+          <p>아직 등록한 스케쥴이 없어요.</p>
+          <p>스케쥴을 등록해서<br>
+            일정관리를 해보세요!</p>
+        </div>
+
+        <ul class="schedule_list" th:unless="${userMypageScheduleInfo.scheduleCount} == 0">
+          <li th:each="schedule : ${userMypageScheduleInfo.schedules}">
+            <a th:href="@{/mypage/scheduleDetail(id=${schedule.scheduleCode})}">
+              <p class="eng"><span th:text="${#dates.format(schedule.scheduleDate, 'yyyy-MM-dd')}"></span></p>
+              <p th:text="${schedule.scheduleTitle}"></p>
+            </a>
+            <span class="manage_schedule_btn" th:onclick="|location.href='@{/mypage/scheduleManage(id=${schedule.scheduleCode})}'|"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div th:replace="user/layout/footer.html"></div>
+  <!-- //FOOTER -->
+</div>
+ <script th:src="@{/js/common.js}"></script>
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector('.clear_btn');
+    if(clearBtn){
+        clearBtn.addEventListener('click', (e) => {
+            e.currentTarget.parentNode.querySelector('.search_input').value = null;
+            clearBtn.classList.remove("active");
+        })
+    }
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector('.search_input');
+    if(searchInput){
+        searchInput.addEventListener('input', (e) => {
+            if (e.currentTarget.value.length > 0) {
+                clearBtn.classList.add("active");
+            } else if (e.currentTarget.value.length <= 0) {
+                clearBtn.classList.remove("active");
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

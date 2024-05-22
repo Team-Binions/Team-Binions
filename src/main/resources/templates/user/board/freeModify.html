@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{../../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../../css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/board/free.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <title>예랑예신</title>
+</head>
+<body>
+<div th:replace="user/layout/header.html"></div>
+<div class="free_list_content">
+<article>
+<p class="free_modify">게시글 수정</p>
+<form action="/board/freeModify" method="post">
+    <div th:each="post : ${ modify }">
+        <input type="hidden" th:value="${post.subCategory}" name="subCategory">
+        <input type="hidden" th:value="${post.postCode}" name="postCode">
+
+        <input class="modify_title" th:value="${post.postTitle}" name="postTitle">
+        <hr class="content_line">
+        <textarea class="modify_content" th:text="${ post.postContext }" name="postContext"></textarea>
+
+        <div class="detail_buttons">
+            <button class="detail_button" type="button" onclick="goWrite(this.form);">수정하기</button>
+            <button class="detail_button" type="button" onclick="history.back()">이전으로</button>
+        </div>
+    </div>
+</form>
+</article>
+</div>
+<div th:replace="user/layout/footer.html"></div>
+
+<div class="pop_bg"></div>
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>제목을 입력해주세요</p>
+    </div>
+    <span class="confirm_btn">확인</span>
+</div>
+
+<script th:src="@{/js/common.js}"></script>
+
+<script>
+    function goWrite(frm) {
+        var title = frm.postTitle.value;
+        var content = frm.postContext.value;
+
+        if (title.trim() == ''){
+            $(".pop_cont").find("p").text("제목을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active");
+                $("html, body").removeClass("fixed");
+                $('.modify_title').focus();
+            });
+
+            return false;
+        }
+        if (content.trim() == ''){
+            $(".pop_cont").find("p").text("내용을 입력해주세요.");
+            $(".pop_bg, .pop_cont").addClass("active");
+            $("html, body").addClass("fixed");
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .pop_cont").removeClass("active");
+                $("html, body").removeClass("fixed");
+                $('.modify_content').focus();
+            });
+
+            return false;
+        }
+
+        // AJAX를 사용하여 수정 완료된 후 모달 표시하고, 확인 버튼 클릭 시 페이지 이동
+        $.ajax({
+            type: "POST",
+            url: "/board/freeModify", // 수정 완료되는 API 엔드포인트
+            data: $(frm).serialize(), // 폼 데이터 직렬화하여 전송
+            success: function(response) {
+                $(".pop_cont").find("p").text("수정 완료되었습니다.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+
+                    console.log(`[[${modify.postCode}]]`)
+                $(".confirm_btn").click(() => {
+                    window.location.href = "/board/freedetail?id="+`[[${modify.postCode}]]`; // 수정 완료 후 이동할 페이지 URL
+                });
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                console.error(error);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

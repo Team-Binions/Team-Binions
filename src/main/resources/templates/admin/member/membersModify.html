@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YERANGYESIN-ADMIN</title>
+    <link rel="stylesheet" th:href="@{/css/default.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin/common.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/membersCss.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+    <div th:replace="admin/sidebar.html"></div>
+    <article class="all-content">
+        <p class="title_text_font">회원 상세 정보</p>
+        <div class="font_div">
+            <div class="memberBox">
+                <label class="roro">게시글 수</label>
+                <div th:text="${ userWritePostCount.getBoard() }"></div>
+            </div>
+            <div class="memberBox2">
+                <label class="roro">댓글 수</label>
+                <div th:text="${ userWritePostCount.getComment() }"></div>
+            </div>
+        </div>
+        <p class="title_text_font2" style="margin-right: 20px">회원 상세 정보 수정</p>
+        <form id="uploadForm" action="/admin/member/update" method="post">
+            <div>
+                <input type="hidden" th:value="${memberModify.memberCode}" name="memberCode">
+                <div class="text_font">
+                    <div  class="member_line">
+                        <label class="label_interval_line">아이디</label>
+                            <input class="member_Box" type="text" name="memberId" th:value="${ memberModify.memberId }"
+                                   readonly="readonly">
+                        <label class="label_interval_line">닉네임</label>
+                            <input class="member_nickname_box" type="text" id="nickname" name="nickname" th:value="${ memberModify.nickname }">
+                    </div>
+                    <div class="member_line">
+                        <label class="label_no_interval_line">성별</label>
+                        <p class="gender_line2" th:text="${ memberModify.gender }">
+                    </div>
+                    <div class="member_line">
+                        <label class="label_interval_line">이메일</label>
+                            <input class="member_Box" type="text" name="email" th:value="${ memberModify.email }" readonly="readonly">
+                        <label class="label_interval_line">전화번호 </label>
+                            <input class="member_Box" type="text" name="phone" th:value="${ memberModify.phone }" readonly="readonly">
+                    </div>
+                    <div class="member_line">
+                        <label class="label_no_interval_line">기혼 여부</label>
+                        <p class="gender_line2" th:text="${ memberModify.marriedStatus }"></p>
+                    </div>
+                    <div class="member_line">
+                        <label class="label_interval_line">웨딩홀 인증</label>
+                        <input class="member_nickname_box" type="text" name="weddingVerified"
+                               th:value="${ memberModify.weddingVerified }">
+                    </div>
+                    <div class="member_line">
+                        <label class="label_interval_line">업로드 이미지</label>
+                        <div th:unless="${memberModify.getWeddingFile() == null}" style="justify-content: left; padding-left: 105px; padding-top: 20px">
+                            <img th:src="@{/images/upload/user/verify/{file}(file=${memberModify.getWeddingFile()})}">
+                        </div>
+                    </div>
+                    <!-- 웨딩 이미지 파일명 -->
+                    <div class="member_line">
+                        <label class="label_interval_line">업로드 파일</label>
+                        <input class="member_Box" id="fileName"
+                               th:unless="${memberModify.getWeddingFile() == null}"
+                               th:value="${ memberModify.getWeddingFile() }" readonly>
+<!--                        <div style="padding-left: 20px; display: inline-block">-->
+<!--                            <label for="verifyFile">업로드</label>-->
+<!--                        </div>-->
+<!--                        <input type="file" id="verifyFile" accept="image/jpeg, image/png, image/jpg, image/gif, image/webg">-->
+                    </div>
+                    <!--------------------------->
+                </div>
+                <div class="button_box">
+                    <div class="button_up_line">
+                        <button type="submit" class="button" id="modify">수정</button>
+                        <button type="button"
+                            th:onclick="|location.href='@{/admin/member/membersDetail(id=${memberModify.memberCode})}'|">취소
+                        </button>
+                    </div>
+                </div>
+                <div class="button_box">
+                    <div id="root">
+                        <button type="button" id="deleteModal_open_btn">계정 삭제</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- 삭제 모달창 -->
+        <div id="deleteModal">
+            <div class="deleteModal_content">
+                <div class="deleteModal_icon_box">
+                    <img class="deleteModal_icon" th:src="@{/images/common/icon_group_modal_bang.svg}"
+                         alt="icon_group_modal_bang">
+                </div>
+                <p>계정을 삭제하시겠습니까?</p>
+                <div>
+                    <form th:action="@{/admin/member/delete(id=${memberModify.memberCode})}" method="post">
+                        <div class="deleteModal_button_box">
+                            <button type="submit" id="deleteModal_check_btn">확인</button>
+                            <button type="button" id="deleteModal_close_btn">취소</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="deleteModal_layer"></div>
+        </div>
+        <div th:replace="admin/footer.html"></div>
+    </article>
+</div>
+<script>
+    $(document).ready(function (){
+
+        document.getElementById("deleteModal_open_btn").onclick = function () {
+            document.getElementById("deleteModal").style.display = "block";
+        }
+
+        document.getElementById("deleteModal_close_btn").onclick = function () {
+            document.getElementById("deleteModal").style.display = "none";
+        }
+
+        document.getElementById("deleteModal_check_btn").onclick = function () {
+            document.getElementById("deleteModal").style.display = "none";
+        }
+
+        $("#verifyFile").change(function(){
+
+            // 파일을 가져온다.
+            var file = event.target.files[0];
+            // console.log(file);
+
+            // formData객체에 파일(MultipartFile)형태 그대로 담는다
+            var formData = new FormData();
+            formData.append("file",file);
+            // console.log(formData.get("file"));
+
+            // Fetch를 이용하여 요청을 보낸다.
+            fetch("/admin/request-verify-wedd-admin", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 성공적인 응답을 처리한다.
+                    $("#fileName").val(data);
+                    console.log(data);
+                })
+                .catch(error => {
+                    // 오류가 발생했을 때 처리한다.
+                    console.error("Error:", error);
+                });
+        })
+
+        $('#uploadForm').submit(function() {
+            // 파일 input을 비활성화하여 전송되지 않도록 함
+            $('#verifyFile').prop('disabled', true);
+        });
+    })
+</script>
+</body>
+</html>

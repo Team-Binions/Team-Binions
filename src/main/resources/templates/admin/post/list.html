@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YERANGYESIN-ADMIN</title>
+    <link rel="stylesheet" th:href="@{../css/default.css}"/>
+    <link rel="stylesheet" th:href="@{../css/admin/common.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            alert(successMessage);
+        }
+    </script>
+</head>
+<body>
+<div th:replace="admin/header.html"></div>
+<div class="sidebar_content">
+<div th:replace="admin/sidebar.html"></div>
+<article>
+<div class="div_content">
+    <p class="title">게시판 전체조회</p>
+    <form class="search_form" th:action="@{/admin/post}" method="get">
+        <div class="search_box">
+            <input type="search" class="search_input" th:value="${keyword}" name="keyword" placeholder="검색어를 입력하세요">
+            <span class="clear_btn"></span>
+            <span class="search_btn"></span>
+        </div>
+    </form>
+    <div class="table_box">
+    <table>
+    <tr>
+        <th class="index_th">번호</th>
+        <th class="manage_th">게시판</th>
+        <th class="manage_th">분류</th>
+        <th>제목</th>
+        <th class="nickname_th">작성자</th>
+        <th class="date_th">작성일</th>
+        <th class="manage_th">조회수</th>
+        <th class="manage_th">상태</th>
+        <th class="manage_th">비고</th>
+        <th class="manage_th">관리</th>
+    </tr>
+    <tr th:each="post, i : ${ postList }">
+        <td class="number" th:text="${i.index + 1}"></td>
+        <td th:text="${ post.mainCategory }"></td>
+        <td th:text="${ post.subCategory }"></td>
+        <td>
+            <a th:text="${post.postTitle}" th:href="@{/admin/post/detail(id=${post.postCode})}"></a>
+        </td>
+        <td th:text="${ post.member.nickname }"></td>
+        <td class="number" th:text="${#dates.format(post.postDate, 'yyyy-MM-dd') }" ></td>
+        <td th:text="${ post.viewCount }"></td>
+        <td>
+            <span th:if="${ post.verifiedStatus == '활성'}">활성화</span>
+            <span th:if="${ post.verifiedStatus == '비활성'}">비활성화</span>
+        </td>
+        <td th:text="${ post.reviewStatus }"></td>
+        <td>
+            <button type="button" th:onclick="|location.href='@{/admin/post/detail(id=${post.postCode})}'|">상세</button>
+        </td>
+    </tr>
+    </table>
+    </div>
+</div>
+<div th:replace="admin/footer.html"></div>
+</article>
+</div>
+
+<script>
+    // 검색시 x버튼
+    const clearBtn = document.querySelector(".clear_btn");
+    clearBtn.addEventListener("click", (e) => { //x버튼 클릭시
+        e.currentTarget.parentNode.querySelector(".search_input").value = null; // 입력된 검색어 내용 null로 변경
+        clearBtn.classList.remove("active"); // x버튼 비활성화
+    });
+
+    // 검색시 입력 내용 실시간 감지 & x버튼 활성/비활성화
+    const searchInput = document.querySelector(".search_input");
+    searchInput.addEventListener("input", (e) => {
+        if (e.currentTarget.value.length > 0) {// 검색어입력내용의 길이가 0보다 큰 경우
+            clearBtn.classList.add("active"); // x버튼 활성화
+        } else if (e.currentTarget.value.length <= 0) { // 검색어입력내용의 길이가 0보다 작거나 같은 경우
+            clearBtn.classList.remove("active");// x버튼 비활성화
+        }
+    });
+
+</script>
+</body>
+</html>
