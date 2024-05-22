@@ -53,6 +53,7 @@ $(document).ready(function () {
         totalConfirm.pwdconfirmchk = false;
         totalConfirm.chkpwdconfirmchk = false;
         password.val(null);
+        console.log(password.val());
     })
 
     $("#password").keyup(function () {

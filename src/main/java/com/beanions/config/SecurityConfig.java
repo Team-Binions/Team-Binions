@@ -16,6 +16,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -53,6 +55,10 @@ public class SecurityConfig {
         return new SessionRegistryImpl();
     }
 
+    @Bean
+    public SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+    }
 //    private LogoutSuccessHandler logoutSuccessHandler() {
 //        return new LogoutHandler();
 //    }
@@ -123,7 +129,7 @@ public class SecurityConfig {
             // 요청에 대한 URL을 보관하는 방법
          ).sessionManagement(session -> { session
             .maximumSessions(1)
-            .maxSessionsPreventsLogin(false)
+            .maxSessionsPreventsLogin(true)
             .expiredUrl("/")
             .sessionRegistry(sessionRegistry());
 
