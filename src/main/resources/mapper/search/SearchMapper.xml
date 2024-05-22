@@ -36,6 +36,7 @@
         FROM POST A
         LEFT JOIN MEMBERS B ON (A.MEMBER_CODE = B.MEMBER_CODE)
         WHERE MAIN_CATEGORY IN ('매거진', '자유', '리뷰')
+        AND A.VEF_STATUS = '활성'
         <include refid="search" />
 <!--         AND POST_TITLE LIKE CONCAT('%', #{ keyword }, '%')-->
         ORDER BY POST_DATE DESC, POST_CODE DESC;
@@ -75,7 +76,7 @@
         COUNT(*)
         FROM
         POST
-        WHERE MAIN_CATEGORY IN ('매거진', '자유', '리뷰')
+        WHERE MAIN_CATEGORY IN ('매거진', '자유', '리뷰') AND VEF_STATUS = '활성'
         <include refid="search" />
     </select>
 </mapper>
