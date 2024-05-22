@@ -241,12 +241,14 @@ article {
     height: 50px;
     background-color: var(--inactive-input-bg);
     margin-right: 8px;
+    cursor: pointer;
 }
 
 .detail_delete_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
+    cursor: pointer;
 }
 
 .detail_button:hover{

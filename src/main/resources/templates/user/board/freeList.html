@@ -8,9 +8,19 @@
     <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
     <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <title>예랑예신</title>
+    <script>
+        const successMessage = `[[${ successMessage }]]`;
+        if (successMessage) {
+            //alert(successMessage);
+            $(".pop_bg, .pop_cont").addClass("active"); // 팝업창/팝업배경 비활성화
+            $('html, body').addClass('fixed');
+            $(".confirm_btn").click(() => {
+                $(".pop_bg, .leavePop").removeClass("active"); // 팝업창/팝업배경 비활성화
+                $("html, body").removeClass("fixed");
+            })
+        }
+    </script>
 </head>
 <body>
 <div th:replace="user/layout/header.html"></div>
@@ -50,6 +60,12 @@
     </article>
 </div>
 <div th:replace="user/layout/footer.html"></div>
+<!-- 게시글 삭제된 경우 , 팝업창 -->
+<div class="pop_cont">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+    <p>게시글이 삭제되었습니다.</p>
+    <span class="pop_btn confirm_btn">확인</span>
+</div>
 <script src="../js/common.js"></script>
 
 <script th:inline="javascript">
