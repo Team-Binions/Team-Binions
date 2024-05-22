@@ -56,13 +56,13 @@
                 <!-- 등록한 게시글이 있는 경우 -->
                 <div class="top_sec" th:unless="${userMypageReivewData.reviewCount} == 0">
                   <p class="table_tit">예리뷰 게시글<span class="posts_count eng" th:text="${userMypageReivewData.reviewCount}"></span></p>
-                  <form class="search_form">
-                    <div class="search_box">
-                      <input type="search" class="search_input" placeholder="검색어를 입력하세요">
-                      <span class="clear_btn"></span>
-                      <span class="search_btn"></span>
-                    </div>
-                  </form>
+<!--                  <form class="search_form">-->
+<!--                    <div class="search_box">-->
+<!--                      <input type="search" class="search_input" placeholder="검색어를 입력하세요">-->
+<!--                      <span class="clear_btn"></span>-->
+<!--                      <span class="search_btn"></span>-->
+<!--                    </div>-->
+<!--                  </form>-->
                 </div>
                 <div class="table_box" th:unless="${userMypageReivewData.reviewCount} == 0">
                   <table class="review_table">

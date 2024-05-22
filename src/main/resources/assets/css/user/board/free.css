@@ -241,12 +241,14 @@ article {
     height: 50px;
     background-color: var(--inactive-input-bg);
     margin-right: 8px;
+    cursor: pointer;
 }
 
 .detail_delete_button {
     width: 100px;
     height: 50px;
     background-color: var(--inactive-input-bg);
+    cursor: pointer;
 }
 
 .detail_button:hover{
@@ -314,3 +316,6 @@ textarea {
 .confirm_btn { display: block; width:100%; height:50px; border-radius:12px; background-color: var(--main-color); color: #fff; line-height:50px; transition: all 200ms ease-in-out; cursor: pointer;}
 .confirm_btn:hover {background-color: var(--point-color);}
 .fixed {overflow: hidden;}
+.pop_cont.deleteCommentPop {top: unset; bottom: -50%;}
+.pop_cont.deleteCommentPop p { padding-bottom: 40px;}
+.pop_cont.no_text {top: unset; bottom: -50%;}

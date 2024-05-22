@@ -369,4 +369,9 @@
 		,	WEDD_FILE = #{weddingFile}
 		WHERE MEMBER_ID = #{memberId}
 	</update>
+
+	<delete id="deleteMember" parameterType="com.beanions.common.dto.MembersDTO">
+		DELETE FROM MEMBERS
+		WHERE MEMBER_CODE = #{memberCode}
+	</delete>
 </mapper>

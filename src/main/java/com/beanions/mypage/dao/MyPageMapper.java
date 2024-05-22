@@ -4,6 +4,7 @@ import com.beanions.common.dto.MembersDTO;
 import com.beanions.mypage.dto.MyPageDTO;
 import com.beanions.mypage.dto.SchedulesDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,4 +37,7 @@ public interface MyPageMapper {
   void registWriting();
 
   int modifyMemberInfo(MembersDTO member);
+
+
+  void deleteMember(Integer memberCode);
 }

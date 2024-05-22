@@ -154,7 +154,7 @@
               <span class="list_item_tit">업로드 이미지</span>
               <div class="include_message">
                 <div th:unless="${session.weddingFile == null}" style="justify-content: left; padding-top: 20px">
-                  <img th:src="@{/images/upload/user/verify/{file}(file=${session.weddingFile})}">
+                  <img th:src="@{/images/upload/user/verify/{file}(file=${session.weddingFile})}" style="max-width:200px; object-fit: contain;">
                 </div>
               </div>
             </li>
@@ -173,32 +173,29 @@
 </div>
 <!-- popup -->
 <div class="pop_bg"></div>
-<div class="pop_cont selective">
+<div class="pop_cont selective leave_confirm">
   <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
   <p>회원님께서 등록하신<br>
     모든 게시물이 삭제되며<br>
     보유 포인트가 소멸됩니다.</p>
   <p>탈퇴를 진행하시겠습니까?</p>
   <ul class="pop_btn_list">
-    <li class="cancel_btn"><a href="#">확인</a></li>
+    <li class="cancel_btn"><a th:href="@{/deleteMember}">확인</a></li>
     <li class="confirm_btn">취소</li>
   </ul>
+</div>
+
+<div class="pop_cont leavePop">
+    <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_check.svg}" alt="popup icon image"></span>
+    <div class="pop_txt">
+        <p>회원 정보가 수정되었습니다.</p>
+    </div>
+    <span class="confirm_btn">확인</span>
 </div>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/mypage.js}"></script>
 <script>
-  $(".show_pw_btn").click((e) => {
-    console.log("target : " + e.target);
-    if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
-      $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
-      $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
-      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
-    }else{ // 비활성화된 상태라면
-      $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
-      $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
-      $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
-    }
-  })
+
 </script>
 </body>
 </html>

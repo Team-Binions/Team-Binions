@@ -82,4 +82,5 @@ public class MyPageService {
       return result;
   }
 
+    public void deleteMember(Integer memberCode) { myPageMapper.deleteMember(memberCode);}
 }
