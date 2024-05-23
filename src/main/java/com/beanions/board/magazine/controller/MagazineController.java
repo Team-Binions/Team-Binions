@@ -37,7 +37,7 @@ public class MagazineController {
 
         PostAndMemberDTO magazine = magazineService.selectMagazine(id);
 
-        String text = magazine.getPostContext().replace("\r\n", "<br>"); // "\r\n", "\n" 둘다 가능
+        String text = magazine.getPostContext().replace("\n", "<br>"); // "\r\n", "\n" 둘다 가능
 
         System.out.println("text = " + text);
 

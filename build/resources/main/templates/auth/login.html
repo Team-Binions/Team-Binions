@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <title>예랑예신</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login_cont">
+            <div class="left_side">
+                <img th:src="@{/images/common/logo.svg}" alt="YERANGYESIN logo">
+                <p class="logo_tit">예랑예신</p>
+                <a href="/main" class="go_to_main">살펴보기</a>
+            </div>
+
+            <!-- 로그인 박스 영역 -->
+            <div class="login_box">
+                <form th:action="@{/login}" method="post">
+                    <p class="box_tit">로그인</p>
+                    <input type="text" class="login_input id" name="user" placeholder="아이디를 입력하세요">
+                    <div class="password_box">
+                        <input type="password" class="login_input password" name="pass" placeholder="비밀번호를 입력하세요">
+                        <span class="show_pw_btn"><img th:src="@{/images/common/icons_show.png}" alt="popup icon image"></span>
+                    </div>
+                    <ul class="find_id_pw">
+                        <li><a href="/forgetInfo?no=1">아이디 찾기</a></li>
+                        <li>|</li>
+                        <li><a href="/forgetInfo?no=2">비밀번호 찾기</a></li>
+                    </ul>
+                    <button class="login_btn" type="button" onclick="submitLogin(this.form)">로그인</button>
+<!--                    <button class="login_btn" type="submit" onclick="submitLogin(this.form)">로그인</button>-->
+                </form>
+                <span class="divide_line"></span>
+                <p class="signup_txt">아직 회원이 아니신가요?</p>
+                <button type="button" class="login_btn go_signup" onclick="location.href='/signup'">회원가입</button>
+            </div>
+        </div>
+    </div>
+    <!-- 240520-팝업창 by NJH   -->
+    <div class="pop_bg"></div>
+    <div class="pop_cont">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <div class="pop_txt">
+            <p>아이디를 입력해주세요.</p>
+        </div>
+        <span class="confirm_btn">확인</span>
+    </div>
+    <script>
+        $(".show_pw_btn").click((e) => {
+            console.log("target : " + e.target);
+            if($(e.target).closest("span.show_pw_btn").hasClass("active")){ // 이미 활성화된 상태라면
+                $(e.target).closest("span.show_pw_btn").removeClass("active"); // 활성화 클래스 제거
+                $(e.target).attr("src","/images/common/icons_show.png"); // show 아이콘 이미지로 변경
+                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "password");// input 타입 password로 변경
+            }else{ // 비활성화된 상태라면
+                $(e.target).closest("span.show_pw_btn").addClass("active"); // 활성화 클래스 추가
+                $(e.target).attr("src","/images/common/icon_hide.png"); // hide 아이콘 이미지로 변경
+                $(e.target).closest("span.show_pw_btn").siblings("input").attr("type", "text"); // input 타입 text로 변경
+            }
+        })
+
+        // 아이디, 비밀번호 미입력시 로그인 진행 불가 팝업창
+        function submitLogin(frm) {
+            var user = frm.user.value;
+            var pass = frm.pass.value;
+
+            if (user.trim() == ''){
+                // alert("제목을 입력해주세요");
+                $(".pop_cont").find("p").text("아이디를 입력해주세요.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+                $(".confirm_btn").click((e) => { // 확인버튼 클릭시
+
+                    $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                    $("html, body").removeClass("fixed");
+                    $('.schedule_tit').focus();
+                })
+
+                return false;
+            }
+            if (pass.trim() == ''){
+                $(".pop_cont").find("p").text("비밀번호를 입력해주세요.");
+                $(".pop_bg, .pop_cont").addClass("active");
+                $("html, body").addClass("fixed");
+                $(".confirm_btn").click((e) => {
+
+                    $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+                    $("html, body").removeClass("fixed");
+                    $('.schedule_contxt_box').focus();
+                })
+
+                return false;
+            }
+            frm.submit();
+        }
+    </script>
+</body>
+</html>

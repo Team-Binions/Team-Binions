@@ -103,15 +103,10 @@
           <div class="swiper-slide" th:each="review : ${reviewBoard}">
             <a th:href="@{/board/reviewdetail(id=${review.postCode})}" class="slide_box">
               <div class="review_thumbnail">
-                <img th:src="@{/images/main/KakaoTalk_20230405_053202431_12.jpg}" alt="review image">
+                <img th:src="@{/images/main/KakaoTalk_20240522_151040341.jpg}" alt="review image">
               </div>
               <div class="review_txt">
                 <p th:text="${review.postTitle}">꿈꾸던 야외 결혼식 했어요!</p>
-                <ul>
-                  <li>#Beanions웨딩홀</li>
-                  <li>#야외웨딩홀</li>
-                  <li>#야외결혼식</li>
-                </ul>
               </div>
             </a>
           </div>
