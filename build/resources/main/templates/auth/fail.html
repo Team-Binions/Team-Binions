@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/user/common.css}">
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="shortcut icon" th:href="@{/images/common/logo_png.png}" sizes="60x60">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <title>예랑예신</title>
 </head>
 <body>
-
+    <div class="pop_bg"></div>
+    <div class="pop_cont">
+        <span class="pop_icon"><img th:src="@{/images/common/icon_group_modal_bang.svg}" alt="popup icon image"></span>
+        <div class="pop_txt">
+            <th:block th:switch="${ message }">
+                <p th:case="no-match">아이디가 존재하지 않거나<br>비밀번호가 일치하지 않습니다.</p>
+                <p th:case="error_s">서버에서 오류가 발생하였습니다.<br>관리자에게 문의해주세요.</p>
+                <p th:case="no-id">존재하지 않는 ID입니다.</p>
+                <p th:case="reject">인증 요청이 거부되었습니다.</p>
+                <p th:case="error_n">알 수 없는 오류로<br>로그인 요청을 처리할 수 없습니다.<br>관리자에게 문의해주세요.</p>
+                <p th:case="error_n">관리자에게 문의해주세요.</p>
+            </th:block>
+<!--            <p th:if="${ message == }"></p>-->
+        </div>
+        <span class="confirm_btn">확인</span>
+    </div>
+    <script>
+          // alert(`[[${ message }]]`);
+      $(document).ready(function(){
+          //아이디 / 비밀번호 불일치시
+          $(".pop_bg, .pop_cont").addClass("active");
+          $("html, body").addClass("fixed");
+          $(".confirm_btn").click((e) => {
+              $(".pop_bg, .pop_cont").removeClass("active"); // 팝업창/팝업배경 비활성화
+              $("html, body").removeClass("fixed");
+              window.location.replace("/login");
+          })
+      })
+    </script>
 </body>
 </html>
